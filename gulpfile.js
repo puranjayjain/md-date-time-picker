@@ -10,6 +10,20 @@ var minifycss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 
+var src = {
+    scss: 'src/scss/**/*.scss',
+    images: 'src/images/**/*',
+    js: 'src/js/**/*.js',
+    svg: 'src/images/**/*.svg'
+};
+
+var dist = {
+  css: 'dist/css/',
+  html: 'dist/*.html',
+  images: 'dist/images/',
+  js: 'dist/js/'
+};
+
 gulp.task('browser-sync', function() {
   browserSync({
     server: {
@@ -23,13 +37,13 @@ gulp.task('bs-reload', function () {
 });
 
 gulp.task('images', function(){
-  gulp.src('src/images/**/*')
+  gulp.src(src.images)
     .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/images/'));
+    .pipe(gulp.dest(dist.images));
 });
 
 gulp.task('styles', function(){
-  gulp.src(['src/scss/**/*.scss'])
+  gulp.src([src.scss])
     .pipe(plumber({
       errorHandler: function (error) {
         console.log(error.message);
@@ -37,11 +51,11 @@ gulp.task('styles', function(){
     }}))
     .pipe(sass())
     .pipe(autoprefixer('last 2 versions'))
-    .pipe(gulp.dest('dist/css/'))
+    .pipe(gulp.dest(dist.css))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest('dist/css/'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(gulp.dest(dist.css))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('scripts', function(){
@@ -52,16 +66,16 @@ gulp.task('scripts', function(){
         this.emit('end');
     }}))
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/js/'))
+    .pipe(gulp.dest(dist.js))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js/'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(gulp.dest(dist.js))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('default', ['browser-sync'], function(){
-  gulp.watch("src/scss/**/*.scss", ['styles']);
-  gulp.watch("src/js/**/*.js", ['scripts']);
-  gulp.watch("src/images/**/*.svg", ['images']);
-  gulp.watch("*.html", ['bs-reload']);
+  gulp.watch(src.scss, ['styles']);
+  gulp.watch(src.js, ['scripts']);
+  gulp.watch(src.svg, ['images']);
+  gulp.watch(dist.html, ['bs-reload']);
 });
