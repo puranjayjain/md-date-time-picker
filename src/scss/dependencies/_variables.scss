@@ -56,9 +56,13 @@ $palette-accent-A700: nth($accent-color-palette, 14);
 //default light theme colors
 $picker-header-color: unquote("rgb(#{$palette-primary-500})") !default;
 $picker-body-color: #fff !default;
+$picker-button-left:'../images/ic_keyboard_arrow_left_black_24px.svg' !default;
+$picker-button-right:'../images/ic_keyboard_arrow_right_black_24px.svg' !default;
 @if $dark-theme {
   $picker-header-color: #000;
   $picker-body-color: #000;
+  $picker-button-left:'../images/ic_keyboard_arrow_left_white_24px.svg';
+  $picker-button-right:'../images/ic_keyboard_arrow_right_white_24px.svg';
 }
 
 //shadows
