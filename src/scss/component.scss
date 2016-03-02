@@ -56,6 +56,7 @@ body {
 
     .md-picker__title, .md-picker__subtitle {
       margin: 0;
+      margin-bottom: 8px;//TODO remove this on mobile
     }
   }
 
@@ -122,6 +123,7 @@ body {
           color: $picker-primary-text-theme-color;
         }
       }
+
       .md-picker__grid {
         display: flex;
         flex-direction: column;
@@ -140,6 +142,15 @@ body {
           vertical-align: middle;
         }
 
+        .md-picker__today {
+          color: $md-button-color;
+        }
+
+        .md-picker__selected {
+          background-color: $md-button-color;
+          color: $picker-body-color;
+        }
+
         .md-picker__tr, .md-picker__th {
           display: flex;
           justify-content: space-between;
@@ -149,6 +160,13 @@ body {
           padding: 2px 0;
           span {
             cursor: pointer;
+            pointer-events: none;
+          }
+          .md-picker__cell {
+            pointer-events: all;
+          }
+          .md-picker__cell:hover {
+            @extend .md-picker__selected;
           }
         }
 
