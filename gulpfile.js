@@ -62,5 +62,6 @@ gulp.task('scripts', function(){
 gulp.task('default', ['browser-sync'], function(){
   gulp.watch("src/scss/**/*.scss", ['styles']);
   gulp.watch("src/js/**/*.js", ['scripts']);
+  gulp.watch("src/images/**/*.svg", ['images']);
   gulp.watch("*.html", ['bs-reload']);
 });

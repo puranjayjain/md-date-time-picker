@@ -4,24 +4,59 @@
 
 body {
   // background-color: unquote("rgb(#{$palette-primary-500})");
+  font-family: $regular !important;
 }
 
 //common components
 .md-button {
-  height: 24px;
-  min-width: 24px;
+  height: 36px;//TODO touch target 48px
+  min-width: 64px;
   border: none;
   background-color: rgba(0,0,0,0);
+  border-radius: 3px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 8px;
+  margin-right: 8px;
+  font-family: $medium;
+  font-size: 15px;
+  text-transform: uppercase;
+  outline: none;
+  cursor: pointer;
+  color: $md-button-color;
+}
+
+.md-button:hover, .md-button:focus{
+  background-color: $md-button-color--focus;
+}
+
+.md-button:active {
+  background-color: $md-button-color--active;
 }
 
 //date or time component dialog
 .md-picker {
   @include shadow-8dp();
+  min-width: 5 * 56px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-50%,0);
+  display: flex;
+  border-radius: 3px;
+  width: fit-content;
+  overflow: hidden;
+  // flex-direction: column; TODO do this for mobile
 
   .md-picker__header {
     background-color: $picker-header-color;
     padding: 24px;
     padding-bottom: 20px;
+
+    .md-picker__title, .md-picker__subtitle {
+      margin: 0;
+    }
   }
 
   .md-picker__body {
@@ -46,6 +81,89 @@ body {
     }
     .md-picker__right {
       background: url($picker-button-right);
+    }
+
+    .md-picker__left, .md-picker__right {
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0;
+      height: 48px;
+    }
+
+    .md-picker__left:hover, .md-picker__right:hover, .md-picker__left:focus, .md-picker__right:focus {
+      background-color: $md-button-color--focus;
+    }
+
+    .md-picker__left:active, .md-picker__right:active {
+      background-color: $md-button-color--active;
+    }
+  }
+  .md-picker__header {
+    .md-picker__title {
+      color: $color-primary-text;
+      font-family: $medium;
+      font-size: 21px;
+    }
+    .md-picker__subtitle {
+      color: $color-secondary-text;
+      font-size: 16px;//TODO 17px on mobile
+    }
+  }
+  .md-picker__body {
+    flex: 1 0 75%;//TODO 75% to auto on mobile
+
+    .md-picker__viewHolder {
+      .md-picker__view {
+        .md-picker__month {
+          text-align: center;
+          padding: 18px 0;
+          font-size: 13px;
+          font-weight: 600;
+          color: $picker-primary-text-theme-color;
+        }
+      }
+      .md-picker__grid {
+        display: flex;
+        flex-direction: column;
+        padding: 8px 14px 0 14px;
+
+        span {
+          font-size: 13px;
+          font-weight: 600;
+          color: $picker-primary-text-theme-color;
+          border-radius: 50%;
+          width: 36px;
+          height: 36px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          vertical-align: middle;
+        }
+
+        .md-picker__tr, .md-picker__th {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .md-picker__tr {
+          padding: 2px 0;
+          span {
+            cursor: pointer;
+          }
+        }
+
+        .md-picker__th {
+          span {
+            color: $picker-secondary-text-theme-color;
+          }
+        }
+      }
+    }
+
+    .md-picker__action {
+      margin-top: 24px;
+      padding: 8px 0;
+      text-align: right;
     }
   }
 }
