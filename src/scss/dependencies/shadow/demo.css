@@ -13,10 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* ==========  Color Palettes  ========== */
-/* colors.scss */
-.md-picker .md-picker__header {
-  background-color: rgb(0,150,136); }
 
-.md-picker .md-picker__body {
-  background-color: #fff; }
+.demo-page--shadow .demo-preview-block {
+  height: 100px;
+}
+
+.demo-shadow-card {
+  background-color: #fff;
+  border-radius: 2px;
+  display: block;
+  height: 72px;
+  margin-bottom: 20px;
+  margin-right: 32px;
+  padding: 10px;
+  text-align: center;
+  float: left;
+  color: #9E9E9E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-property: opacity, transform;
+  width: 72px;
+}
+
+@media screen and (max-width: 360px ) {
+  .demo-shadow-card {
+    width: 27px;
+  }
+}

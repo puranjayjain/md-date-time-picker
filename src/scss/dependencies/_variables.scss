@@ -1,0 +1,67 @@
+@import "color-definitions";
+
+//global theme settings and colours
+
+//NOTE dark-theme has the supported values true or false
+$dark-theme: false;
+
+//text colors
+//Dark text on light backgrounds
+$color-primary-dark-text: rgba(0,0,0,0.87);
+$color-secondary-dark-text: rgba(0,0,0,0.54);
+$color-hint-dark-text: rgba(0,0,0,0.26);
+
+//White text on dark backgrounds
+$color-primary-text: rgb(255,255,255);
+$color-secondary-text: rgba(255,255,255,0.7);
+$color-hint-text: rgba(255,255,255,0.3);
+
+//primary color palette
+$primary-color-palette: $palette-teal;
+//the colours below are used in the app
+$palette-primary-50: nth($primary-color-palette, 1);
+$palette-primary-100: nth($primary-color-palette, 2);
+$palette-primary-200: nth($primary-color-palette, 3);
+$palette-primary-300: nth($primary-color-palette, 4);
+$palette-primary-400: nth($primary-color-palette, 5);
+$palette-primary-500: nth($primary-color-palette, 6);
+$palette-primary-600: nth($primary-color-palette, 7);
+$palette-primary-700: nth($primary-color-palette, 8);
+$palette-primary-800: nth($primary-color-palette, 9);
+$palette-primary-900: nth($primary-color-palette, 10);
+$palette-primary-A100: nth($primary-color-palette, 11);
+$palette-primary-A200: nth($primary-color-palette, 12);
+$palette-primary-A400: nth($primary-color-palette, 13);
+$palette-primary-A700: nth($primary-color-palette, 14);
+
+//accent color palette
+$accent-color-palette: $palette-lime;
+//the colours below are used in the app
+$palette-accent-50: nth($accent-color-palette, 1);
+$palette-accent-100: nth($accent-color-palette, 2);
+$palette-accent-200: nth($accent-color-palette, 3);
+$palette-accent-300: nth($accent-color-palette, 4);
+$palette-accent-400: nth($accent-color-palette, 5);
+$palette-accent-500: nth($accent-color-palette, 6);
+$palette-accent-600: nth($accent-color-palette, 7);
+$palette-accent-700: nth($accent-color-palette, 8);
+$palette-accent-800: nth($accent-color-palette, 9);
+$palette-accent-900: nth($accent-color-palette, 10);
+$palette-accent-A100: nth($accent-color-palette, 11);
+$palette-accent-A200: nth($accent-color-palette, 12);
+$palette-accent-A400: nth($accent-color-palette, 13);
+$palette-accent-A700: nth($accent-color-palette, 14);
+
+//theme dependent items
+//default light theme colors
+$picker-header-color: unquote("rgb(#{$palette-primary-500})") !default;
+$picker-body-color: #fff !default;
+@if $dark-theme {
+  $picker-header-color: #000;
+  $picker-body-color: #000;
+}
+
+//shadows
+$shadow-key-umbra-opacity: 0.2 !default;
+$shadow-key-penumbra-opacity: 0.14 !default;
+$shadow-ambient-shadow-opacity: 0.12 !default;

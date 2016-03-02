@@ -1,3 +1,23 @@
-@import "dependencies/color-definitions";
-//NOTE dark-theme has the supported values true or false
-$dark-theme: false;
+@import "dependencies/variables";
+
+body {
+  // background-color: unquote("rgb(#{$palette-primary-500})");
+}
+
+//date or time component dialog
+.md-picker {
+  .md-picker__header {
+    background-color: $picker-header-color;
+  }
+
+  .md-picker__body {
+    background-color: $picker-body-color;
+  }
+}
+
+//date component dialog
+.md-picker-date {
+
+}
+
+//time component dialog

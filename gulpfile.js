@@ -13,7 +13,7 @@ var browserSync = require('browser-sync');
 gulp.task('browser-sync', function() {
   browserSync({
     server: {
-       baseDir: "./"
+       baseDir: "./dist"
     }
   });
 });
@@ -45,22 +45,22 @@ gulp.task('styles', function(){
 });
 
 gulp.task('scripts', function(){
-  return gulp.src('src/scripts/**/*.js')
+  return gulp.src(['src/js/moment.js', 'src/js/md-date-time-picker.js'])
     .pipe(plumber({
       errorHandler: function (error) {
         console.log(error.message);
         this.emit('end');
     }}))
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/scripts/'))
+    .pipe(gulp.dest('dist/js/'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/scripts/'))
+    .pipe(gulp.dest('dist/js/'))
     .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('default', ['browser-sync'], function(){
   gulp.watch("src/scss/**/*.scss", ['styles']);
-  gulp.watch("src/scripts/**/*.js", ['scripts']);
-  // gulp.watch("*.html", ['bs-reload']);
+  gulp.watch("src/js/**/*.js", ['scripts']);
+  gulp.watch("*.html", ['bs-reload']);
 });
