@@ -47,7 +47,7 @@ body {
   border-radius: 3px;
   width: fit-content;
   overflow: hidden;
-  // flex-direction: column; TODO do this for mobile
+  // flex-direction: column;// TODO do this for mobile
 
   .md-picker__header {
     background-color: $picker-header-color;
@@ -111,10 +111,17 @@ body {
     }
   }
   .md-picker__body {
-    flex: 1 0 75%;//TODO 75% to auto on mobile
+    flex: 1 0 auto;//TODO 75% to auto on mobile
 
     .md-picker__viewHolder {
+      display: flex;
+      width: 280px;
+      overflow: hidden;
+
       .md-picker__view {
+        width: 280px;
+        transform: translate3d(-100%,0,0);
+        transition: 0.5s ease-out;
         .md-picker__month {
           text-align: center;
           padding: 18px 0;
