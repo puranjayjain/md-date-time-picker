@@ -87,6 +87,8 @@ body {
   left: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);
           transform: translate3d(-50%, -50%, 0);
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -98,18 +100,19 @@ body {
     padding-bottom: 20px; }
     .md-picker .md-picker__header .md-picker__title, .md-picker .md-picker__header .md-picker__subtitle {
       margin: 0;
-      margin-bottom: 8px; }
+      margin-bottom: 8px;
+      cursor: pointer; }
   .md-picker .md-picker__body {
     position: relative;
     background-color: #fff; }
 
 .md-picker-date .md-picker__left {
   background: url("../images/ic_keyboard_arrow_left_black_24px.svg");
-  left: 0; }
+  left: 4px; }
 
 .md-picker-date .md-picker__right {
   background: url("../images/ic_keyboard_arrow_right_black_24px.svg");
-  right: 0; }
+  right: 4px; }
 
 .md-picker-date .md-picker__left, .md-picker-date .md-picker__right {
   position: absolute;
@@ -117,7 +120,10 @@ body {
   background-position: center;
   margin: 0;
   height: 48px;
-  top: 0; }
+  width: 48px;
+  min-width: 48px;
+  top: 4px;
+  border-radius: 50%; }
 
 .md-picker-date .md-picker__left:hover, .md-picker-date .md-picker__right:hover, .md-picker-date .md-picker__left:focus, .md-picker-date .md-picker__right:focus {
   background-color: #e0e0e0; }
@@ -128,7 +134,8 @@ body {
 .md-picker-date .md-picker__header .md-picker__title {
   color: white;
   font-family: "Roboto-Medium", "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 21px; }
+  font-size: 24px;
+  font-weight: 900; }
 
 .md-picker-date .md-picker__header .md-picker__subtitle {
   color: rgba(255, 255, 255, 0.7);
@@ -200,7 +207,56 @@ body {
           pointer-events: all; }
       .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th span {
         color: rgba(0, 0, 0, 0.54); }
+  .md-picker-date .md-picker__body .md-picker__years {
+    position: absolute;
+    left: 0;
+    top: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: calc(100% - 52px);
+    text-align: center;
+    overflow: auto;
+    pointer-events: none;
+    opacity: 0; }
+    .md-picker-date .md-picker__body .md-picker__years li {
+      font-size: 16px;
+      padding: 8px 0;
+      color: rgba(0, 0, 0, 0.87);
+      cursor: pointer; }
+    .md-picker-date .md-picker__body .md-picker__years .md-picker__li--current {
+      font-size: 21px;
+      color: #009688; }
+  .md-picker-date .md-picker__body .md-picker__years--active {
+    pointer-events: all; }
   .md-picker-date .md-picker__body .md-picker__action {
     margin-top: 24px;
     padding: 8px 0;
     text-align: right; }
+
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
+  50% {
+    opacity: 1; } }
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
+  50% {
+    opacity: 1; } }
+
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+          animation-name: zoomIn; }
+
+.animated {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both; }

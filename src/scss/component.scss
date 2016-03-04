@@ -3,7 +3,7 @@
 @import "dependencies/fonts";
 
 body {
-  // background-color: unquote("rgb(#{$palette-primary-500})");
+  // background-color: $palette-primary-A100;
   font-family: $regular !important;
 }
 
@@ -43,6 +43,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%,-50%,0);
+  transform-origin: 0 0;
   display: flex;
   border-radius: 3px;
   overflow: hidden;
@@ -56,6 +57,7 @@ body {
     .md-picker__title, .md-picker__subtitle {
       margin: 0;
       margin-bottom: 8px;//TODO remove this on mobile
+      cursor: pointer;
     }
   }
 
@@ -69,11 +71,11 @@ body {
 .md-picker-date {
   .md-picker__left {
     background: url($picker-button-left);
-    left: 0;
+    left: 4px;
   }
   .md-picker__right {
     background: url($picker-button-right);
-    right: 0;
+    right: 4px;
   }
 
   .md-picker__left, .md-picker__right {
@@ -82,7 +84,10 @@ body {
     background-position: center;
     margin: 0;
     height: 48px;
-    top: 0;
+    width: 48px;
+    min-width: 48px;
+    top: 4px;
+    border-radius: 50%;
   }
 
   .md-picker__left:hover, .md-picker__right:hover, .md-picker__left:focus, .md-picker__right:focus {
@@ -96,7 +101,8 @@ body {
     .md-picker__title {
       color: $color-primary-text;
       font-family: $medium;
-      font-size: 21px;
+      font-size: 24px;
+      font-weight: 900;
     }
     .md-picker__subtitle {
       color: $color-secondary-text;
@@ -179,6 +185,38 @@ body {
       }
     }
 
+    .md-picker__years {
+      position: absolute;
+      left: 0;
+      top: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: calc(100% - 52px);
+      text-align: center;
+      overflow: auto;
+      pointer-events: none;
+      opacity: 0;
+
+      li {
+        font-size: 16px;//TODO make this 17 px on mobile
+        padding: 8px 0;
+        color: $picker-primary-text-theme-color;
+        cursor: pointer;
+      }
+
+      //current year
+      .md-picker__li--current {
+        font-size: 21px;
+        color: $md-button-color;
+      }
+    }
+
+    .md-picker__years--active {
+      pointer-events: all;
+    }
+
     .md-picker__action {
       margin-top: 24px;
       padding: 8px 0;
@@ -188,3 +226,24 @@ body {
 }
 
 //time component dialog
+
+//animations
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}

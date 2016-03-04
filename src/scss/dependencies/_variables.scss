@@ -1,9 +1,4 @@
-@import "color-definitions";
-
-//global theme settings and colours
-
-//NOTE dark-theme has the supported values true or false
-$dark-theme: false;
+@import "global";
 
 //text colors
 //Dark text on light backgrounds
@@ -16,8 +11,6 @@ $color-primary-text: rgb(255,255,255);
 $color-secondary-text: rgba(255,255,255,0.7);
 $color-hint-text: rgba(255,255,255,0.3);
 
-//primary color palette
-$primary-color-palette: $palette-teal;
 //the colours below are used in the app
 $palette-primary-50: nth($primary-color-palette, 1);
 $palette-primary-100: nth($primary-color-palette, 2);
@@ -29,13 +22,13 @@ $palette-primary-600: nth($primary-color-palette, 7);
 $palette-primary-700: nth($primary-color-palette, 8);
 $palette-primary-800: nth($primary-color-palette, 9);
 $palette-primary-900: nth($primary-color-palette, 10);
-$palette-primary-A100: nth($primary-color-palette, 11);
-$palette-primary-A200: nth($primary-color-palette, 12);
-$palette-primary-A400: nth($primary-color-palette, 13);
-$palette-primary-A700: nth($primary-color-palette, 14);
+@if (length($primary-color-palette) > 10) {
+  $palette-primary-A100: nth($primary-color-palette, 11);
+  $palette-primary-A200: nth($primary-color-palette, 12);
+  $palette-primary-A400: nth($primary-color-palette, 13);
+  $palette-primary-A700: nth($primary-color-palette, 14);
+}
 
-//accent color palette
-$accent-color-palette: $palette-lime;
 //the colours below are used in the app
 $palette-accent-50: nth($accent-color-palette, 1);
 $palette-accent-100: nth($accent-color-palette, 2);
@@ -47,10 +40,12 @@ $palette-accent-600: nth($accent-color-palette, 7);
 $palette-accent-700: nth($accent-color-palette, 8);
 $palette-accent-800: nth($accent-color-palette, 9);
 $palette-accent-900: nth($accent-color-palette, 10);
-$palette-accent-A100: nth($accent-color-palette, 11);
-$palette-accent-A200: nth($accent-color-palette, 12);
-$palette-accent-A400: nth($accent-color-palette, 13);
-$palette-accent-A700: nth($accent-color-palette, 14);
+@if (length($accent-color-palette) > 10) {
+  $palette-accent-A100: nth($accent-color-palette, 11);
+  $palette-accent-A200: nth($accent-color-palette, 12);
+  $palette-accent-A400: nth($accent-color-palette, 13);
+  $palette-accent-A700: nth($accent-color-palette, 14);
+}
 
 //theme dependent items
 //default light theme colors
