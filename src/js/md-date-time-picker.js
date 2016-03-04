@@ -25,9 +25,9 @@ function initDialog(date) {
   //set everything for the current month
   initMonth(pickerDialog + current, m);
   //set everything for the previous month
-  document.querySelector(pickerDialog + previous + '.md-picker__month').innerHTML = getPreviousMonthString(m);
+  initMonth(pickerDialog + previous, moment(getPreviousMonthString(m)));
   //set everything for the next month
-  document.querySelector(pickerDialog + next + '.md-picker__month').innerHTML = getNextMonthString(m);
+  initMonth(pickerDialog + next, moment(getNextMonthString(m)));
 }
 
 //init month
@@ -47,7 +47,6 @@ function initMonth(selector, m) {
     selected = parseInt(moment(m).format('D'));
     selected += firstDayOfMonth - 1;
   }
-  console.log(lastDayoFMonth);
   for (var i in cells) {
     var cell = cells[i];
     //if the cell is before this month's first date
@@ -62,6 +61,11 @@ function initMonth(selector, m) {
     if (selected == i) {
       cell.classList.add('md-picker__selected');
     }
+    //if the cell is in this month
+    if ((i >= firstDayOfMonth) && (i <= lastDayoFMonth)) {
+      //add event for cell click
+      addCellClickEvent(cell);
+    }
     //if the cell is after this month's last date
     if (i > lastDayoFMonth) {
       cell.classList.remove('md-picker__cell');
@@ -69,14 +73,31 @@ function initMonth(selector, m) {
   }
 }
 
+//event handlers for various elements
+function addCellClickEvent(el) {
+  var pickerDialog = '.md-picker-date ';
+  el.addEventListener('click', function() {
+    //get the current date
+    var day = el.innerHTML;
+    var monthYear = document.querySelector(pickerDialog +'.md-picker__view--current .md-picker__month').innerHTML;
+    var currentDate = moment(day + ' ' + monthYear, 'D MMMM YYYY');
+    //remove previous selected style
+    document.querySelector(pickerDialog + '.md-picker__selected').classList.remove('md-picker__selected');
+    //add selected class to self
+    el.classList.add('md-picker__selected');
+    //change the current display date and data to the current date
+    document.querySelector(pickerDialog).setAttribute('data-date', currentDate);
+    document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
+    document.querySelector(pickerDialog + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D');
+  });
+}
+
 //helper functions for general calculations
 function getPreviousMonthString(moment) {
   var m = moment.clone();
-  m.subtract(1,'month');
-  return m.format('MMMM YYYY');
+  return m.subtract(1,'month');
 }
 function getNextMonthString(moment) {
   var m = moment.clone();
-  m.add(1,'month');
-  return m.format('MMMM YYYY');
+  return m.add(1,'month');
 }

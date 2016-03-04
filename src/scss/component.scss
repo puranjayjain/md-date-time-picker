@@ -45,7 +45,6 @@ body {
   transform: translate3d(-50%,-50%,0);
   display: flex;
   border-radius: 3px;
-  width: fit-content;
   overflow: hidden;
   // flex-direction: column;// TODO do this for mobile
 
@@ -68,36 +67,30 @@ body {
 
 //date component dialog
 .md-picker-date {
-  .md-picker__timeline {
-    position: absolute;
-    top: 0;
+  .md-picker__left {
+    background: url($picker-button-left);
     left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  }
+  .md-picker__right {
+    background: url($picker-button-right);
+    right: 0;
+  }
 
-    .md-picker__left {
-      background: url($picker-button-left);
-    }
-    .md-picker__right {
-      background: url($picker-button-right);
-    }
+  .md-picker__left, .md-picker__right {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    height: 48px;
+    top: 0;
+  }
 
-    .md-picker__left, .md-picker__right {
-      background-repeat: no-repeat;
-      background-position: center;
-      margin: 0;
-      height: 48px;
-    }
+  .md-picker__left:hover, .md-picker__right:hover, .md-picker__left:focus, .md-picker__right:focus {
+    background-color: $md-button-color--focus;
+  }
 
-    .md-picker__left:hover, .md-picker__right:hover, .md-picker__left:focus, .md-picker__right:focus {
-      background-color: $md-button-color--focus;
-    }
-
-    .md-picker__left:active, .md-picker__right:active {
-      background-color: $md-button-color--active;
-    }
+  .md-picker__left:active, .md-picker__right:active {
+    background-color: $md-button-color--active;
   }
   .md-picker__header {
     .md-picker__title {
@@ -115,25 +108,26 @@ body {
 
     .md-picker__viewHolder {
       display: flex;
-      width: 280px;
+      width: 314px;
       overflow: hidden;
 
       .md-picker__view {
-        width: 280px;
+        width: 314px;
+        flex-shrink: 0;
+        text-align: center;
         transform: translate3d(-100%,0,0);
         transition: 0.5s ease-out;
         .md-picker__month {
-          text-align: center;
-          padding: 18px 0;
+          display: inline-block;
+          padding: 18px;
           font-size: 13px;
           font-weight: 600;
           color: $picker-primary-text-theme-color;
+          cursor: pointer;
         }
       }
 
       .md-picker__grid {
-        display: flex;
-        flex-direction: column;
         padding: 8px 14px 0 14px;
 
         span {
