@@ -1,5 +1,25 @@
+
+/**
+ * @package md-date-time-picker
+ * @version [0.0.1]
+ * @authors Puranjay Jain <puranjay.jain@st.niituniversity.in>
+ * @license MIT
+ * @website no website right now
+ */
+
 (function() {
   window.mdDateTimePicker = (function() {
+
+    /**
+     * [constructor of the module]
+     * @param  {[string]} @type         [type of dialog] ['date','time']
+     * @param  {[type]}   @trigger = '' [attaches event handler of the dialog to a certain elements click event]
+     * @param  {[type]}   @display = '' [the document element where the current date is displayed] @optional
+     * @param  {[type]}   @init    = '' [initial value for the dialog date or time, defaults to today] @optional
+     * @param  {[type]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016,  defaults to the momentjs default format] @optional
+     * @param  {[type]}   @args    = '' [additional arguments of the dialog] @optional
+     * @return {[mdDateTimePicker]}             [description]
+     */
     var addCellClickEvent, getNextMonthString, getPreviousMonthString, initDialog, initMonth, switchToView;
 
     function mdDateTimePicker(type, trigger, display, init, format, args) {
@@ -13,8 +33,6 @@
         console.log('init date');
       } else if (this.type === 'time') {
         console.log('init time');
-      } else {
-        console.error('a dialog type is required');
       }
     }
 

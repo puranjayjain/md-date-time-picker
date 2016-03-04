@@ -1,35 +1,34 @@
-# ! md-date-time-picker
-# ! version : 0.0.1
-# ! authors : Puranjay Jain
-# ! license : MIT
-# ! no website right now
-
+###*
+ * @package md-date-time-picker
+ * @version [0.0.1]
+ * @authors Puranjay Jain <puranjay.jain@st.niituniversity.in>
+ * @license MIT
+ * @website no website right now
+###
 # TODO write this in a module style
 # TODO write another of this script for time picker
 
 class window.mdDateTimePicker
   # public  functions
-  # constructor
-  # NOTE : Arguments and their meanings
-  # @type : type of dialog possible values = ['date','time']
-  # @trigger : attaches event handler of the dialog to a certain elements click event
-  # @display : the document element where the current date is displayed
-  # @init : initial value for the dialog date or time, defaults to today
-  # @format : the format of the moment date e.g 'D MM YYYY' for init 1 1 2016,  defaults to the momentjs default format
-  # @args : additional arguments of the dialog
-  # .
-  # .
-  # .
-  constructor: (@type, @trigger='', @display = '', @init = '', @format = '',  @args = '') ->
+  ###*
+   * [constructor of the module]
+   * @param  {[string]} @type         [type of dialog] ['date','time']
+   * @param  {[type]}   @trigger = '' [attaches event handler of the dialog to a certain elements click event]
+   * @param  {[type]}   @display = '' [the document element where the current date is displayed] @optional
+   * @param  {[type]}   @init    = '' [initial value for the dialog date or time, defaults to today] @optional
+   * @param  {[type]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016,  defaults to the momentjs default format] @optional
+   * @param  {[type]}   @args    = '' [additional arguments of the dialog] @optional
+   * @return {[mdDateTimePicker]}             [description]
+  ###
+  constructor: (@type, @trigger='', @display = '', @init = '', @format = '', @args = '') ->
     if @type is 'date'
       console.log 'init date'
     else if @type is 'time'
       console.log 'init time'
-    else console.error 'a dialog type is required'
   open: ->
     alert @value
   # private functions
-  # to initiate the date picker dialog
+  # to initiate the date picker dialog usage e.g initDialog(moment())
   initDialog = (date) ->
     #  console.log(moment(date).format('YYYY'))
     # TODO REPLACE [2016, 2, 1] with date
@@ -62,7 +61,7 @@ class window.mdDateTimePicker
     selected = -1
     lastDayoFMonth = parseInt(moment(m).endOf('month').format('D')) + firstDayOfMonth - 1
     # if this month and year is the same as the today's month and year respectively
-    if (!(moment().diff(m, 'month')) and !(moment().diff(m, 'year')))
+    if (not(moment().diff(m, 'month')) and not(moment().diff(m, 'year')))
       today = parseInt(moment().format('D'))
       today += firstDayOfMonth - 1
       selected = parseInt(moment(m).format('D'))
@@ -118,7 +117,7 @@ class window.mdDateTimePicker
       # toggle class for header
       header.classList.toggle('md-picker__header--invert')
       # toggle attribute
-      view = !view;
+      view = not view;
       current.setAttribute('data-view', view)
       setTimeout ( ->
         el.classList.remove('md-button--unclickable')

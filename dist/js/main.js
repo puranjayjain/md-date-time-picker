@@ -3620,8 +3620,6 @@
         console.log('init date');
       } else if (this.type === 'time') {
         console.log('init time');
-      } else {
-        console.error('a dialog type is required');
       }
     }
 
@@ -3706,7 +3704,7 @@
           }), 1000);
         }
         header.classList.toggle('md-picker__header--invert');
-        view = !view;
+        view = notview;
         current.setAttribute('data-view', view);
         setTimeout((function() {
           el.classList.remove('md-button--unclickable');
