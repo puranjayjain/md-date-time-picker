@@ -109,6 +109,9 @@ body {
     position: relative;
     background-color: #fff; }
 
+.md-picker--inactive {
+  display: none; }
+
 .md-picker-date .md-picker__left {
   background: url("../images/ic_keyboard_arrow_left_black_24px.svg");
   left: 4px; }

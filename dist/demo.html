@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title></title>
   <link rel="stylesheet" href="css/component.css">
 </head>
+
 <body>
+  <button type="button" id="trigger">Open</button>
   <!-- date picker dialog -->
-  <div class="md-picker md-picker-date zoomIn animated" data-date="" data-view="true">
+  <div class="md-picker md-picker-date md-picker--inactive animated" data-date="" data-view="true">
     <div class="md-picker__header">
       <h4 class="md-picker__subtitle">
         2016
@@ -560,5 +563,14 @@
     </div>
   </div>
   <script src="js/main.js"></script>
+  <script type="text/javascript">
+    (function() {
+      var x = mdDateTimePicker('date');
+      document.getElementById('trigger').addEventListener('click', function() {
+        x.open();
+      });
+    }).call(this);
+  </script>
 </body>
+
 </html>

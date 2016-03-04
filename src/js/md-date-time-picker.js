@@ -12,42 +12,51 @@
 
     /**
      * [constructor of the module]
-     * @param  {[string]} @type         [type of dialog] ['date','time']
-     * @param  {[type]}   @trigger = '' [attaches event handler of the dialog to a certain elements click event]
-     * @param  {[type]}   @display = '' [the document element where the current date is displayed] @optional
-     * @param  {[type]}   @init    = '' [initial value for the dialog date or time, defaults to today] @optional
-     * @param  {[type]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016,  defaults to the momentjs default format] @optional
-     * @param  {[type]}   @args    = '' [additional arguments of the dialog] @optional
-     * @return {[mdDateTimePicker]}             [description]
+     * 					 @param  {[string]}   @type         [type of dialog] ['date','time']
+     * @optional @param  {[string]}   @display = '' [the document element where the current date is displayed]
+     * @optional @param  {[string]}   @init    = '' [initial value for the dialog date or time, defaults to today]
+     * @optional @param  {[string]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016, defaults to the momentjs default format]
+     * @optional @param  {[type]}     @args    = '' [additional arguments of the dialog]
+     * @return {[mdDateTimePicker]}                 [this component]
      */
-    var addCellClickEvent, getNextMonthString, getPreviousMonthString, initDialog, initMonth, switchToView;
+    var addCellClickEvent, getNextMonthString, getPreviousMonthString, initDateDialog, initMonth, switchToView;
 
-    function mdDateTimePicker(type, trigger, display, init, format, args) {
+    function mdDateTimePicker(type, display, init, format, args) {
       this.type = type;
-      this.trigger = trigger != null ? trigger : '';
       this.display = display != null ? display : '';
       this.init = init != null ? init : '';
       this.format = format != null ? format : '';
       this.args = args != null ? args : '';
-      if (this.type === 'date') {
-        console.log('init date');
-      } else if (this.type === 'time') {
-        console.log('init time');
+      if (!(this instanceof window.mdDateTimePicker)) {
+        return new window.mdDateTimePicker(this.type, this.display, this.init, this.format, this.args);
       }
     }
 
     mdDateTimePicker.prototype.open = function() {
-      return alert(this.value);
+      if (this.type === 'date') {
+        if (this.format) {
+          return initDateDialog(moment(this.init).format(this.format));
+        } else {
+          return initDateDialog(moment());
+        }
+      } else if (this.type === 'time') {
+        return console.log('init time');
+      }
     };
 
-    initDialog = function(date) {
-      var current, m, next, pickerDialog, previous;
-      m = moment([2016, 2, 1]);
+
+    /**
+     * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
+     * @param  {[moment]} m [date for today or current]
+     */
+
+    initDateDialog = function(m) {
+      var current, next, pickerDialog, previous;
       pickerDialog = '.md-picker-date ';
       current = '.md-picker__view--current ';
       previous = '.md-picker__view--previous ';
       next = '.md-picker__view--next ';
-      document.querySelector(pickerDialog).setAttribute('data-date', moment(date));
+      document.querySelector(pickerDialog).setAttribute('data-date', m);
       document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = m.format('YYYY');
       document.querySelector(pickerDialog + '.md-picker__title').innerHTML = m.format('ddd, MMM D');
       initMonth(pickerDialog + current, m);
@@ -60,14 +69,14 @@
       var cell, cells, firstDayOfMonth, i, lastDayoFMonth, selected, today, _i, _len;
       document.querySelector(selector + '.md-picker__month').innerHTML = m.format('MMMM YYYY');
       cells = document.querySelectorAll(selector + '.md-picker__tr ' + 'span');
-      firstDayOfMonth = parseInt(moment(m).date(1).day());
+      firstDayOfMonth = parseInt(moment(m).date(1).day(), 10);
       today = -1;
       selected = -1;
-      lastDayoFMonth = parseInt(moment(m).endOf('month').format('D')) + firstDayOfMonth - 1;
+      lastDayoFMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1;
       if (!(moment().diff(m, 'month')) && !(moment().diff(m, 'year'))) {
-        today = parseInt(moment().format('D'));
+        today = parseInt(moment().format('D'), 10);
         today += firstDayOfMonth - 1;
-        selected = parseInt(moment(m).format('D'));
+        selected = parseInt(moment(m).format('D'), 10);
         selected += firstDayOfMonth - 1;
       }
       for (i = _i = 0, _len = cells.length; _i < _len; i = ++_i) {

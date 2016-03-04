@@ -12,32 +12,35 @@ class window.mdDateTimePicker
   # public  functions
   ###*
    * [constructor of the module]
-   * @param  {[string]} @type         [type of dialog] ['date','time']
-   * @param  {[type]}   @trigger = '' [attaches event handler of the dialog to a certain elements click event]
-   * @param  {[type]}   @display = '' [the document element where the current date is displayed] @optional
-   * @param  {[type]}   @init    = '' [initial value for the dialog date or time, defaults to today] @optional
-   * @param  {[type]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016,  defaults to the momentjs default format] @optional
-   * @param  {[type]}   @args    = '' [additional arguments of the dialog] @optional
-   * @return {[mdDateTimePicker]}             [description]
+   * 					 @param  {[string]}   @type         [type of dialog] ['date','time']
+   * @optional @param  {[string]}   @display = '' [the document element where the current date is displayed]
+   * @optional @param  {[string]}   @init    = '' [initial value for the dialog date or time, defaults to today]
+   * @optional @param  {[string]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016, defaults to the momentjs default format]
+   * @optional @param  {[type]}     @args    = '' [additional arguments of the dialog]
+   * @return {[mdDateTimePicker]}                 [this component]
   ###
-  constructor: (@type, @trigger='', @display = '', @init = '', @format = '', @args = '') ->
-    if @type is 'date'
-      console.log 'init date'
-    else if @type is 'time'
-      console.log 'init time'
+  constructor: (@type, @display = '', @init = '', @format = '', @args = '') ->
+    return new window.mdDateTimePicker(@type, @display, @init, @format, @args) unless @ instanceof window.mdDateTimePicker
   open: ->
-    alert @value
+    if @type is 'date'
+      if @format
+        initDateDialog(moment(@init).format(@format))
+      else
+        initDateDialog(moment())
+    else if @type is 'time'
+      # TODO implement the time module
+      console.log 'init time'
   # private functions
-  # to initiate the date picker dialog usage e.g initDialog(moment())
-  initDialog = (date) ->
-    #  console.log(moment(date).format('YYYY'))
-    # TODO REPLACE [2016, 2, 1] with date
-    m = moment([2016, 2, 1])
+  ###*
+   * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
+   * @param  {[moment]} m [date for today or current]
+  ###
+  initDateDialog = (m) ->
     pickerDialog = '.md-picker-date '
     current = '.md-picker__view--current '
     previous = '.md-picker__view--previous '
     next = '.md-picker__view--next '
-    document.querySelector(pickerDialog).setAttribute('data-date', moment(date))
+    document.querySelector(pickerDialog).setAttribute('data-date', m)
     document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = m.format('YYYY')
     document.querySelector(pickerDialog + '.md-picker__title').innerHTML = m.format('ddd, MMM D')
     # set everything for the current month
@@ -56,15 +59,15 @@ class window.mdDateTimePicker
     document.querySelector(selector + '.md-picker__month').innerHTML = m.format('MMMM YYYY')
     cells = document.querySelectorAll(selector + '.md-picker__tr ' + 'span')
     # calculate prerequisites
-    firstDayOfMonth = parseInt(moment(m).date(1).day())
+    firstDayOfMonth = parseInt(moment(m).date(1).day(), 10)
     today = -1
     selected = -1
-    lastDayoFMonth = parseInt(moment(m).endOf('month').format('D')) + firstDayOfMonth - 1
+    lastDayoFMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1
     # if this month and year is the same as the today's month and year respectively
     if (not(moment().diff(m, 'month')) and not(moment().diff(m, 'year')))
-      today = parseInt(moment().format('D'))
+      today = parseInt(moment().format('D'), 10)
       today += firstDayOfMonth - 1
-      selected = parseInt(moment(m).format('D'))
+      selected = parseInt(moment(m).format('D'), 10)
       selected += firstDayOfMonth - 1
     for cell, i in cells
       # if the cell is before this month's first date

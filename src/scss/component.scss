@@ -61,6 +61,9 @@ body {
     background-color: $picker-body-color;
   }
 }
+.md-picker--inactive {
+  display: none;
+}
 //date component dialog
 .md-picker-date {
   .md-picker__left {
