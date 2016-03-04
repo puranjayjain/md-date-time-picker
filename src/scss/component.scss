@@ -1,15 +1,13 @@
 @import "dependencies/variables";
 @import "dependencies/mixins";
 @import "dependencies/fonts";
-
 body {
   // background-color: $palette-primary-A100;
   font-family: $regular !important;
 }
-
 //common components
 .md-button {
-  height: 36px;//TODO touch target 48px
+  height: 36px; //TODO touch target 48px
   min-width: 64px;
   border: none;
   background-color: rgba(0,0,0,0);
@@ -26,15 +24,16 @@ body {
   cursor: pointer;
   color: $md-button-color;
 }
-
-.md-button:hover, .md-button:focus{
+.md-button:hover,
+.md-button:focus {
   background-color: $md-button-color--focus;
 }
-
 .md-button:active {
   background-color: $md-button-color--active;
 }
-
+.md-button--unclickable {
+  pointer-events: none;
+}
 //date or time component dialog
 .md-picker {
   @include shadow-8dp();
@@ -48,25 +47,20 @@ body {
   border-radius: 3px;
   overflow: hidden;
   // flex-direction: column;// TODO do this for mobile
-
   .md-picker__header {
     background-color: $picker-header-color;
-    padding: 24px;
-    padding-bottom: 20px;
-
-    .md-picker__title, .md-picker__subtitle {
-      margin: 0;
-      margin-bottom: 8px;//TODO remove this on mobile
+    padding: 24px 24px 20px;
+    .md-picker__title,
+    .md-picker__subtitle {
+      margin: 0 0 8px; //TODO remove this on mobile
       cursor: pointer;
     }
   }
-
   .md-picker__body {
     position: relative;
     background-color: $picker-body-color;
   }
 }
-
 //date component dialog
 .md-picker-date {
   .md-picker__left {
@@ -77,8 +71,8 @@ body {
     background: url($picker-button-right);
     right: 4px;
   }
-
-  .md-picker__left, .md-picker__right {
+  .md-picker__left,
+  .md-picker__right {
     position: absolute;
     background-repeat: no-repeat;
     background-position: center;
@@ -89,12 +83,14 @@ body {
     top: 4px;
     border-radius: 50%;
   }
-
-  .md-picker__left:hover, .md-picker__right:hover, .md-picker__left:focus, .md-picker__right:focus {
+  .md-picker__left:hover,
+  .md-picker__right:hover,
+  .md-picker__left:focus,
+  .md-picker__right:focus {
     background-color: $md-button-color--focus;
   }
-
-  .md-picker__left:active, .md-picker__right:active {
+  .md-picker__left:active,
+  .md-picker__right:active {
     background-color: $md-button-color--active;
   }
   .md-picker__header {
@@ -106,17 +102,23 @@ body {
     }
     .md-picker__subtitle {
       color: $color-secondary-text;
-      font-size: 16px;//TODO 17px on mobile
+      font-size: 16px; //TODO 17px on mobile
+    }
+  }
+  .md-picker__header--invert {
+    .md-picker__title {
+      color: $color-secondary-text;
+    }
+    .md-picker__subtitle {
+      color: $color-primary-text;
     }
   }
   .md-picker__body {
-    flex: 1 0 auto;//TODO 75% to auto on mobile
-
+    flex: 1 0 auto; //TODO 75% to auto on mobile
     .md-picker__viewHolder {
       display: flex;
       width: 314px;
       overflow: hidden;
-
       .md-picker__view {
         width: 314px;
         flex-shrink: 0;
@@ -132,10 +134,8 @@ body {
           cursor: pointer;
         }
       }
-
       .md-picker__grid {
-        padding: 8px 14px 0 14px;
-
+        padding: 8px 14px 0;
         span {
           font-size: 13px;
           font-weight: 600;
@@ -148,21 +148,18 @@ body {
           align-items: center;
           vertical-align: middle;
         }
-
         .md-picker__today {
           color: $md-button-color;
         }
-
         .md-picker__selected {
           background-color: $md-button-color;
           color: $picker-body-color;
         }
-
-        .md-picker__tr, .md-picker__th {
+        .md-picker__tr,
+        .md-picker__th {
           display: flex;
           justify-content: space-between;
         }
-
         .md-picker__tr {
           padding: 2px 0;
           span {
@@ -176,7 +173,6 @@ body {
             @extend .md-picker__selected;
           }
         }
-
         .md-picker__th {
           span {
             color: $picker-secondary-text-theme-color;
@@ -184,7 +180,6 @@ body {
         }
       }
     }
-
     .md-picker__years {
       position: absolute;
       left: 0;
@@ -196,27 +191,22 @@ body {
       height: calc(100% - 52px);
       text-align: center;
       overflow: auto;
-      pointer-events: none;
-      opacity: 0;
-
       li {
-        font-size: 16px;//TODO make this 17 px on mobile
+        font-size: 16px; //TODO make this 17 px on mobile
         padding: 8px 0;
         color: $picker-primary-text-theme-color;
         cursor: pointer;
       }
-
       //current year
       .md-picker__li--current {
         font-size: 21px;
         color: $md-button-color;
       }
     }
-
-    .md-picker__years--active {
-      pointer-events: all;
+    .md-picker__years--invisible {
+      pointer-events: none;
+      opacity: 0;
     }
-
     .md-picker__action {
       margin-top: 24px;
       padding: 8px 0;
@@ -224,25 +214,35 @@ body {
     }
   }
 }
-
 //time component dialog
-
 //animations
 @keyframes zoomIn {
   from {
     opacity: 0;
     transform: scale3d(.3, .3, .3);
   }
-
   50% {
     opacity: 1;
   }
 }
-
 .zoomIn {
   animation-name: zoomIn;
 }
-
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.zoomOut {
+  animation-name: zoomOut;
+}
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;

@@ -73,11 +73,15 @@ body {
   cursor: pointer;
   color: #009688; }
 
-.md-button:hover, .md-button:focus {
+.md-button:hover,
+.md-button:focus {
   background-color: #e0e0e0; }
 
 .md-button:active {
   background-color: #bdbdbd; }
+
+.md-button--unclickable {
+  pointer-events: none; }
 
 .md-picker {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -96,11 +100,10 @@ body {
   overflow: hidden; }
   .md-picker .md-picker__header {
     background-color: #009688;
-    padding: 24px;
-    padding-bottom: 20px; }
-    .md-picker .md-picker__header .md-picker__title, .md-picker .md-picker__header .md-picker__subtitle {
-      margin: 0;
-      margin-bottom: 8px;
+    padding: 24px 24px 20px; }
+    .md-picker .md-picker__header .md-picker__title,
+    .md-picker .md-picker__header .md-picker__subtitle {
+      margin: 0 0 8px;
       cursor: pointer; }
   .md-picker .md-picker__body {
     position: relative;
@@ -114,7 +117,8 @@ body {
   background: url("../images/ic_keyboard_arrow_right_black_24px.svg");
   right: 4px; }
 
-.md-picker-date .md-picker__left, .md-picker-date .md-picker__right {
+.md-picker-date .md-picker__left,
+.md-picker-date .md-picker__right {
   position: absolute;
   background-repeat: no-repeat;
   background-position: center;
@@ -125,10 +129,14 @@ body {
   top: 4px;
   border-radius: 50%; }
 
-.md-picker-date .md-picker__left:hover, .md-picker-date .md-picker__right:hover, .md-picker-date .md-picker__left:focus, .md-picker-date .md-picker__right:focus {
+.md-picker-date .md-picker__left:hover,
+.md-picker-date .md-picker__right:hover,
+.md-picker-date .md-picker__left:focus,
+.md-picker-date .md-picker__right:focus {
   background-color: #e0e0e0; }
 
-.md-picker-date .md-picker__left:active, .md-picker-date .md-picker__right:active {
+.md-picker-date .md-picker__left:active,
+.md-picker-date .md-picker__right:active {
   background-color: #bdbdbd; }
 
 .md-picker-date .md-picker__header .md-picker__title {
@@ -140,6 +148,12 @@ body {
 .md-picker-date .md-picker__header .md-picker__subtitle {
   color: rgba(255, 255, 255, 0.7);
   font-size: 16px; }
+
+.md-picker-date .md-picker__header--invert .md-picker__title {
+  color: rgba(255, 255, 255, 0.7); }
+
+.md-picker-date .md-picker__header--invert .md-picker__subtitle {
+  color: white; }
 
 .md-picker-date .md-picker__body {
   -webkit-flex: 1 0 auto;
@@ -168,7 +182,7 @@ body {
         color: rgba(0, 0, 0, 0.87);
         cursor: pointer; }
     .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid {
-      padding: 8px 14px 0 14px; }
+      padding: 8px 14px 0; }
       .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid span {
         font-size: 13px;
         font-weight: 600;
@@ -191,7 +205,8 @@ body {
       .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__selected, .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr .md-picker__cell:hover {
         background-color: #009688;
         color: #fff; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr, .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th {
+      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr,
+      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
@@ -217,9 +232,7 @@ body {
     width: 100%;
     height: calc(100% - 52px);
     text-align: center;
-    overflow: auto;
-    pointer-events: none;
-    opacity: 0; }
+    overflow: auto; }
     .md-picker-date .md-picker__body .md-picker__years li {
       font-size: 16px;
       padding: 8px 0;
@@ -228,8 +241,9 @@ body {
     .md-picker-date .md-picker__body .md-picker__years .md-picker__li--current {
       font-size: 21px;
       color: #009688; }
-  .md-picker-date .md-picker__body .md-picker__years--active {
-    pointer-events: all; }
+  .md-picker-date .md-picker__body .md-picker__years--invisible {
+    pointer-events: none;
+    opacity: 0; }
   .md-picker-date .md-picker__body .md-picker__action {
     margin-top: 24px;
     padding: 8px 0;
@@ -254,6 +268,30 @@ body {
 .zoomIn {
   -webkit-animation-name: zoomIn;
           animation-name: zoomIn; }
+
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1; }
+  50% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
+  to {
+    opacity: 0; } }
+
+@keyframes zoomOut {
+  from {
+    opacity: 1; }
+  50% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
+  to {
+    opacity: 0; } }
+
+.zoomOut {
+  -webkit-animation-name: zoomOut;
+          animation-name: zoomOut; }
 
 .animated {
   -webkit-animation-duration: 1s;
