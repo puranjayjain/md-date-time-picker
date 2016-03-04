@@ -71,13 +71,13 @@ body {
   text-transform: uppercase;
   outline: none;
   cursor: pointer;
-  color: rgb(0,150,136); }
+  color: #009688; }
 
 .md-button:hover, .md-button:focus {
-  background-color: rgb(224,224,224); }
+  background-color: #e0e0e0; }
 
 .md-button:active {
-  background-color: rgb(189,189,189); }
+  background-color: #bdbdbd; }
 
 .md-picker {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -93,7 +93,7 @@ body {
   border-radius: 3px;
   overflow: hidden; }
   .md-picker .md-picker__header {
-    background-color: rgb(0,150,136);
+    background-color: #009688;
     padding: 24px;
     padding-bottom: 20px; }
     .md-picker .md-picker__header .md-picker__title, .md-picker .md-picker__header .md-picker__subtitle {
@@ -120,10 +120,10 @@ body {
   top: 0; }
 
 .md-picker-date .md-picker__left:hover, .md-picker-date .md-picker__right:hover, .md-picker-date .md-picker__left:focus, .md-picker-date .md-picker__right:focus {
-  background-color: rgb(224,224,224); }
+  background-color: #e0e0e0; }
 
 .md-picker-date .md-picker__left:active, .md-picker-date .md-picker__right:active {
-  background-color: rgb(189,189,189); }
+  background-color: #bdbdbd; }
 
 .md-picker-date .md-picker__header .md-picker__title {
   color: white;
@@ -180,9 +180,9 @@ body {
                 align-items: center;
         vertical-align: middle; }
       .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__today {
-        color: rgb(0,150,136); }
+        color: #009688; }
       .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__selected, .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr .md-picker__cell:hover {
-        background-color: rgb(0,150,136);
+        background-color: #009688;
         color: #fff; }
       .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr, .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th {
         display: -webkit-flex;
