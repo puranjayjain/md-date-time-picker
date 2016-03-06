@@ -1,3 +1,9 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.sum = sum;
 /**
  * @package md-date-time-picker
  * @version [0.0.1]
@@ -6,10 +12,10 @@
  * @website no website right now
  */
 
- export function sum(x, y) {
-   return x + y;
- }
- export var pi = 3.141593;
+function sum(x, y) {
+  return x + y;
+}
+var pi = exports.pi = 3.141593;
 
 // (function() {
 //   var mdDateTimePicker, root;
