@@ -33,13 +33,17 @@ var mdDateTimePicker = function () {
 
   function mdDateTimePicker(type) {
     var init = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
-    var format = arguments.length <= 2 || arguments[2] === undefined ? '' : arguments[2];
+    var format = arguments.length <= 2 || arguments[2] === undefined ? 'YYYY-MM-DD' : arguments[2];
     var display = arguments.length <= 3 || arguments[3] === undefined ? '' : arguments[3];
     var args = arguments.length <= 4 || arguments[4] === undefined ? '' : arguments[4];
 
     _classCallCheck(this, mdDateTimePicker);
 
     this.type = type;
+    this.init = init;
+    this.format = format;
+    this.display = display;
+    this.args = args;
 
     if (this.type) {
       /**
@@ -62,7 +66,7 @@ var mdDateTimePicker = function () {
       if (this.type === 'date') {
         this._initDateDialog(this._sDialog.date);
       } else if (this.type === 'time') {
-        // this._initTimeDialog(this._sDialog.date);
+        // this._initTimeDialog(this._sDialog.date)
       }
       this._showDialog();
     }
@@ -97,9 +101,6 @@ var mdDateTimePicker = function () {
       this._sDialog.picker.classList.remove('md-picker--inactive');
       this._sDialog.picker.classList.add('zoomIn');
     }
-  }, {
-    key: '_initDateDialog',
-
 
     /**
      * [initDateDialog description]
@@ -107,18 +108,20 @@ var mdDateTimePicker = function () {
      * @return {[type]}   [description]
      */
 
+  }, {
+    key: '_initDateDialog',
     value: function _initDateDialog(m) {
-      var pickerDialog = this._dialog.date.pickerDialog;
+      var picker = this._dialog.date.picker;
       var current = this._dialog.date.current;
       var previous = this._dialog.date.previous;
       var next = this._dialog.date.next;
-      document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = m.format('YYYY');
-      document.querySelector(pickerDialog + '.md-picker__title').innerHTML = m.format('ddd, MMM D');
-      this._initMonth(pickerDialog + current, m);
-      this._initMonth(pickerDialog + previous, moment(this._getPreviousMonthString(m)));
-      this._initMonth(pickerDialog + next, moment(this._getNextMonthString(m)));
-      this._viewDate(pickerDialog, false);
-      this._switchToDateView(pickerDialog, document.querySelector(pickerDialog + '.md-picker__subtitle'));
+      document.querySelector(picker + '.md-picker__subtitle').innerHTML = m.format('YYYY');
+      document.querySelector(picker + '.md-picker__title').innerHTML = m.format('ddd, MMM D');
+      this._initMonth(picker + current, m);
+      this._initMonth(picker + previous, moment(this._getPreviousMonthString(m)));
+      this._initMonth(picker + next, moment(this._getNextMonthString(m)));
+      this._viewDate(picker, false);
+      this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'));
     }
 
     /**
@@ -131,32 +134,32 @@ var mdDateTimePicker = function () {
   }, {
     key: '_initMonth',
     value: function _initMonth(selector, m) {
-      var cell, cells, currentDay, firstDayOfMonth, i, j, lastDayoFMonth, len, selected, selectedClass, today, todayClass;
-      document.querySelector(selector + '.md-picker__month').innerHTML = m.format('MMMM YYYY');
-      todayClass = document.querySelector(selector + '.md-picker__today');
-      selectedClass = document.querySelector(selector + '.md-picker__selected');
-      cells = document.querySelectorAll(selector + '.md-picker__tr ' + 'span');
-      firstDayOfMonth = parseInt(moment(m).date(1).day(), 10);
-      today = -1;
-      selected = -1;
-      lastDayoFMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1;
-      if (moment().format('M') === m.format('M') && moment().format('YYYY') === m.format('YYYY')) {
-        today = parseInt(moment().format('D'), 10);
-        today += firstDayOfMonth - 1;
-      }
-      if (moment().format('M') === m.format('M') && moment().format('YYYY') === m.format('YYYY')) {
-        selected = parseInt(moment(m).format('D'), 10);
-        selected += firstDayOfMonth - 1;
-      }
+      var displayMonth = m.format('MMMM YYYY');
+      document.querySelector(selector + '.md-picker__month').innerHTML = displayMonth;
+      var todayClass = document.querySelector(selector + '.md-picker__today');
+      var selectedClass = document.querySelector(selector + '.md-picker__selected');
+      var cells = document.querySelectorAll(selector + '.md-picker__tr ' + 'span');
+      var firstDayOfMonth = parseInt(moment(m).date(1).day(), 10);
+      var today = -1;
+      var selected = -1;
+      var lastDayoFMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1;
       if (todayClass) {
         todayClass.classList.remove('md-picker__today');
       }
       if (selectedClass) {
         selectedClass.classList.remove('md-picker__selected');
       }
-      for (i = j = 0, len = cells.length; j < len; i = ++j) {
-        cell = cells[i];
-        currentDay = i - firstDayOfMonth + 1;
+      if (moment().format('MMMM YYYY') === displayMonth) {
+        today = parseInt(moment().format('D'), 10);
+        today += firstDayOfMonth - 1;
+      }
+      if (selector.indexOf(this._dialog.date.current.trim()) >= 0) {
+        selected = parseInt(moment(m).format('D'), 10);
+        selected += firstDayOfMonth - 1;
+      }
+      for (var i = 0; i < cells.length; i++) {
+        var cell = cells[i];
+        var currentDay = i - firstDayOfMonth + 1;
         if (i < firstDayOfMonth) {
           cell.classList.remove('md-picker__cell');
           cell.innerHTML = '';
@@ -180,15 +183,14 @@ var mdDateTimePicker = function () {
     }
   }, {
     key: '_switchToDateView',
-    value: function _switchToDateView(pickerDialog, el) {
+    value: function _switchToDateView(picker, el) {
       el.addEventListener('click', function () {
-        var current, header, viewHolder, yearView;
         el.classList.add('md-button--unclickable');
-        current = document.querySelector(pickerDialog.trim());
-        viewHolder = document.querySelector(pickerDialog + '.md-picker__viewHolder');
-        yearView = document.querySelector(pickerDialog + '.md-picker__years');
-        header = document.querySelector(pickerDialog + '.md-picker__header');
-        if (viewDate(pickerDialog)) {
+        var current = document.querySelector(picker.trim());
+        var viewHolder = document.querySelector(picker + '.md-picker__viewHolder');
+        var yearView = document.querySelector(picker + '.md-picker__years');
+        var header = document.querySelector(picker + '.md-picker__header');
+        if (viewDate(picker)) {
           viewHolder.classList.add('zoomOut');
           yearView.classList.remove('md-picker__years--invisible');
           yearView.classList.add('zoomIn');
@@ -206,25 +208,26 @@ var mdDateTimePicker = function () {
         setTimeout(function () {
           el.classList.remove('md-button--unclickable');
         }, 1000);
-        console.info(!viewDate(pickerDialog));
-        viewDate(pickerDialog, !viewDate(pickerDialog));
+        viewDate(picker, !viewDate(picker));
       });
     }
   }, {
     key: '_addCellClickEvent',
     value: function _addCellClickEvent(el) {
-      var pickerDialog;
-      pickerDialog = '.md-picker-date ';
       el.addEventListener('click', function () {
-        var currentDate, day, monthYear;
-        day = el.innerHTML;
-        monthYear = document.querySelector(pickerDialog + '.md-picker__view--current .md-picker__month').innerHTML;
-        currentDate = moment(day + ' ' + monthYear, 'D MMMM YYYY');
-        document.querySelector(pickerDialog + '.md-picker__selected').classList.remove('md-picker__selected');
+        var picker = '.md-picker-date ';
+        var day = el.innerHTML;
+        var monthYear = document.querySelector(picker + '.md-picker__view--current .md-picker__month').innerHTML;
+        var currentDate = moment(day + ' ' + monthYear, 'D MMMM YYYY');
+        var selected = document.querySelector(picker + '.md-picker__selected');
+        if (selected) {
+          selected.classList.remove('md-picker__selected');
+        }
         el.classList.add('md-picker__selected');
-        this.sDialog.date = currentDate;
-        document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
-        document.querySelector(pickerDialog + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D');
+        // REVIEW the code below to the correct way to set date
+        // this.sDialog.date = currentDate
+        document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
+        document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D');
       });
     }
   }, {
@@ -239,12 +242,12 @@ var mdDateTimePicker = function () {
 
   }, {
     key: '_viewDate',
-    value: function _viewDate(pickerDialog, mode) {
+    value: function _viewDate(picker, mode) {
       var el;
       if (mode == null) {
         mode = '';
       }
-      el = document.querySelector(pickerDialog.trim());
+      el = document.querySelector(picker.trim());
       if (mode !== '') {
         return el.setAttribute('data-date', mode);
       } else {
@@ -271,7 +274,6 @@ var mdDateTimePicker = function () {
       return {
         date: {
           picker: '.md-picker-date ',
-          pickerDialog: '.md-picker-date ',
           current: '.md-picker__view--current ',
           previous: '.md-picker__view--previous ',
           next: '.md-picker__view--next '
