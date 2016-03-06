@@ -3609,7 +3609,7 @@
 /**
  * @package md-date-time-picker
  * @version [0.0.1]
- * @authors Puranjay Jain <puranjay.jain@st.niituniversity.in>
+ * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
  * @license MIT
  * @website no website right now
  */
@@ -3618,37 +3618,66 @@
   window.mdDateTimePicker = (function() {
 
     /**
+     * @private
+     */
+
+    /**
+     * [dialog css classes]
+     * @type {Object}
+     */
+    var addCellClickEvent, addSelectedCell, getNextMonthString, getPreviousMonthString, initDateDialog, initMonth, selectDialog, showDialog, switchToView;
+
+    mdDateTimePicker._dialog = {
+      'date': {
+        'picker': '.md-picker-date '
+      },
+      'time': ''
+    };
+
+
+    /**
+     * @public
      * [constructor of the module]
      * 					 @param  {[string]}   @type         [type of dialog] ['date','time']
-     * @optional @param  {[string]}   @display = '' [the document element where the current date is displayed]
      * @optional @param  {[string]}   @init    = '' [initial value for the dialog date or time, defaults to today]
-     * @optional @param  {[string]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016, defaults to the momentjs default format]
+     * @optional @param  {[string]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016, defaults to the 'YYYY-MM-DD' ISO date format]
+     * @optional @param  {[string]}   @display = '' [the document element where the current date is displayed]
      * @optional @param  {[type]}     @args    = '' [additional arguments of the dialog]
      * @return {[mdDateTimePicker]}                 [this component]
      */
-    var addCellClickEvent, getNextMonthString, getPreviousMonthString, initDateDialog, initMonth, switchToView;
 
-    function mdDateTimePicker(type, display, init, format, args) {
+    function mdDateTimePicker(type, init, format, display, args) {
       this.type = type;
+      this.init = init;
+      this.format = format != null ? format : 'YYYY-MM-DD';
       this.display = display != null ? display : '';
-      this.init = init != null ? init : '';
-      this.format = format != null ? format : '';
       this.args = args != null ? args : '';
-      if (!(this instanceof window.mdDateTimePicker)) {
-        return new window.mdDateTimePicker(this.type, this.display, this.init, this.format, this.args);
+
+      /**
+       * [dialog selected classes has the same structure as dialog but one level down]
+       * @type {Object}
+       * e.g
+       * sDialog = {
+       *   picker: 'some-picker-selected'
+       * }
+       */
+      this._sDialog = {};
+      if (this instanceof window.mdDateTimePicker) {
+        if (this.type) {
+          this._sDialog = selectDialog(this.constructor._dialog, this.type);
+        }
+      } else {
+        return new window.mdDateTimePicker(this.type, this.init, this.format, this.display, this.args);
       }
     }
 
-    mdDateTimePicker.prototype.open = function() {
+    mdDateTimePicker.prototype.toggle = function() {
       if (this.type === 'date') {
-        if (this.format) {
-          return initDateDialog(moment(this.init).format(this.format));
-        } else {
-          return initDateDialog(moment());
-        }
+        initDateDialog(this._sDialog.date);
       } else if (this.type === 'time') {
-        return console.log('init time');
+        console.log('init time');
       }
+      showDialog(this._sDialog);
     };
 
 
@@ -3657,13 +3686,26 @@
      * @param  {[moment]} m [date for today or current]
      */
 
+    selectDialog = function(dialog, type) {
+      var sDialog;
+      sDialog = {};
+      sDialog.picker = document.querySelector(dialog[type].picker.trim());
+      sDialog.view = false;
+      sDialog.date = this.init ? moment(this.init, this.format) : moment();
+      return sDialog;
+    };
+
+    showDialog = function(dialog) {
+      dialog.picker.classList.remove('md-picker--inactive');
+      dialog.picker.classList.add('zoomIn');
+    };
+
     initDateDialog = function(m) {
       var current, next, pickerDialog, previous;
       pickerDialog = '.md-picker-date ';
       current = '.md-picker__view--current ';
       previous = '.md-picker__view--previous ';
       next = '.md-picker__view--next ';
-      document.querySelector(pickerDialog).setAttribute('data-date', m);
       document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = m.format('YYYY');
       document.querySelector(pickerDialog + '.md-picker__title').innerHTML = m.format('ddd, MMM D');
       initMonth(pickerDialog + current, m);
@@ -3698,6 +3740,7 @@
           cell.classList.add('md-picker__selected');
         }
         if ((i >= firstDayOfMonth) && (i <= lastDayoFMonth)) {
+          cell.classList.add('md-picker__cell');
           addCellClickEvent(cell);
         }
         if (i > lastDayoFMonth) {
@@ -3708,17 +3751,13 @@
 
     switchToView = function(pickerDialog, el) {
       el.addEventListener('click', function() {
-        var current, header, view, viewHolder, yearView;
+        var current, header, viewHolder, yearView;
         el.classList.add('md-button--unclickable');
         current = document.querySelector(pickerDialog.trim());
-        view = false;
-        if (current.getAttribute('data-view') === 'true') {
-          view = true;
-        }
         viewHolder = document.querySelector(pickerDialog + '.md-picker__viewHolder');
         yearView = document.querySelector(pickerDialog + '.md-picker__years');
         header = document.querySelector(pickerDialog + '.md-picker__header');
-        if (view) {
+        if (this.sDialog.view) {
           viewHolder.classList.add('zoomOut');
           yearView.classList.remove('md-picker__years--invisible');
           yearView.classList.add('zoomIn');
@@ -3733,8 +3772,7 @@
           }), 1000);
         }
         header.classList.toggle('md-picker__header--invert');
-        view = !view;
-        current.setAttribute('data-view', view);
+        this.sDialog.view = !this.sDialog.view;
         setTimeout((function() {
           el.classList.remove('md-button--unclickable');
         }), 1000);
@@ -3751,11 +3789,13 @@
         currentDate = moment(day + ' ' + monthYear, 'D MMMM YYYY');
         document.querySelector(pickerDialog + '.md-picker__selected').classList.remove('md-picker__selected');
         el.classList.add('md-picker__selected');
-        document.querySelector(pickerDialog).setAttribute('data-date', currentDate);
+        this.sDialog.date = currentDate;
         document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
         document.querySelector(pickerDialog + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D');
       });
     };
+
+    addSelectedCell = function(el) {};
 
     getPreviousMonthString = function(moment) {
       var m;

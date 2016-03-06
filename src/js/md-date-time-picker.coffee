@@ -1,7 +1,7 @@
 ###*
  * @package md-date-time-picker
  * @version [0.0.1]
- * @authors Puranjay Jain <puranjay.jain@st.niituniversity.in>
+ * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
  * @license MIT
  * @website no website right now
 ###
@@ -9,38 +9,75 @@
 # TODO write another of this script for time picker
 
 class window.mdDateTimePicker
-  # public  functions
   ###*
+   * @private
+  ###
+  ###*
+   * [dialog css classes]
+   * @type {Object}
+  ###
+  @_dialog: {
+    'date': {
+      'picker': '.md-picker-date '
+    },
+    'time': ''
+  }
+  ###*
+   * @public
    * [constructor of the module]
    * 					 @param  {[string]}   @type         [type of dialog] ['date','time']
-   * @optional @param  {[string]}   @display = '' [the document element where the current date is displayed]
    * @optional @param  {[string]}   @init    = '' [initial value for the dialog date or time, defaults to today]
-   * @optional @param  {[string]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016, defaults to the momentjs default format]
+   * @optional @param  {[string]}   @format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016, defaults to the 'YYYY-MM-DD' ISO date format]
+   * @optional @param  {[string]}   @display = '' [the document element where the current date is displayed]
    * @optional @param  {[type]}     @args    = '' [additional arguments of the dialog]
    * @return {[mdDateTimePicker]}                 [this component]
   ###
-  constructor: (@type, @display = '', @init = '', @format = '', @args = '') ->
-    return new window.mdDateTimePicker(@type, @display, @init, @format, @args) unless @ instanceof window.mdDateTimePicker
-  open: ->
+  constructor: (@type, @init, @format = 'YYYY-MM-DD', @display = '', @args = '') ->
+    ###*
+     * [dialog selected classes has the same structure as dialog but one level down]
+     * @type {Object}
+     * e.g
+     * sDialog = {
+     *   picker: 'some-picker-selected'
+     * }
+    ###
+    @_sDialog = {}
+    if @ instanceof window.mdDateTimePicker
+      if @type
+        @_sDialog = selectDialog(@constructor._dialog, @type)
+    else
+      return new window.mdDateTimePicker(@type, @init, @format, @display, @args)
+  toggle: ->
     if @type is 'date'
-      if @format
-        initDateDialog(moment(@init).format(@format))
-      else
-        initDateDialog(moment())
+      initDateDialog(@_sDialog.date)
     else if @type is 'time'
       # TODO implement the time module
       console.log 'init time'
-  # private functions
+    showDialog(@_sDialog)
+    return
   ###*
    * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
    * @param  {[moment]} m [date for today or current]
   ###
+  selectDialog = (dialog, type) ->
+    sDialog = {}
+    sDialog.picker = document.querySelector(dialog[type].picker.trim())
+    # init dialog values
+    sDialog.view = false
+    sDialog.date = if @init then moment(@init, @format) else moment()
+    sDialog
+
+  showDialog = (dialog) ->
+    # get the dialog class
+    dialog.picker.classList.remove('md-picker--inactive')
+    dialog.picker.classList.add('zoomIn')
+    return
+
   initDateDialog = (m) ->
     pickerDialog = '.md-picker-date '
     current = '.md-picker__view--current '
     previous = '.md-picker__view--previous '
     next = '.md-picker__view--next '
-    document.querySelector(pickerDialog).setAttribute('data-date', m)
     document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = m.format('YYYY')
     document.querySelector(pickerDialog + '.md-picker__title').innerHTML = m.format('ddd, MMM D')
     # set everything for the current month
@@ -81,6 +118,8 @@ class window.mdDateTimePicker
         cell.classList.add('md-picker__selected')
       # if the cell is in this month
       if ((i >= firstDayOfMonth) and (i <= lastDayoFMonth))
+        # add cell clickable class
+        cell.classList.add('md-picker__cell')
         # add event for cell click
         addCellClickEvent(cell)
       # if the cell is after this month's last date
@@ -96,14 +135,11 @@ class window.mdDateTimePicker
       el.classList.add('md-button--unclickable')
       # get current view
       current = document.querySelector(pickerDialog.trim())
-      view = false
-      if current.getAttribute('data-view') == 'true'
-        view = true
       viewHolder = document.querySelector(pickerDialog + '.md-picker__viewHolder')
       yearView = document.querySelector(pickerDialog + '.md-picker__years')
       header = document.querySelector(pickerDialog + '.md-picker__header')
       # document
-      if view
+      if @sDialog.view
         viewHolder.classList.add('zoomOut',)
         yearView.classList.remove('md-picker__years--invisible')
         yearView.classList.add('zoomIn')
@@ -120,8 +156,7 @@ class window.mdDateTimePicker
       # toggle class for header
       header.classList.toggle('md-picker__header--invert')
       # toggle attribute
-      view = not view;
-      current.setAttribute('data-view', view)
+      @sDialog.view = not @sDialog.view;
       setTimeout ( ->
         el.classList.remove('md-button--unclickable')
         return
@@ -142,10 +177,15 @@ class window.mdDateTimePicker
       # add selected class to self
       el.classList.add('md-picker__selected')
       # change the current display date and data to the current date
-      document.querySelector(pickerDialog).setAttribute('data-date', currentDate)
+      @sDialog.date = currentDate
       document.querySelector(pickerDialog + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY')
       document.querySelector(pickerDialog + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D')
       return
+    return
+
+  # helper functions for ui
+  addSelectedCell = (el) ->
+
     return
 
   # helper functions for general calculations
