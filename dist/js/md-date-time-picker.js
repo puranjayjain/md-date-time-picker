@@ -59,16 +59,29 @@ var mdDateTimePicker = function () {
     }
   }
 
+  /**
+   * [toggle toggle the dialog's between the visible and invisible state]
+   *
+   * @method toggle
+   *
+   * @return {[type]} [description]
+   */
+
+
   _createClass(mdDateTimePicker, [{
     key: 'toggle',
     value: function toggle() {
       this._selectDialog();
-      if (this.type === 'date') {
-        this._initDateDialog(this._sDialog.date);
-      } else if (this.type === 'time') {
-        // this._initTimeDialog(this._sDialog.date)
+      if (this._dialog[this.type].state) {
+        this._hideDialog();
+      } else {
+        if (this.type === 'date') {
+          this._initDateDialog(this._sDialog.date);
+          this._showDialog();
+        } else if (this.type === 'time') {
+          // this._initTimeDialog(this._sDialog.date)
+        }
       }
-      this._showDialog();
     }
 
     /**
@@ -89,17 +102,52 @@ var mdDateTimePicker = function () {
      */
     value: function _selectDialog() {
       this._sDialog.picker = document.querySelector(this._dialog[this.type].picker.trim());
-      if (this.init) {
-        this._sDialog.date = moment(this.init, this.format);
-      } else {
-        this._sDialog.date = moment();
+      this._sDialog.cancel = document.getElementById('md-' + [this.type] + '__cancel');
+      this._sDialog.ok = document.getElementById('md-' + [this.type] + '__ok');
+      if (!this._sDialog.date) {
+        if (this.init) {
+          this._sDialog.date = moment(this.init, this.format);
+        } else {
+          this._sDialog.date = moment();
+        }
       }
+      this._sDialog.tDate = this._sDialog.date;
     }
+
+    /**
+     * [_showDialog make the dialog visible with animation]
+     *
+     * @method _showDialog
+     *
+     * @return {[type]}    [description]
+     */
+
   }, {
     key: '_showDialog',
     value: function _showDialog() {
       this._sDialog.picker.classList.remove('md-picker--inactive');
       this._sDialog.picker.classList.add('zoomIn');
+      this._dialog[this.type].state = true;
+    }
+
+    /**
+     * [_hideDialog make the dialog invisible with animation]
+     *
+     * @method _hideDialog
+     *
+     * @return {[type]}    [description]
+     */
+
+  }, {
+    key: '_hideDialog',
+    value: function _hideDialog() {
+      this._sDialog.picker.classList.add('zoomOut');
+      this._dialog[this.type].state = false;
+      var self = this;
+      setTimeout(function () {
+        self._sDialog.picker.classList.remove('zoomOut', 'zoomIn');
+        self._sDialog.picker.classList.add('md-picker--inactive');
+      }, 450);
     }
 
     /**
@@ -120,7 +168,8 @@ var mdDateTimePicker = function () {
       this._initMonth(picker + current, m);
       this._initMonth(picker + previous, moment(this._getPreviousMonthString(m)));
       this._initMonth(picker + next, moment(this._getNextMonthString(m)));
-      this._viewDate(picker, false);
+      // this._viewDate(false)
+      this._attachEventHandlers();
       this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'));
     }
 
@@ -214,6 +263,7 @@ var mdDateTimePicker = function () {
   }, {
     key: '_addCellClickEvent',
     value: function _addCellClickEvent(el) {
+      var self = this;
       el.addEventListener('click', function () {
         var picker = '.md-picker-date ';
         var day = el.innerHTML;
@@ -224,47 +274,47 @@ var mdDateTimePicker = function () {
           selected.classList.remove('md-picker__selected');
         }
         el.classList.add('md-picker__selected');
-        // REVIEW the code below to the correct way to set date
-        // this.sDialog.date = currentDate
+
+        // update temp date object with the date selected
+        self._sDialog.tDate = currentDate;
+
         document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
         document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D');
       });
     }
-  }, {
-    key: '_addSelectedCell',
-    value: function _addSelectedCell() {}
 
     /**
-     * [viewDate it stores the current state of the date dialog]
-     * @param  {[Boolean]} mode = '' [description]
-     * @return {[type]}           [description]
+     * [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
+     *
+     * @method _attachEventHandlers
+     *
      */
 
   }, {
-    key: '_viewDate',
-    value: function _viewDate(picker, mode) {
-      var el;
-      if (mode == null) {
-        mode = '';
-      }
-      el = document.querySelector(picker.trim());
-      if (mode !== '') {
-        return el.setAttribute('data-date', mode);
-      } else {
-        return el.getAttribute('data-date');
-      }
+    key: '_attachEventHandlers',
+    value: function _attachEventHandlers() {
+      var self = this;
+      var cancel = this._sDialog.cancel;
+      var ok = this._sDialog.ok;
+      cancel.addEventListener('click', function () {
+        self._hideDialog();
+      });
+      ok.addEventListener('click', function () {
+        self._sDialog.date = self._sDialog.tDate;
+        self._hideDialog();
+      });
     }
   }, {
     key: '_getPreviousMonthString',
     value: function _getPreviousMonthString(moment) {
-      var m;
+      var m = void 0;
       m = moment.clone();
       return m.subtract(1, 'month');
     }
   }, {
     key: '_getNextMonthString',
     value: function _getNextMonthString(moment) {
-      var m;
+      var m = void 0;
       m = moment.clone();
       return m.add(1, 'month');
     }
@@ -273,12 +323,20 @@ var mdDateTimePicker = function () {
     value: function _dialog() {
       return {
         date: {
+          state: false,
           picker: '.md-picker-date ',
           current: '.md-picker__view--current ',
           previous: '.md-picker__view--previous ',
-          next: '.md-picker__view--next '
+          next: '.md-picker__view--next ',
+          view: false
         },
-        time: {}
+        time: {
+          state: false
+        },
+        common: {
+          cancel: '.md-button--cancel',
+          ok: '.md-button--ok'
+        }
       };
     }
   }]);

@@ -559,15 +559,15 @@
         <li>2000</li>
       </ul>
       <div class="md-picker__action">
-        <button class="md-button" type="button">cancel</button>
-        <button class="md-button" type="button">ok</button>
+        <button id="md-date__cancel" class="md-button" type="button">cancel</button>
+        <button id="md-date__ok" class="md-button" type="button">ok</button>
       </div>
     </div>
   </div>
   <script src="js/moment.js"></script>
   <script src="js/md-date-time-picker.js"></script>
   <script type="text/javascript">
-    (function() {
+    // (function() {
       var x = new mdDateTimePicker('date');
       var y = new mdDateTimePicker('date', '2016-02-29', 'YYYY-MM-DD');
       var z = new mdDateTimePicker('date', '2016-03-3', 'YYYY-MM-DD');
@@ -580,7 +580,7 @@
       document.getElementById('trigger3').addEventListener('click', function() {
         z.toggle();
       });
-    }).call(this);
+    // }).call(this);
   </script>
 </body>
 
