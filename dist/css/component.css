@@ -296,8 +296,8 @@ body {
           animation-name: zoomOut; }
 
 .animated {
-  -webkit-animation-duration: .3s;
-          animation-duration: .3s;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
   -webkit-animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
           animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
   -webkit-animation-fill-mode: both;

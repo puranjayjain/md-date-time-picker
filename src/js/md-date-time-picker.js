@@ -151,6 +151,7 @@ class mdDateTimePicker {
 		let header = this._sDialog.header
 		let viewHolder = this._sDialog.viewHolder
 		this._dialog.state = false
+		this._dialog[this.type].view = true
 		this._sDialog.picker.classList.add('zoomOut')
 			// reset classes
 		years.classList.remove('zoomIn', 'zoomOut')
