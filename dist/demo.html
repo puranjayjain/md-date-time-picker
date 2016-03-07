@@ -13,12 +13,12 @@
   <button type="button" id="trigger3">Open Dialog 3</button>
   <!-- date picker dialog -->
   <div id="md-picker__date" class="md-picker md-picker-date md-picker--inactive animated">
-    <div class="md-picker__header">
+    <div id="md-date__header" class="md-picker__header">
       <h4 class="md-picker__subtitle"></h4>
       <h2 class="md-picker__title"></h2>
     </div>
     <div class="md-picker__body">
-      <div class="md-picker__viewHolder animated">
+      <div id="md-date__viewHolder" class="md-picker__viewHolder animated">
         <div class="md-picker__view md-picker__view--previous">
           <div class="md-picker__month"></div>
           <div class="md-picker__grid">
@@ -268,34 +268,7 @@
         <button class="md-button md-picker__left" type="button"></button>
         <button class="md-button md-picker__right" type="button"></button>
       </div>
-      <ul class="md-picker__years md-picker__years--invisible animated">
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li class="md-picker__li--current">2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-        <li>2000</li>
-      </ul>
+      <ul id="md-date__years" class="md-picker__years md-picker__years--invisible animated"></ul>
       <div class="md-picker__action">
         <button id="md-date__cancel" class="md-button" type="button">cancel</button>
         <button id="md-date__ok" class="md-button" type="button">ok</button>

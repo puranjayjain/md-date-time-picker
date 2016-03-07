@@ -11,6 +11,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @license MIT
  * @website no website right now
  */
+
 /**
  * All declarations starting with _ are considered @private
  */
@@ -43,6 +44,7 @@ var mdDateTimePicker = function () {
 		this.format = format;
 		this.display = display;
 		this.args = args;
+
 		if (this.type) {
 			/**
     * [dialog selected classes has the same structure as dialog but one level down]
@@ -56,6 +58,7 @@ var mdDateTimePicker = function () {
 			this._dialog = this.constructor._dialog();
 		}
 	}
+
 	/**
   * [toggle toggle the dialog's between the visible and invisible state]
   *
@@ -68,20 +71,20 @@ var mdDateTimePicker = function () {
 	_createClass(mdDateTimePicker, [{
 		key: 'toggle',
 		value: function toggle() {
-			var me = this;
 			this._selectDialog();
 			// work according to the current state of the dialog
 			if (this._dialog.state) {
-				me._hideDialog();
+				this._hideDialog();
 			} else {
 				if (this.type === 'date') {
 					this._initDateDialog(this._sDialog.date);
 				} else if (this.type === 'time') {
 					// this._initTimeDialog(this._sDialog.date)
 				}
-				me._showDialog();
+				this._showDialog();
 			}
 		}
+
 		/**
    * [_dialog to store general values]
    *
@@ -92,6 +95,7 @@ var mdDateTimePicker = function () {
 
 	}, {
 		key: '_selectDialog',
+
 
 		/**
    * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
@@ -104,8 +108,37 @@ var mdDateTimePicker = function () {
 			picker.parentNode.replaceChild(pickerClone, picker);
 			// now do what you normally would do
 			this._sDialog.picker = document.getElementById('md-picker__' + [this.type]);
-			this._sDialog.cancel = document.getElementById('md-' + [this.type] + '__cancel');
-			this._sDialog.ok = document.getElementById('md-' + [this.type] + '__ok');
+			/**
+    * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
+    *
+    * @type {Array}
+    */
+			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok'];
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = sDialogEls[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var sDialogEl = _step.value;
+
+					this._sDialog[sDialogEl] = document.getElementById('md-' + [this.type] + '__' + sDialogEl);
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
+			}
+
 			if (!this._sDialog.date) {
 				if (this.init) {
 					this._sDialog.date = moment(this.init, this.format);
@@ -115,6 +148,7 @@ var mdDateTimePicker = function () {
 			}
 			this._sDialog.tDate = this._sDialog.date;
 		}
+
 		/**
    * [_showDialog make the dialog visible with animation]
    *
@@ -130,6 +164,7 @@ var mdDateTimePicker = function () {
 			this._sDialog.picker.classList.remove('md-picker--inactive');
 			this._sDialog.picker.classList.add('zoomIn');
 		}
+
 		/**
    * [_hideDialog make the dialog invisible with animation]
    *
@@ -149,11 +184,14 @@ var mdDateTimePicker = function () {
 				me._sDialog.picker.classList.add('md-picker--inactive');
 			}, 300);
 		}
+
 		/**
    * [initDateDialog description]
    * @param  {[type]} m [description]
    * @return {[type]}   [description]
    */
+
+		//  TODO apply upper cap and lower cap to this function as well
 
 	}, {
 		key: '_initDateDialog',
@@ -167,9 +205,11 @@ var mdDateTimePicker = function () {
 			this._initMonth(picker + current, m);
 			this._initMonth(picker + previous, moment(this._getPreviousMonthString(m)));
 			this._initMonth(picker + next, moment(this._getNextMonthString(m)));
+			this._initYear();
 			this._attachEventHandlers();
 			this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'));
 		}
+
 		/**
    * [initMonth description]
    * @param  {[type]} selector [description]
@@ -227,6 +267,45 @@ var mdDateTimePicker = function () {
 				}
 			}
 		}
+
+		/**
+   * [_initYear Adds year elements]
+   *
+   * @method _initYear
+   *
+   * @return {[type]}  [description]
+   */
+
+	}, {
+		key: '_initYear',
+		value: function _initYear() {
+			var years = this._sDialog.years;
+			var currentYear = parseInt(this._sDialog.date.format('YYYY'), 10);
+			//TODO also add event listener to this
+			var yearString = '';
+			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
+			for (var year = 1900; year <= 2100; year++) {
+				if (year === currentYear) {
+					yearString += '<li class="md-picker__li--current">' + year + '</li>';
+				} else {
+					yearString += '<li>' + year + '</li>';
+				}
+			}
+			// set inner html accordingly
+			years.innerHTML = yearString;
+		}
+
+		/**
+   * [_switchToDateView Adds event handler for the feature: switch between date and year view in date dialog]
+   *
+   * @method _switchToDateView
+   *
+   * @param  {[type]}          picker [description]
+   * @param  {[type]}          el     [description]
+   *
+   * @return {[type]}          [description]
+   */
+
 	}, {
 		key: '_switchToDateView',
 		value: function _switchToDateView(picker, el) {
@@ -234,21 +313,20 @@ var mdDateTimePicker = function () {
 			// attach the view change button
 			el.addEventListener('click', function () {
 				el.classList.add('md-button--unclickable');
-				var current = document.querySelector(picker.trim());
-				var viewHolder = document.querySelector(picker + '.md-picker__viewHolder');
-				var yearView = document.querySelector(picker + '.md-picker__years');
-				var header = document.querySelector(picker + '.md-picker__header');
+				var viewHolder = me._sDialog.viewHolder;
+				var years = me._sDialog.years;
+				var header = me._sDialog.header;
 				if (me._dialog.date.view) {
 					viewHolder.classList.add('zoomOut');
-					yearView.classList.remove('md-picker__years--invisible');
-					yearView.classList.add('zoomIn');
+					years.classList.remove('md-picker__years--invisible');
+					years.classList.add('zoomIn');
 				} else {
-					yearView.classList.add('zoomOut');
+					years.classList.add('zoomOut');
 					viewHolder.classList.remove('zoomOut');
 					viewHolder.classList.add('zoomIn');
 					setTimeout(function () {
-						yearView.classList.remove('zoomIn', 'zoomOut');
-						yearView.classList.add('md-picker__years--invisible');
+						years.classList.remove('zoomIn', 'zoomOut');
+						years.classList.add('md-picker__years--invisible');
 						viewHolder.classList.remove('zoomIn');
 					}, 300);
 				}
@@ -273,12 +351,15 @@ var mdDateTimePicker = function () {
 					selected.classList.remove('md-picker__selected');
 				}
 				el.classList.add('md-picker__selected');
+
 				// update temp date object with the date selected
 				me._sDialog.tDate = currentDate;
+
 				document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
 				document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D');
 			});
 		}
+
 		/**
    * [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
    *
@@ -300,6 +381,7 @@ var mdDateTimePicker = function () {
 				me.toggle();
 			});
 		}
+
 		/**
    * [_getPreviousMonthString get the previous month in a moment format]
    *
@@ -317,6 +399,7 @@ var mdDateTimePicker = function () {
 			m = moment.clone();
 			return m.subtract(1, 'month');
 		}
+
 		/**
    * [_getNextMonthString get the next month in a moment format]
    *

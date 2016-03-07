@@ -53,18 +53,17 @@ class mdDateTimePicker {
 	 * @return {[type]} [description]
 	 */
 	toggle() {
-		var me = this
 		this._selectDialog()
 			// work according to the current state of the dialog
 		if (this._dialog.state) {
-			me._hideDialog()
+			this._hideDialog()
 		} else {
 			if (this.type === 'date') {
 				this._initDateDialog(this._sDialog.date)
 			} else if (this.type === 'time') {
 				// this._initTimeDialog(this._sDialog.date)
 			}
-			me._showDialog()
+			this._showDialog()
 		}
 	}
 
@@ -104,8 +103,17 @@ class mdDateTimePicker {
 		picker.parentNode.replaceChild(pickerClone, picker)
 			// now do what you normally would do
 		this._sDialog.picker = document.getElementById('md-picker__' + [this.type])
-		this._sDialog.cancel = document.getElementById('md-' + [this.type] + '__cancel')
-		this._sDialog.ok = document.getElementById('md-' + [this.type] + '__ok')
+			/**
+			 * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
+			 *
+			 * @type {Array}
+			 */
+		let sDialogEls = [
+			'viewHolder', 'years', 'header', 'cancel', 'ok'
+		]
+		for (let sDialogEl of sDialogEls) {
+			this._sDialog[sDialogEl] = document.getElementById('md-' + [this.type] + '__' + sDialogEl)
+		}
 
 		if (!this._sDialog.date) {
 			if (this.init) {
@@ -153,6 +161,7 @@ class mdDateTimePicker {
 	 * @return {[type]}   [description]
 	 */
 
+	//  TODO apply upper cap and lower cap to this function as well
 	_initDateDialog(m) {
 		let picker = this._dialog.date.picker
 		let current = this._dialog.date.current
@@ -163,6 +172,7 @@ class mdDateTimePicker {
 		this._initMonth(picker + current, m)
 		this._initMonth(picker + previous, moment(this._getPreviousMonthString(m)))
 		this._initMonth(picker + next, moment(this._getNextMonthString(m)))
+		this._initYear()
 		this._attachEventHandlers()
 		this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'))
 	}
@@ -222,26 +232,60 @@ class mdDateTimePicker {
 			}
 		}
 	}
+
+	/**
+	 * [_initYear Adds year elements]
+	 *
+	 * @method _initYear
+	 *
+	 * @return {[type]}  [description]
+	 */
+	_initYear() {
+		let years = this._sDialog.years
+		let currentYear = parseInt(this._sDialog.date.format('YYYY'), 10)
+			//TODO also add event listener to this
+		let yearString = ''
+			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
+		for (let year = 1900; year <= 2100; year++) {
+			if (year === currentYear) {
+				yearString += '<li class="md-picker__li--current">' + year + '</li>'
+			} else {
+				yearString += '<li>' + year + '</li>'
+			}
+		}
+		// set inner html accordingly
+		years.innerHTML = yearString
+	}
+
+	/**
+	 * [_switchToDateView Adds event handler for the feature: switch between date and year view in date dialog]
+	 *
+	 * @method _switchToDateView
+	 *
+	 * @param  {[type]}          picker [description]
+	 * @param  {[type]}          el     [description]
+	 *
+	 * @return {[type]}          [description]
+	 */
 	_switchToDateView(picker, el) {
-		var me = this
+		let me = this
 			// attach the view change button
 		el.addEventListener('click', function () {
 			el.classList.add('md-button--unclickable')
-			let current = document.querySelector(picker.trim())
-			let viewHolder = document.querySelector(picker + '.md-picker__viewHolder')
-			let yearView = document.querySelector(picker + '.md-picker__years')
-			let header = document.querySelector(picker + '.md-picker__header')
+			let viewHolder = me._sDialog.viewHolder
+			let years = me._sDialog.years
+			let header = me._sDialog.header
 			if (me._dialog.date.view) {
 				viewHolder.classList.add('zoomOut')
-				yearView.classList.remove('md-picker__years--invisible')
-				yearView.classList.add('zoomIn')
+				years.classList.remove('md-picker__years--invisible')
+				years.classList.add('zoomIn')
 			} else {
-				yearView.classList.add('zoomOut')
+				years.classList.add('zoomOut')
 				viewHolder.classList.remove('zoomOut')
 				viewHolder.classList.add('zoomIn')
 				setTimeout((function () {
-					yearView.classList.remove('zoomIn', 'zoomOut')
-					yearView.classList.add('md-picker__years--invisible')
+					years.classList.remove('zoomIn', 'zoomOut')
+					years.classList.add('md-picker__years--invisible')
 					viewHolder.classList.remove('zoomIn')
 				}), 300)
 			}
