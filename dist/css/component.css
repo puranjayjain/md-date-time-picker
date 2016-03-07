@@ -245,8 +245,7 @@ body {
       font-size: 21px;
       color: #009688; }
   .md-picker-date .md-picker__body .md-picker__years--invisible {
-    pointer-events: none;
-    opacity: 0; }
+    display: none; }
   .md-picker-date .md-picker__body .md-picker__action {
     margin-top: 24px;
     padding: 8px 0;
@@ -297,8 +296,8 @@ body {
           animation-name: zoomOut; }
 
 .animated {
-  -webkit-animation-duration: .45s;
-          animation-duration: .45s;
+  -webkit-animation-duration: .3s;
+          animation-duration: .3s;
   -webkit-animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
           animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
   -webkit-animation-fill-mode: both;

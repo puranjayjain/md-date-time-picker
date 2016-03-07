@@ -71,16 +71,18 @@ var mdDateTimePicker = function () {
   _createClass(mdDateTimePicker, [{
     key: 'toggle',
     value: function toggle() {
+      var me = this;
       this._selectDialog();
-      if (this._dialog[this.type].state) {
-        this._hideDialog();
+      // work according to the current state of the dialog
+      if (this._dialog.state) {
+        me._hideDialog();
       } else {
         if (this.type === 'date') {
           this._initDateDialog(this._sDialog.date);
-          this._showDialog();
         } else if (this.type === 'time') {
           // this._initTimeDialog(this._sDialog.date)
         }
+        me._showDialog();
       }
     }
 
@@ -101,9 +103,15 @@ var mdDateTimePicker = function () {
      * @param  {[moment]} m [date for today or current]
      */
     value: function _selectDialog() {
-      this._sDialog.picker = document.querySelector(this._dialog[this.type].picker.trim());
+      // clone elements and add them again to clear events attached to them
+      var picker = document.getElementById('md-picker__' + [this.type]);
+      var pickerClone = picker.cloneNode(true);
+      picker.parentNode.replaceChild(pickerClone, picker);
+      // now do what you normally would do
+      this._sDialog.picker = document.getElementById('md-picker__' + [this.type]);
       this._sDialog.cancel = document.getElementById('md-' + [this.type] + '__cancel');
       this._sDialog.ok = document.getElementById('md-' + [this.type] + '__ok');
+
       if (!this._sDialog.date) {
         if (this.init) {
           this._sDialog.date = moment(this.init, this.format);
@@ -125,9 +133,9 @@ var mdDateTimePicker = function () {
   }, {
     key: '_showDialog',
     value: function _showDialog() {
+      this._dialog.state = true;
       this._sDialog.picker.classList.remove('md-picker--inactive');
       this._sDialog.picker.classList.add('zoomIn');
-      this._dialog[this.type].state = true;
     }
 
     /**
@@ -141,13 +149,13 @@ var mdDateTimePicker = function () {
   }, {
     key: '_hideDialog',
     value: function _hideDialog() {
+      var me = this;
+      this._dialog.state = false;
       this._sDialog.picker.classList.add('zoomOut');
-      this._dialog[this.type].state = false;
-      var self = this;
       setTimeout(function () {
-        self._sDialog.picker.classList.remove('zoomOut', 'zoomIn');
-        self._sDialog.picker.classList.add('md-picker--inactive');
-      }, 450);
+        me._sDialog.picker.classList.remove('zoomOut', 'zoomIn');
+        me._sDialog.picker.classList.add('md-picker--inactive');
+      }, 300);
     }
 
     /**
@@ -168,7 +176,6 @@ var mdDateTimePicker = function () {
       this._initMonth(picker + current, m);
       this._initMonth(picker + previous, moment(this._getPreviousMonthString(m)));
       this._initMonth(picker + next, moment(this._getNextMonthString(m)));
-      // this._viewDate(false)
       this._attachEventHandlers();
       this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'));
     }
@@ -233,13 +240,15 @@ var mdDateTimePicker = function () {
   }, {
     key: '_switchToDateView',
     value: function _switchToDateView(picker, el) {
+      var me = this;
+      // attach the view change button
       el.addEventListener('click', function () {
         el.classList.add('md-button--unclickable');
         var current = document.querySelector(picker.trim());
         var viewHolder = document.querySelector(picker + '.md-picker__viewHolder');
         var yearView = document.querySelector(picker + '.md-picker__years');
         var header = document.querySelector(picker + '.md-picker__header');
-        if (viewDate(picker)) {
+        if (me._dialog.date.view) {
           viewHolder.classList.add('zoomOut');
           yearView.classList.remove('md-picker__years--invisible');
           yearView.classList.add('zoomIn');
@@ -251,19 +260,19 @@ var mdDateTimePicker = function () {
             yearView.classList.remove('zoomIn', 'zoomOut');
             yearView.classList.add('md-picker__years--invisible');
             viewHolder.classList.remove('zoomIn');
-          }, 1000);
+          }, 300);
         }
         header.classList.toggle('md-picker__header--invert');
+        me._dialog.date.view = !me._dialog.date.view;
         setTimeout(function () {
           el.classList.remove('md-button--unclickable');
-        }, 1000);
-        viewDate(picker, !viewDate(picker));
+        }, 300);
       });
     }
   }, {
     key: '_addCellClickEvent',
     value: function _addCellClickEvent(el) {
-      var self = this;
+      var me = this;
       el.addEventListener('click', function () {
         var picker = '.md-picker-date ';
         var day = el.innerHTML;
@@ -276,7 +285,7 @@ var mdDateTimePicker = function () {
         el.classList.add('md-picker__selected');
 
         // update temp date object with the date selected
-        self._sDialog.tDate = currentDate;
+        me._sDialog.tDate = currentDate;
 
         document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
         document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D');
@@ -293,17 +302,28 @@ var mdDateTimePicker = function () {
   }, {
     key: '_attachEventHandlers',
     value: function _attachEventHandlers() {
-      var self = this;
+      var me = this;
       var cancel = this._sDialog.cancel;
       var ok = this._sDialog.ok;
       cancel.addEventListener('click', function () {
-        self._hideDialog();
+        me.toggle();
       });
       ok.addEventListener('click', function () {
-        self._sDialog.date = self._sDialog.tDate;
-        self._hideDialog();
+        me._sDialog.date = me._sDialog.tDate;
+        me.toggle();
       });
     }
+
+    /**
+     * [_getPreviousMonthString get the previous month in a moment format]
+     *
+     * @method _getPreviousMonthString
+     *
+     * @param  {[type]}                moment [description]
+     *
+     * @return {[type]}                [description]
+     */
+
   }, {
     key: '_getPreviousMonthString',
     value: function _getPreviousMonthString(moment) {
@@ -311,6 +331,17 @@ var mdDateTimePicker = function () {
       m = moment.clone();
       return m.subtract(1, 'month');
     }
+
+    /**
+     * [_getNextMonthString get the next month in a moment format]
+     *
+     * @method _getNextMonthString
+     *
+     * @param  {[type]}            moment [description]
+     *
+     * @return {[type]}            [description]
+     */
+
   }, {
     key: '_getNextMonthString',
     value: function _getNextMonthString(moment) {
@@ -323,17 +354,15 @@ var mdDateTimePicker = function () {
     value: function _dialog() {
       return {
         date: {
-          state: false,
           picker: '.md-picker-date ',
           current: '.md-picker__view--current ',
           previous: '.md-picker__view--previous ',
           next: '.md-picker__view--next ',
-          view: false
+          view: true
         },
-        time: {
-          state: false
-        },
+        time: {},
         common: {
+          state: false,
           cancel: '.md-button--cancel',
           ok: '.md-button--ok'
         }

@@ -53,16 +53,18 @@ class mdDateTimePicker {
    * @return {[type]} [description]
    */
   toggle() {
+    var me = this
     this._selectDialog()
-    if (this._dialog[this.type].state) {
-      this._hideDialog()
+      // work according to the current state of the dialog
+    if (this._dialog.state) {
+      me._hideDialog()
     } else {
       if (this.type === 'date') {
         this._initDateDialog(this._sDialog.date)
-        this._showDialog()
       } else if (this.type === 'time') {
         // this._initTimeDialog(this._sDialog.date)
       }
+      me._showDialog()
     }
   }
 
@@ -76,17 +78,15 @@ class mdDateTimePicker {
   static _dialog() {
     return {
       date: {
-        state: false,
         picker: '.md-picker-date ',
         current: '.md-picker__view--current ',
         previous: '.md-picker__view--previous ',
         next: '.md-picker__view--next ',
-        view: false
+        view: true
       },
-      time: {
-        state: false
-      },
+      time: {},
       common: {
+        state: false,
         cancel: '.md-button--cancel',
         ok: '.md-button--ok'
       }
@@ -98,10 +98,16 @@ class mdDateTimePicker {
    * @param  {[moment]} m [date for today or current]
    */
   _selectDialog() {
-    this._sDialog.picker = document.querySelector(this._dialog[this.type].picker.trim())
+    // clone elements and add them again to clear events attached to them
+    let picker = document.getElementById('md-picker__' + [this.type])
+    let pickerClone = picker.cloneNode(true)
+    picker.parentNode.replaceChild(pickerClone, picker)
+    // now do what you normally would do
+    this._sDialog.picker = document.getElementById('md-picker__' + [this.type])
     this._sDialog.cancel = document.getElementById('md-' + [this.type] + '__cancel')
     this._sDialog.ok = document.getElementById('md-' + [this.type] + '__ok')
-    if (!this._sDialog.date) {      
+
+    if (!this._sDialog.date) {
       if (this.init) {
         this._sDialog.date = moment(this.init, this.format)
       } else {
@@ -119,9 +125,9 @@ class mdDateTimePicker {
    * @return {[type]}    [description]
    */
   _showDialog() {
+    this._dialog.state = true
     this._sDialog.picker.classList.remove('md-picker--inactive')
     this._sDialog.picker.classList.add('zoomIn')
-    this._dialog[this.type].state = true
   }
 
   /**
@@ -132,13 +138,13 @@ class mdDateTimePicker {
    * @return {[type]}    [description]
    */
   _hideDialog() {
+    let me = this
+    this._dialog.state = false
     this._sDialog.picker.classList.add('zoomOut')
-    this._dialog[this.type].state = false
-    let self = this
     setTimeout(function() {
-      self._sDialog.picker.classList.remove('zoomOut', 'zoomIn')
-      self._sDialog.picker.classList.add('md-picker--inactive')
-    }, 450)
+      me._sDialog.picker.classList.remove('zoomOut', 'zoomIn')
+      me._sDialog.picker.classList.add('md-picker--inactive')
+    }, 300)
   }
 
   /**
@@ -157,7 +163,6 @@ class mdDateTimePicker {
     this._initMonth(picker + current, m)
     this._initMonth(picker + previous, moment(this._getPreviousMonthString(m)))
     this._initMonth(picker + next, moment(this._getNextMonthString(m)))
-      // this._viewDate(false)
     this._attachEventHandlers()
     this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'))
   }
@@ -218,13 +223,15 @@ class mdDateTimePicker {
     }
   }
   _switchToDateView(picker, el) {
+    var me = this
+    // attach the view change button
     el.addEventListener('click', function() {
       el.classList.add('md-button--unclickable')
       let current = document.querySelector(picker.trim())
       let viewHolder = document.querySelector(picker + '.md-picker__viewHolder')
       let yearView = document.querySelector(picker + '.md-picker__years')
       let header = document.querySelector(picker + '.md-picker__header')
-      if (viewDate(picker)) {
+      if (me._dialog.date.view) {
         viewHolder.classList.add('zoomOut')
         yearView.classList.remove('md-picker__years--invisible')
         yearView.classList.add('zoomIn')
@@ -236,18 +243,18 @@ class mdDateTimePicker {
           yearView.classList.remove('zoomIn', 'zoomOut')
           yearView.classList.add('md-picker__years--invisible')
           viewHolder.classList.remove('zoomIn')
-        }), 1000)
+        }), 300)
       }
       header.classList.toggle('md-picker__header--invert')
+      me._dialog.date.view = !me._dialog.date.view
       setTimeout((function() {
         el.classList.remove('md-button--unclickable')
-      }), 1000)
-      viewDate(picker, !(viewDate(picker)))
+      }), 300)
     })
   }
 
   _addCellClickEvent(el) {
-    let self = this
+    let me = this
     el.addEventListener('click', function() {
       let picker = '.md-picker-date '
       let day = el.innerHTML
@@ -260,7 +267,7 @@ class mdDateTimePicker {
       el.classList.add('md-picker__selected')
 
       // update temp date object with the date selected
-      self._sDialog.tDate = currentDate
+      me._sDialog.tDate = currentDate
 
       document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY')
       document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D')
@@ -274,24 +281,42 @@ class mdDateTimePicker {
    *
    */
   _attachEventHandlers() {
-    let self = this
+    let me = this
     let cancel = this._sDialog.cancel
     let ok = this._sDialog.ok
     cancel.addEventListener('click', function() {
-      self._hideDialog()
+      me.toggle()
     })
     ok.addEventListener('click', function() {
-      self._sDialog.date = self._sDialog.tDate
-      self._hideDialog()
+      me._sDialog.date = me._sDialog.tDate
+      me.toggle()
     })
   }
 
+  /**
+   * [_getPreviousMonthString get the previous month in a moment format]
+   *
+   * @method _getPreviousMonthString
+   *
+   * @param  {[type]}                moment [description]
+   *
+   * @return {[type]}                [description]
+   */
   _getPreviousMonthString(moment) {
     let m
     m = moment.clone()
     return m.subtract(1, 'month')
   }
 
+  /**
+   * [_getNextMonthString get the next month in a moment format]
+   *
+   * @method _getNextMonthString
+   *
+   * @param  {[type]}            moment [description]
+   *
+   * @return {[type]}            [description]
+   */
   _getNextMonthString(moment) {
     let m
     m = moment.clone()

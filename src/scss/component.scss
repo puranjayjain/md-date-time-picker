@@ -207,8 +207,7 @@ body {
       }
     }
     .md-picker__years--invisible {
-      pointer-events: none;
-      opacity: 0;
+      display: none;
     }
     .md-picker__action {
       margin-top: 24px;
@@ -247,7 +246,7 @@ body {
   animation-name: zoomOut;
 }
 .animated {
-  animation-duration: .45s;
+  animation-duration: .3s;
   animation-timing-function: cubic-bezier(.42, 0, .58, 1);
   animation-fill-mode: both;
 }
