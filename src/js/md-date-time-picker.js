@@ -147,8 +147,16 @@ class mdDateTimePicker {
 	 */
 	_hideDialog() {
 		let me = this
+		let years = this._sDialog.years
+		let header = this._sDialog.header
+		let viewHolder = this._sDialog.viewHolder
 		this._dialog.state = false
 		this._sDialog.picker.classList.add('zoomOut')
+			// reset classes
+		years.classList.remove('zoomIn', 'zoomOut')
+		years.classList.add('md-picker__years--invisible')
+		header.classList.remove('md-picker__header--invert')
+		viewHolder.classList.remove('zoomOut')
 		setTimeout(function () {
 			me._sDialog.picker.classList.remove('zoomOut', 'zoomIn')
 			me._sDialog.picker.classList.add('md-picker--inactive')
@@ -175,6 +183,8 @@ class mdDateTimePicker {
 		this._initYear()
 		this._attachEventHandlers()
 		this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'))
+		this._switchToDateView(picker, document.querySelector(picker + '.md-picker__title'))
+		this._switchToDateView(picker, document.querySelector(picker + current + '.md-picker__month'))
 	}
 
 	/**
@@ -248,13 +258,15 @@ class mdDateTimePicker {
 			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
 		for (let year = 1900; year <= 2100; year++) {
 			if (year === currentYear) {
-				yearString += '<li class="md-picker__li--current">' + year + '</li>'
+				yearString += '<li id="md-date__currentYear" class="md-picker__li--current">' + year + '</li>'
 			} else {
 				yearString += '<li>' + year + '</li>'
 			}
 		}
 		// set inner html accordingly
 		years.innerHTML = yearString
+			// get the current year
+		this._sDialog.currentYear = document.getElementById('md-date__currentYear')
 	}
 
 	/**
@@ -279,6 +291,8 @@ class mdDateTimePicker {
 				viewHolder.classList.add('zoomOut')
 				years.classList.remove('md-picker__years--invisible')
 				years.classList.add('zoomIn')
+					// scroll into the view
+				me._sDialog.currentYear.scrollIntoViewIfNeeded()
 			} else {
 				years.classList.add('zoomOut')
 				viewHolder.classList.remove('zoomOut')
@@ -366,4 +380,33 @@ class mdDateTimePicker {
 		m = moment.clone()
 		return m.add(1, 'month')
 	}
+}
+
+// polyfill for scrollintoviewifneeded
+if (!Element.prototype.scrollIntoViewIfNeeded) {
+	Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
+		centerIfNeeded = arguments.length === 0 ? true : !!centerIfNeeded;
+
+		var parent = this.parentNode,
+			parentComputedStyle = window.getComputedStyle(parent, null),
+			parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width')),
+			parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width')),
+			overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
+			overBottom = (this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth) > (parent.scrollTop + parent.clientHeight),
+			overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
+			overRight = (this.offsetLeft - parent.offsetLeft + this.clientWidth - parentBorderLeftWidth) > (parent.scrollLeft + parent.clientWidth),
+			alignWithTop = overTop && !overBottom;
+
+		if ((overTop || overBottom) && centerIfNeeded) {
+			parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2;
+		}
+
+		if ((overLeft || overRight) && centerIfNeeded) {
+			parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2;
+		}
+
+		if ((overTop || overBottom || overLeft || overRight) && !centerIfNeeded) {
+			this.scrollIntoView(alignWithTop);
+		}
+	};
 }
