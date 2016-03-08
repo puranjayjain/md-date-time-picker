@@ -33,7 +33,7 @@ Let's take an example:
   new Date('1/10/2016')
 ```
 
-What should it output? ... well it is interpreted as 1st October 2016 in some browsers and 10th January 2016 in some.
+What should it output? ... well it is interpreted as 1st October 2016 in some browsers and 10th January 2016 in some [Refer Me](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse).
 
 ### What's included
 
@@ -58,6 +58,8 @@ dependencies, from the root of the project:
 ```bash
 npm install
 ```
+
+After successfully installing the above components
 
 ```bash
 gulp default
