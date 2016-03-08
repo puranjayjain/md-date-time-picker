@@ -14,13 +14,13 @@
   <!-- date picker dialog -->
   <div id="md-picker__date" class="md-picker md-picker-date md-picker--inactive animated">
     <div id="md-date__header" class="md-picker__header">
-      <h4 class="md-picker__subtitle"></h4>
-      <h2 class="md-picker__title"></h2>
+      <h4 id="md-date__subtitle" class="md-picker__subtitle"></h4>
+      <h2 id="md-date__title" class="md-picker__title"></h2>
     </div>
     <div class="md-picker__body">
       <div id="md-date__viewHolder" class="md-picker__viewHolder animated">
         <ul class="md-picker__views">
-          <li id="md-date__previous" class="md-picker__view md-picker__view--previous">
+          <li id="md-date__previous" class="md-picker__view">
             <div class="md-picker__month"></div>
             <div class="md-picker__grid">
               <div class="md-picker__th">
@@ -102,7 +102,7 @@
               </div>
             </div>
           </li>
-          <li id="md-date__current" class="md-picker__view md-picker__view--current">
+          <li id="md-date__current" class="md-picker__view">
             <div class="md-picker__month"></div>
             <div class="md-picker__grid">
               <div class="md-picker__th">
@@ -184,7 +184,7 @@
               </div>
             </div>
           </li>
-          <li id="md-date__next" class="md-picker__view md-picker__view--next">
+          <li id="md-date__next" class="md-picker__view">
             <div class="md-picker__month"></div>
             <div class="md-picker__grid">
               <div class="md-picker__th">
@@ -282,8 +282,8 @@
   <script type="text/javascript">
     // (function() {
     var x = new mdDateTimePicker('date');
-    var y = new mdDateTimePicker('date', '2016-02-29', 'YYYY-MM-DD');
-    var z = new mdDateTimePicker('date', '2016-03-3', 'YYYY-MM-DD');
+    var y = new mdDateTimePicker('date', moment('2016-02-29', 'YYYY-MM-DD'));
+    var z = new mdDateTimePicker('date', moment('2016-03-3', 'YYYY-MM-DD'));
     document.getElementById('trigger').addEventListener('click', function() {
       x.toggle();
     });

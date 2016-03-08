@@ -2,19 +2,10 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || !1; descriptor.configurable = !0; if ("value" in descriptor) descriptor.writable = !0; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(),
     _dialog = {
-	date: {
-		picker: '.md-picker-date ',
-		current: '.md-picker__view--current ',
-		previous: '.md-picker__view--previous ',
-		next: '.md-picker__view--next ',
-		view: !0
-	},
-	time: {},
-	common: {
-		state: !1,
-		cancel: '.md-button--cancel',
-		ok: '.md-button--ok'
-	}
+	view: !0,
+	state: !1,
+	cancel: '.md-button--cancel',
+	ok: '.md-button--ok'
 },
     mdDateTimePicker = function () {
 	/**
@@ -24,7 +15,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
   *
   * @param  {[string]}    type         [type of dialog] ['date','time']
   * @param  {[string]}    init    = '' [initial value for the dialog date or time, defaults to today]
-  * @param  {[string]}    format  = '' [the format of the moment date e.g 'D MM YYYY' for init 1 1 2016, defaults to the 'YYYY-MM-DD' ISO date format]
   * @param  {[string]}    display = '' [the document element where the current date is displayed]
   * @param  {[args]}      args    = '' [additional arguments of the dialog]
   *
@@ -33,15 +23,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 	function mdDateTimePicker(type) {
 		var init = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1],
-		    format = arguments.length <= 2 || arguments[2] === undefined ? 'YYYY-MM-DD' : arguments[2],
-		    display = arguments.length <= 3 || arguments[3] === undefined ? '' : arguments[3],
-		    args = arguments.length <= 4 || arguments[4] === undefined ? '' : arguments[4];
+		    display = arguments.length <= 2 || arguments[2] === undefined ? '' : arguments[2],
+		    args = arguments.length <= 3 || arguments[3] === undefined ? '' : arguments[3];
 
 		_classCallCheck(this, mdDateTimePicker);
 
 		this._type = type;
 		this._init = init;
-		this._format = format;
 		this._display = display;
 		this._args = args;
 
@@ -59,15 +47,29 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}
 
 	/**
-  * [toggle toggle the dialog's between the visible and invisible state]
+  * [upDate updates the current picker's date]
   *
-  * @method toggle
+  * @method upDate
   *
-  * @return {[type]} [description]
+  * @param  {[type]} m [moment]
+  *
   */
 
 
 	_createClass(mdDateTimePicker, [{
+		key: 'upDate',
+		value: function upDate(m) {
+			this._sDialog.date = m.clone();
+		}
+
+		/**
+   * [toggle toggle the dialog's between the visible and invisible state]
+   *
+   * @method toggle
+   *
+   */
+
+	}, {
 		key: 'toggle',
 		value: function toggle() {
 			this._selectDialog();
@@ -89,14 +91,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
    *
    * @method dialog
    *
-   * @return {[type]} [description]
+   * @return {[_dialog]} [static or prototype value for the _dialog of the component]
    */
 
 	}, {
 		key: '_selectDialog',
 
 
-		// REVIEW the code below is unnecessary
+		// REVIEW the code below is unnecessary or necessary
 		// static set dialog(value) {
 		// 	mdDateTimePicker.dialog = value
 		// }
@@ -118,7 +120,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
     *
     * @type {Array}
     */
-			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next'],
+			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title'],
 			    _iteratorNormalCompletion = !0,
 			    _didIteratorError = !1,
 			    _iteratorError = undefined;
@@ -127,7 +129,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				for (var _iterator = sDialogEls[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = !0) {
 					var sDialogEl = _step.value;
 
-					this._sDialog[sDialogEl] = document.getElementById('md-' + [this._type] + '__' + sDialogEl);
+					this._sDialog[sDialogEl] = document.getElementById('md-' + this._type + '__' + sDialogEl);
 				}
 			} catch (err) {
 				_didIteratorError = !0;
@@ -187,7 +189,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    viewHolder = this._sDialog.viewHolder;
 
 			mdDateTimePicker.dialog.state = !1;
-			mdDateTimePicker.dialog[this._type].view = !0;
+			mdDateTimePicker.dialog.view = !0;
 			this._sDialog.picker.classList.add('zoomOut');
 			// reset classes
 			years.classList.remove('zoomIn', 'zoomOut');
@@ -211,28 +213,30 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_initDateDialog',
 		value: function _initDateDialog(m) {
-			var picker = mdDateTimePicker.dialog.date.picker;
-			document.querySelector(picker + '.md-picker__subtitle').innerHTML = m.format('YYYY');
-			document.querySelector(picker + '.md-picker__title').innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D');
+			var subtitle = this._sDialog.subtitle,
+			    title = this._sDialog.title;
+
+			subtitle.innerHTML = m.format('YYYY');
+			title.innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D');
 			this._initViewHolder(m);
 			this._initYear();
 			this._attachEventHandlers();
 			this._changeMonth();
-			this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'));
-			this._switchToDateView(picker, document.querySelector(picker + '.md-picker__title'));
+			this._switchToDateView(subtitle);
+			this._switchToDateView(title);
 		}
 	}, {
 		key: '_initViewHolder',
 		value: function _initViewHolder(m) {
-			var picker = mdDateTimePicker.dialog.date.picker,
-			    current = mdDateTimePicker.dialog.date.current,
-			    previous = mdDateTimePicker.dialog.date.previous,
-			    next = mdDateTimePicker.dialog.date.next;
+			var picker = this._sDialog.picker,
+			    current = this._sDialog.current,
+			    previous = this._sDialog.previous,
+			    next = this._sDialog.next;
 
-			this._initMonth(picker + current, m, this._sDialog.current);
-			this._initMonth(picker + next, moment(this._getNextMonth(m)), this._sDialog.next);
-			this._initMonth(picker + previous, moment(this._getPreviousMonth(m)), this._sDialog.previous);
-			this._switchToDateView(picker, document.querySelector(picker + current + '.md-picker__month'));
+			this._initMonth(current, m);
+			this._initMonth(next, moment(this._getMonth(m, 1)));
+			this._initMonth(previous, moment(this._getMonth(m, -1)));
+			this._switchToDateView(picker.querySelector('.md-picker__month'));
 		}
 
 		/**
@@ -244,12 +248,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 	}, {
 		key: '_initMonth',
-		value: function _initMonth(selector, m, view) {
+		value: function _initMonth(view, m) {
 			var displayMonth = m.format('MMMM YYYY');
-			document.querySelector(selector + '.md-picker__month').innerHTML = displayMonth;
-			var todayClass = document.querySelector(selector + '.md-picker__today'),
-			    selectedClass = document.querySelector(selector + '.md-picker__selected'),
-			    cells = document.querySelectorAll(selector + '.md-picker__tr ' + 'span'),
+			view.querySelector('.md-picker__month').innerHTML = displayMonth;
+			var todayClass = view.querySelector('.md-picker__today'),
+			    selectedClass = view.querySelector('.md-picker__selected'),
+			    cells = view.querySelectorAll('.md-picker__tr ' + 'span'),
 			    firstDayOfMonth = parseInt(moment(m).date(1).day(), 10),
 			    today = -1,
 			    selected = -1,
@@ -265,7 +269,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				today = parseInt(moment().format('D'), 10);
 				today += firstDayOfMonth - 1;
 			}
-			if (selector.indexOf(mdDateTimePicker.dialog.date.current.trim()) >= 0) {
+			if (view === this._sDialog.current) {
 				selected = parseInt(moment(m).format('D'), 10);
 				selected += firstDayOfMonth - 1;
 			}
@@ -308,19 +312,27 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _initYear() {
 			var years = this._sDialog.years,
 			    currentYear = parseInt(this._sDialog.date.format('YYYY'), 10),
+			    docfrag = document.createDocumentFragment(),
 			    yearString = '';
 			//TODO also add event listener to this
 
 			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
 			for (var year = 1900; year <= 2100; year++) {
+				var li = document.createElement('li');
+				li.textContent = year;
 				if (year === currentYear) {
-					yearString += '<li id="md-date__currentYear" class="md-picker__li--current">' + year + '</li>';
-				} else {
-					yearString += '<li>' + year + '</li>';
+					li.id = 'md-date__currentYear';
+					li.classList.add('md-picker__li--current');
 				}
+				// TODO attach event handler here
+				docfrag.appendChild(li);
+			}
+			//empty the years ul
+			while (years.lastChild) {
+				years.removeChild(years.lastChild);
 			}
 			// set inner html accordingly
-			years.innerHTML = yearString;
+			years.appendChild(docfrag);
 			// get the current year
 			this._sDialog.currentYear = document.getElementById('md-date__currentYear');
 		}
@@ -338,7 +350,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 	}, {
 		key: '_switchToDateView',
-		value: function _switchToDateView(picker, el) {
+		value: function _switchToDateView(el) {
 			var me = this;
 			// attach the view change button
 			el.addEventListener('click', function () {
@@ -347,7 +359,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				    years = me._sDialog.years,
 				    header = me._sDialog.header;
 
-				if (mdDateTimePicker.dialog.date.view) {
+				if (mdDateTimePicker.dialog.view) {
 					viewHolder.classList.add('zoomOut');
 					years.classList.remove('md-picker__years--invisible');
 					years.classList.add('zoomIn');
@@ -364,7 +376,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					}, 300);
 				}
 				header.classList.toggle('md-picker__header--invert');
-				mdDateTimePicker.dialog.date.view = !mdDateTimePicker.dialog.date.view;
+				mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
 				setTimeout(function () {
 					el.classList.remove('md-button--unclickable');
 				}, 300);
@@ -401,69 +413,79 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    right = this._sDialog.right,
 			    mLeftClass = 'md-picker__view--left',
 			    mRightClass = 'md-picker__view--right',
-			    pause = 'md-picker__view--pause',
-			    views = {
-				next: this._sDialog.next,
-				current: this._sDialog.current,
-				previous: this._sDialog.previous
-			};
+			    pause = 'md-picker__view--pause';
 
 			left.addEventListener('click', function () {
-				moveStep(views, mRightClass, views.previous);
+				moveStep(mRightClass, me._sDialog.previous);
 			});
 
 			right.addEventListener('click', function () {
-				moveStep(views, mLeftClass, views.next);
+				moveStep(mLeftClass, me._sDialog.next);
 			});
 
-			function moveStep(views, aClass, to) {
+			function moveStep(aClass, to) {
+				/**
+     * [stepBack to know if the to step is going back or not]
+     *
+     * @type {Boolean}
+     */
+				var stepBack = !1,
+				    next = me._sDialog.next,
+				    current = me._sDialog.current,
+				    previous = me._sDialog.previous;
+
 				left.classList.add('md-button--unclickable');
 				right.classList.add('md-button--unclickable');
-				views.current.classList.add(aClass);
-				views.previous.classList.add(aClass);
-				views.next.classList.add(aClass);
+				current.classList.add(aClass);
+				previous.classList.add(aClass);
+				next.classList.add(aClass);
 				var clone = to.cloneNode(!0),
 				    del = void 0;
-				// change pointers accordingly
 
-				if (to === views.next) {
-					del = views.previous;
-					views.current.parentNode.appendChild(clone);
-					views.next.id = views.current.id;
-					views.current.id = views.previous.id;
-					views.previous = views.current;
-					views.current = views.next;
-					views.next = clone;
+				if (to === next) {
+					del = previous;
+					current.parentNode.appendChild(clone);
+					next.id = current.id;
+					current.id = previous.id;
+					previous = current;
+					current = next;
+					next = clone;
 				} else {
-					del = views.next;
-					views.previous.id = views.current.id;
-					views.current.id = views.next.id;
-					views.next = views.current;
-					views.current = views.previous;
+					stepBack = !0;
+					del = next;
+					previous.id = current.id;
+					current.id = next.id;
+					next = current;
+					current = previous;
 				}
 				setTimeout(function () {
-					if (to === views.previous) {
-						views.current.parentNode.insertBefore(clone, views.current);
-						views.previous = clone;
+					if (to === previous) {
+						current.parentNode.insertBefore(clone, current);
+						previous = clone;
 					}
-					views.current.classList.add(pause);
-					views.next.classList.add(pause);
-					views.previous.classList.add(pause);
-					views.current.classList.remove(aClass);
-					views.next.classList.remove(aClass);
-					views.previous.classList.remove(aClass);
+					// update real values to match these values
+					me._sDialog.next = next;
+					me._sDialog.current = current;
+					me._sDialog.previous = previous;
+					current.classList.add(pause);
+					next.classList.add(pause);
+					previous.classList.add(pause);
+					current.classList.remove(aClass);
+					next.classList.remove(aClass);
+					previous.classList.remove(aClass);
 					del.parentNode.removeChild(del);
 				}, 300);
 				// REVIEW replace below code with requestAnimationFrame
 				setTimeout(function () {
-					views.current.classList.remove(pause);
-					views.next.classList.remove(pause);
-					views.previous.classList.remove(pause);
-					if (to === views.next) {
-						me._initViewHolder(me._getNextMonth(me._sDialog.tDate));
+					current.classList.remove(pause);
+					next.classList.remove(pause);
+					previous.classList.remove(pause);
+					if (stepBack) {
+						me._sDialog.tDate = me._getMonth(me._sDialog.tDate, -1);
 					} else {
-						me._initViewHolder(me._getPreviousMonth(me._sDialog.tDate));
+						me._sDialog.tDate = me._getMonth(me._sDialog.tDate, 1);
 					}
+					me._initViewHolder(me._sDialog.tDate);
 				}, 350);
 				setTimeout(function () {
 					left.classList.remove('md-button--unclickable');
@@ -496,39 +518,26 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_getPreviousMonth get the previous month in a moment format]
+   * [_getMonth get the next or previous month]
    *
-   * @method _getPreviousMonth
+   * @method _getMonth
    *
-   * @param  {[type]}                moment [description]
+   * @param  {[type]}  moment [description]
+   * @param  {[type]}  count  [pass -ve values for past months and positive ones for future values]
    *
-   * @return {[type]}                [description]
+   * @return {[moment]}  [returns the relative moment]
    */
 
 	}, {
-		key: '_getPreviousMonth',
-		value: function _getPreviousMonth(moment) {
+		key: '_getMonth',
+		value: function _getMonth(moment, count) {
 			var m = void 0;
 			m = moment.clone();
-			return m.subtract(1, 'month');
-		}
-
-		/**
-   * [_getNextMonth get the next month in a moment format]
-   *
-   * @method _getNextMonth
-   *
-   * @param  {[type]}            moment [description]
-   *
-   * @return {[type]}            [description]
-   */
-
-	}, {
-		key: '_getNextMonth',
-		value: function _getNextMonth(moment) {
-			var m = void 0;
-			m = moment.clone();
-			return m.add(1, 'month');
+			if (count > 0) {
+				return m.add(Math.abs(count), 'month');
+			} else {
+				return m.subtract(Math.abs(count), 'month');
+			}
 		}
 	}], [{
 		key: 'dialog',
