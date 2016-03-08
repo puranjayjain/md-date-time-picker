@@ -11,9 +11,7 @@
  */
 let _dialog = {
 	view: true,
-	state: false,
-	cancel: '.md-button--cancel',
-	ok: '.md-button--ok'
+	state: false
 }
 class mdDateTimePicker {
 	/**

@@ -3,9 +3,7 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || !1; descriptor.configurable = !0; if ("value" in descriptor) descriptor.writable = !0; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(),
     _dialog = {
 	view: !0,
-	state: !1,
-	cancel: '.md-button--cancel',
-	ok: '.md-button--ok'
+	state: !1
 },
     mdDateTimePicker = function () {
 	/**
