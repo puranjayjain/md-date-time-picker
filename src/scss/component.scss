@@ -12,9 +12,7 @@ body {
   border: none;
   background-color: rgba(0,0,0,0);
   border-radius: 3px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
   padding: 0 8px;
   margin-right: 8px;
   font-family: $medium;
@@ -23,6 +21,10 @@ body {
   outline: none;
   cursor: pointer;
   color: $md-button-color;
+  // Correct inability to style clickable `input` types in iOS.
+  -webkit-appearance: button;
+  // Address `overflow` set to `hidden` in IE 8/9/10/11.
+  overflow: visible;
 }
 .md-button:hover,
 .md-button:focus {
@@ -43,11 +45,11 @@ body {
   left: 50%;
   transform: translate3d(-50%,-50%,0);
   transform-origin: 0 0;
-  display: flex;
+  display: table;
   border-radius: 3px;
   overflow: hidden;
-  // flex-direction: column;// TODO do this for mobile
   .md-picker__header {
+    width: 80px;
     background-color: $picker-header-color;
     padding: 24px 24px 20px;
     .md-picker__title,
@@ -59,6 +61,12 @@ body {
   .md-picker__body {
     position: relative;
     background-color: $picker-body-color;
+  }
+  .md-picker__header,
+  .md-picker__body {
+    display: table-cell;
+    vertical-align: top;
+    height: 100%;
   }
 }
 .md-picker--inactive {
@@ -117,14 +125,19 @@ body {
     }
   }
   .md-picker__body {
-    flex: 1 0 auto; //TODO 75% to auto on mobile
     .md-picker__viewHolder {
-      display: flex;
       width: 314px;
       overflow: hidden;
+      .md-picker__views {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 0; //fix weird element gap
+        width: 942px;
+      }
       .md-picker__view {
+        display: inline-block;
         width: 314px;
-        flex-shrink: 0;
         text-align: center;
         transform: translate3d(-100%,0,0);
         transition: 0.5s ease-out;
@@ -140,15 +153,15 @@ body {
       .md-picker__grid {
         padding: 8px 14px 0;
         span {
+          display: inline-block;
           font-size: 13px;
           font-weight: 600;
+          margin: 0 2px;
           color: $picker-primary-text-theme-color;
           border-radius: 50%;
           width: 36px;
           height: 36px;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
+          line-height: 36px;
           vertical-align: middle;
         }
         .md-picker__today {
@@ -158,19 +171,11 @@ body {
           background-color: $md-button-color;
           color: $picker-body-color;
         }
-        .md-picker__tr,
-        .md-picker__th {
-          display: flex;
-          justify-content: space-between;
-        }
         .md-picker__tr {
           padding: 2px 0;
-          span {
-            cursor: pointer;
-            pointer-events: none;
-          }
           .md-picker__cell {
             pointer-events: all;
+            cursor: pointer;
           }
           .md-picker__cell:hover {
             @extend .md-picker__selected;

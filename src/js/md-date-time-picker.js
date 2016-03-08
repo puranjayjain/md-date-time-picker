@@ -9,7 +9,21 @@
 /**
  * All declarations starting with _ are considered @private
  */
-
+let _dialog = {
+	date: {
+		picker: '.md-picker-date ',
+		current: '.md-picker__view--current ',
+		previous: '.md-picker__view--previous ',
+		next: '.md-picker__view--next ',
+		view: true
+	},
+	time: {},
+	common: {
+		state: false,
+		cancel: '.md-button--cancel',
+		ok: '.md-button--ok'
+	}
+}
 class mdDateTimePicker {
 	/**
 	 * [constructor of the mdDateTimePicker]
@@ -25,13 +39,13 @@ class mdDateTimePicker {
 	 * @return {[type]}    [this component]
 	 */
 	constructor(type, init = '', format = 'YYYY-MM-DD', display = '', args = '') {
-		this.type = type
-		this.init = init
-		this.format = format
-		this.display = display
-		this.args = args
+		this._type = type
+		this._init = init
+		this._format = format
+		this._display = display
+		this._args = args
 
-		if (this.type) {
+		if (this._type) {
 			/**
 			 * [dialog selected classes has the same structure as dialog but one level down]
 			 * @type {Object}
@@ -41,7 +55,6 @@ class mdDateTimePicker {
 			 * }
 			 */
 			this._sDialog = {}
-			this._dialog = this.constructor._dialog()
 		}
 	}
 
@@ -55,12 +68,12 @@ class mdDateTimePicker {
 	toggle() {
 		this._selectDialog()
 			// work according to the current state of the dialog
-		if (this._dialog.state) {
+		if (mdDateTimePicker.dialog.state) {
 			this._hideDialog()
 		} else {
-			if (this.type === 'date') {
+			if (this._type === 'date') {
 				this._initDateDialog(this._sDialog.date)
-			} else if (this.type === 'time') {
+			} else if (this._type === 'time') {
 				// this._initTimeDialog(this._sDialog.date)
 			}
 			this._showDialog()
@@ -68,29 +81,20 @@ class mdDateTimePicker {
 	}
 
 	/**
-	 * [_dialog to store general values]
+	 * [dialog getter and setter for _dialog value]
 	 *
-	 * @method _dialog
+	 * @method dialog
 	 *
 	 * @return {[type]} [description]
 	 */
-	static _dialog() {
-		return {
-			date: {
-				picker: '.md-picker-date ',
-				current: '.md-picker__view--current ',
-				previous: '.md-picker__view--previous ',
-				next: '.md-picker__view--next ',
-				view: true
-			},
-			time: {},
-			common: {
-				state: false,
-				cancel: '.md-button--cancel',
-				ok: '.md-button--ok'
-			}
-		}
+	static get dialog() {
+		return _dialog;
 	}
+
+	// REVIEW the code below is unnecessary
+	// static set dialog(value) {
+	// 	mdDateTimePicker.dialog = value;
+	// }
 
 	/**
 	 * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
@@ -98,11 +102,11 @@ class mdDateTimePicker {
 	 */
 	_selectDialog() {
 		// clone elements and add them again to clear events attached to them
-		let picker = document.getElementById('md-picker__' + [this.type])
+		let picker = document.getElementById('md-picker__' + [this._type])
 		let pickerClone = picker.cloneNode(true)
 		picker.parentNode.replaceChild(pickerClone, picker)
 			// now do what you normally would do
-		this._sDialog.picker = document.getElementById('md-picker__' + [this.type])
+		this._sDialog.picker = document.getElementById('md-picker__' + [this._type])
 			/**
 			 * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
 			 *
@@ -112,12 +116,12 @@ class mdDateTimePicker {
 			'viewHolder', 'years', 'header', 'cancel', 'ok'
 		]
 		for (let sDialogEl of sDialogEls) {
-			this._sDialog[sDialogEl] = document.getElementById('md-' + [this.type] + '__' + sDialogEl)
+			this._sDialog[sDialogEl] = document.getElementById('md-' + [this._type] + '__' + sDialogEl)
 		}
 
 		if (!this._sDialog.date) {
-			if (this.init) {
-				this._sDialog.date = moment(this.init, this.format)
+			if (this._init) {
+				this._sDialog.date = moment(this._init, this._format)
 			} else {
 				this._sDialog.date = moment()
 			}
@@ -133,7 +137,7 @@ class mdDateTimePicker {
 	 * @return {[type]}    [description]
 	 */
 	_showDialog() {
-		this._dialog.state = true
+		mdDateTimePicker.dialog.state = true
 		this._sDialog.picker.classList.remove('md-picker--inactive')
 		this._sDialog.picker.classList.add('zoomIn')
 	}
@@ -150,8 +154,8 @@ class mdDateTimePicker {
 		let years = this._sDialog.years
 		let header = this._sDialog.header
 		let viewHolder = this._sDialog.viewHolder
-		this._dialog.state = false
-		this._dialog[this.type].view = true
+		mdDateTimePicker.dialog.state = false
+		mdDateTimePicker.dialog[this._type].view = true
 		this._sDialog.picker.classList.add('zoomOut')
 			// reset classes
 		years.classList.remove('zoomIn', 'zoomOut')
@@ -172,10 +176,10 @@ class mdDateTimePicker {
 
 	//  TODO apply upper cap and lower cap to this function as well
 	_initDateDialog(m) {
-		let picker = this._dialog.date.picker
-		let current = this._dialog.date.current
-		let previous = this._dialog.date.previous
-		let next = this._dialog.date.next
+		let picker = mdDateTimePicker.dialog.date.picker
+		let current = mdDateTimePicker.dialog.date.current
+		let previous = mdDateTimePicker.dialog.date.previous
+		let next = mdDateTimePicker.dialog.date.next
 		document.querySelector(picker + '.md-picker__subtitle').innerHTML = m.format('YYYY')
 		document.querySelector(picker + '.md-picker__title').innerHTML = m.format('ddd, MMM D')
 		this._initMonth(picker + current, m)
@@ -215,7 +219,7 @@ class mdDateTimePicker {
 			today = parseInt(moment().format('D'), 10)
 			today += firstDayOfMonth - 1
 		}
-		if (selector.indexOf(this._dialog.date.current.trim()) >= 0) {
+		if (selector.indexOf(mdDateTimePicker.dialog.date.current.trim()) >= 0) {
 			selected = parseInt(moment(m).format('D'), 10)
 			selected += firstDayOfMonth - 1
 		}
@@ -288,7 +292,7 @@ class mdDateTimePicker {
 			let viewHolder = me._sDialog.viewHolder
 			let years = me._sDialog.years
 			let header = me._sDialog.header
-			if (me._dialog.date.view) {
+			if (mdDateTimePicker.dialog.date.view) {
 				viewHolder.classList.add('zoomOut')
 				years.classList.remove('md-picker__years--invisible')
 				years.classList.add('zoomIn')
@@ -305,7 +309,7 @@ class mdDateTimePicker {
 				}), 300)
 			}
 			header.classList.toggle('md-picker__header--invert')
-			me._dialog.date.view = !me._dialog.date.view
+			mdDateTimePicker.dialog.date.view = !mdDateTimePicker.dialog.date.view
 			setTimeout((function () {
 				el.classList.remove('md-button--unclickable')
 			}), 300)

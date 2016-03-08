@@ -55,15 +55,7 @@ body {
   border: none;
   background-color: transparent;
   border-radius: 3px;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  display: inline-block;
   padding: 0 8px;
   margin-right: 8px;
   font-family: "Roboto-Medium", "Roboto", "Helvetica", "Arial", sans-serif;
@@ -71,7 +63,9 @@ body {
   text-transform: uppercase;
   outline: none;
   cursor: pointer;
-  color: #009688; }
+  color: #009688;
+  -webkit-appearance: button;
+  overflow: visible; }
 
 .md-button:hover,
 .md-button:focus {
@@ -93,12 +87,11 @@ body {
           transform: translate3d(-50%, -50%, 0);
   -webkit-transform-origin: 0 0;
           transform-origin: 0 0;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: table;
   border-radius: 3px;
   overflow: hidden; }
   .md-picker .md-picker__header {
+    width: 80px;
     background-color: #009688;
     padding: 24px 24px 20px; }
     .md-picker .md-picker__header .md-picker__title,
@@ -108,6 +101,11 @@ body {
   .md-picker .md-picker__body {
     position: relative;
     background-color: #fff; }
+  .md-picker .md-picker__header,
+  .md-picker .md-picker__body {
+    display: table-cell;
+    vertical-align: top;
+    height: 100%; }
 
 .md-picker--inactive {
   display: none; }
@@ -158,98 +156,82 @@ body {
 .md-picker-date .md-picker__header--invert .md-picker__subtitle {
   color: white; }
 
-.md-picker-date .md-picker__body {
-  -webkit-flex: 1 0 auto;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto; }
-  .md-picker-date .md-picker__body .md-picker__viewHolder {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    width: 314px;
-    overflow: hidden; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view {
-      width: 314px;
-      -webkit-flex-shrink: 0;
-          -ms-flex-negative: 0;
-              flex-shrink: 0;
-      text-align: center;
-      -webkit-transform: translate3d(-100%, 0, 0);
-              transform: translate3d(-100%, 0, 0);
-      transition: 0.5s ease-out; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view .md-picker__month {
-        display: inline-block;
-        padding: 18px;
-        font-size: 13px;
-        font-weight: 600;
-        color: rgba(0, 0, 0, 0.87);
-        cursor: pointer; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid {
-      padding: 8px 14px 0; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid span {
-        font-size: 13px;
-        font-weight: 600;
-        color: rgba(0, 0, 0, 0.87);
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        display: -webkit-inline-flex;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -webkit-justify-content: center;
-            -ms-flex-pack: center;
-                justify-content: center;
-        -webkit-align-items: center;
-            -ms-flex-align: center;
-                align-items: center;
-        vertical-align: middle; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__today {
-        color: #009688; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__selected, .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr .md-picker__cell:hover {
-        background-color: #009688;
-        color: #fff; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr,
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th {
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-justify-content: space-between;
-            -ms-flex-pack: justify;
-                justify-content: space-between; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr {
-        padding: 2px 0; }
-        .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr span {
-          cursor: pointer;
-          pointer-events: none; }
-        .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr .md-picker__cell {
-          pointer-events: all; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th span {
-        color: rgba(0, 0, 0, 0.54); }
-  .md-picker-date .md-picker__body .md-picker__years {
-    position: absolute;
-    left: 0;
-    top: 0;
+.md-picker-date .md-picker__body .md-picker__viewHolder {
+  width: 314px;
+  overflow: hidden; }
+  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__views {
     list-style: none;
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: calc(100% - 52px);
+    font-size: 0;
+    width: 942px; }
+  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view {
+    display: inline-block;
+    width: 314px;
     text-align: center;
-    overflow: auto; }
-    .md-picker-date .md-picker__body .md-picker__years li {
-      font-size: 16px;
-      padding: 8px 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+    transition: 0.5s ease-out; }
+    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view .md-picker__month {
+      display: inline-block;
+      padding: 18px;
+      font-size: 13px;
+      font-weight: 600;
       color: rgba(0, 0, 0, 0.87);
       cursor: pointer; }
-    .md-picker-date .md-picker__body .md-picker__years .md-picker__li--current {
-      font-size: 21px;
+  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid {
+    padding: 8px 14px 0; }
+    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid span {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0 2px;
+      color: rgba(0, 0, 0, 0.87);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      vertical-align: middle; }
+    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__today {
       color: #009688; }
-  .md-picker-date .md-picker__body .md-picker__years--invisible {
-    display: none; }
-  .md-picker-date .md-picker__body .md-picker__action {
-    margin-top: 24px;
+    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__selected, .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr .md-picker__cell:hover {
+      background-color: #009688;
+      color: #fff; }
+    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr {
+      padding: 2px 0; }
+      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr .md-picker__cell {
+        pointer-events: all;
+        cursor: pointer; }
+    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th span {
+      color: rgba(0, 0, 0, 0.54); }
+
+.md-picker-date .md-picker__body .md-picker__years {
+  position: absolute;
+  left: 0;
+  top: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: calc(100% - 52px);
+  text-align: center;
+  overflow: auto; }
+  .md-picker-date .md-picker__body .md-picker__years li {
+    font-size: 16px;
     padding: 8px 0;
-    text-align: right; }
+    color: rgba(0, 0, 0, 0.87);
+    cursor: pointer; }
+  .md-picker-date .md-picker__body .md-picker__years .md-picker__li--current {
+    font-size: 21px;
+    color: #009688; }
+
+.md-picker-date .md-picker__body .md-picker__years--invisible {
+  display: none; }
+
+.md-picker-date .md-picker__body .md-picker__action {
+  margin-top: 24px;
+  padding: 8px 0;
+  text-align: right; }
 
 @-webkit-keyframes zoomIn {
   from {

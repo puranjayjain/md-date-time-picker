@@ -1,0 +1,8 @@
+{
+	"plugins": [
+		"transform-member-expression-literals",
+		"transform-merge-sibling-variables",
+		"transform-minify-booleans",
+		"transform-property-literals"
+	]
+}
