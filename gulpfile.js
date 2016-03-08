@@ -70,9 +70,7 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
 	return gulp.src(src.js)
-		.pipe(babel({
-			presets: ['es2015']
-		}))
+		.pipe(babel())
 		.pipe(gulp.dest(dist.js))
 		.pipe(rename({
 			suffix: '.min'
