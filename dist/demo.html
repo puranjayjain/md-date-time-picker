@@ -20,7 +20,7 @@
     <div class="md-picker__body">
       <div id="md-date__viewHolder" class="md-picker__viewHolder animated">
         <ul class="md-picker__views">
-          <li class="md-picker__view md-picker__view--previous">
+          <li id="md-date__previous" class="md-picker__view md-picker__view--previous">
             <div class="md-picker__month"></div>
             <div class="md-picker__grid">
               <div class="md-picker__th">
@@ -102,7 +102,7 @@
               </div>
             </div>
           </li>
-          <li class="md-picker__view md-picker__view--current">
+          <li id="md-date__current" class="md-picker__view md-picker__view--current">
             <div class="md-picker__month"></div>
             <div class="md-picker__grid">
               <div class="md-picker__th">
@@ -184,7 +184,7 @@
               </div>
             </div>
           </li>
-          <li class="md-picker__view md-picker__view--next">
+          <li id="md-date__next" class="md-picker__view md-picker__view--next">
             <div class="md-picker__month"></div>
             <div class="md-picker__grid">
               <div class="md-picker__th">
@@ -267,8 +267,8 @@
             </div>
           </li>
         </ul>
-        <button class="md-button md-picker__left" type="button"></button>
-        <button class="md-button md-picker__right" type="button"></button>
+        <button id="md-date__left" class="md-button md-picker__left" type="button"></button>
+        <button id="md-date__right" class="md-button md-picker__right" type="button"></button>
       </div>
       <ul id="md-date__years" class="md-picker__years md-picker__years--invisible animated"></ul>
       <div class="md-picker__action">

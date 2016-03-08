@@ -133,14 +133,14 @@ body {
         margin: 0;
         padding: 0;
         font-size: 0; //fix weird element gap
-        width: 942px;
+        width: 2000px;
       }
       .md-picker__view {
         display: inline-block;
         width: 314px;
         text-align: center;
         transform: translate3d(-100%,0,0);
-        transition: 0.5s ease-out;
+        transition: 0.3s cubic-bezier(.42, 0, .58, 1);
         .md-picker__month {
           display: inline-block;
           padding: 18px;
@@ -149,6 +149,15 @@ body {
           color: $picker-primary-text-theme-color;
           cursor: pointer;
         }
+      }
+      .md-picker__view--left {
+        transform: translate3d(-200%,0,0);
+      }
+      .md-picker__view--right {
+        transform: translate3d(0,0,0);
+      }
+      .md-picker__view--pause {
+        transition: none;
       }
       .md-picker__grid {
         padding: 8px 14px 0;

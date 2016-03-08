@@ -56,7 +56,7 @@ gulp.task('styles', function () {
 			}
 		}))
 		.pipe(sass())
-		.pipe(autoprefixer('last 15 versions'))
+		.pipe(autoprefixer({ browsers: ['last 4 versions', 'ie >= 6'] }))
 		.pipe(gulp.dest(dist.css))
 		.pipe(rename({
 			suffix: '.min'

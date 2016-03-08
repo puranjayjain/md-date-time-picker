@@ -86,6 +86,7 @@ body {
   -webkit-transform: translate3d(-50%, -50%, 0);
           transform: translate3d(-50%, -50%, 0);
   -webkit-transform-origin: 0 0;
+      -ms-transform-origin: 0 0;
           transform-origin: 0 0;
   display: table;
   border-radius: 3px;
@@ -164,14 +165,14 @@ body {
     margin: 0;
     padding: 0;
     font-size: 0;
-    width: 942px; }
+    width: 2000px; }
   .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view {
     display: inline-block;
     width: 314px;
     text-align: center;
     -webkit-transform: translate3d(-100%, 0, 0);
             transform: translate3d(-100%, 0, 0);
-    transition: 0.5s ease-out; }
+    transition: 0.3s cubic-bezier(0.42, 0, 0.58, 1); }
     .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view .md-picker__month {
       display: inline-block;
       padding: 18px;
@@ -179,6 +180,14 @@ body {
       font-weight: 600;
       color: rgba(0, 0, 0, 0.87);
       cursor: pointer; }
+  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view--left {
+    -webkit-transform: translate3d(-200%, 0, 0);
+            transform: translate3d(-200%, 0, 0); }
+  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view--right {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0); }
+  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view--pause {
+    transition: none; }
   .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid {
     padding: 8px 14px 0; }
     .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid span {

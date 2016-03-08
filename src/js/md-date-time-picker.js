@@ -88,12 +88,12 @@ class mdDateTimePicker {
 	 * @return {[type]} [description]
 	 */
 	static get dialog() {
-		return _dialog;
+		return _dialog
 	}
 
 	// REVIEW the code below is unnecessary
 	// static set dialog(value) {
-	// 	mdDateTimePicker.dialog = value;
+	// 	mdDateTimePicker.dialog = value
 	// }
 
 	/**
@@ -113,7 +113,7 @@ class mdDateTimePicker {
 			 * @type {Array}
 			 */
 		let sDialogEls = [
-			'viewHolder', 'years', 'header', 'cancel', 'ok'
+			'viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next'
 		]
 		for (let sDialogEl of sDialogEls) {
 			this._sDialog[sDialogEl] = document.getElementById('md-' + [this._type] + '__' + sDialogEl)
@@ -177,18 +177,24 @@ class mdDateTimePicker {
 	//  TODO apply upper cap and lower cap to this function as well
 	_initDateDialog(m) {
 		let picker = mdDateTimePicker.dialog.date.picker
+		document.querySelector(picker + '.md-picker__subtitle').innerHTML = m.format('YYYY')
+		document.querySelector(picker + '.md-picker__title').innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D')
+		this._initViewHolder(m)
+		this._initYear()
+		this._attachEventHandlers()
+		this._changeMonth()
+		this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'))
+		this._switchToDateView(picker, document.querySelector(picker + '.md-picker__title'))
+	}
+
+	_initViewHolder(m) {
+		let picker = mdDateTimePicker.dialog.date.picker
 		let current = mdDateTimePicker.dialog.date.current
 		let previous = mdDateTimePicker.dialog.date.previous
 		let next = mdDateTimePicker.dialog.date.next
-		document.querySelector(picker + '.md-picker__subtitle').innerHTML = m.format('YYYY')
-		document.querySelector(picker + '.md-picker__title').innerHTML = m.format('ddd, MMM D')
-		this._initMonth(picker + current, m)
-		this._initMonth(picker + previous, moment(this._getPreviousMonthString(m)))
-		this._initMonth(picker + next, moment(this._getNextMonthString(m)))
-		this._initYear()
-		this._attachEventHandlers()
-		this._switchToDateView(picker, document.querySelector(picker + '.md-picker__subtitle'))
-		this._switchToDateView(picker, document.querySelector(picker + '.md-picker__title'))
+		this._initMonth(picker + current, m, this._sDialog.current)
+		this._initMonth(picker + next, moment(this._getNextMonth(m)), this._sDialog.next)
+		this._initMonth(picker + previous, moment(this._getPreviousMonth(m)), this._sDialog.previous)
 		this._switchToDateView(picker, document.querySelector(picker + current + '.md-picker__month'))
 	}
 
@@ -199,7 +205,7 @@ class mdDateTimePicker {
 	 * @return {[type]}          [description]
 	 */
 
-	_initMonth(selector, m) {
+	_initMonth(selector, m, view) {
 		let displayMonth = m.format('MMMM YYYY')
 		document.querySelector(selector + '.md-picker__month').innerHTML = displayMonth
 		let todayClass = document.querySelector(selector + '.md-picker__today')
@@ -239,7 +245,7 @@ class mdDateTimePicker {
 			if ((i >= firstDayOfMonth) && (i <= lastDayoFMonth)) {
 				cell.classList.add('md-picker__cell')
 				cell.innerHTML = currentDay
-				this._addCellClickEvent(cell)
+				this._addCellClickEvent(cell, view)
 			}
 			if (i > lastDayoFMonth) {
 				cell.classList.remove('md-picker__cell')
@@ -316,12 +322,12 @@ class mdDateTimePicker {
 		})
 	}
 
-	_addCellClickEvent(el) {
+	_addCellClickEvent(el, view) {
 		let me = this
 		el.addEventListener('click', function () {
 			let picker = '.md-picker-date '
 			let day = el.innerHTML
-			let monthYear = document.querySelector(picker + '.md-picker__view--current .md-picker__month').innerHTML
+			let monthYear = view.querySelector('.md-picker__month').innerHTML
 			let currentDate = moment(day + ' ' + monthYear, 'D MMMM YYYY')
 			let selected = document.querySelector(picker + '.md-picker__selected')
 			if (selected) {
@@ -333,8 +339,83 @@ class mdDateTimePicker {
 			me._sDialog.tDate = currentDate
 
 			document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY')
-			document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd, MMM D')
+			document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D')
 		})
+	}
+
+	_changeMonth() {
+		let me = this
+		let left = this._sDialog.left
+		let right = this._sDialog.right
+		let mLeftClass = 'md-picker__view--left'
+		let mRightClass = 'md-picker__view--right'
+		let pause = 'md-picker__view--pause'
+		let views = {
+			next: this._sDialog.next,
+			current: this._sDialog.current,
+			previous: this._sDialog.previous
+		}
+		left.addEventListener('click', function () {
+			moveStep(views, mRightClass, views.previous)
+		})
+
+		right.addEventListener('click', function () {
+			moveStep(views, mLeftClass, views.next)
+		})
+
+		function moveStep(views, aClass, to) {
+			left.classList.add('md-button--unclickable')
+			right.classList.add('md-button--unclickable')
+			views.current.classList.add(aClass)
+			views.previous.classList.add(aClass)
+			views.next.classList.add(aClass)
+			let clone = to.cloneNode(true)
+				// change pointers accordingly
+			let del
+			if (to === views.next) {
+				del = views.previous
+				views.current.parentNode.appendChild(clone)
+				views.next.id = views.current.id
+				views.current.id = views.previous.id
+				views.previous = views.current
+				views.current = views.next
+				views.next = clone
+			} else {
+				del = views.next
+				views.previous.id = views.current.id
+				views.current.id = views.next.id
+				views.next = views.current
+				views.current = views.previous
+			}
+			setTimeout(function () {
+					if (to === views.previous) {
+						views.current.parentNode.insertBefore(clone, views.current)
+						views.previous = clone
+					}
+					views.current.classList.add(pause)
+					views.next.classList.add(pause)
+					views.previous.classList.add(pause)
+					views.current.classList.remove(aClass)
+					views.next.classList.remove(aClass)
+					views.previous.classList.remove(aClass)
+					del.parentNode.removeChild(del)
+				}, 300)
+				// REVIEW replace below code with requestAnimationFrame
+			setTimeout(function () {
+				views.current.classList.remove(pause)
+				views.next.classList.remove(pause)
+				views.previous.classList.remove(pause)
+				if (to === views.next) {
+					me._initViewHolder(me._getNextMonth(me._sDialog.tDate))
+				} else {
+					me._initViewHolder(me._getPreviousMonth(me._sDialog.tDate))
+				}
+			}, 350)
+			setTimeout(function () {
+				left.classList.remove('md-button--unclickable')
+				right.classList.remove('md-button--unclickable')
+			}, 400)
+		}
 	}
 
 	/**
@@ -345,8 +426,8 @@ class mdDateTimePicker {
 	 */
 	_attachEventHandlers() {
 		let me = this
-		let cancel = this._sDialog.cancel
 		let ok = this._sDialog.ok
+		let cancel = this._sDialog.cancel
 		cancel.addEventListener('click', function () {
 			me.toggle()
 		})
@@ -357,30 +438,30 @@ class mdDateTimePicker {
 	}
 
 	/**
-	 * [_getPreviousMonthString get the previous month in a moment format]
+	 * [_getPreviousMonth get the previous month in a moment format]
 	 *
-	 * @method _getPreviousMonthString
+	 * @method _getPreviousMonth
 	 *
 	 * @param  {[type]}                moment [description]
 	 *
 	 * @return {[type]}                [description]
 	 */
-	_getPreviousMonthString(moment) {
+	_getPreviousMonth(moment) {
 		let m
 		m = moment.clone()
 		return m.subtract(1, 'month')
 	}
 
 	/**
-	 * [_getNextMonthString get the next month in a moment format]
+	 * [_getNextMonth get the next month in a moment format]
 	 *
-	 * @method _getNextMonthString
+	 * @method _getNextMonth
 	 *
 	 * @param  {[type]}            moment [description]
 	 *
 	 * @return {[type]}            [description]
 	 */
-	_getNextMonthString(moment) {
+	_getNextMonth(moment) {
 		let m
 		m = moment.clone()
 		return m.add(1, 'month')
@@ -390,7 +471,7 @@ class mdDateTimePicker {
 // polyfill for scrollintoviewifneeded
 if (!Element.prototype.scrollIntoViewIfNeeded) {
 	Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
-		centerIfNeeded = arguments.length === 0 ? true : !!centerIfNeeded;
+		centerIfNeeded = arguments.length === 0 ? true : !!centerIfNeeded
 
 		var parent = this.parentNode,
 			parentComputedStyle = window.getComputedStyle(parent, null),
@@ -403,15 +484,15 @@ if (!Element.prototype.scrollIntoViewIfNeeded) {
 			alignWithTop = overTop && !overBottom;
 
 		if ((overTop || overBottom) && centerIfNeeded) {
-			parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2;
+			parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2
 		}
 
 		if ((overLeft || overRight) && centerIfNeeded) {
-			parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2;
+			parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2
 		}
 
 		if ((overTop || overBottom || overLeft || overRight) && !centerIfNeeded) {
-			this.scrollIntoView(alignWithTop);
+			this.scrollIntoView(alignWithTop)
 		}
-	};
+	}
 }
