@@ -1,0 +1,17 @@
+.md-picker__header {
+  .md-picker__title,
+  .md-picker__subtitle {
+    margin: 0;
+  }
+  .md-picker__title {
+    span {
+      display: inline-block;
+    }
+  }
+}
+.md-picker__header,
+.md-picker__body {
+  display: block;
+  height: 100%;
+  width: 100%;
+}

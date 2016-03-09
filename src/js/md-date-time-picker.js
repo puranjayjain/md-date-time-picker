@@ -118,13 +118,14 @@ class mdDateTimePicker {
 			 * @type {Array}
 			 */
 		let sDialogEls = [
-			'viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title'
+			'viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth'
 		]
 		for (let sDialogEl of sDialogEls) {
 			this._sDialog[sDialogEl] = document.getElementById('md-' + this._type + '__' + sDialogEl)
 		}
 
 		this._sDialog.tDate = this._sDialog.date.clone()
+		this._sDialog.sDate = this._sDialog.date.clone()
 	}
 
 	/**
@@ -174,8 +175,11 @@ class mdDateTimePicker {
 	_initDateDialog(m) {
 		let subtitle = this._sDialog.subtitle
 		let title = this._sDialog.title
+		let titleDay = this._sDialog.titleDay
+		let titleMonth = this._sDialog.titleMonth
 		subtitle.innerHTML = m.format('YYYY')
-		title.innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D')
+		titleDay.innerHTML = m.format('ddd, ')
+		titleMonth.innerHTML = m.format('MMM D')
 		this._initYear()
 		this._initViewHolder(m)
 		this._attachEventHandlers()
@@ -208,7 +212,7 @@ class mdDateTimePicker {
 			today = parseInt(moment().format('D'), 10)
 			today += firstDayOfMonth - 1
 		}
-		if (displayMonth === this._sDialog.date.format('MMMM YYYY')) {
+		if (this._sDialog.sDate.isSame(m, 'month')) {
 			selected = parseInt(moment(m).format('D'), 10)
 			selected += firstDayOfMonth - 1
 		}
@@ -335,15 +339,18 @@ class mdDateTimePicker {
 				let selected = picker.querySelector('.md-picker__selected')
 				let title = me._sDialog.title
 				let subtitle = me._sDialog.subtitle
+				let titleDay = me._sDialog.titleDay
+				let titleMonth = me._sDialog.titleMonth
 				if (selected) {
 					selected.classList.remove('md-picker__selected')
 				}
 				e.target.classList.add('md-picker__selected')
 
 				// update temp date object with the date selected
-				me._sDialog.tDate = currentDate
+				me._sDialog.sDate = currentDate.clone()
 				subtitle.innerHTML = currentDate.year()
-				title.innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D')
+				titleDay.innerHTML = currentDate.format('ddd, ')
+				titleMonth.innerHTML = currentDate.format('MMM D')
 			}
 		})
 	}
@@ -479,7 +486,7 @@ class mdDateTimePicker {
 			me.toggle()
 		})
 		ok.addEventListener('click', function () {
-			me._sDialog.date = me._sDialog.tDate
+			me._sDialog.date = me._sDialog.sDate
 			me.toggle()
 		})
 	}

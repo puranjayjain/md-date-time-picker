@@ -127,7 +127,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
     *
     * @type {Array}
     */
-			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title'],
+			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth'],
 			    _iteratorNormalCompletion = !0,
 			    _didIteratorError = !1,
 			    _iteratorError = undefined;
@@ -154,6 +154,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			}
 
 			this._sDialog.tDate = this._sDialog.date.clone();
+			this._sDialog.sDate = this._sDialog.date.clone();
 		}
 
 		/**
@@ -212,10 +213,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_initDateDialog',
 		value: function _initDateDialog(m) {
 			var subtitle = this._sDialog.subtitle,
-			    title = this._sDialog.title;
+			    title = this._sDialog.title,
+			    titleDay = this._sDialog.titleDay,
+			    titleMonth = this._sDialog.titleMonth;
 
 			subtitle.innerHTML = m.format('YYYY');
-			title.innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D');
+			titleDay.innerHTML = m.format('ddd, ');
+			titleMonth.innerHTML = m.format('MMM D');
 			this._initYear();
 			this._initViewHolder(m);
 			this._attachEventHandlers();
@@ -252,7 +256,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				today = parseInt(moment().format('D'), 10);
 				today += firstDayOfMonth - 1;
 			}
-			if (displayMonth === this._sDialog.date.format('MMMM YYYY')) {
+			if (this._sDialog.sDate.isSame(m, 'month')) {
 				selected = parseInt(moment(m).format('D'), 10);
 				selected += firstDayOfMonth - 1;
 			}
@@ -391,7 +395,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					    currentDate = me._sDialog.tDate.date(day),
 					    selected = picker.querySelector('.md-picker__selected'),
 					    title = me._sDialog.title,
-					    subtitle = me._sDialog.subtitle;
+					    subtitle = me._sDialog.subtitle,
+					    titleDay = me._sDialog.titleDay,
+					    titleMonth = me._sDialog.titleMonth;
 
 					if (selected) {
 						selected.classList.remove('md-picker__selected');
@@ -399,9 +405,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					e.target.classList.add('md-picker__selected');
 
 					// update temp date object with the date selected
-					me._sDialog.tDate = currentDate;
+					me._sDialog.sDate = currentDate.clone();
 					subtitle.innerHTML = currentDate.year();
-					title.innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D');
+					titleDay.innerHTML = currentDate.format('ddd, ');
+					titleMonth.innerHTML = currentDate.format('MMM D');
 				}
 			});
 		}
@@ -549,7 +556,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				me.toggle();
 			});
 			ok.addEventListener('click', function () {
-				me._sDialog.date = me._sDialog.tDate;
+				me._sDialog.date = me._sDialog.sDate;
 				me.toggle();
 			});
 		}

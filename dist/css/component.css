@@ -16,7 +16,16 @@
   font-weight: normal;
   font-style: normal; }
 
+html {
+  width: 100%;
+  height: 100%;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation; }
+
 body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
   font-family: "Roboto-Regular", "Roboto", "Helvetica", "Arial", sans-serif !important; }
 
 .md-button {
@@ -35,7 +44,9 @@ body {
   cursor: pointer;
   color: #009688;
   -webkit-appearance: button;
-  overflow: visible; }
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0); }
 
 .md-button:hover,
 .md-button:focus {
@@ -116,6 +127,8 @@ body {
   font-family: "Roboto-Medium", "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 24px;
   font-weight: 900; }
+  .md-picker-date .md-picker__header .md-picker__title span {
+    display: block; }
 
 .md-picker-date .md-picker__header .md-picker__subtitle {
   color: rgba(255, 255, 255, 0.7);
@@ -211,6 +224,47 @@ body {
   margin-top: 24px;
   padding: 8px 0;
   text-align: right; }
+
+@media screen and (max-device-width: 425px) and (orientation: portrait) {
+  .md-picker {
+    display: block; }
+    .md-picker .md-picker__header .md-picker__title,
+    .md-picker .md-picker__header .md-picker__subtitle {
+      margin: 0; }
+    .md-picker .md-picker__header .md-picker__title span {
+      display: inline-block; }
+    .md-picker .md-picker__header,
+    .md-picker .md-picker__body {
+      display: block;
+      height: 100%;
+      width: 100%; } }
+
+@media screen and (max-width: 415px) {
+  .md-picker {
+    display: block; }
+    .md-picker .md-picker__header .md-picker__title,
+    .md-picker .md-picker__header .md-picker__subtitle {
+      margin: 0; }
+    .md-picker .md-picker__header .md-picker__title span {
+      display: inline-block; }
+    .md-picker .md-picker__header,
+    .md-picker .md-picker__body {
+      display: block;
+      height: 100%;
+      width: 100%; } }
+
+.md-picker--portrait {
+  display: block; }
+  .md-picker--portrait .md-picker__header .md-picker__title,
+  .md-picker--portrait .md-picker__header .md-picker__subtitle {
+    margin: 0; }
+  .md-picker--portrait .md-picker__header .md-picker__title span {
+    display: inline-block; }
+  .md-picker--portrait .md-picker__header,
+  .md-picker--portrait .md-picker__body {
+    display: block;
+    height: 100%;
+    width: 100%; }
 
 @-webkit-keyframes zoomIn {
   from {
