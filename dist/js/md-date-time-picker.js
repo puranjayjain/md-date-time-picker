@@ -234,7 +234,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._initMonth(current, m);
 			this._initMonth(next, moment(this._getMonth(m, 1)));
 			this._initMonth(previous, moment(this._getMonth(m, -1)));
-			this._switchToDateView(picker.querySelector('.md-picker__month'));
+			this._switchToDateView(current.querySelector('.md-picker__month'));
 		}
 
 		/**
@@ -308,7 +308,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_initYear',
 		value: function _initYear() {
-			var years = this._sDialog.years,
+			var me = this,
+			    years = this._sDialog.years,
 			    currentYear = parseInt(this._sDialog.date.format('YYYY'), 10),
 			    docfrag = document.createDocumentFragment(),
 			    yearString = '';
@@ -550,7 +551,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
       * @version [0.0.1]
       * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
       * @license MIT
-      * @website no website right now
+      * @website puranjayjain.github.io/md-date-time-picker/demo.html
       */
 
 /**
@@ -567,8 +568,8 @@ if (!Element.prototype.scrollIntoViewIfNeeded) {
 
 		var parent = this.parentNode,
 		    parentComputedStyle = window.getComputedStyle(parent, null),
-		    parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width')),
-		    parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width')),
+		    parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
+		    parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width'), 10),
 		    overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
 		    overBottom = this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth > parent.scrollTop + parent.clientHeight,
 		    overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,

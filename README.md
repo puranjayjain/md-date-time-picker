@@ -2,6 +2,11 @@
 
 [![Dependency Status](https://david-dm.org/puranjayjain/md-date-time-picker.svg)](https://david-dm.org/puranjayjain/md-date-time-picker)
 
+[![Issues](https://img.shields.io/github/issues/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/issues)
+[![Forks](https://img.shields.io/github/forks/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/network)
+[![Stars](https://img.shields.io/github/stars/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/puranjayjain/md-date-time-picker/master/LICENSE.md)
+
 > An implementation of [Material Design Picker](https://www.google.com/design/spec/components/pickers.html)
 components in vanilla CSS, JS, and HTML
 

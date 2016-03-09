@@ -3,7 +3,7 @@
  * @version [0.0.1]
  * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
  * @license MIT
- * @website no website right now
+ * @website puranjayjain.github.io/md-date-time-picker/demo.html
  */
 
 /**
@@ -194,7 +194,7 @@ class mdDateTimePicker {
 		this._initMonth(current, m)
 		this._initMonth(next, moment(this._getMonth(m, 1)))
 		this._initMonth(previous, moment(this._getMonth(m, -1)))
-		this._switchToDateView(picker.querySelector('.md-picker__month'))
+		this._switchToDateView(current.querySelector('.md-picker__month'))
 	}
 
 	/**
@@ -261,14 +261,15 @@ class mdDateTimePicker {
 	 * @return {[type]}  [description]
 	 */
 	_initYear() {
+		let me = this
 		let years = this._sDialog.years
 		let currentYear = parseInt(this._sDialog.date.format('YYYY'), 10)
-		var docfrag = document.createDocumentFragment()
+		let docfrag = document.createDocumentFragment()
 			//TODO also add event listener to this
 		let yearString = ''
 			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
 		for (let year = 1900; year <= 2100; year++) {
-			var li = document.createElement('li')
+			let li = document.createElement('li')
 			li.textContent = year
 			if (year === currentYear) {
 				li.id = 'md-date__currentYear'
@@ -279,11 +280,11 @@ class mdDateTimePicker {
 		}
 		//empty the years ul
 		while (years.lastChild) {
-			years.removeChild(years.lastChild);
+			years.removeChild(years.lastChild)
 		}
 		// set inner html accordingly
-		years.appendChild(docfrag);
-		// get the current year
+		years.appendChild(docfrag)
+			// get the current year
 		this._sDialog.currentYear = document.getElementById('md-date__currentYear')
 	}
 
@@ -479,10 +480,10 @@ if (!Element.prototype.scrollIntoViewIfNeeded) {
 	Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
 		centerIfNeeded = arguments.length === 0 ? true : !!centerIfNeeded
 
-		var parent = this.parentNode,
+		let parent = this.parentNode,
 			parentComputedStyle = window.getComputedStyle(parent, null),
-			parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width')),
-			parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width')),
+			parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
+			parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width'), 10),
 			overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
 			overBottom = (this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth) > (parent.scrollTop + parent.clientHeight),
 			overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
