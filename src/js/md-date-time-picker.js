@@ -20,41 +20,48 @@ class mdDateTimePicker {
 	 * @method constructor
 	 *
 	 * @param  {[string]}    type         [type of dialog] ['date','time']
-	 * @param  {[string]}    init    = '' [initial value for the dialog date or time, defaults to today]
-	 * @param  {[string]}    display = '' [the document element where the current date is displayed]
-	 * @param  {[args]}      args    = '' [additional arguments of the dialog]
+	 * @param  {[moment]}    init    = '' [initial value for the dialog date or time, defaults to today] [pass '' to this if you want to skip init]
+	 * @param  {[moment]}    past    = '' [the past moment till which the calendar shall render]
+	 * @param  {[moment]}    future  = '' [the future moment till which the calendar shall render]
 	 *
-	 * @return {[type]}    [this component]
+	 * @return {[Object]}    [mdDateTimePicker]
 	 */
-	constructor(type, init = '', display = '', args = '') {
+	constructor(type, init = '', past = '', future = '') {
 		this._type = type
 		this._init = init
-		this._display = display
-		this._args = args
+		this._past = past
+		this._future = future
 
-		if (this._type) {
-			/**
-			 * [dialog selected classes has the same structure as dialog but one level down]
-			 * @type {Object}
-			 * e.g
-			 * sDialog = {
-			 *   picker: 'some-picker-selected'
-			 * }
-			 */
-			this._sDialog = {}
+		/**
+		 * [dialog selected classes has the same structure as dialog but one level down]
+		 * @type {Object}
+		 * e.g
+		 * sDialog = {
+		 *   picker: 'some-picker-selected'
+		 * }
+		 */
+		this._sDialog = {}
+		this._sDialog.date = moment()
+
+		if (this._init) {
+			this._sDialog.date = moment(this._init, this._format)
 		}
 	}
 
 	/**
-	 * [upDate updates the current picker's date]
+	 * [upDate to get or set the current picker's moment]
 	 *
-	 * @method upDate
+	 * @method date
 	 *
-	 * @param  {[type]} m [moment]
+	 * @param  {[moment]} m
 	 *
 	 */
-	upDate(m) {
-		this._sDialog.date = m.clone()
+	date(m = '') {
+		if (m === '') {
+			return this._sDialog.date
+		} else {
+			this._sDialog.date = m.clone()
+		}
 	}
 
 	/**
@@ -117,13 +124,6 @@ class mdDateTimePicker {
 			this._sDialog[sDialogEl] = document.getElementById('md-' + this._type + '__' + sDialogEl)
 		}
 
-		if (!this._sDialog.date) {
-			if (this._init) {
-				this._sDialog.date = moment(this._init, this._format)
-			} else {
-				this._sDialog.date = moment()
-			}
-		}
 		this._sDialog.tDate = this._sDialog.date.clone()
 	}
 
@@ -132,7 +132,6 @@ class mdDateTimePicker {
 	 *
 	 * @method _showDialog
 	 *
-	 * @return {[type]}    [description]
 	 */
 	_showDialog() {
 		mdDateTimePicker.dialog.state = true
@@ -145,7 +144,6 @@ class mdDateTimePicker {
 	 *
 	 * @method _hideDialog
 	 *
-	 * @return {[type]}    [description]
 	 */
 	_hideDialog() {
 		let me = this
@@ -200,33 +198,27 @@ class mdDateTimePicker {
 	_initMonth(view, m) {
 		let displayMonth = m.format('MMMM YYYY')
 		view.querySelector('.md-picker__month').innerHTML = displayMonth
-		let todayClass = view.querySelector('.md-picker__today')
-		let selectedClass = view.querySelector('.md-picker__selected')
-		let cells = view.querySelectorAll('.md-picker__tr ' + 'span')
+		let docfrag = document.createDocumentFragment()
+		let tr = view.querySelector('.md-picker__tr')
 		let firstDayOfMonth = parseInt(moment(m).date(1).day(), 10)
 		let today = -1
 		let selected = -1
-		let lastDayoFMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1
-		if (todayClass) {
-			todayClass.classList.remove('md-picker__today')
-		}
-		if (selectedClass) {
-			selectedClass.classList.remove('md-picker__selected')
-		}
-		if (moment().format('MMMM YYYY') === displayMonth) {
+		let lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1
+		if (moment().isSame(m, 'month')) {
 			today = parseInt(moment().format('D'), 10)
 			today += firstDayOfMonth - 1
 		}
-		if (view === this._sDialog.current) {
+		if (displayMonth === this._sDialog.date.format('MMMM YYYY')) {
 			selected = parseInt(moment(m).format('D'), 10)
 			selected += firstDayOfMonth - 1
 		}
-		for (let i = 0; i < cells.length; i++) {
-			let cell = cells[i]
+		for (let i = 0; i < 42; i++) {
+			// create cell
+			let cell = document.createElement('span')
 			let currentDay = i - firstDayOfMonth + 1
-			if (i < firstDayOfMonth) {
-				cell.classList.remove('md-picker__cell')
-				cell.innerHTML = ''
+			if ((i >= firstDayOfMonth) && (i <= lastDayOfMonth)) {
+				cell.classList.add('md-picker__cell')
+				cell.innerHTML = currentDay
 			}
 			if (today === i) {
 				cell.classList.add('md-picker__today')
@@ -234,16 +226,15 @@ class mdDateTimePicker {
 			if (selected === i) {
 				cell.classList.add('md-picker__selected')
 			}
-			if ((i >= firstDayOfMonth) && (i <= lastDayoFMonth)) {
-				cell.classList.add('md-picker__cell')
-				cell.innerHTML = currentDay
-				this._addCellClickEvent(cell, view)
-			}
-			if (i > lastDayoFMonth) {
-				cell.classList.remove('md-picker__cell')
-				cell.innerHTML = ''
-			}
+			docfrag.appendChild(cell)
 		}
+		//empty the tr
+		while (tr.lastChild) {
+			tr.removeChild(tr.lastChild)
+		}
+		// set inner html accordingly
+		tr.appendChild(docfrag)
+		this._addCellClickEvent(tr)
 	}
 
 	/**
@@ -334,36 +325,31 @@ class mdDateTimePicker {
 		}), 300)
 	}
 
-	_addCellClickEvent(el, view) {
+	_addCellClickEvent(el) {
 		let me = this
-		el.addEventListener('click', function () {
-			let picker = me._sDialog.picker
-			let day = el.innerHTML
-			let currentDate = me._sDialog.tDate.date(day)
-			let selected = picker.querySelector('.md-picker__selected')
-			if (selected) {
-				selected.classList.remove('md-picker__selected')
-			}
-			el.classList.add('md-picker__selected')
+		el.addEventListener('click', function (e) {
+			if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('md-picker__cell')) {
+				let picker = me._sDialog.picker
+				let day = e.target.innerHTML
+				let currentDate = me._sDialog.tDate.date(day)
+				let selected = picker.querySelector('.md-picker__selected')
+				let title = me._sDialog.title
+				let subtitle = me._sDialog.subtitle
+				if (selected) {
+					selected.classList.remove('md-picker__selected')
+				}
+				e.target.classList.add('md-picker__selected')
 
-			// update temp date object with the date selected
-			me._sDialog.tDate = currentDate
-			me._updateDisplayYear()
+				// update temp date object with the date selected
+				me._sDialog.tDate = currentDate
+				subtitle.innerHTML = currentDate.year()
+				title.innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D')
+			}
 		})
 	}
 
-	_updateDisplayYear() {
-		let currentDate = this._sDialog.tDate
-		let title = this._sDialog.title
-		let subtitle = this._sDialog.subtitle
-		let current = this._sDialog.current
-		let previous = this._sDialog.previous
-		let next = this._sDialog.next
-		current.querySelector('.md-picker__month').innerHTML = currentDate.format('MMMM YYYY')
-		previous.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, -1).format('MMMM YYYY')
-		next.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, 1).format('MMMM YYYY')
-		subtitle.innerHTML = currentDate.year()
-		title.innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D')
+	_updateDialog() {
+		this._initViewHolder(this._sDialog.tDate)
 	}
 
 	_changeMonth() {
@@ -457,7 +443,6 @@ class mdDateTimePicker {
 	 *
 	 * @param  {[type]}    el [description]
 	 *
-	 * @return {[type]}    [description]
 	 */
 	_changeYear(el) {
 		let me = this
@@ -474,8 +459,8 @@ class mdDateTimePicker {
 				me._switchToDateViewFunction(el, me)
 					// set the tdate to it
 				me._sDialog.tDate.year(parseInt(e.target.innerHTML, 10))
-				// update the display year
-				me._updateDisplayYear()
+					// update the dialog
+				me._updateDialog()
 			}
 		}, false)
 	}
