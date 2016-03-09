@@ -7,6 +7,10 @@
 [![Stars](https://img.shields.io/github/stars/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/stargazers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/puranjayjain/md-date-time-picker/master/LICENSE.md)
 
+Share the :heart: !
+
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/puranjayjain/md-date-time-picker.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+
 > An implementation of [Material Design Picker](https://www.google.com/design/spec/components/pickers.html)
 components in vanilla CSS, JS, and HTML
 
@@ -28,7 +32,8 @@ Supported versioned browsers:
 ## Dependency
 
 ### Moment
-Why? because parsing dates correctly is not every browser's cup of :tea: and also according to [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard and also timezones are one more thing that are required by a lot of users.
+Why? because parsing dates correctly is not every browser's cup of :tea: and also according to [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard
+Moreover, timezones are also an important aspect of date which is an important parameter.
 
 ok. Not satisfied with the answer?
 
@@ -73,8 +78,6 @@ gulp default
 Most changes made to files inside the `src` or the `docs` directory will cause
 the page to reload. This page can also be loaded up on physical devices thanks
 to BrowserSync.
-
-> MDL requires NodeJS 0.12.
 
 ## Versioning
 
