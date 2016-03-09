@@ -151,7 +151,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					this._sDialog.date = moment();
 				}
 			}
-			this._sDialog.tDate = this._sDialog.date;
+			this._sDialog.tDate = this._sDialog.date.clone();
 		}
 
 		/**
@@ -216,8 +216,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			subtitle.innerHTML = m.format('YYYY');
 			title.innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D');
-			this._initViewHolder(m);
 			this._initYear();
+			this._initViewHolder(m);
 			this._attachEventHandlers();
 			this._changeMonth();
 			this._switchToDateView(subtitle);
@@ -234,16 +234,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._initMonth(current, m);
 			this._initMonth(next, moment(this._getMonth(m, 1)));
 			this._initMonth(previous, moment(this._getMonth(m, -1)));
-			this._switchToDateView(picker.querySelector('.md-picker__month'));
+			this._switchToDateView(current.querySelector('.md-picker__month'));
 		}
-
-		/**
-   * [initMonth description]
-   * @param  {[type]} selector [description]
-   * @param  {[type]} m        [description]
-   * @return {[type]}          [description]
-   */
-
 	}, {
 		key: '_initMonth',
 		value: function _initMonth(view, m) {
@@ -309,7 +301,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_initYear',
 		value: function _initYear() {
 			var years = this._sDialog.years,
-			    currentYear = parseInt(this._sDialog.date.format('YYYY'), 10),
+			    currentYear = this._sDialog.tDate.year(),
 			    docfrag = document.createDocumentFragment(),
 			    yearString = '';
 			//TODO also add event listener to this
@@ -322,7 +314,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					li.id = 'md-date__currentYear';
 					li.classList.add('md-picker__li--current');
 				}
-				// TODO attach event handler here
 				docfrag.appendChild(li);
 			}
 			//empty the years ul
@@ -331,8 +322,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			}
 			// set inner html accordingly
 			years.appendChild(docfrag);
-			// get the current year
-			this._sDialog.currentYear = document.getElementById('md-date__currentYear');
+			// attach event handler to the ul to get the benefit of event delegation
+			this._changeYear(years);
 		}
 
 		/**
@@ -340,10 +331,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
    *
    * @method _switchToDateView
    *
-   * @param  {[type]}          picker [description]
-   * @param  {[type]}          el     [description]
+   * @param  {[type]} picker [description]
+   * @param  {[type]} el     [description]
    *
-   * @return {[type]}          [description]
    */
 
 	}, {
@@ -352,44 +342,60 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			var me = this;
 			// attach the view change button
 			el.addEventListener('click', function () {
-				el.classList.add('md-button--unclickable');
-				var viewHolder = me._sDialog.viewHolder,
-				    years = me._sDialog.years,
-				    header = me._sDialog.header;
+				me._switchToDateViewFunction(el, me);
+			}, !1);
+		}
 
-				if (mdDateTimePicker.dialog.view) {
-					viewHolder.classList.add('zoomOut');
-					years.classList.remove('md-picker__years--invisible');
-					years.classList.add('zoomIn');
-					// scroll into the view
-					me._sDialog.currentYear.scrollIntoViewIfNeeded();
-				} else {
-					years.classList.add('zoomOut');
-					viewHolder.classList.remove('zoomOut');
-					viewHolder.classList.add('zoomIn');
-					setTimeout(function () {
-						years.classList.remove('zoomIn', 'zoomOut');
-						years.classList.add('md-picker__years--invisible');
-						viewHolder.classList.remove('zoomIn');
-					}, 300);
-				}
-				header.classList.toggle('md-picker__header--invert');
-				mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
+		/**
+   * [_switchToDateViewFunction the actual switchToDateView function so that it can be called by other elements as well]
+   *
+   * @method _switchToDateViewFunction
+   *
+   * @param  {[type]}	el [element to attach event to]
+   * @param  {[type]}	me [context]
+   *
+   */
+
+	}, {
+		key: '_switchToDateViewFunction',
+		value: function _switchToDateViewFunction(el, me) {
+			el.classList.add('md-button--unclickable');
+			var viewHolder = me._sDialog.viewHolder,
+			    years = me._sDialog.years,
+			    header = me._sDialog.header,
+			    currentYear = document.getElementById('md-date__currentYear');
+
+			if (mdDateTimePicker.dialog.view) {
+				viewHolder.classList.add('zoomOut');
+				years.classList.remove('md-picker__years--invisible');
+				years.classList.add('zoomIn');
+				// scroll into the view
+				currentYear.scrollIntoViewIfNeeded();
+			} else {
+				years.classList.add('zoomOut');
+				viewHolder.classList.remove('zoomOut');
+				viewHolder.classList.add('zoomIn');
 				setTimeout(function () {
-					el.classList.remove('md-button--unclickable');
+					years.classList.remove('zoomIn', 'zoomOut');
+					years.classList.add('md-picker__years--invisible');
+					viewHolder.classList.remove('zoomIn');
 				}, 300);
-			});
+			}
+			header.classList.toggle('md-picker__header--invert');
+			mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
+			setTimeout(function () {
+				el.classList.remove('md-button--unclickable');
+			}, 300);
 		}
 	}, {
 		key: '_addCellClickEvent',
 		value: function _addCellClickEvent(el, view) {
 			var me = this;
 			el.addEventListener('click', function () {
-				var picker = '.md-picker-date ',
+				var picker = me._sDialog.picker,
 				    day = el.innerHTML,
-				    monthYear = view.querySelector('.md-picker__month').innerHTML,
-				    currentDate = moment(day + ' ' + monthYear, 'D MMMM YYYY'),
-				    selected = document.querySelector(picker + '.md-picker__selected');
+				    currentDate = me._sDialog.tDate.date(day),
+				    selected = picker.querySelector('.md-picker__selected');
 
 				if (selected) {
 					selected.classList.remove('md-picker__selected');
@@ -398,10 +404,24 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 				// update temp date object with the date selected
 				me._sDialog.tDate = currentDate;
-
-				document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY');
-				document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D');
+				me._updateDisplayYear();
 			});
+		}
+	}, {
+		key: '_updateDisplayYear',
+		value: function _updateDisplayYear() {
+			var currentDate = this._sDialog.tDate,
+			    title = this._sDialog.title,
+			    subtitle = this._sDialog.subtitle,
+			    current = this._sDialog.current,
+			    previous = this._sDialog.previous,
+			    next = this._sDialog.next;
+
+			current.querySelector('.md-picker__month').innerHTML = currentDate.format('MMMM YYYY');
+			previous.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, -1).format('MMMM YYYY');
+			next.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, 1).format('MMMM YYYY');
+			subtitle.innerHTML = currentDate.year();
+			title.innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D');
 		}
 	}, {
 		key: '_changeMonth',
@@ -493,6 +513,39 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
+   * [_changeYear the on click event handler for year]
+   *
+   * @method _changeYear
+   *
+   * @param  {[type]}    el [description]
+   *
+   * @return {[type]}    [description]
+   */
+
+	}, {
+		key: '_changeYear',
+		value: function _changeYear(el) {
+			var me = this;
+			el.addEventListener('click', function (e) {
+				if (e.target && e.target.nodeName == 'LI') {
+					var selected = document.getElementById('md-date__currentYear');
+					// clear previous selected
+					selected.id = '';
+					selected.classList.remove('md-picker__li--current');
+					// add the properties to the newer one
+					e.target.id = 'md-date__currentYear';
+					e.target.classList.add('md-picker__li--current');
+					// switch view
+					me._switchToDateViewFunction(el, me);
+					// set the tdate to it
+					me._sDialog.tDate.year(parseInt(e.target.innerHTML, 10));
+					// update the display year
+					me._updateDisplayYear();
+				}
+			}, !1);
+		}
+
+		/**
    * [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
    *
    * @method _attachEventHandlers
@@ -550,7 +603,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
       * @version [0.0.1]
       * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
       * @license MIT
-      * @website no website right now
+      * @website puranjayjain.github.io/md-date-time-picker/demo.html
       */
 
 /**
@@ -567,8 +620,8 @@ if (!Element.prototype.scrollIntoViewIfNeeded) {
 
 		var parent = this.parentNode,
 		    parentComputedStyle = window.getComputedStyle(parent, null),
-		    parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width')),
-		    parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width')),
+		    parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
+		    parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width'), 10),
 		    overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
 		    overBottom = this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth > parent.scrollTop + parent.clientHeight,
 		    overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
