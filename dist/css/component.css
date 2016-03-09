@@ -89,9 +89,6 @@ body {
     vertical-align: top;
     height: 100%; }
 
-.md-picker--inactive {
-  display: none; }
-
 .md-picker-date .md-picker__left {
   background: url("../images/ic_keyboard_arrow_left_black_24px.svg");
   left: 4px; }
@@ -265,6 +262,9 @@ body {
     display: block;
     height: 100%;
     width: 100%; }
+
+.md-picker--inactive {
+  display: none; }
 
 @-webkit-keyframes zoomIn {
   from {

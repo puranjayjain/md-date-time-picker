@@ -83,9 +83,6 @@ body {
     height: 100%;
   }
 }
-.md-picker--inactive {
-  display: none;
-}
 //date component dialog
 .md-picker-date {
   .md-picker__left {
@@ -266,6 +263,10 @@ body {
 .md-picker--portrait {
   display: block;
   @import "dependencies/media-portrait";
+}
+// disable classes
+.md-picker--inactive {
+  display: none;
 }
 //animations
 @keyframes zoomIn {
