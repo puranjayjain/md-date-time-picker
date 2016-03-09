@@ -2,6 +2,7 @@
 
 [![Dependency Status](https://david-dm.org/puranjayjain/md-date-time-picker.svg)](https://david-dm.org/puranjayjain/md-date-time-picker)
 
+[![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)]()
 [![Issues](https://img.shields.io/github/issues/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/issues)
 [![Forks](https://img.shields.io/github/forks/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/network)
 [![Stars](https://img.shields.io/github/stars/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/stargazers)
@@ -75,9 +76,7 @@ After successfully installing the above components
 gulp default
 ```
 
-Most changes made to files inside the `src` or the `docs` directory will cause
-the page to reload. This page can also be loaded up on physical devices thanks
-to BrowserSync.
+Most changes made to files inside the `src` directory will cause the page to reload. This page can also be loaded up on physical devices thanks to BrowserSync.
 
 ## Versioning
 

@@ -124,7 +124,7 @@ class mdDateTimePicker {
 				this._sDialog.date = moment()
 			}
 		}
-		this._sDialog.tDate = this._sDialog.date
+		this._sDialog.tDate = this._sDialog.date.clone()
 	}
 
 	/**
@@ -178,8 +178,8 @@ class mdDateTimePicker {
 		let title = this._sDialog.title
 		subtitle.innerHTML = m.format('YYYY')
 		title.innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D')
-		this._initViewHolder(m)
 		this._initYear()
+		this._initViewHolder(m)
 		this._attachEventHandlers()
 		this._changeMonth()
 		this._switchToDateView(subtitle)
@@ -196,13 +196,6 @@ class mdDateTimePicker {
 		this._initMonth(previous, moment(this._getMonth(m, -1)))
 		this._switchToDateView(current.querySelector('.md-picker__month'))
 	}
-
-	/**
-	 * [initMonth description]
-	 * @param  {[type]} selector [description]
-	 * @param  {[type]} m        [description]
-	 * @return {[type]}          [description]
-	 */
 
 	_initMonth(view, m) {
 		let displayMonth = m.format('MMMM YYYY')
@@ -261,9 +254,8 @@ class mdDateTimePicker {
 	 * @return {[type]}  [description]
 	 */
 	_initYear() {
-		let me = this
 		let years = this._sDialog.years
-		let currentYear = parseInt(this._sDialog.date.format('YYYY'), 10)
+		let currentYear = this._sDialog.tDate.year()
 		let docfrag = document.createDocumentFragment()
 			//TODO also add event listener to this
 		let yearString = ''
@@ -275,7 +267,6 @@ class mdDateTimePicker {
 				li.id = 'md-date__currentYear'
 				li.classList.add('md-picker__li--current')
 			}
-			// TODO attach event handler here
 			docfrag.appendChild(li)
 		}
 		//empty the years ul
@@ -284,8 +275,8 @@ class mdDateTimePicker {
 		}
 		// set inner html accordingly
 		years.appendChild(docfrag)
-			// get the current year
-		this._sDialog.currentYear = document.getElementById('md-date__currentYear')
+			// attach event handler to the ul to get the benefit of event delegation
+		this._changeYear(years)
 	}
 
 	/**
@@ -293,51 +284,63 @@ class mdDateTimePicker {
 	 *
 	 * @method _switchToDateView
 	 *
-	 * @param  {[type]}          picker [description]
-	 * @param  {[type]}          el     [description]
+	 * @param  {[type]} picker [description]
+	 * @param  {[type]} el     [description]
 	 *
-	 * @return {[type]}          [description]
 	 */
 	_switchToDateView(el) {
 		let me = this
 			// attach the view change button
 		el.addEventListener('click', function () {
-			el.classList.add('md-button--unclickable')
-			let viewHolder = me._sDialog.viewHolder
-			let years = me._sDialog.years
-			let header = me._sDialog.header
-			if (mdDateTimePicker.dialog.view) {
-				viewHolder.classList.add('zoomOut')
-				years.classList.remove('md-picker__years--invisible')
-				years.classList.add('zoomIn')
-					// scroll into the view
-				me._sDialog.currentYear.scrollIntoViewIfNeeded()
-			} else {
-				years.classList.add('zoomOut')
-				viewHolder.classList.remove('zoomOut')
-				viewHolder.classList.add('zoomIn')
-				setTimeout((function () {
-					years.classList.remove('zoomIn', 'zoomOut')
-					years.classList.add('md-picker__years--invisible')
-					viewHolder.classList.remove('zoomIn')
-				}), 300)
-			}
-			header.classList.toggle('md-picker__header--invert')
-			mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
+			me._switchToDateViewFunction(el, me)
+		}, false)
+	}
+
+	/**
+	 * [_switchToDateViewFunction the actual switchToDateView function so that it can be called by other elements as well]
+	 *
+	 * @method _switchToDateViewFunction
+	 *
+	 * @param  {[type]}	el [element to attach event to]
+	 * @param  {[type]}	me [context]
+	 *
+	 */
+	_switchToDateViewFunction(el, me) {
+		el.classList.add('md-button--unclickable')
+		let viewHolder = me._sDialog.viewHolder
+		let years = me._sDialog.years
+		let header = me._sDialog.header
+		let currentYear = document.getElementById('md-date__currentYear')
+		if (mdDateTimePicker.dialog.view) {
+			viewHolder.classList.add('zoomOut')
+			years.classList.remove('md-picker__years--invisible')
+			years.classList.add('zoomIn')
+				// scroll into the view
+			currentYear.scrollIntoViewIfNeeded()
+		} else {
+			years.classList.add('zoomOut')
+			viewHolder.classList.remove('zoomOut')
+			viewHolder.classList.add('zoomIn')
 			setTimeout((function () {
-				el.classList.remove('md-button--unclickable')
+				years.classList.remove('zoomIn', 'zoomOut')
+				years.classList.add('md-picker__years--invisible')
+				viewHolder.classList.remove('zoomIn')
 			}), 300)
-		})
+		}
+		header.classList.toggle('md-picker__header--invert')
+		mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
+		setTimeout((function () {
+			el.classList.remove('md-button--unclickable')
+		}), 300)
 	}
 
 	_addCellClickEvent(el, view) {
 		let me = this
 		el.addEventListener('click', function () {
-			let picker = '.md-picker-date '
+			let picker = me._sDialog.picker
 			let day = el.innerHTML
-			let monthYear = view.querySelector('.md-picker__month').innerHTML
-			let currentDate = moment(day + ' ' + monthYear, 'D MMMM YYYY')
-			let selected = document.querySelector(picker + '.md-picker__selected')
+			let currentDate = me._sDialog.tDate.date(day)
+			let selected = picker.querySelector('.md-picker__selected')
 			if (selected) {
 				selected.classList.remove('md-picker__selected')
 			}
@@ -345,10 +348,22 @@ class mdDateTimePicker {
 
 			// update temp date object with the date selected
 			me._sDialog.tDate = currentDate
-
-			document.querySelector(picker + '.md-picker__subtitle').innerHTML = currentDate.format('YYYY')
-			document.querySelector(picker + '.md-picker__title').innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D')
+			me._updateDisplayYear()
 		})
+	}
+
+	_updateDisplayYear() {
+		let currentDate = this._sDialog.tDate
+		let title = this._sDialog.title
+		let subtitle = this._sDialog.subtitle
+		let current = this._sDialog.current
+		let previous = this._sDialog.previous
+		let next = this._sDialog.next
+		current.querySelector('.md-picker__month').innerHTML = currentDate.format('MMMM YYYY')
+		previous.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, -1).format('MMMM YYYY')
+		next.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, 1).format('MMMM YYYY')
+		subtitle.innerHTML = currentDate.year()
+		title.innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D')
 	}
 
 	_changeMonth() {
@@ -433,6 +448,36 @@ class mdDateTimePicker {
 				right.classList.remove('md-button--unclickable')
 			}, 400)
 		}
+	}
+
+	/**
+	 * [_changeYear the on click event handler for year]
+	 *
+	 * @method _changeYear
+	 *
+	 * @param  {[type]}    el [description]
+	 *
+	 * @return {[type]}    [description]
+	 */
+	_changeYear(el) {
+		let me = this
+		el.addEventListener('click', function (e) {
+			if (e.target && e.target.nodeName == 'LI') {
+				let selected = document.getElementById('md-date__currentYear')
+					// clear previous selected
+				selected.id = ''
+				selected.classList.remove('md-picker__li--current')
+					// add the properties to the newer one
+				e.target.id = 'md-date__currentYear'
+				e.target.classList.add('md-picker__li--current')
+					// switch view
+				me._switchToDateViewFunction(el, me)
+					// set the tdate to it
+				me._sDialog.tDate.year(parseInt(e.target.innerHTML, 10))
+				// update the display year
+				me._updateDisplayYear()
+			}
+		}, false)
 	}
 
 	/**
