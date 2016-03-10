@@ -12,52 +12,56 @@ var _createClass = function () { function defineProperties(target, props) { for 
   * @method constructor
   *
   * @param  {[string]}    type         [type of dialog] ['date','time']
-  * @param  {[string]}    init    = '' [initial value for the dialog date or time, defaults to today]
-  * @param  {[string]}    display = '' [the document element where the current date is displayed]
-  * @param  {[args]}      args    = '' [additional arguments of the dialog]
+  * @param  {[moment]}    init    = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
+  * @param  {[moment]}    past    = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
+  * @param  {[moment]}    future  = moment() [the future moment till which the calendar shall render] [@default value of init]
   *
-  * @return {[type]}    [this component]
+  * @return {[Object]}    [mdDateTimePicker]
   */
 
 	function mdDateTimePicker(type) {
-		var init = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1],
-		    display = arguments.length <= 2 || arguments[2] === undefined ? '' : arguments[2],
-		    args = arguments.length <= 3 || arguments[3] === undefined ? '' : arguments[3];
+		var init = arguments.length <= 1 || arguments[1] === undefined ? moment() : arguments[1],
+		    past = arguments.length <= 2 || arguments[2] === undefined ? moment().subtract(21, 'years') : arguments[2],
+		    future = arguments.length <= 3 || arguments[3] === undefined ? init : arguments[3];
 
 		_classCallCheck(this, mdDateTimePicker);
 
 		this._type = type;
 		this._init = init;
-		this._display = display;
-		this._args = args;
+		this._past = past;
+		this._future = future;
 
-		if (this._type) {
-			/**
-    * [dialog selected classes has the same structure as dialog but one level down]
-    * @type {Object}
-    * e.g
-    * sDialog = {
-    *   picker: 'some-picker-selected'
-    * }
-    */
-			this._sDialog = {};
-		}
+		/**
+   * [dialog selected classes has the same structure as dialog but one level down]
+   * @type {Object}
+   * e.g
+   * sDialog = {
+   *   picker: 'some-picker-selected'
+   * }
+   */
+		this._sDialog = {};
 	}
 
 	/**
-  * [upDate updates the current picker's date]
+  * [upDate to get or set the current picker's moment]
   *
-  * @method upDate
+  * @method date
   *
-  * @param  {[type]} m [moment]
+  * @param  {[moment]} m
   *
   */
 
 
 	_createClass(mdDateTimePicker, [{
-		key: 'upDate',
-		value: function upDate(m) {
-			this._sDialog.date = m.clone();
+		key: 'date',
+		value: function date() {
+			var m = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+
+			if (m === '') {
+				return this._init;
+			} else {
+				this._init = m;
+			}
 		}
 
 		/**
@@ -76,9 +80,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				this._hideDialog();
 			} else {
 				if (this._type === 'date') {
-					this._initDateDialog(this._sDialog.date);
+					this._initDateDialog(this._init);
 				} else if (this._type === 'time') {
-					// this._initTimeDialog(this._sDialog.date)
+					// this._initTimeDialog(this._init)
 				}
 				this._showDialog();
 			}
@@ -118,7 +122,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
     *
     * @type {Array}
     */
-			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title'],
+			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth'],
 			    _iteratorNormalCompletion = !0,
 			    _didIteratorError = !1,
 			    _iteratorError = undefined;
@@ -144,14 +148,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				}
 			}
 
-			if (!this._sDialog.date) {
-				if (this._init) {
-					this._sDialog.date = moment(this._init, this._format);
-				} else {
-					this._sDialog.date = moment();
-				}
-			}
-			this._sDialog.tDate = this._sDialog.date.clone();
+			this._sDialog.tDate = this._init.clone();
+			this._sDialog.sDate = this._init.clone();
 		}
 
 		/**
@@ -159,7 +157,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
    *
    * @method _showDialog
    *
-   * @return {[type]}    [description]
    */
 
 	}, {
@@ -175,7 +172,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
    *
    * @method _hideDialog
    *
-   * @return {[type]}    [description]
    */
 
 	}, {
@@ -212,10 +208,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_initDateDialog',
 		value: function _initDateDialog(m) {
 			var subtitle = this._sDialog.subtitle,
-			    title = this._sDialog.title;
+			    title = this._sDialog.title,
+			    titleDay = this._sDialog.titleDay,
+			    titleMonth = this._sDialog.titleMonth;
 
 			subtitle.innerHTML = m.format('YYYY');
-			title.innerHTML = m.format('ddd,') + '<br />' + m.format('MMM D');
+			titleDay.innerHTML = m.format('ddd, ');
+			titleMonth.innerHTML = m.format('MMM D');
 			this._initYear();
 			this._initViewHolder(m);
 			this._attachEventHandlers();
@@ -241,52 +240,59 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _initMonth(view, m) {
 			var displayMonth = m.format('MMMM YYYY');
 			view.querySelector('.md-picker__month').innerHTML = displayMonth;
-			var todayClass = view.querySelector('.md-picker__today'),
-			    selectedClass = view.querySelector('.md-picker__selected'),
-			    cells = view.querySelectorAll('.md-picker__tr ' + 'span'),
+			var docfrag = document.createDocumentFragment(),
+			    tr = view.querySelector('.md-picker__tr'),
 			    firstDayOfMonth = parseInt(moment(m).date(1).day(), 10),
 			    today = -1,
 			    selected = -1,
-			    lastDayoFMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1;
+			    lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1,
+			    past = firstDayOfMonth,
+			    future = lastDayOfMonth;
 
-			if (todayClass) {
-				todayClass.classList.remove('md-picker__today');
-			}
-			if (selectedClass) {
-				selectedClass.classList.remove('md-picker__selected');
-			}
-			if (moment().format('MMMM YYYY') === displayMonth) {
+			if (moment().isSame(m, 'month')) {
 				today = parseInt(moment().format('D'), 10);
 				today += firstDayOfMonth - 1;
 			}
-			if (view === this._sDialog.current) {
+			if (this._past.isSame(m, 'month')) {
+				past = parseInt(this._past.format('D'), 10);
+				past += firstDayOfMonth - 1;
+			}
+			if (this._future.isSame(m, 'month')) {
+				future = parseInt(this._future.format('D'), 10);
+				future += firstDayOfMonth - 1;
+			}
+			if (this._sDialog.sDate.isSame(m, 'month')) {
 				selected = parseInt(moment(m).format('D'), 10);
 				selected += firstDayOfMonth - 1;
 			}
-			for (var i = 0; i < cells.length; i++) {
-				var cell = cells[i],
+			for (var i = 0; i < 42; i++) {
+				// create cell
+				var cell = document.createElement('span'),
 				    currentDay = i - firstDayOfMonth + 1;
 
-				if (i < firstDayOfMonth) {
-					cell.classList.remove('md-picker__cell');
-					cell.innerHTML = '';
+				if (i >= firstDayOfMonth && i <= lastDayOfMonth) {
+					if (i > future || i < past) {
+						cell.classList.add('md-picker__cell--disabled');
+					} else {
+						cell.classList.add('md-picker__cell');
+					}
+					cell.innerHTML = currentDay;
 				}
 				if (today === i) {
-					cell.classList.add('md-picker__today');
+					cell.classList.add('md-picker__cell--today');
 				}
 				if (selected === i) {
-					cell.classList.add('md-picker__selected');
+					cell.classList.add('md-picker__cell--selected');
 				}
-				if (i >= firstDayOfMonth && i <= lastDayoFMonth) {
-					cell.classList.add('md-picker__cell');
-					cell.innerHTML = currentDay;
-					this._addCellClickEvent(cell, view);
-				}
-				if (i > lastDayoFMonth) {
-					cell.classList.remove('md-picker__cell');
-					cell.innerHTML = '';
-				}
+				docfrag.appendChild(cell);
 			}
+			//empty the tr
+			while (tr.lastChild) {
+				tr.removeChild(tr.lastChild);
+			}
+			// set inner html accordingly
+			tr.appendChild(docfrag);
+			this._addCellClickEvent(tr);
 		}
 
 		/**
@@ -303,11 +309,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			var years = this._sDialog.years,
 			    currentYear = this._sDialog.tDate.year(),
 			    docfrag = document.createDocumentFragment(),
-			    yearString = '';
-			//TODO also add event listener to this
+			    past = this._past.year(),
+			    future = this._future.year();
 
 			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
-			for (var year = 1900; year <= 2100; year++) {
+			for (var year = past; year <= future; year++) {
 				var li = document.createElement('li');
 				li.textContent = year;
 				if (year === currentYear) {
@@ -389,39 +395,36 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 	}, {
 		key: '_addCellClickEvent',
-		value: function _addCellClickEvent(el, view) {
+		value: function _addCellClickEvent(el) {
 			var me = this;
-			el.addEventListener('click', function () {
-				var picker = me._sDialog.picker,
-				    day = el.innerHTML,
-				    currentDate = me._sDialog.tDate.date(day),
-				    selected = picker.querySelector('.md-picker__selected');
+			el.addEventListener('click', function (e) {
+				if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('md-picker__cell')) {
+					var picker = me._sDialog.picker,
+					    day = e.target.innerHTML,
+					    currentDate = me._sDialog.tDate.date(day),
+					    selected = picker.querySelector('.md-picker__cell--selected'),
+					    title = me._sDialog.title,
+					    subtitle = me._sDialog.subtitle,
+					    titleDay = me._sDialog.titleDay,
+					    titleMonth = me._sDialog.titleMonth;
 
-				if (selected) {
-					selected.classList.remove('md-picker__selected');
+					if (selected) {
+						selected.classList.remove('md-picker__cell--selected');
+					}
+					e.target.classList.add('md-picker__cell--selected');
+
+					// update temp date object with the date selected
+					me._sDialog.sDate = currentDate.clone();
+					subtitle.innerHTML = currentDate.year();
+					titleDay.innerHTML = currentDate.format('ddd, ');
+					titleMonth.innerHTML = currentDate.format('MMM D');
 				}
-				el.classList.add('md-picker__selected');
-
-				// update temp date object with the date selected
-				me._sDialog.tDate = currentDate;
-				me._updateDisplayYear();
-			});
+			}, !1);
 		}
 	}, {
-		key: '_updateDisplayYear',
-		value: function _updateDisplayYear() {
-			var currentDate = this._sDialog.tDate,
-			    title = this._sDialog.title,
-			    subtitle = this._sDialog.subtitle,
-			    current = this._sDialog.current,
-			    previous = this._sDialog.previous,
-			    next = this._sDialog.next;
-
-			current.querySelector('.md-picker__month').innerHTML = currentDate.format('MMMM YYYY');
-			previous.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, -1).format('MMMM YYYY');
-			next.querySelector('.md-picker__month').innerHTML = this._getMonth(currentDate, 1).format('MMMM YYYY');
-			subtitle.innerHTML = currentDate.year();
-			title.innerHTML = currentDate.format('ddd,') + '<br />' + currentDate.format('MMM D');
+		key: '_updateDialog',
+		value: function _updateDialog() {
+			this._initViewHolder(this._sDialog.tDate);
 		}
 	}, {
 		key: '_changeMonth',
@@ -435,11 +438,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			left.addEventListener('click', function () {
 				moveStep(mRightClass, me._sDialog.previous);
-			});
+			}, !1);
 
 			right.addEventListener('click', function () {
 				moveStep(mLeftClass, me._sDialog.next);
-			});
+			}, !1);
 
 			function moveStep(aClass, to) {
 				/**
@@ -519,7 +522,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
    *
    * @param  {[type]}    el [description]
    *
-   * @return {[type]}    [description]
    */
 
 	}, {
@@ -539,8 +541,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					me._switchToDateViewFunction(el, me);
 					// set the tdate to it
 					me._sDialog.tDate.year(parseInt(e.target.innerHTML, 10));
-					// update the display year
-					me._updateDisplayYear();
+					// update the dialog
+					me._updateDialog();
 				}
 			}, !1);
 		}
@@ -561,11 +563,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			cancel.addEventListener('click', function () {
 				me.toggle();
-			});
+			}, !1);
 			ok.addEventListener('click', function () {
-				me._sDialog.date = me._sDialog.tDate;
+				me._init = me._sDialog.sDate;
 				me.toggle();
-			});
+			}, !1);
 		}
 
 		/**
