@@ -52,9 +52,6 @@ body {
   color: $md-button-color--disabled;
   cursor: not-allowed;
 }
-.md-button--unclickable {
-  pointer-events: none;
-}
 //date or time component dialog
 .md-picker {
   @include shadow-8dp();

@@ -216,7 +216,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			titleDay.innerHTML = m.format('ddd, ');
 			titleMonth.innerHTML = m.format('MMM D');
 			this._initYear();
-			this._initViewHolder(m);
+			this._initViewHolder();
 			this._attachEventHandlers();
 			this._changeMonth();
 			this._switchToDateView(subtitle);
@@ -224,16 +224,26 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 	}, {
 		key: '_initViewHolder',
-		value: function _initViewHolder(m) {
-			var picker = this._sDialog.picker,
+		value: function _initViewHolder() {
+			var m = this._sDialog.tDate,
+			    picker = this._sDialog.picker,
 			    current = this._sDialog.current,
 			    previous = this._sDialog.previous,
-			    next = this._sDialog.next;
+			    next = this._sDialog.next,
+			    past = this._past,
+			    future = this._future;
 
+			if (m.isBefore(past, 'month')) {
+				m = past.clone();
+			}
+			if (m.isAfter(future, 'month')) {
+				m = future.clone();
+			}
 			this._initMonth(current, m);
 			this._initMonth(next, moment(this._getMonth(m, 1)));
 			this._initMonth(previous, moment(this._getMonth(m, -1)));
 			this._switchToDateView(current.querySelector('.md-picker__month'));
+			this._toMoveMonth();
 		}
 	}, {
 		key: '_initMonth',
@@ -312,7 +322,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    past = this._past.year(),
 			    future = this._future.year();
 
-			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
 			for (var year = past; year <= future; year++) {
 				var li = document.createElement('li');
 				li.textContent = year;
@@ -365,7 +374,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_switchToDateViewFunction',
 		value: function _switchToDateViewFunction(el, me) {
-			el.classList.add('md-button--unclickable');
+			el.setAttribute('disabled', '');
 			var viewHolder = me._sDialog.viewHolder,
 			    years = me._sDialog.years,
 			    header = me._sDialog.header,
@@ -390,7 +399,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			header.classList.toggle('md-picker__header--invert');
 			mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
 			setTimeout(function () {
-				el.classList.remove('md-button--unclickable');
+				el.removeAttribute('disabled');
 			}, 300);
 		}
 	}, {
@@ -424,7 +433,29 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_updateDialog',
 		value: function _updateDialog() {
-			this._initViewHolder(this._sDialog.tDate);
+			this._initViewHolder();
+		}
+	}, {
+		key: '_toMoveMonth',
+		value: function _toMoveMonth() {
+			var m = this._sDialog.tDate,
+			    left = this._sDialog.left,
+			    right = this._sDialog.right,
+			    past = this._past,
+			    future = this._future;
+
+			left.removeAttribute('disabled');
+			right.removeAttribute('disabled');
+			left.classList.remove('md-button--disabled');
+			right.classList.remove('md-button--disabled');
+			if (m.isSame(past, 'month')) {
+				left.setAttribute('disabled', '');
+				left.classList.add('md-button--disabled');
+			}
+			if (m.isSame(future, 'month')) {
+				right.setAttribute('disabled', '');
+				right.classList.add('md-button--disabled');
+			}
 		}
 	}, {
 		key: '_changeMonth',
@@ -455,8 +486,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				    current = me._sDialog.current,
 				    previous = me._sDialog.previous;
 
-				left.classList.add('md-button--unclickable');
-				right.classList.add('md-button--unclickable');
+				left.setAttribute('disabled', '');
+				right.setAttribute('disabled', '');
 				current.classList.add(aClass);
 				previous.classList.add(aClass);
 				next.classList.add(aClass);
@@ -506,11 +537,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					} else {
 						me._sDialog.tDate = me._getMonth(me._sDialog.tDate, 1);
 					}
-					me._initViewHolder(me._sDialog.tDate);
+					me._initViewHolder();
 				}, 350);
 				setTimeout(function () {
-					left.classList.remove('md-button--unclickable');
-					right.classList.remove('md-button--unclickable');
+					if (!left.classList.contains('md-button--disabled')) {
+						left.removeAttribute('disabled');
+					}
+					if (!right.classList.contains('md-button--disabled')) {
+						right.removeAttribute('disabled');
+					}
 				}, 400);
 			}
 		}

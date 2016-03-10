@@ -176,22 +176,32 @@ class mdDateTimePicker {
 		titleDay.innerHTML = m.format('ddd, ')
 		titleMonth.innerHTML = m.format('MMM D')
 		this._initYear()
-		this._initViewHolder(m)
+		this._initViewHolder()
 		this._attachEventHandlers()
 		this._changeMonth()
 		this._switchToDateView(subtitle)
 		this._switchToDateView(title)
 	}
 
-	_initViewHolder(m) {
+	_initViewHolder() {
+		let m = this._sDialog.tDate
 		let picker = this._sDialog.picker
 		let current = this._sDialog.current
 		let previous = this._sDialog.previous
 		let next = this._sDialog.next
+		let past = this._past
+		let future = this._future
+		if (m.isBefore(past, 'month')) {
+			m = past.clone()
+		}
+		if (m.isAfter(future, 'month')) {
+			m = future.clone()
+		}
 		this._initMonth(current, m)
 		this._initMonth(next, moment(this._getMonth(m, 1)))
 		this._initMonth(previous, moment(this._getMonth(m, -1)))
 		this._switchToDateView(current.querySelector('.md-picker__month'))
+		this._toMoveMonth()
 	}
 
 	_initMonth(view, m) {
@@ -263,7 +273,6 @@ class mdDateTimePicker {
 		let docfrag = document.createDocumentFragment()
 		let past = this._past.year()
 		let future = this._future.year()
-			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
 		for (let year = past; year <= future; year++) {
 			let li = document.createElement('li')
 			li.textContent = year
@@ -310,7 +319,7 @@ class mdDateTimePicker {
 	 *
 	 */
 	_switchToDateViewFunction(el, me) {
-		el.classList.add('md-button--unclickable')
+		el.setAttribute('disabled', '')
 		let viewHolder = me._sDialog.viewHolder
 		let years = me._sDialog.years
 		let header = me._sDialog.header
@@ -334,7 +343,7 @@ class mdDateTimePicker {
 		header.classList.toggle('md-picker__header--invert')
 		mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
 		setTimeout((function () {
-			el.classList.remove('md-button--unclickable')
+			el.removeAttribute('disabled')
 		}), 300)
 	}
 
@@ -365,7 +374,27 @@ class mdDateTimePicker {
 	}
 
 	_updateDialog() {
-		this._initViewHolder(this._sDialog.tDate)
+		this._initViewHolder()
+	}
+
+	_toMoveMonth() {
+		let m = this._sDialog.tDate
+		let left = this._sDialog.left
+		let right = this._sDialog.right
+		let past = this._past
+		let future = this._future
+		left.removeAttribute('disabled')
+		right.removeAttribute('disabled')
+		left.classList.remove('md-button--disabled')
+		right.classList.remove('md-button--disabled')
+		if (m.isSame(past, 'month')) {
+			left.setAttribute('disabled', '')
+			left.classList.add('md-button--disabled')
+		}
+		if (m.isSame(future, 'month')) {
+			right.setAttribute('disabled', '')
+			right.classList.add('md-button--disabled')
+		}
 	}
 
 	_changeMonth() {
@@ -393,8 +422,8 @@ class mdDateTimePicker {
 			let next = me._sDialog.next
 			let current = me._sDialog.current
 			let previous = me._sDialog.previous
-			left.classList.add('md-button--unclickable')
-			right.classList.add('md-button--unclickable')
+			left.setAttribute('disabled', '')
+			right.setAttribute('disabled', '')
 			current.classList.add(aClass)
 			previous.classList.add(aClass)
 			next.classList.add(aClass)
@@ -443,11 +472,15 @@ class mdDateTimePicker {
 				} else {
 					me._sDialog.tDate = me._getMonth(me._sDialog.tDate, 1)
 				}
-				me._initViewHolder(me._sDialog.tDate)
+				me._initViewHolder()
 			}, 350)
 			setTimeout(function () {
-				left.classList.remove('md-button--unclickable')
-				right.classList.remove('md-button--unclickable')
+				if (!(left.classList.contains('md-button--disabled'))) {
+					left.removeAttribute('disabled')
+				}
+				if (!(right.classList.contains('md-button--disabled'))) {
+					right.removeAttribute('disabled')
+				}
 			}, 400)
 		}
 	}
