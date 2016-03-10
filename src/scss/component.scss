@@ -48,6 +48,10 @@ body {
 .md-button:active {
   background-color: $md-button-color--active;
 }
+.md-button:disabled {
+  color: $md-button-color--disabled;
+  cursor: not-allowed;
+}
 .md-button--unclickable {
   pointer-events: none;
 }
@@ -115,6 +119,17 @@ body {
   .md-picker__left:active,
   .md-picker__right:active {
     background-color: $md-button-color--active;
+  }
+  .md-picker__left:disabled {
+    background: url($picker-button-left-disabled);
+  }
+  .md-picker__right:disabled {
+    background: url($picker-button-right-disabled);
+  }
+  .md-picker__left:disabled,
+  .md-picker__right:disabled {
+    background-repeat: no-repeat;
+    background-position: center;
   }
   .md-picker__header {
     .md-picker__title {
@@ -196,7 +211,7 @@ body {
           color: $picker-body-color;
         }
         .md-picker__cell--disabled {
-          color: $picker-cell-text-theme-color--disabled;
+          color: $md-button-color--disabled;
           cursor: not-allowed;
         }
         .md-picker__tr {

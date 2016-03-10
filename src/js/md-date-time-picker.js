@@ -20,21 +20,17 @@ class mdDateTimePicker {
 	 * @method constructor
 	 *
 	 * @param  {[string]}    type         [type of dialog] ['date','time']
-	 * @param  {[moment]}    init    = '' [initial value for the dialog date or time, defaults to today] [pass '' to this if you want to the @default value of today]
-	 * @param  {[moment]}    past    = '' [the past moment till which the calendar shall render] [@default value of 21 Years ago from init]
-	 * @param  {[moment]}    future  = '' [the future moment till which the calendar shall render] [@default value of init]
+	 * @param  {[moment]}    init    = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
+	 * @param  {[moment]}    past    = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
+	 * @param  {[moment]}    future  = moment() [the future moment till which the calendar shall render] [@default value of init]
 	 *
 	 * @return {[Object]}    [mdDateTimePicker]
 	 */
-	constructor(type, init = '', past = '', future = '') {
+	constructor(type, init = moment(), past = moment().subtract(21, 'years'), future = init) {
 		this._type = type
 		this._init = init
 		this._past = past
-		if (future === '') {
-			this._future = init
-		} else {
-			this._future = future
-		}
+		this._future = future
 
 		/**
 		 * [dialog selected classes has the same structure as dialog but one level down]
@@ -45,11 +41,6 @@ class mdDateTimePicker {
 		 * }
 		 */
 		this._sDialog = {}
-		this._sDialog.date = moment()
-
-		if (this._init) {
-			this._sDialog.date = moment(this._init)
-		}
 	}
 
 	/**
@@ -62,9 +53,9 @@ class mdDateTimePicker {
 	 */
 	date(m = '') {
 		if (m === '') {
-			return this._sDialog.date
+			return this._init
 		} else {
-			this._sDialog.date = m.clone()
+			this._init = m
 		}
 	}
 
@@ -81,9 +72,9 @@ class mdDateTimePicker {
 			this._hideDialog()
 		} else {
 			if (this._type === 'date') {
-				this._initDateDialog(this._sDialog.date)
+				this._initDateDialog(this._init)
 			} else if (this._type === 'time') {
-				// this._initTimeDialog(this._sDialog.date)
+				// this._initTimeDialog(this._init)
 			}
 			this._showDialog()
 		}
@@ -128,8 +119,8 @@ class mdDateTimePicker {
 			this._sDialog[sDialogEl] = document.getElementById('md-' + this._type + '__' + sDialogEl)
 		}
 
-		this._sDialog.tDate = this._sDialog.date.clone()
-		this._sDialog.sDate = this._sDialog.date.clone()
+		this._sDialog.tDate = this._init.clone()
+		this._sDialog.sDate = this._init.clone()
 	}
 
 	/**
@@ -212,9 +203,19 @@ class mdDateTimePicker {
 		let today = -1
 		let selected = -1
 		let lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1
+		let past = firstDayOfMonth
+		let future = lastDayOfMonth
 		if (moment().isSame(m, 'month')) {
 			today = parseInt(moment().format('D'), 10)
 			today += firstDayOfMonth - 1
+		}
+		if (this._past.isSame(m, 'month')) {
+			past = parseInt(this._past.format('D'), 10)
+			past += firstDayOfMonth - 1
+		}
+		if (this._future.isSame(m, 'month')) {
+			future = parseInt(this._future.format('D'), 10)
+			future += firstDayOfMonth - 1
 		}
 		if (this._sDialog.sDate.isSame(m, 'month')) {
 			selected = parseInt(moment(m).format('D'), 10)
@@ -225,7 +226,11 @@ class mdDateTimePicker {
 			let cell = document.createElement('span')
 			let currentDay = i - firstDayOfMonth + 1
 			if ((i >= firstDayOfMonth) && (i <= lastDayOfMonth)) {
-				cell.classList.add('md-picker__cell')
+				if (i > future || i < past) {
+					cell.classList.add('md-picker__cell--disabled')
+				} else {
+					cell.classList.add('md-picker__cell')
+				}
 				cell.innerHTML = currentDay
 			}
 			if (today === i) {
@@ -256,10 +261,10 @@ class mdDateTimePicker {
 		let years = this._sDialog.years
 		let currentYear = this._sDialog.tDate.year()
 		let docfrag = document.createDocumentFragment()
-			//TODO also add event listener to this
-		let yearString = ''
+		let past = this._past.year()
+		let future = this._future.year()
 			// REVIEW CHANGE THE YEAR according TO THE DIALOG METHODS
-		for (let year = 1900; year <= 2100; year++) {
+		for (let year = past; year <= future; year++) {
 			let li = document.createElement('li')
 			li.textContent = year
 			if (year === currentYear) {
@@ -356,7 +361,7 @@ class mdDateTimePicker {
 				titleDay.innerHTML = currentDate.format('ddd, ')
 				titleMonth.innerHTML = currentDate.format('MMM D')
 			}
-		})
+		}, false)
 	}
 
 	_updateDialog() {
@@ -372,11 +377,11 @@ class mdDateTimePicker {
 		let pause = 'md-picker__view--pause'
 		left.addEventListener('click', function () {
 			moveStep(mRightClass, me._sDialog.previous)
-		})
+		}, false)
 
 		right.addEventListener('click', function () {
 			moveStep(mLeftClass, me._sDialog.next)
-		})
+		}, false)
 
 		function moveStep(aClass, to) {
 			/**
@@ -488,11 +493,11 @@ class mdDateTimePicker {
 		let cancel = this._sDialog.cancel
 		cancel.addEventListener('click', function () {
 			me.toggle()
-		})
+		}, false)
 		ok.addEventListener('click', function () {
-			me._sDialog.date = me._sDialog.sDate
+			me._init = me._sDialog.sDate
 			me.toggle()
-		})
+		}, false)
 	}
 
 	/**

@@ -55,6 +55,10 @@ body {
 .md-button:active {
   background-color: #bdbdbd; }
 
+.md-button:disabled {
+  color: rgba(0, 0, 0, 0.26);
+  cursor: not-allowed; }
+
 .md-button--unclickable {
   pointer-events: none; }
 
@@ -118,6 +122,17 @@ body {
 .md-picker-date .md-picker__left:active,
 .md-picker-date .md-picker__right:active {
   background-color: #bdbdbd; }
+
+.md-picker-date .md-picker__left:disabled {
+  background: url("../images/ic_keyboard_arrow_left_black_disabled_24px.svg"); }
+
+.md-picker-date .md-picker__right:disabled {
+  background: url("../images/ic_keyboard_arrow_right_black_disabled_24px.svg"); }
+
+.md-picker-date .md-picker__left:disabled,
+.md-picker-date .md-picker__right:disabled {
+  background-repeat: no-repeat;
+  background-position: center; }
 
 .md-picker-date .md-picker__header .md-picker__title {
   color: white;
