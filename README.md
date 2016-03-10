@@ -34,7 +34,8 @@ Supported versioned browsers:
 
 ### Moment
 Why? because parsing dates correctly is not every browser's cup of :tea: and also according to [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard
-Moreover, timezones are also an important aspect of date which is an important parameter.
+
+Moreover, it makes dealing with timezones easier.
 
 ok. Not satisfied with the answer?
 
@@ -50,16 +51,17 @@ What should it output? ... well it is interpreted as 1st October 2016 in some br
 
 In the repo you'll find the following directories and files.
 
-| File/Folder     | Provides                                       |
-|-----------------|------------------------------------------------|
-| CONTRIBUTING.md | contribution guidelines.                       |
-| gulpfile.js     | gulp configuration.                            |
-| LICENSE         | Project license information.                   |
-| package.json    | npm package information.                       |
-| README.md       | Details for quickly understanding the project. |
-| src             | Source code.                                   |
-| dist            | Distributable code.                            |
-| test            | Project test files.                            |
+| File/Folder     | Provides                                                                 |
+|-----------------|--------------------------------------------------------------------------|
+| .github         | Contains CONTRIBUTING.md, ISSUE_TEMPLATE.md and PULL_REQUEST_TEMPLATE.md.|
+| CONTRIBUTING.md | contribution guidelines.                                                 |
+| gulpfile.js     | gulp configuration.                                                      |
+| LICENSE.md      | Project license information.                                             |
+| package.json    | npm package information.                                                 |
+| README.md       | Details for quickly understanding the project.                           |
+| src             | Source code.                                                             |
+| dist            | Distributable code.                                                      |
+| test            | Project test files.                                                      |
 
 ### Build
 
