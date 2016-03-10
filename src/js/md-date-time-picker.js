@@ -197,6 +197,7 @@ class mdDateTimePicker {
 		if (m.isAfter(future, 'month')) {
 			m = future.clone()
 		}
+		this._sDialog.tDate = m
 		this._initMonth(current, m)
 		this._initMonth(next, moment(this._getMonth(m, 1)))
 		this._initMonth(previous, moment(this._getMonth(m, -1)))
