@@ -1,6 +1,7 @@
 @import "dependencies/variables";
 @import "dependencies/mixins";
-@import "dependencies/fonts"; // Make html take up the entire screen
+@import "dependencies/fonts";
+// Make html take up the entire screen
 // Then set touch-action to avoid touch delay on mobile IE
 html {
   width: 100%;
@@ -187,12 +188,16 @@ body {
           line-height: 36px;
           vertical-align: middle;
         }
-        .md-picker__today {
+        .md-picker__cell--today {
           color: $md-button-color;
         }
-        .md-picker__selected {
+        .md-picker__cell--selected {
           background-color: $md-button-color;
           color: $picker-body-color;
+        }
+        .md-picker__cell--disabled {
+          color: $picker-cell-text-theme-color--disabled;
+          cursor: not-allowed;
         }
         .md-picker__tr {
           padding: 2px 0;

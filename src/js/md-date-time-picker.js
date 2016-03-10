@@ -20,9 +20,9 @@ class mdDateTimePicker {
 	 * @method constructor
 	 *
 	 * @param  {[string]}    type         [type of dialog] ['date','time']
-	 * @param  {[moment]}    init    = '' [initial value for the dialog date or time, defaults to today] [pass '' to this if you want to skip init]
-	 * @param  {[moment]}    past    = '' [the past moment till which the calendar shall render]
-	 * @param  {[moment]}    future  = '' [the future moment till which the calendar shall render]
+	 * @param  {[moment]}    init    = '' [initial value for the dialog date or time, defaults to today] [pass '' to this if you want to the @default value of today]
+	 * @param  {[moment]}    past    = '' [the past moment till which the calendar shall render] [@default value of 21 Years ago from init]
+	 * @param  {[moment]}    future  = '' [the future moment till which the calendar shall render] [@default value of init]
 	 *
 	 * @return {[Object]}    [mdDateTimePicker]
 	 */
@@ -30,7 +30,11 @@ class mdDateTimePicker {
 		this._type = type
 		this._init = init
 		this._past = past
-		this._future = future
+		if (future === '') {
+			this._future = init
+		} else {
+			this._future = future
+		}
 
 		/**
 		 * [dialog selected classes has the same structure as dialog but one level down]
@@ -44,7 +48,7 @@ class mdDateTimePicker {
 		this._sDialog.date = moment()
 
 		if (this._init) {
-			this._sDialog.date = moment(this._init, this._format)
+			this._sDialog.date = moment(this._init)
 		}
 	}
 
@@ -225,10 +229,10 @@ class mdDateTimePicker {
 				cell.innerHTML = currentDay
 			}
 			if (today === i) {
-				cell.classList.add('md-picker__today')
+				cell.classList.add('md-picker__cell--today')
 			}
 			if (selected === i) {
-				cell.classList.add('md-picker__selected')
+				cell.classList.add('md-picker__cell--selected')
 			}
 			docfrag.appendChild(cell)
 		}
@@ -336,15 +340,15 @@ class mdDateTimePicker {
 				let picker = me._sDialog.picker
 				let day = e.target.innerHTML
 				let currentDate = me._sDialog.tDate.date(day)
-				let selected = picker.querySelector('.md-picker__selected')
+				let selected = picker.querySelector('.md-picker__cell--selected')
 				let title = me._sDialog.title
 				let subtitle = me._sDialog.subtitle
 				let titleDay = me._sDialog.titleDay
 				let titleMonth = me._sDialog.titleMonth
 				if (selected) {
-					selected.classList.remove('md-picker__selected')
+					selected.classList.remove('md-picker__cell--selected')
 				}
-				e.target.classList.add('md-picker__selected')
+				e.target.classList.add('md-picker__cell--selected')
 
 				// update temp date object with the date selected
 				me._sDialog.sDate = currentDate.clone()

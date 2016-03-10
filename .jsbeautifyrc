@@ -12,5 +12,11 @@
     "space_before_conditional": true,
     "end_with_newline": true,
     "end_with_comma": false
+  },
+  "scss": {
+    "indent_size": 2,
+    "indent_with_tabs": true,
+    "preserve_newlines": true,
+    "max_preserve_newlines": 2
   }
 }
