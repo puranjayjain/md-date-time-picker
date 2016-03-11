@@ -4,6 +4,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, width=device-width" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://puranjayjain.github.io/md-date-time-picker/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="https://puranjayjain.github.io/md-date-time-picker/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="https://puranjayjain.github.io/md-date-time-picker/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="https://puranjayjain.github.io/md-date-time-picker/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="https://puranjayjain.github.io/md-date-time-picker/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="https://puranjayjain.github.io/md-date-time-picker/favicon-128.png" sizes="128x128" />
+  <meta name="application-name" content="Md Date Time Picker" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="https://puranjayjain.github.io/md-date-time-picker/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="https://puranjayjain.github.io/md-date-time-picker/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="https://puranjayjain.github.io/md-date-time-picker/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="https://puranjayjain.github.io/md-date-time-picker/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="https://puranjayjain.github.io/md-date-time-picker/mstile-310x310.png" />
   <title>Md Date Time Picker</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -12,21 +32,20 @@
 </head>
 
 <body>
-  <!-- Simple header with scrollable tabs. -->
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
-        <!-- Title -->
-        <span class="mdl-layout-title">Title</span>
+        <span class="mdl-layout-title">Material Design - Date &amp; Time Picker</span>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+          <a id="link-github" class="mdl-navigation__link" href="">Github</a>
+        </nav>
       </div>
-      <!-- Tabs -->
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-        <a href="#scroll-tab-1" class="mdl-layout__tab is-active">About</a>
-        <a href="#scroll-tab-2" class="mdl-layout__tab">Documentation</a>
-        <a href="#scroll-tab-3" class="mdl-layout__tab">Themes</a>
-        <a href="#scroll-tab-4" class="mdl-layout__tab">Documentation</a>
-        <a href="#scroll-tab-5" class="mdl-layout__tab">Tab 5</a>
-        <a href="#scroll-tab-6" class="mdl-layout__tab">Download</a>
+        <a id="link-1" href="#scroll-tab-1" class="mdl-layout__tab is-active">About</a>
+        <a id="link-2" href="#scroll-tab-2" class="mdl-layout__tab">Documentation</a>
+        <a id="link-3" href="#scroll-tab-3" class="mdl-layout__tab">Themes</a>
+        <a id="link-4" href="#scroll-tab-4" class="mdl-layout__tab">Download</a>
       </div>
     </header>
     <main class="mdl-layout__content">
@@ -50,16 +69,6 @@
           Your content goes here
         </div>
       </section>
-      <section class="mdl-layout__tab-panel" id="scroll-tab-5">
-        <div class="page-content">
-          Your content goes here
-        </div>
-      </section>
-      <section class="mdl-layout__tab-panel" id="scroll-tab-6">
-        <div class="page-content">
-          Your content goes heres
-        </div>
-      </section>
     </main>
   </div>
   <script src="js/material.min.js"></script>
@@ -79,6 +88,11 @@
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-72131360-2', 'auto');
+    ga('require', 'link-github');
+    ga('require', 'link-1');
+    ga('require', 'link-2');
+    ga('require', 'link-3');
+    ga('require', 'link-4');
     ga('send', 'pageview');
   </script>
 </body>
