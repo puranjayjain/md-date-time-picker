@@ -21,8 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-This application bundles the following third-party packages in accordance
-with the following licenses:
+This application bundles the following third-party packages in accordance with the following licenses:
 
 -------------------------------------------------------------------------
 

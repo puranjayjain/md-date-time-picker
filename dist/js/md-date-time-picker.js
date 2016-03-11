@@ -12,9 +12,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
   * @method constructor
   *
   * @param  {[string]}    type         [type of dialog] ['date','time']
-  * @param  {[moment]}    init    = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
-  * @param  {[moment]}    past    = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
-  * @param  {[moment]}    future  = moment() [the future moment till which the calendar shall render] [@default value of init]
+  * @param  {[moment]}    init   = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
+  * @param  {[moment]}    past   = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
+  * @param  {[moment]}    future = moment() [the future moment till which the calendar shall render] [@default value of init]
+  *
+  * @param	 {[Boolean]}    mode  = false [this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default 12 hour mode - false]
   *
   * @return {[Object]}    [mdDateTimePicker]
   */
@@ -22,7 +24,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	function mdDateTimePicker(type) {
 		var init = arguments.length <= 1 || arguments[1] === undefined ? moment() : arguments[1],
 		    past = arguments.length <= 2 || arguments[2] === undefined ? moment().subtract(21, 'years') : arguments[2],
-		    future = arguments.length <= 3 || arguments[3] === undefined ? init : arguments[3];
+		    future = arguments.length <= 3 || arguments[3] === undefined ? init : arguments[3],
+		    fullMode = arguments.length <= 4 || arguments[4] === undefined ? !1 : arguments[4];
 
 		_classCallCheck(this, mdDateTimePicker);
 
@@ -30,6 +33,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		this._init = init;
 		this._past = past;
 		this._future = future;
+		this._fullMode = fullMode;
 
 		/**
    * [dialog selected classes has the same structure as dialog but one level down]

@@ -20,17 +20,20 @@ class mdDateTimePicker {
 	 * @method constructor
 	 *
 	 * @param  {[string]}    type         [type of dialog] ['date','time']
-	 * @param  {[moment]}    init    = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
-	 * @param  {[moment]}    past    = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
-	 * @param  {[moment]}    future  = moment() [the future moment till which the calendar shall render] [@default value of init]
+	 * @param  {[moment]}    init   = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
+	 * @param  {[moment]}    past   = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
+	 * @param  {[moment]}    future = moment() [the future moment till which the calendar shall render] [@default value of init]
+	 *
+	 * @param	 {[Boolean]}    mode  = false [this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default 12 hour mode - false]
 	 *
 	 * @return {[Object]}    [mdDateTimePicker]
 	 */
-	constructor(type, init = moment(), past = moment().subtract(21, 'years'), future = init) {
+	constructor(type, init = moment(), past = moment().subtract(21, 'years'), future = init, fullMode = false) {
 		this._type = type
 		this._init = init
 		this._past = past
 		this._future = future
+		this._fullMode = fullMode
 
 		/**
 		 * [dialog selected classes has the same structure as dialog but one level down]
