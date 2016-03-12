@@ -128,6 +128,10 @@
       padding-left: 31px;
     }
     
+    .mddtp-div__swatch {
+      height: 16px;
+    }
+    
     .mddtp-nav__toc {
       margin: 32px;
     }
@@ -165,6 +169,17 @@
     .mddtp-dl__about,
     .mddtp-section__images {
       justify-content: center;
+      align-items: center;
+    }
+    
+    .mddtp-cell__logo {
+      vertical-align: middle;
+      text-align: center;
+      padding: 8px;
+    }
+    
+    .mddtp-cell__logo img {
+      width: 64px;
     }
   </style>
 </head>
@@ -178,27 +193,30 @@
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
           <a id="link-github" href="https://github.com/PuranjayJain/md-date-time-picker" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
-            <i class="material-icons">link</i> Github
+            <i class="material-icons">&#xE157;</i> Github
           </a>
         </nav>
       </div>
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
         <a id="link-1" href="#scroll-tab-1" class="mdl-layout__tab is-active">
-          About
-        </a>
+            About
+          </a>
         <a id="link-2" href="#scroll-tab-2" class="mdl-layout__tab">
-          Basic Setup
-        </a>
+            Basic Setup
+          </a>
         <a id="link-3" href="#scroll-tab-3" class="mdl-layout__tab">
-          Documentation
-        </a>
+            Themes
+          </a>
         <a id="link-4" href="#scroll-tab-4" class="mdl-layout__tab">
-          Themes
-        </a>
+            Documentation
+          </a>
         <a id="link-5" href="#scroll-tab-5" class="mdl-layout__tab">
-          Download
-          <i class="material-icons">file_download</i>
-        </a>
+            Behind the scenes
+          </a>
+        <a id="link-6" href="#scroll-tab-6" class="mdl-layout__tab">
+            Download
+            <i class="material-icons">&#xE2C4;</i>
+          </a>
       </div>
     </header>
     <main class="mdl-layout__content">
@@ -216,17 +234,17 @@
             <nav class="mddtp-nav__toc">
               <a href="#about/toc">Table of contents</a>
               <ul>
-                <li><a href="#about/features">Features</a></li>
-                <li><a href="#about/features">Grid</a></li>
-                <li><a href="#about/features">Tabs</a></li>
-                <li><a href="#about/examples">Examples</a></li>
                 <li><a href="#about/looks">Looks</a></li>
+                <li><a href="#about/features">Features</a></li>
+                <li><a href="#about/tools">Tools</a></li>
+                <li><a href="#about/examples">Examples</a></li>
               </ul>
             </nav>
           </section>
           <section id="about/looks" class="mdl-cell mdl-cell--12-col">
             <h4 class="mddtp-section__title">Looks</h4>
-            <h6 class="mddtp-section__subtitle">The dialogs look like this when opened</h6>
+            <h6 class="mddtp-section__subtitle"><em><strong>Note: </strong>These might not be the actual representation of the dialog at all times and so is used for visual representation</em></h6>
+            <h6 class="mddtp-section__subtitle">The dialogs look like this when opened.</h6>
             <div class="mdl-grid mddtp-section__images">
               <figure class="mdl-cell mdl-cell--6-col">
                 <img style="margin: 0;max-width: 100%" src="images/components_pickers_date1.png" alt="date-picker" />
@@ -237,119 +255,202 @@
               <figure class="mdl-cell mdl-cell--6-col">
                 <img style="margin: 0;max-width: 100%" src="images/components_pickers_time1.png" alt="time-picker" />
                 <figcaption>
+                  <p>Time picker: Light theme, Teal, portrait</p>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section id="about/features" class="mdl-cell mdl-cell--12-col">
+            <h4 class="mddtp-section__title">Features</h4>
+            <h6 class="mddtp-section__subtitle"><b>1.</b>Supports all material design palettes</h6>
+            <div class="mdl-grid">
+              <div class="mddtp-div__swatch mdl-cell mdl-cell--3-col mdl-cell--stretch mdl-color--red"></div>
+              <div class="mddtp-div__swatch mdl-cell mdl-cell--3-col mdl-cell--stretch mdl-color--green"></div>
+              <div class="mddtp-div__swatch mdl-cell mdl-cell--3-col mdl-cell--stretch mdl-color--blue"></div>
+              <div class="mddtp-div__swatch mdl-cell mdl-cell--3-col mdl-cell--stretch mdl-color--yellow"></div>
+            </div>
+            <h6 class="mddtp-section__subtitle"><em><strong>Note: </strong>for more information on these colours refer the <a target="_blank" href="https://www.google.com/design/spec/style/color.html#color-color-palette" class="mddtp-a">official spec</a></em></h6>
+            <h6 class="mddtp-section__subtitle"><b>2.</b>Dark Theme support (yay!)</h6>
+            <div class="mdl-grid mddtp-section__images">
+              <figure class="mdl-cell mdl-cell--6-col">
+                <img style="margin: 0;max-width: 100%" src="images/components_pickers_date4.png" alt="date-picker" />
+                <figcaption>
+                  <p>Date picker: Dark theme, Teal, portrait</p>
+                </figcaption>
+              </figure>
+              <figure class="mdl-cell mdl-cell--6-col">
+                <img style="margin: 0;max-width: 100%" src="images/components_pickers_time3.png" alt="time-picker" />
+                <figcaption>
                   <p>Time picker: Dark theme, Teal, portrait</p>
                 </figcaption>
               </figure>
             </div>
           </section>
+          <section id="about/tools" class="mdl-cell mdl-cell--12-col">
+            <h4 class="mddtp-section__title">Tools</h4>
+            <h6 class="mddtp-section__subtitle">This component sits on shoulders of giants and so is powered by</h6>
+            <div class="mdl-grid mddtp-section__images">
+              <div class="mddtp-cell__logo mdl-cell mdl-cell--1-col">
+                <a href="https://babeljs.io/" target="_blank">
+                  <img src="images/es6.png" alt="es6" />
+                </a>
+              </div>
+              <div class="mddtp-cell__logo mdl-cell mdl-cell--1-col">
+                <a href="http://gulpjs.com/" target="_blank">
+                  <img src="images/gulp.png" alt="gulp" />
+                </a>
+              </div>
+              <div class="mddtp-cell__logo mdl-cell mdl-cell--1-col">
+                <a href="http://sass-lang.com/" target="_blank">
+                  <img src="images/sass.png" alt="sass" />
+                </a>
+              </div>
+              <div class="mddtp-cell__logo mdl-cell mdl-cell--1-col">
+                <a href="https://www.npmjs.com" target="_blank">
+                  <img src="images/npm.png" alt="npm" />
+                </a>
+              </div>
+              <div class="mddtp-cell__logo mdl-cell mdl-cell--1-col">
+                <a href="http://bower.io/" target="_blank">
+                  <img src="images/bower.png" alt="bower" />
+                </a>
+              </div>
+              <div class="mddtp-cell__logo mdl-cell mdl-cell--1-col">
+                <a href="momentjs.com" target="_blank">
+                  <img src="images/momentjs.png" alt="momentjs" />
+                </a>
+              </div>
+              <div class="mdl-color--black mddtp-cell__logo mdl-cell mdl-cell--1-col">
+                <a href="http://www.getmdl.io/" target="_blank">
+                  <img src="images/mdl.svg" alt="mdl" />
+                </a>
+              </div>
+              <div class="mdl-cell mdl-cell--1-col">
+                <a class="mddtp-a" href="http://mozilla.github.io/nunjucks/" target="_blank">
+                  <h4>
+                    Nunjucks
+                  </h4>
+                </a>
+              </div>
+            </div>
+          </section>
+          <section id="about/examples " class="mdl-cell mdl-cell--12-col ">
+            <h4 class="mddtp-section__title ">Examples</h4>
+            <h6 class="mddtp-section__subtitle ">Here are some usage examples</h6> usage example will come here
+          </section>
         </div>
       </section>
-      <section class="mdl-layout__tab-panel" id="scroll-tab-2">
-        <div class="page-content">
+      <section class="mdl-layout__tab-panel " id="scroll-tab-2 ">
+        <div class="page-content ">
           dsd
         </div>
       </section>
-      <section class="mdl-layout__tab-panel" id="scroll-tab-3">
-        <div class="page-content">
+      <section class="mdl-layout__tab-panel " id="scroll-tab-3 ">
+        <div class="page-content ">
           Your content goes here
         </div>
       </section>
-      <section class="mdl-layout__tab-panel" id="scroll-tab-4">
-        <div class="page-content">
+      <section class="mdl-layout__tab-panel " id="scroll-tab-4 ">
+        <div class="page-content ">
           Your content goes here
         </div>
       </section>
-      <section class="mdl-layout__tab-panel" id="scroll-tab-5">
-        <div class="page-content">
+      <section class="mdl-layout__tab-panel " id="scroll-tab-5 ">
+        <div class="page-content ">
+          How the component was made and why among other things.
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel " id="scroll-tab-6 ">
+        <div class="page-content ">
           Your content goes here
         </div>
       </section>
     </main>
-    <footer class="mdl-mega-footer">
-      <div class="mdl-mega-footer__middle-section">
-        <div class="mdl-mega-footer__drop-down-section">
-          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer__heading">About</h1>
-          <ul class="mdl-mega-footer__link-list">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Terms</a></li>
-            <li><a href="#">Partners</a></li>
-            <li><a href="#">Updates</a></li>
+    <footer class="mdl-mega-footer ">
+      <div class="mdl-mega-footer__middle-section ">
+        <div class="mdl-mega-footer__drop-down-section ">
+          <input class="mdl-mega-footer__heading-checkbox " type="checkbox " checked>
+          <h1 class="mdl-mega-footer__heading ">About</h1>
+          <ul class="mdl-mega-footer__link-list ">
+            <li><a href="# ">About</a></li>
+            <li><a href="# ">Terms</a></li>
+            <li><a href="# ">Partners</a></li>
+            <li><a href="# ">Updates</a></li>
           </ul>
         </div>
-        <div class="mdl-mega-footer__drop-down-section">
-          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer__heading">Documentation</h1>
-          <ul class="mdl-mega-footer__link-list">
-            <li><a href="#">Specs</a></li>
-            <li><a href="#">Tools</a></li>
-            <li><a href="#">Resources</a></li>
+        <div class="mdl-mega-footer__drop-down-section ">
+          <input class="mdl-mega-footer__heading-checkbox " type="checkbox " checked>
+          <h1 class="mdl-mega-footer__heading ">Documentation</h1>
+          <ul class="mdl-mega-footer__link-list ">
+            <li><a href="# ">Specs</a></li>
+            <li><a href="# ">Tools</a></li>
+            <li><a href="# ">Resources</a></li>
           </ul>
         </div>
-        <div class="mdl-mega-footer__drop-down-section">
-          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer__heading">Themes</h1>
-          <ul class="mdl-mega-footer__link-list">
-            <li><a href="#">How it works</a></li>
-            <li><a href="#">Patterns</a></li>
-            <li><a href="#">Usage</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Contracts</a></li>
+        <div class="mdl-mega-footer__drop-down-section ">
+          <input class="mdl-mega-footer__heading-checkbox " type="checkbox " checked>
+          <h1 class="mdl-mega-footer__heading ">Themes</h1>
+          <ul class="mdl-mega-footer__link-list ">
+            <li><a href="# ">How it works</a></li>
+            <li><a href="# ">Patterns</a></li>
+            <li><a href="# ">Usage</a></li>
+            <li><a href="# ">Products</a></li>
+            <li><a href="# ">Contracts</a></li>
           </ul>
         </div>
-        <div class="mdl-mega-footer__drop-down-section">
-          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer__heading">Download</h1>
-          <ul class="mdl-mega-footer__link-list">
-            <li><a href="#">Questions</a></li>
-            <li><a href="#">Answers</a></li>
-            <li><a href="#">Contact us</a></li>
+        <div class="mdl-mega-footer__drop-down-section ">
+          <input class="mdl-mega-footer__heading-checkbox " type="checkbox " checked>
+          <h1 class="mdl-mega-footer__heading ">Download</h1>
+          <ul class="mdl-mega-footer__link-list ">
+            <li><a href="# ">Questions</a></li>
+            <li><a href="# ">Answers</a></li>
+            <li><a href="# ">Contact us</a></li>
           </ul>
         </div>
       </div>
-      <div class="mdl-mega-footer__bottom-section">
-        <ul class="mdl-mega-footer__link-list">
+      <div class="mdl-mega-footer__bottom-section ">
+        <ul class="mdl-mega-footer__link-list ">
           <li>
-            <a href="index.html" class="mdl-logo">
-              <img src="images/logo.svg" alt="logo" />
+            <a href="index.html " class="mdl-logo ">
+              <img src="images/logo.svg " alt="logo " />
             </a>
           </li>
           <li>&bullet;</li>
           <li>
-            <a href="https://github.com/PuranjayJain/md-date-time-picker" target="_blank">
-              <i class="social social-github"></i>
+            <a href="https://github.com/PuranjayJain/md-date-time-picker " target="_blank ">
+              <i class="social social-github "></i>
             </a>
           </li>
           <li>&bullet;</li>
           <li>
-            <a href="https://www.facebook.com/puru1joy" target="_blank">
-              <i class="social social-facebook"></i>
+            <a href="https://www.facebook.com/puru1joy " target="_blank ">
+              <i class="social social-facebook "></i>
             </a>
           </li>
           <li>
-            <a href="https://plus.google.com/+PuranjayJain" target="_blank">
-              <i class="social social-google-plus"></i>
+            <a href="https://plus.google.com/+PuranjayJain " target="_blank ">
+              <i class="social social-google-plus "></i>
             </a>
           </li>
           <li>
-            <a href="https://twitter.com/PuranjayJain" target="_blank">
-              <i class="social social-twitter"></i>
+            <a href="https://twitter.com/PuranjayJain " target="_blank ">
+              <i class="social social-twitter "></i>
             </a>
           </li>
           <li>&bullet;</li>
           <li>
-            <a href="https://raw.githubusercontent.com/puranjayjain/md-date-time-picker/master/LICENSE.md" target="_blank">License</a>
+            <a href="https://raw.githubusercontent.com/puranjayjain/md-date-time-picker/master/LICENSE.md " target="_blank ">License</a>
           </li>
           <li>
-            <a href="https://github.com/puranjayjain/md-date-time-picker/issues" target="_blank">Help</a>
+            <a href="https://github.com/puranjayjain/md-date-time-picker/issues " target="_blank ">Help</a>
           </li>
         </ul>
       </div>
     </footer>
   </div>
-  <script src="js/material.min.js"></script>
-  <script src="js/moment.min.js"></script>
-  <script src="js/md-date-time-picker.min.js"></script>
+  <script src="js/material.min.js "></script>
+  <script src="js/moment.min.js "></script>
+  <script src="js/md-date-time-picker.min.js "></script>
   <!-- <script>
     (function(i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r;
