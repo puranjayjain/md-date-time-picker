@@ -1,0 +1,34 @@
+{
+  "name": "md-date-time-picker-pages",
+  "version": "0.5.1",
+  "description": "An implementation of the Material Design Picker components in vanilla CSS, JS, and HTML",
+  "main": "index.html"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Puranjay Jain",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.6.5",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
+    "gulp-cache": "^0.2.8",
+    "gulp-concat": "^2.5.2",
+    "gulp-css-nano": "1.0.0",
+    "gulp-plumber": "1.0.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.0.0",
+    "gulp-uglify": "^1.2.0"
+  },
+  "dependencies": {
+    "moment": "^2.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puranjayjain/md-date-time-picker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/puranjayjain/md-date-time-picker/issues"
+  },
+  "homepage": "https://puranjayjain.github.io/md-date-time-picker"
+}

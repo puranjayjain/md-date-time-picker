@@ -8,6 +8,11 @@
   <meta name="viewport" content="initial-scale=1, width=device-width" />
 
   <!-- All favicons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Md Date Time Picker">
+  <link rel="apple-touch-icon" href="apple-touch-icon-120x120.png">
+
   <link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
@@ -16,11 +21,13 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
   <link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
   <link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
+
   <link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
   <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
   <link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+
   <meta name="application-name" content="Md Date Time Picker" />
   <meta name="msapplication-TileColor" content="#FFFFFF" />
   <meta name="msapplication-TileImage" content="mstile-144x144.png" />
@@ -36,20 +43,17 @@
   <!-- Page title -->
   <title>Md Date Time Picker</title>
   <!-- Fonts -->
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css"> -->
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css"> -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
   <!-- Page styles -->
   <link rel="stylesheet" href="css/material.min.css" type="text/css">
   <link rel="stylesheet" href="css/component.min.css" type="text/css">
   <style media="screen">
-    .mdl-layout {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
+    body {
+      background-color: #fafafa;
     }
     
     main {
-      flex: 1;
       overflow: visible !important;
     }
     
@@ -106,6 +110,62 @@
     .mdl-mega-footer__link-list a:hover {
       color: #fff;
     }
+    
+    .mddtp-a {
+      color: #7C4DFF;
+    }
+    
+    .mddtp-section--white {
+      background-color: #fff;
+    }
+    
+    .mddtp-section__subtitle {
+      margin-top: 0;
+    }
+    
+    .mddtp-section__title,
+    .mddtp-section__subtitle {
+      padding-left: 31px;
+    }
+    
+    .mddtp-nav__toc {
+      margin: 32px;
+    }
+    
+    .mddtp-nav__toc ul {
+      list-style-type: none;
+      border-left: solid 3px #7C4DFF;
+      padding-left: 20px;
+      line-height: 28px;
+    }
+    
+    .mddtp-nav__toc a {
+      font-size: 16px;
+      color: #7C4DFF;
+      font-weight: 400;
+      text-decoration: none;
+    }
+    
+    .mddtp-dl__about {
+      padding: 5%;
+    }
+    
+    .mddtp-dl__about dt {
+      font-weight: 700;
+    }
+    
+    .mddtp-dl__about figcaption {
+      padding: 8px;
+    }
+    
+    .mddtp-section__images figcaption {
+      padding: 8px;
+    }
+    
+    .mddtp-dl__about,
+    .mddtp-section__images {
+      justify-content: center;
+    }
   </style>
 </head>
 
@@ -127,12 +187,15 @@
           About
         </a>
         <a id="link-2" href="#scroll-tab-2" class="mdl-layout__tab">
-          Documentation
+          Basic Setup
         </a>
         <a id="link-3" href="#scroll-tab-3" class="mdl-layout__tab">
-          Themes
+          Documentation
         </a>
         <a id="link-4" href="#scroll-tab-4" class="mdl-layout__tab">
+          Themes
+        </a>
+        <a id="link-5" href="#scroll-tab-5" class="mdl-layout__tab">
           Download
           <i class="material-icons">file_download</i>
         </a>
@@ -140,15 +203,44 @@
     </header>
     <main class="mdl-layout__content">
       <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
-        <div class="page-content mdl-grid">
-          <section class="docs-text-styling about-panel about-panel--text mdl-cell mdl-cell--12-col">
-            <dl>
-              <dt>Material Design Lite</dt>
-              <dd>
-                Material Design Lite lets you add a <a href="http://google.com/design/spec">Material Design</a> look and feel to your websites. It doesn’t rely on any JavaScript frameworks and aims to optimize for cross-device use, gracefully degrade
-                in older browsers, and offer an experience that is immediately accessible. <a href="started/index.html">Get started now</a>.
+        <div class="page-content mdl-grid mdl-grid--no-spacing">
+          <section class="mdl-cell mdl-cell--12-col">
+            <dl class="mdl-grid mddtp-dl__about">
+              <dt class="mdl-cell mdl-cell--3-col">Material Design - Date and Time Picker</dt>
+              <dd class="mdl-cell mdl-cell--6-col">
+                It is an independent component that lets you add the <a class="mddtp-a" href="https://www.google.com/design/spec/components/pickers.html">Material Design Pickers</a> to your websites. It does rely on just <a class="mddtp-a" href="http://momentjs.com">Moment Js</a>                and aims to optimize for cross-device use
               </dd>
             </dl>
+          </section>
+          <section id="about/toc" class="mdl-cell mdl-cell--12-col mddtp-section--white">
+            <nav class="mddtp-nav__toc">
+              <a href="#about/toc">Table of contents</a>
+              <ul>
+                <li><a href="#about/features">Features</a></li>
+                <li><a href="#about/features">Grid</a></li>
+                <li><a href="#about/features">Tabs</a></li>
+                <li><a href="#about/examples">Examples</a></li>
+                <li><a href="#about/looks">Looks</a></li>
+              </ul>
+            </nav>
+          </section>
+          <section id="about/looks" class="mdl-cell mdl-cell--12-col">
+            <h4 class="mddtp-section__title">Looks</h4>
+            <h6 class="mddtp-section__subtitle">The dialogs look like this when opened</h6>
+            <div class="mdl-grid mddtp-section__images">
+              <figure class="mdl-cell mdl-cell--6-col">
+                <img style="margin: 0;max-width: 100%" src="images/components_pickers_date1.png" alt="date-picker" />
+                <figcaption>
+                  <p>Date picker: Light theme, Teal, portrait</p>
+                </figcaption>
+              </figure>
+              <figure class="mdl-cell mdl-cell--6-col">
+                <img style="margin: 0;max-width: 100%" src="images/components_pickers_time1.png" alt="time-picker" />
+                <figcaption>
+                  <p>Time picker: Dark theme, Teal, portrait</p>
+                </figcaption>
+              </figure>
+            </div>
           </section>
         </div>
       </section>
@@ -163,6 +255,11 @@
         </div>
       </section>
       <section class="mdl-layout__tab-panel" id="scroll-tab-4">
+        <div class="page-content">
+          Your content goes here
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel" id="scroll-tab-5">
         <div class="page-content">
           Your content goes here
         </div>
