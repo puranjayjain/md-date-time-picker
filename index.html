@@ -1,21 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="An implementation of Material Design Picker components in vanilla CSS, JS, and HTML.">
   <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+  <!-- All favicons -->
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+  <meta name="application-name" content="Md Date Time Picker" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+  <!-- Theme color for android  -->
+  <meta name="theme-color" content="#263238">
+  <!-- favicon ico for older browsers and compatibility -->
+  <link rel="shortcut icon" href="favicon.ico">
+  <!-- Page title -->
   <title>Md Date Time Picker</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <!-- Fonts -->
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css"> -->
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css"> -->
+  <!-- Page styles -->
   <link rel="stylesheet" href="css/material.min.css" type="text/css">
   <link rel="stylesheet" href="css/component.min.css" type="text/css">
   <style media="screen">
+    .mdl-layout {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    
+    main {
+      flex: 1;
+      overflow: visible !important;
+    }
+    
     .mdl-layout__header {
       background-repeat: no-repeat;
-      background-position: 10px 10px;
-      background-image: url('images/logo-64.png');
+      background-position: 25px 18px;
+      background-image: url('images/logo.svg');
+    }
+    
+    .material-icons {
+      vertical-align: middle;
+      margin: -2px 4px 0 4px;
+    }
+    
+    .social {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-image: url(images/sprite.svg);
+    }
+    
+    .social:hover {
+      background-image: url(images/sprite-color.svg);
+    }
+    
+    .social-facebook {
+      width: 20px;
+      height: 20px;
+      background-position: 0 0;
+    }
+    
+    .social-google-plus {
+      width: 20px;
+      height: 20px;
+      background-position: -36px 0;
+    }
+    
+    .social-github {
+      width: 20px;
+      height: 20px;
+      background-position: -72px 0;
+    }
+    
+    .social-twitter {
+      width: 20px;
+      height: 20px;
+      background-position: -108px 0;
+    }
+    
+    .mdl-logo img {
+      height: 20px;
+      width: 20px;
+    }
+    
+    .mdl-mega-footer__link-list a:hover {
+      color: #fff;
     }
   </style>
 </head>
@@ -28,20 +117,39 @@
           Material Design - Date &amp; Time Picker</span>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
-          <a id="link-github" class="mdl-navigation__link" href="">Github</a>
+          <a id="link-github" href="https://github.com/PuranjayJain/md-date-time-picker" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
+            <i class="material-icons">link</i> Github
+          </a>
         </nav>
       </div>
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-        <a id="link-1" href="#scroll-tab-1" class="mdl-layout__tab is-active">About</a>
-        <a id="link-2" href="#scroll-tab-2" class="mdl-layout__tab">Documentation</a>
-        <a id="link-3" href="#scroll-tab-3" class="mdl-layout__tab">Themes</a>
-        <a id="link-4" href="#scroll-tab-4" class="mdl-layout__tab">Download</a>
+        <a id="link-1" href="#scroll-tab-1" class="mdl-layout__tab is-active">
+          About
+        </a>
+        <a id="link-2" href="#scroll-tab-2" class="mdl-layout__tab">
+          Documentation
+        </a>
+        <a id="link-3" href="#scroll-tab-3" class="mdl-layout__tab">
+          Themes
+        </a>
+        <a id="link-4" href="#scroll-tab-4" class="mdl-layout__tab">
+          Download
+          <i class="material-icons">file_download</i>
+        </a>
       </div>
     </header>
     <main class="mdl-layout__content">
       <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
-        <div class="page-content">
-          sd
+        <div class="page-content mdl-grid">
+          <section class="docs-text-styling about-panel about-panel--text mdl-cell mdl-cell--12-col">
+            <dl>
+              <dt>Material Design Lite</dt>
+              <dd>
+                Material Design Lite lets you add a <a href="http://google.com/design/spec">Material Design</a> look and feel to your websites. It doesn’t rely on any JavaScript frameworks and aims to optimize for cross-device use, gracefully degrade
+                in older browsers, and offer an experience that is immediately accessible. <a href="started/index.html">Get started now</a>.
+              </dd>
+            </dl>
+          </section>
         </div>
       </section>
       <section class="mdl-layout__tab-panel" id="scroll-tab-2">
@@ -60,31 +168,112 @@
         </div>
       </section>
     </main>
+    <footer class="mdl-mega-footer">
+      <div class="mdl-mega-footer__middle-section">
+        <div class="mdl-mega-footer__drop-down-section">
+          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+          <h1 class="mdl-mega-footer__heading">About</h1>
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Updates</a></li>
+          </ul>
+        </div>
+        <div class="mdl-mega-footer__drop-down-section">
+          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+          <h1 class="mdl-mega-footer__heading">Documentation</h1>
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">Specs</a></li>
+            <li><a href="#">Tools</a></li>
+            <li><a href="#">Resources</a></li>
+          </ul>
+        </div>
+        <div class="mdl-mega-footer__drop-down-section">
+          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+          <h1 class="mdl-mega-footer__heading">Themes</h1>
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">How it works</a></li>
+            <li><a href="#">Patterns</a></li>
+            <li><a href="#">Usage</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Contracts</a></li>
+          </ul>
+        </div>
+        <div class="mdl-mega-footer__drop-down-section">
+          <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+          <h1 class="mdl-mega-footer__heading">Download</h1>
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">Questions</a></li>
+            <li><a href="#">Answers</a></li>
+            <li><a href="#">Contact us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mdl-mega-footer__bottom-section">
+        <ul class="mdl-mega-footer__link-list">
+          <li>
+            <a href="index.html" class="mdl-logo">
+              <img src="images/logo.svg" alt="logo" />
+            </a>
+          </li>
+          <li>&bullet;</li>
+          <li>
+            <a href="https://github.com/PuranjayJain/md-date-time-picker" target="_blank">
+              <i class="social social-github"></i>
+            </a>
+          </li>
+          <li>&bullet;</li>
+          <li>
+            <a href="https://www.facebook.com/puru1joy" target="_blank">
+              <i class="social social-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://plus.google.com/+PuranjayJain" target="_blank">
+              <i class="social social-google-plus"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/PuranjayJain" target="_blank">
+              <i class="social social-twitter"></i>
+            </a>
+          </li>
+          <li>&bullet;</li>
+          <li>
+            <a href="https://raw.githubusercontent.com/puranjayjain/md-date-time-picker/master/LICENSE.md" target="_blank">License</a>
+          </li>
+          <li>
+            <a href="https://github.com/puranjayjain/md-date-time-picker/issues" target="_blank">Help</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
   </div>
   <script src="js/material.min.js"></script>
   <script src="js/moment.min.js"></script>
   <script src="js/md-date-time-picker.min.js"></script>
-  <script>
+  <!-- <script>
     (function(i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r;
-      i[r] = i[r] || function() {
-        (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date();
-      a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+    (i[r].q = i[r].q || []).push(arguments)
+  }, i[r].l = 1 * new Date();
+  a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0];
+  a.async = 1;
+  a.src = g;
+  m.parentNode.insertBefore(a, m)
+})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-72131360-2', 'auto');
-    ga('require', 'link-github');
-    ga('require', 'link-1');
-    ga('require', 'link-2');
-    ga('require', 'link-3');
-    ga('require', 'link-4');
-    ga('send', 'pageview');
-  </script>
+ga('create', 'UA-72131360-2', 'auto');
+ga('require', 'link-github');
+ga('require', 'link-1');
+ga('require', 'link-2');
+ga('require', 'link-3');
+ga('require', 'link-4');
+ga('send', 'pageview');
+</script> -->
 </body>
 
 </html>
