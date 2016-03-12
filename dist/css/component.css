@@ -4,18 +4,6 @@
 /* Shadows */
 /* Animations */
 /* Dialog */
-@font-face {
-  font-family: 'Roboto-Regular';
-  src: url("../fonts/RobotoTTF/Roboto-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Roboto-Medium';
-  src: url("../fonts/RobotoTTF/Roboto-Medium.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
-
 html {
   width: 100%;
   height: 100%;
@@ -26,7 +14,7 @@ body {
   width: 100%;
   min-height: 100%;
   margin: 0;
-  font-family: "Roboto-Regular", "Roboto", "Helvetica", "Arial", sans-serif !important; }
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important; }
 
 .md-button {
   height: 36px;
@@ -37,7 +25,7 @@ body {
   display: inline-block;
   padding: 0 8px;
   margin-right: 8px;
-  font-family: "Roboto-Medium", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 15px;
   text-transform: uppercase;
   outline: none;
@@ -133,7 +121,7 @@ body {
 
 .md-picker-date .md-picker__header .md-picker__title {
   color: white;
-  font-family: "Roboto-Medium", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 24px;
   font-weight: 900; }
   .md-picker-date .md-picker__header .md-picker__title span {
