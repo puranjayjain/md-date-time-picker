@@ -18,7 +18,8 @@
     "gulp-imagemin": "^2.4.0",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^2.0.0",
-    "gulp-uglify": "^1.2.0"
+    "gulp-uglify": "^1.2.0",
+    "nunjucks": "^2.4.0"
   },
   "dependencies": {
     "moment": "^2.12.0"
