@@ -25,6 +25,19 @@ gulp.task('images', function() {
     }));
 });
 
+gulp.task('imagesRoot', function() {
+  gulp.src(['src/*.png','src/*.ico'], {base: 'src/'})
+    .pipe(cache(imagemin({
+      optimizationLevel: 3,
+      progressive: true,
+      interlaced: true
+    })))
+    .pipe(gulp.dest('./'))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
+});
+
 gulp.task('scripts', function() {
   return gulp.src(['src/js/material.min.js', 'src/js/moment.min.js', 'src/js/md-date-time-picker.min.js'])
     .pipe(concat('scripts.js'))
@@ -91,7 +104,7 @@ gulp.task('run-css', function() {
 gulp.task('default', ['browser-sync'], function() {
   gulp.watch('src/scss/*.scss', ['run-css']);
   gulp.watch('src/js/*.js', ['scripts']);
-  gulp.watch('src/images/*', ['images']);
+  gulp.watch('src/images/*', ['images','imagesRoot']);
   gulp.watch('src/templates/**/*', ['nunjucks']);
   gulp.watch('src/*.html', ['bs-reload']);
 });
