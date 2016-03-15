@@ -1,0 +1,81 @@
+<footer class="mdl-mega-footer">
+  <div class="mdl-mega-footer__middle-section">
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">About</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Partners</a></li>
+        <li><a href="#">Updates</a></li>
+      </ul>
+    </div>
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">Documentation</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">Specs</a></li>
+        <li><a href="#">Tools</a></li>
+        <li><a href="#">Resources</a></li>
+      </ul>
+    </div>
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">Themes</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">How it works</a></li>
+        <li><a href="#">Patterns</a></li>
+        <li><a href="#">Usage</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Contracts</a></li>
+      </ul>
+    </div>
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">Download</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">Questions</a></li>
+        <li><a href="#">Answers</a></li>
+        <li><a href="#">Contact us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mdl-mega-footer__bottom-section">
+    <ul class="mdl-mega-footer__link-list">
+      <li>
+        <a href="index.html" class="mdl-logo">
+          <img src="images/logo.svg" alt="logo" />
+        </a>
+      </li>
+      <li>&bullet;</li>
+      <li>
+        <a href="https://github.com/PuranjayJain/md-date-time-picker" target="_blank">
+          <i class="social social-github"></i>
+        </a>
+      </li>
+      <li>&bullet;</li>
+      <li>
+        <a href="https://www.facebook.com/puru1joy" target="_blank">
+          <i class="social social-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a href="https://plus.google.com/+PuranjayJain" target="_blank">
+          <i class="social social-google-plus"></i>
+        </a>
+      </li>
+      <li>
+        <a href="https://twitter.com/PuranjayJain" target="_blank">
+          <i class="social social-twitter"></i>
+        </a>
+      </li>
+      <li>&bullet;</li>
+      <li>
+        <a href="https://raw.githubusercontent.com/puranjayjain/md-date-time-picker/master/LICENSE.md" target="_blank">License</a>
+      </li>
+      <li>
+        <a href="https://github.com/puranjayjain/md-date-time-picker/issues" target="_blank">Help</a>
+      </li>
+    </ul>
+  </div>
+</footer>

@@ -1,0 +1,8 @@
+<main class="mdl-layout__content">
+  {% include "views/about.nunjucks" %}
+  {% include "views/basic-setup.nunjucks" %}
+  {% include "views/themes.nunjucks" %}
+  {% include "views/documentation.nunjucks" %}
+  {% include "views/behind-the-scenes.nunjucks" %}
+  {% include "views/download.nunjucks" %}  
+</main>

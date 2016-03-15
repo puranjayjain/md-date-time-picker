@@ -1,46 +1,33 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="An implementation of Material Design Picker components in vanilla CSS, JS, and HTML.">
-<meta name="viewport" content="initial-scale=1, width=device-width" />
-
-<!-- All favicons -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Md Date Time Picker">
-<link rel="apple-touch-icon" href="apple-touch-icon-120x120.png">
-
-<link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
-<link rel="apple-touch-icon-precomposed" sizes="60x60" href="apple-touch-icon-60x60.png" />
-<link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
-
-<link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
-<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
-<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
-<link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
-
-<meta name="application-name" content="Md Date Time Picker" />
-<meta name="msapplication-TileColor" content="#FFFFFF" />
-<meta name="msapplication-TileImage" content="mstile-144x144.png" />
-<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
-<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
-<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
-<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
-
-<!-- Theme color for android  -->
-<meta name="theme-color" content="#263238">
-<!-- favicon ico for older browsers and compatibility -->
-<link rel="shortcut icon" href="favicon.ico">
-<!-- Page title -->
-<title>Md Date Time Picker</title>
-<!-- Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
-<!-- Page styles -->
-<link rel="stylesheet" href="css/material.min.css" type="text/css">
-<link rel="stylesheet" href="css/component.min.css" type="text/css">
+<header class="mdl-layout__header">
+  <div class="mdl-layout__header-row">
+    <span class="mdl-layout-title">
+      Material Design - Date &amp; Time Picker</span>
+    <div class="mdl-layout-spacer"></div>
+    <nav class="mdl-navigation">
+      <a id="link-github" href="https://github.com/PuranjayJain/md-date-time-picker" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
+        <i class="material-icons">&#xE157;</i> Github
+      </a>
+    </nav>
+  </div>
+  <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+    <a id="link-1" href="#scroll-tab-1" class="mdl-layout__tab is-active">
+        About
+      </a>
+    <a id="link-2" href="#scroll-tab-2" class="mdl-layout__tab">
+        Basic Setup
+      </a>
+    <a id="link-3" href="#scroll-tab-3" class="mdl-layout__tab">
+        Themes
+      </a>
+    <a id="link-4" href="#scroll-tab-4" class="mdl-layout__tab">
+        Documentation
+      </a>
+    <a id="link-5" href="#scroll-tab-5" class="mdl-layout__tab">
+        Behind the scenes
+      </a>
+    <a id="link-6" href="#scroll-tab-6" class="mdl-layout__tab">
+        Download
+        <i class="material-icons">&#xE2C4;</i>
+      </a>
+  </div>
+</header>
