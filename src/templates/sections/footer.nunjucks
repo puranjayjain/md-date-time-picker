@@ -4,10 +4,10 @@
       <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
       <h1 class="mdl-mega-footer__heading">About</h1>
       <ul class="mdl-mega-footer__link-list">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Partners</a></li>
-        <li><a href="#">Updates</a></li>
+        <li><a href="#about/looks">Looks</a></li>
+        <li><a href="#about/features">Features</a></li>
+        <li><a href="#about/tools">Tools</a></li>
+        <li><a href="#about/examples">Examples</a></li>
       </ul>
     </div>
     <div class="mdl-mega-footer__drop-down-section">

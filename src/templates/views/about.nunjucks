@@ -4,7 +4,7 @@
       <dl class="mdl-grid mddtp-dl__about">
         <dt class="mdl-cell mdl-cell--3-col">Material Design - Date and Time Picker</dt>
         <dd class="mdl-cell mdl-cell--6-col">
-          It is an independent component that lets you add the <a class="mddtp-a" href="https://www.google.com/design/spec/components/pickers.html">Material Design Pickers</a> to your websites. It does rely on just <a class="mddtp-a" href="http://momentjs.com">Moment Js</a>                and aims to optimize for cross-device use
+          It is an independent component that lets you add the <a class="mddtp-a" href="https://www.google.com/design/spec/components/pickers.html">Material Design Pickers</a> to your websites. It does rely on just <a class="mddtp-a" href="http://momentjs.com">Moment Js</a> and aims to optimize for cross-device use
         </dd>
       </dl>
     </section>
