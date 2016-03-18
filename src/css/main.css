@@ -46,7 +46,7 @@ main {
   color: #fff; }
 
 .mddtp-a {
-  color: #7C4DFF; }
+  color: #7c4dff; }
 
 .mddtp-section--white {
   background-color: #fff; }
@@ -66,13 +66,13 @@ main {
 
 .mddtp-nav__toc ul {
   list-style-type: none;
-  border-left: solid 3px #7C4DFF;
+  border-left: solid 3px #7c4dff;
   padding-left: 20px;
   line-height: 28px; }
 
 .mddtp-nav__toc a {
   font-size: 16px;
-  color: #7C4DFF;
+  color: #7c4dff;
   font-weight: 400;
   text-decoration: none; }
 
@@ -100,3 +100,78 @@ main {
 
 .mddtp-cell__logo img {
   width: 64px; }
+
+/* ==========  Color Palettes  ========== */
+/* colors.scss */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #311b92;
+  color: #ffe57f; }
+
+.hljs-link,
+.hljs-emphasis,
+.hljs-attribute,
+.hljs-attribute,
+.hljs-addition {
+  color: #7c4dff; }
+
+.hljs-emphasis {
+  font-style: italic; }
+
+.hljs-strong,
+.hljs-string,
+.hljs-deletion {
+  color: #ff6f00; }
+
+.hljs-strong {
+  font-weight: bold; }
+
+.hljs-quote,
+.hljs-comment {
+  color: #998;
+  font-style: italic; }
+
+.hljs-section,
+.hljs-title {
+  color: #900; }
+
+.hljs-class .hljs-title,
+.hljs-type {
+  color: #458; }
+
+.hljs-variable,
+.hljs-template-variable {
+  color: #336699; }
+
+.hljs-bullet {
+  color: #997700; }
+
+.hljs-meta {
+  color: #3344bb; }
+
+.hljs-code,
+.hljs-number,
+.hljs-literal,
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #099; }
+
+.hljs-regexp {
+  background-color: #fff0ff;
+  color: #880088; }
+
+.hljs-symbol {
+  color: #990073; }
+
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #d1c4e9; }
+  .hljs-tag .hljs-attr,
+  .hljs-name .hljs-attr,
+  .hljs-selector-id .hljs-attr,
+  .hljs-selector-class .hljs-attr {
+    color: #ffc107; }

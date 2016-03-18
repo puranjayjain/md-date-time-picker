@@ -1,4 +1,5 @@
 @import 'dependencies/variables';
+
 body {
   background-color: $palette-grey-50;
 }
@@ -50,7 +51,7 @@ main {
   color: #fff;
 }
 .mddtp-a {
-  color: #7C4DFF;
+  color: $palette-primary-A200;
 }
 .mddtp-section--white {
   background-color: #fff;
@@ -70,13 +71,13 @@ main {
 }
 .mddtp-nav__toc ul {
   list-style-type: none;
-  border-left: solid 3px #7C4DFF;
+  border-left: solid 3px $palette-primary-A200;
   padding-left: 20px;
   line-height: 28px;
 }
 .mddtp-nav__toc a {
   font-size: 16px;
-  color: #7C4DFF;
+  color: $palette-primary-A200;
   font-weight: 400;
   text-decoration: none;
 }
@@ -102,3 +103,5 @@ main {
 .mddtp-cell__logo img {
   width: 64px;
 }
+
+@import 'dependencies/code';

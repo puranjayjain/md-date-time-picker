@@ -26,7 +26,7 @@ gulp.task('images', function() {
 });
 
 gulp.task('imagesRoot', function() {
-  gulp.src(['src/*.png','src/*.ico'], {base: 'src/'})
+  gulp.src(['src/favicons/*.png','src/favicons/*.ico'], {base: 'src/'})
     .pipe(cache(imagemin({
       optimizationLevel: 3,
       progressive: true,
@@ -39,7 +39,7 @@ gulp.task('imagesRoot', function() {
 });
 
 gulp.task('scripts', function() {
-  return gulp.src(['src/js/material.min.js', 'src/js/moment.min.js', 'src/js/md-date-time-picker.min.js'])
+  return gulp.src(['src/js/material.min.js', 'src/js/moment.min.js', 'src/js/highlight.pack.js', 'src/js/md-date-time-picker.min.js', 'src/js/main.js'])
     .pipe(concat('scripts.js'))
     .pipe(uglify())
     .pipe(gulp.dest('js'))
@@ -85,7 +85,7 @@ gulp.task('build-css', function() {
 
 // nunjucks render templates
 gulp.task('nunjucks', function() {
-  return gulp.src('src/templates/pages/*.nunjucks')
+  return gulp.src('src/templates/pages/*.njk')
     .pipe(nunjucksRender({
       path: ['src/templates/'] // String or Array
     }))
@@ -102,7 +102,7 @@ gulp.task('run-css', function() {
 });
 
 gulp.task('default', ['browser-sync'], function() {
-  gulp.watch('src/scss/*.scss', ['run-css']);
+  gulp.watch('src/**/*.scss', ['run-css']);
   gulp.watch('src/js/*.js', ['scripts']);
   gulp.watch('src/images/*', ['images','imagesRoot']);
   gulp.watch('src/templates/**/*', ['nunjucks']);
