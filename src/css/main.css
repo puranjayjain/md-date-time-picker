@@ -48,6 +48,9 @@ main {
 .mddtp-a {
   color: #7c4dff; }
 
+.mddtp-p {
+  padding: 20px 40px; }
+
 .mddtp-section--grow {
   -webkit-flex-grow: 1;
       -ms-flex-positive: 1;

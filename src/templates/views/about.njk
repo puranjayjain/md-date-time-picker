@@ -114,7 +114,140 @@
     </section>
     <section id="about/examples" class="mdl-cell mdl-cell--12-col">
       <h4 class="mddtp-section__title">Examples</h4>
-      <h6 class="mddtp-section__subtitle">Here are some usage examples</h6> usage example will come here
+      <h6 class="mddtp-section__subtitle">Here are some usage examples</h6>
+      <p class="mddtp-p">
+        <button id="trigger-1" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+          Toggle Dialog
+        </button>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          {{ components.tabBar(tabs = [{href: 'sample-html-panel-1', text: 'html', 'active': true}, {href: 'sample-javascript-panel-1', text: 'javascript'}]) }}
+          <div class="mdl-tabs__panel is-active" id="sample-html-panel-1">
+            <pre>
+              <code class="html language-html">
+                &#x3C;div id=&#x22;md-picker__date&#x22; class=&#x22;md-picker md-picker-date md-picker--inactive animated&#x22;&#x3E;
+                  &#x3C;div id=&#x22;md-date__header&#x22; class=&#x22;md-picker__header&#x22;&#x3E;
+                    &#x3C;h4 id=&#x22;md-date__subtitle&#x22; class=&#x22;md-picker__subtitle&#x22;&#x3E;&#x3C;/h4&#x3E;
+                    &#x3C;h2 id=&#x22;md-date__title&#x22; class=&#x22;md-picker__title&#x22;&#x3E;
+                      &#x3C;span id=&#x22;md-date__titleDay&#x22;&#x3E;&#x3C;/span&#x3E;
+                      &#x3C;span id=&#x22;md-date__titleMonth&#x22;&#x3E;&#x3C;/span&#x3E;
+                    &#x3C;/h2&#x3E;
+                  &#x3C;/div&#x3E;
+                  &#x3C;div class=&#x22;md-picker__body&#x22;&#x3E;
+                    &#x3C;div id=&#x22;md-date__viewHolder&#x22; class=&#x22;md-picker__viewHolder animated&#x22;&#x3E;
+                      &#x3C;ul class=&#x22;md-picker__views&#x22;&#x3E;
+                        &#x3C;li id=&#x22;md-date__previous&#x22; class=&#x22;md-picker__view&#x22;&#x3E;
+                          &#x3C;div class=&#x22;md-picker__month&#x22;&#x3E;&#x3C;/div&#x3E;
+                            &#x3C;div class=&#x22;md-picker__grid&#x22;&#x3E;
+                              &#x3C;div class=&#x22;md-picker__th&#x22;&#x3E;
+                                &#x3C;span&#x3E;
+                                  S
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  M
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  T
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  W
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  T
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  F
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  S
+                                &#x3C;/span&#x3E;
+                              &#x3C;/div&#x3E;
+                              &#x3C;div class=&#x22;md-picker__tr&#x22;&#x3E;&#x3C;/div&#x3E;
+                            &#x3C;/div&#x3E;
+                          &#x3C;/li&#x3E;
+                          &#x3C;li id=&#x22;md-date__current&#x22; class=&#x22;md-picker__view&#x22;&#x3E;
+                            &#x3C;div class=&#x22;md-picker__month&#x22;&#x3E;&#x3C;/div&#x3E;
+                            &#x3C;div class=&#x22;md-picker__grid&#x22;&#x3E;
+                              &#x3C;div class=&#x22;md-picker__th&#x22;&#x3E;
+                                &#x3C;span&#x3E;
+                                  S
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  M
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  T
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  W
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  T
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  F
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  S
+                                &#x3C;/span&#x3E;
+                              &#x3C;/div&#x3E;
+                              &#x3C;div class=&#x22;md-picker__tr&#x22;&#x3E;&#x3C;/div&#x3E;
+                            &#x3C;/div&#x3E;
+                          &#x3C;/li&#x3E;
+                          &#x3C;li id=&#x22;md-date__next&#x22; class=&#x22;md-picker__view&#x22;&#x3E;
+                            &#x3C;div class=&#x22;md-picker__month&#x22;&#x3E;&#x3C;/div&#x3E;
+                            &#x3C;div class=&#x22;md-picker__grid&#x22;&#x3E;
+                              &#x3C;div class=&#x22;md-picker__th&#x22;&#x3E;
+                                &#x3C;span&#x3E;
+                                  S
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  M
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  T
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  W
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  T
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  F
+                                &#x3C;/span&#x3E;
+                                &#x3C;span&#x3E;
+                                  S
+                                &#x3C;/span&#x3E;
+                              &#x3C;/div&#x3E;
+                              &#x3C;div class=&#x22;md-picker__tr&#x22;&#x3E;&#x3C;/div&#x3E;
+                            &#x3C;/div&#x3E;
+                          &#x3C;/li&#x3E;
+                        &#x3C;/ul&#x3E;
+                        &#x3C;button id=&#x22;md-date__left&#x22; class=&#x22;md-button md-picker__left&#x22; type=&#x22;button&#x22;&#x3E;&#x3C;/button&#x3E;
+                        &#x3C;button id=&#x22;md-date__right&#x22; class=&#x22;md-button md-picker__right&#x22; type=&#x22;button&#x22;&#x3E;&#x3C;/button&#x3E;
+                      &#x3C;/div&#x3E;
+                      &#x3C;ul id=&#x22;md-date__years&#x22; class=&#x22;md-picker__years md-picker__years--invisible animated&#x22;&#x3E;&#x3C;/ul&#x3E;
+                      &#x3C;div class=&#x22;md-picker__action&#x22;&#x3E;
+                        &#x3C;button id=&#x22;md-date__cancel&#x22; class=&#x22;md-button&#x22; type=&#x22;button&#x22;&#x3E;cancel&#x3C;/button&#x3E;
+                        &#x3C;button id=&#x22;md-date__ok&#x22; class=&#x22;md-button&#x22; type=&#x22;button&#x22;&#x3E;ok&#x3C;/button&#x3E;
+                      &#x3C;/div&#x3E;
+                    &#x3C;/div&#x3E;
+                  &#x3C;/div&#x3E;
+              </code>
+            <pre>
+          </div>
+          <div class="mdl-tabs__panel" id="sample-javascript-panel-1">
+            <pre>
+              <code>
+                var x = new mdDateTimePicker('date');
+                document.getElementById('trigger-1').addEventListener('click', function() {
+                  x.toggle();
+                });
+              </code>
+            </pre>
+          </div>
+        </div>
+      </p>
     </section>
   </div>
 </section>

@@ -1,3 +1,5 @@
+{# import components to use #}
+{% import "macros/components.njk" as components %}
 <main class="mdl-layout__content">
   {% include "views/about.njk" %}
   {% include "views/basicsetup.njk" %}
@@ -5,4 +7,6 @@
   {% include "views/documentation.njk" %}
   {% include "views/behind-the-scenes.njk" %}
   {% include "views/download.njk" %}
+  {# include core dialogs #}
+  {% include "components/date-picker.njk" %}
 </main>
