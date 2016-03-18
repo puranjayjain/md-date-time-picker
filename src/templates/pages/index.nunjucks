@@ -1,9 +1,0 @@
-{% extends "layouts/layout.nunjucks" %}
-
-{% block content %}
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  {% include "sections/header.nunjucks" %}
-  {% include "sections/main.nunjucks" %}
-  {% include "sections/footer.nunjucks" %}
-</div>
-{% endblock %}
