@@ -1,0 +1,12 @@
+{# the macros here are components which are used on this site #}
+{# internal layout tab bar #}
+{% macro tabBar(tabs) %}
+<div class="mdl-tabs__tab-bar">
+  {% for tab in tabs %}
+  <a href="#{{ tab.href }}" class="mdl-tabs__tab
+  {% if tab.active %}
+  is-active
+  {% endif %}">{{ tab.text }}</a>
+  {% endfor %}
+</div>
+{% endmacro %}

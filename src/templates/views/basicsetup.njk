@@ -1,26 +1,23 @@
+{% import "macros/components.njk" as components %}
 <section class="mdl-layout__tab-panel" id="scroll-tab-2">
   <div class="page-content mdl-grid">
     <section class="mdl-cell mdl-cell--12-col">
       <h4 class="mddtp-section__title">Where do i put what?</h4>
       <h6 class="mddtp-section__subtitle"><em><strong>Note: </strong> Put the code as instructed by the tab heading inside the relevant html tags!</em></h6>
       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-        <div class="mdl-tabs__tab-bar">
-          <a href="#head-panel" class="mdl-tabs__tab is-active">Head</a>
-          <a href="#body-panel" class="mdl-tabs__tab">Body</a>
-          <a href="#after-body-panel" class="mdl-tabs__tab">After Body</a>
-        </div>
+        {{ components.tabBar(tabs = [{href: 'head-panel', text: 'Head', 'active': true}, {href: 'body-panel', text: 'Body'}, {href: 'after-body-panel', text: 'After Body'}]) }}
         <div class="mdl-tabs__panel is-active" id="head-panel">
           <pre>
             <code class="html language-html">
-              &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;https://fonts.googleapis.com/icon?family=Material+Icons&#x22;&#x3E;
-              &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;https://code.getmdl.io/1.1.3/material.indigo-pink.min.css&#x22;&#x3E;
+              &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&#x26;amp;lang=en&#x22;&#x3E;
+              &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;css/md-date-time-picker.css&#x22;&#x3E;
             </code>
           </pre>
         </div>
         <div class="mdl-tabs__panel" id="body-panel">
           <pre>
             <code class="html language-html">
-              &#x3C;script src=&#x22;https://code.getmdl.io/1.1.3/material.min.js&#x22;&#x3E;&#x3C;/script&#x3E;
+              &#x3C;script src=&#x22;js/md-date-time-picker.js&#x22;&#x3E;&#x3C;/script&#x3E;
             </code>
           </pre>
         </div>

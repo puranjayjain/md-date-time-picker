@@ -48,6 +48,11 @@ main {
 .mddtp-a {
   color: #7c4dff; }
 
+.mddtp-section--grow {
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
 .mddtp-section--white {
   background-color: #fff; }
 

@@ -53,6 +53,9 @@ main {
 .mddtp-a {
   color: $palette-primary-A200;
 }
+.mddtp-section--grow {
+  flex-grow: 1;
+}
 .mddtp-section--white {
   background-color: #fff;
 }
