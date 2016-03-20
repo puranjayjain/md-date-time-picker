@@ -7,25 +7,25 @@ var _createClass = function () { function defineProperties(target, props) { for 
 },
     mdDateTimePicker = function () {
 	/**
-  * [constructor of the mdDateTimePicker]
-  *
-  * @method constructor
-  *
-  * @param  {[string]}    type         [type of dialog] ['date','time']
-  * @param  {[moment]}    init   = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
-  * @param  {[moment]}    past   = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
-  * @param  {[moment]}    future = moment() [the future moment till which the calendar shall render] [@default value of init]
-  *
-  * @param	 {[Boolean]}    mode  = false [this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default 12 hour mode - false]
-  *
-  * @return {[Object]}    [mdDateTimePicker]
-  */
+ * [constructor of the mdDateTimePicker]
+ *
+ * @method constructor
+ *
+ * @param  {[string]}    type         [type of dialog] ['date','time']
+ * @param  {[moment]}    init   = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
+ * @param  {[moment]}    past   = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
+ * @param  {[moment]}    future = moment() [the future moment till which the calendar shall render] [@default value of init]
+ *
+ * @param	 {[Boolean]}    mode  = false [this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default 12 hour mode = false]
+ *
+ * @return {[Object]}    [mdDateTimePicker]
+ */
 
 	function mdDateTimePicker(type) {
 		var init = arguments.length <= 1 || arguments[1] === undefined ? moment() : arguments[1],
 		    past = arguments.length <= 2 || arguments[2] === undefined ? moment().subtract(21, 'years') : arguments[2],
 		    future = arguments.length <= 3 || arguments[3] === undefined ? init : arguments[3],
-		    fullMode = arguments.length <= 4 || arguments[4] === undefined ? !1 : arguments[4];
+		    mode = arguments.length <= 4 || arguments[4] === undefined ? !1 : arguments[4];
 
 		_classCallCheck(this, mdDateTimePicker);
 
@@ -33,32 +33,32 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		this._init = init;
 		this._past = past;
 		this._future = future;
-		this._fullMode = fullMode;
+		this._mode = mode;
 
 		/**
-   * [dialog selected classes has the same structure as dialog but one level down]
-   * @type {Object}
-   * e.g
-   * sDialog = {
-   *   picker: 'some-picker-selected'
-   * }
-   */
+  * [dialog selected classes has the same structure as dialog but one level down]
+  * @type {Object}
+  * e.g
+  * sDialog = {
+  *   picker: 'some-picker-selected'
+  * }
+  */
 		this._sDialog = {};
 	}
 
 	/**
-  * [upDate to get or set the current picker's moment]
-  *
-  * @method date
-  *
-  * @param  {[moment]} m
-  *
-  */
+ * [upDate to get or set the current picker's moment]
+ *
+ * @method time
+ *
+ * @param  {[moment]} m
+ *
+ */
 
 
 	_createClass(mdDateTimePicker, [{
-		key: 'date',
-		value: function date() {
+		key: 'time',
+		value: function time() {
 			var m = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 
 			if (m === '') {
@@ -69,11 +69,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [toggle toggle the dialog's between the visible and invisible state]
-   *
-   * @method toggle
-   *
-   */
+  * [toggle toggle the dialog's between the visible and invisible state]
+  *
+  * @method toggle
+  *
+  */
 
 	}, {
 		key: 'toggle',
@@ -93,12 +93,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [dialog getter and setter for _dialog value]
-   *
-   * @method dialog
-   *
-   * @return {[_dialog]} [static or prototype value for the _dialog of the component]
-   */
+  * [dialog getter and setter for _dialog value]
+  *
+  * @method dialog
+  *
+  * @return {[_dialog]} [static or prototype value for the _dialog of the component]
+  */
 
 	}, {
 		key: '_selectDialog',
@@ -110,9 +110,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		// }
 
 		/**
-   * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
-   * @param  {[moment]} m [date for today or current]
-   */
+  * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
+  * @param  {[moment]} m [date for today or current]
+  */
 		value: function _selectDialog() {
 			// clone elements and add them again to clear events attached to them
 			var picker = document.getElementById('md-picker__' + [this._type]),
@@ -122,10 +122,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			// now do what you normally would do
 			this._sDialog.picker = document.getElementById('md-picker__' + [this._type]);
 			/**
-    * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
-    *
-    * @type {Array}
-    */
+   * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
+   *
+   * @type {Array}
+   */
 			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth'],
 			    _iteratorNormalCompletion = !0,
 			    _didIteratorError = !1,
@@ -157,11 +157,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_showDialog make the dialog visible with animation]
-   *
-   * @method _showDialog
-   *
-   */
+  * [_showDialog make the dialog visible with animation]
+  *
+  * @method _showDialog
+  *
+  */
 
 	}, {
 		key: '_showDialog',
@@ -172,18 +172,19 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_hideDialog make the dialog invisible with animation]
-   *
-   * @method _hideDialog
-   *
-   */
+  * [_hideDialog make the dialog invisible with animation]
+  *
+  * @method _hideDialog
+  *
+  */
 
 	}, {
 		key: '_hideDialog',
 		value: function _hideDialog() {
 			var me = this,
 			    years = this._sDialog.years,
-			    header = this._sDialog.header,
+			    title = me._sDialog.title,
+			    subtitle = me._sDialog.subtitle,
 			    viewHolder = this._sDialog.viewHolder;
 
 			mdDateTimePicker.dialog.state = !1;
@@ -192,7 +193,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			// reset classes
 			years.classList.remove('zoomIn', 'zoomOut');
 			years.classList.add('md-picker__years--invisible');
-			header.classList.remove('md-picker__header--invert');
+			title.classList.remove('md-picker__color--active');
+			subtitle.classList.add('md-picker__color--active');
 			viewHolder.classList.remove('zoomOut');
 			setTimeout(function () {
 				me._sDialog.picker.classList.remove('zoomOut', 'zoomIn');
@@ -201,12 +203,24 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [initDateDialog description]
-   * @param  {[type]} m [description]
-   * @return {[type]}   [description]
-   */
+  * [_initTimeDialog description]
+  *
+  * @method _initTimeDialog
+  *
+  * @param  {[moment]}        m [description]
+  *
+  */
 
-		//  TODO apply upper cap and lower cap to this function as well
+	}, {
+		key: '_initTimeDialog',
+		value: function _initTimeDialog(m) {}
+
+		/**
+  * [initDateDialog description]
+  *
+  * @param  {[type]} m [description]
+  *
+  */
 
 	}, {
 		key: '_initDateDialog',
@@ -311,12 +325,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_initYear Adds year elements]
-   *
-   * @method _initYear
-   *
-   * @return {[type]}  [description]
-   */
+  * [_initYear Adds year elements]
+  *
+  * @method _initYear
+  *
+  * @return {[type]}  [description]
+  */
 
 	}, {
 		key: '_initYear',
@@ -347,14 +361,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_switchToDateView Adds event handler for the feature: switch between date and year view in date dialog]
-   *
-   * @method _switchToDateView
-   *
-   * @param  {[type]} picker [description]
-   * @param  {[type]} el     [description]
-   *
-   */
+  * [_switchToDateView Adds event handler for the feature: switch between date and year view in date dialog]
+  *
+  * @method _switchToDateView
+  *
+  * @param  {[type]} picker [description]
+  * @param  {[type]} el     [description]
+  *
+  */
 
 	}, {
 		key: '_switchToDateView',
@@ -367,14 +381,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_switchToDateViewFunction the actual switchToDateView function so that it can be called by other elements as well]
-   *
-   * @method _switchToDateViewFunction
-   *
-   * @param  {[type]}	el [element to attach event to]
-   * @param  {[type]}	me [context]
-   *
-   */
+  * [_switchToDateViewFunction the actual switchToDateView function so that it can be called by other elements as well]
+  *
+  * @method _switchToDateViewFunction
+  *
+  * @param  {[type]}	el [element to attach event to]
+  * @param  {[type]}	me [context]
+  *
+  */
 
 	}, {
 		key: '_switchToDateViewFunction',
@@ -382,7 +396,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			el.setAttribute('disabled', '');
 			var viewHolder = me._sDialog.viewHolder,
 			    years = me._sDialog.years,
-			    header = me._sDialog.header,
+			    title = me._sDialog.title,
+			    subtitle = me._sDialog.subtitle,
 			    currentYear = document.getElementById('md-date__currentYear');
 
 			if (mdDateTimePicker.dialog.view) {
@@ -401,7 +416,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					viewHolder.classList.remove('zoomIn');
 				}, 300);
 			}
-			header.classList.toggle('md-picker__header--invert');
+			title.classList.toggle('md-picker__color--active');
+			subtitle.classList.toggle('md-picker__color--active');
 			mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
 			setTimeout(function () {
 				el.removeAttribute('disabled');
@@ -482,10 +498,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			function moveStep(aClass, to) {
 				/**
-     * [stepBack to know if the to step is going back or not]
-     *
-     * @type {Boolean}
-     */
+    * [stepBack to know if the to step is going back or not]
+    *
+    * @type {Boolean}
+    */
 				var stepBack = !1,
 				    next = me._sDialog.next,
 				    current = me._sDialog.current,
@@ -556,13 +572,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_changeYear the on click event handler for year]
-   *
-   * @method _changeYear
-   *
-   * @param  {[type]}    el [description]
-   *
-   */
+  * [_changeYear the on click event handler for year]
+  *
+  * @method _changeYear
+  *
+  * @param  {[type]}    el [description]
+  *
+  */
 
 	}, {
 		key: '_changeYear',
@@ -588,11 +604,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
-   *
-   * @method _attachEventHandlers
-   *
-   */
+  * [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
+  *
+  * @method _attachEventHandlers
+  *
+  */
 
 	}, {
 		key: '_attachEventHandlers',
@@ -611,15 +627,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-   * [_getMonth get the next or previous month]
-   *
-   * @method _getMonth
-   *
-   * @param  {[type]}  moment [description]
-   * @param  {[type]}  count  [pass -ve values for past months and positive ones for future values]
-   *
-   * @return {[moment]}  [returns the relative moment]
-   */
+  * [_getMonth get the next or previous month]
+  *
+  * @method _getMonth
+  *
+  * @param  {[type]}  moment [description]
+  * @param  {[type]}  count  [pass -ve values for past months and positive ones for future values]
+  *
+  * @return {[moment]}  [returns the relative moment]
+  */
 
 	}, {
 		key: '_getMonth',
@@ -641,16 +657,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 	return mdDateTimePicker;
 }(); /**
-      * @package md-date-time-picker
-      * @version [0.0.1]
-      * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
-      * @license MIT
-      * @website puranjayjain.github.io/md-date-time-picker/demo.html
-      */
+     * @package md-date-time-picker
+     * @version [0.0.1]
+     * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
+     * @license MIT
+     * @website puranjayjain.github.io/md-date-time-picker/demo.html
+     */
 
 /**
- * All declarations starting with _ are considered @private
- */
+* All declarations starting with _ are considered @private
+*/
 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }

@@ -68,15 +68,36 @@ body {
     width: 100px;
     background-color: $picker-header-color;
     padding: 24px 24px 20px;
+    .md-picker__title {
+      color: $color-secondary-text;
+      font-family: $regular;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .md-picker__subtitle {
+      font-weight: 400;
+      font-size: 16px; //TODO 17px on mobile
+      line-height: 20px;
+    }
     .md-picker__title,
     .md-picker__subtitle {
+      color: $color-secondary-text;
       margin: 0;
       cursor: pointer;
+    }
+    .md-picker__color--active {
+      color: $color-primary-text;
     }
   }
   .md-picker__body {
     position: relative;
     background-color: $picker-body-color;
+
+    .md-picker__action {
+      margin-top: 24px;
+      padding: 8px 0;
+      text-align: right;
+    }
   }
   .md-picker__header,
   .md-picker__body {
@@ -127,30 +148,6 @@ body {
   .md-picker__right:disabled {
     background-repeat: no-repeat;
     background-position: center;
-  }
-  .md-picker__header {
-    .md-picker__title {
-      color: $color-primary-text;
-      font-family: $regular;
-      font-size: 28px;
-      font-weight: 700;
-      span {
-        display: block;
-      }
-    }
-    .md-picker__subtitle {
-      font-weight: 400;
-      color: $color-secondary-text;
-      font-size: 16px; //TODO 17px on mobile
-    }
-  }
-  .md-picker__header--invert {
-    .md-picker__title {
-      color: $color-secondary-text;
-    }
-    .md-picker__subtitle {
-      color: $color-primary-text;
-    }
   }
   .md-picker__body {
     .md-picker__viewHolder {
@@ -255,14 +252,119 @@ body {
     .md-picker__years--invisible {
       display: none;
     }
-    .md-picker__action {
-      margin-top: 24px;
-      padding: 8px 0;
-      text-align: right;
-    }
   }
 }
 //time component dialog
+.md-picker-time {
+  .md-picker__header {
+    vertical-align: middle;
+    width: 125px;
+
+    .md-picker__title {
+      text-align: right;
+      // NOTE font size to remove space between inline block hack by https://css-tricks.com/fighting-the-space-between-inline-block-elements/
+      font-size: 0;
+      span {
+        font-size: 45px;
+        font-weight: 400;
+        line-height: 48px;
+        margin: 0 2px;
+      }
+    }
+    .md-picker__subtitle {
+      margin-top: 8px;
+      text-align: center;
+
+      div {
+        margin-top: 2px;
+      }
+    }
+  }
+  .md-picker__body {
+    .md-picker__circularHolder {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin: 20px;
+      border-radius: 50%;
+      background-color: $picker-circle-color;
+
+      .md-picker__circularView {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        .md-picker__cell {
+          position: absolute;
+          width: 50%;
+          top: calc(50% - 18px);
+          left: 50%;
+          text-align: right;
+          transform-origin: left center;
+          span {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 13px;
+            color: $picker-primary-text-theme-color;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            margin-right: 8px;
+          }
+        }
+        .md-picker__cell--selected {
+          span {
+            color: $picker-body-color;
+          }
+        }
+      }
+
+      .md-picker__selection {
+        position: absolute;
+        left: 50%;
+        top: calc(50% - 18px);
+        width: 50%;
+        font-size: 0;
+        transform-origin: left center;
+
+        span {
+          display: inline-block;
+          background-color: $picker-line-color;
+          height: 2px;
+          vertical-align: middle;
+        }
+
+        .md-picker__dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+        }
+
+        .md-picker__line {
+          width: calc(100% - 52px);
+        }
+
+        .md-picker__circle {
+          border-radius: 50%;
+          height: 36px;
+          width: 36px;
+        }
+      }
+
+      //60 minute deg rotations
+      @for $i from 1 through 59 {
+        .md-picker__cell--rotate-#{$i} {
+          transform: rotate(#{(360 / 60) * $i}deg);
+
+          span {
+            transform: rotate(-#{(360 / 60) * $i}deg);
+          }
+        }
+      }
+    }
+  }
+}
 // media queries
 // As the responsive approach is desktop first and on mobile landscape first, we handle the rest here
 @media screen and (max-device-width: 425px) and (orientation: portrait) {
