@@ -62,12 +62,12 @@ body {
   border-radius: 3px;
   overflow: hidden; }
   .md-picker .md-picker__header {
-    width: 80px;
+    width: 100px;
     background-color: #009688;
     padding: 24px 24px 20px; }
     .md-picker .md-picker__header .md-picker__title,
     .md-picker .md-picker__header .md-picker__subtitle {
-      margin: 0 0 8px;
+      margin: 0;
       cursor: pointer; }
   .md-picker .md-picker__body {
     position: relative;
@@ -122,12 +122,13 @@ body {
 .md-picker-date .md-picker__header .md-picker__title {
   color: white;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 24px;
-  font-weight: 900; }
+  font-size: 28px;
+  font-weight: 700; }
   .md-picker-date .md-picker__header .md-picker__title span {
     display: block; }
 
 .md-picker-date .md-picker__header .md-picker__subtitle {
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   font-size: 16px; }
 
@@ -173,7 +174,6 @@ body {
     .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid span {
       display: inline-block;
       font-size: 13px;
-      font-weight: 600;
       margin: 2px;
       color: rgba(0, 0, 0, 0.87);
       border-radius: 50%;
@@ -182,7 +182,8 @@ body {
       line-height: 36px;
       vertical-align: middle; }
     .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__cell--today {
-      color: #009688; }
+      color: #009688;
+      font-weight: 600; }
     .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__cell--selected {
       background-color: #009688;
       color: #fff; }

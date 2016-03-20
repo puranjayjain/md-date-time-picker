@@ -4,13 +4,23 @@
 <head>
   <meta charset="utf-8">
   <title>Demo DatePicker</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/component.css">
 </head>
 
 <body>
-  <button type="button" id="trigger">Open Dialog 1</button>
-  <button type="button" id="trigger2">Open Dialog 2</button>
-  <button type="button" id="trigger3">Open Dialog 3</button>
+  <p>
+    <h1>Date dialog</h1>
+    <button type="button" id="trigger">Open Dialog 1</button>
+    <button type="button" id="trigger2">Open Dialog 2</button>
+    <button type="button" id="trigger3">Open Dialog 3</button>
+  </p>
+  <p>
+    <h1>Time dialog</h1>
+    <button type="button" id="trigger4">Open Dialog 1</button>
+    <button type="button" id="trigger5">Open Dialog 2</button>
+    <button type="button" id="trigger6">Open Dialog 3</button>
+  </p>
   <!-- date picker dialog -->
   <div id="md-picker__date" class="md-picker md-picker-date md-picker--inactive animated">
     <div id="md-date__header" class="md-picker__header">
@@ -121,6 +131,116 @@
       </div>
     </div>
   </div>
+  <!-- time picker dialog -->
+  <div id="md-picker__time" class="md-picker md-picker-time md-picker--inactive animated">
+    <div id="md-time__header" class="md-picker__header">
+      <h4 id="md-time__subtitle" class="md-picker__subtitle"></h4>
+      <h2 id="md-time__title" class="md-picker__title">
+        <span id="md-time__titleDay"></span>
+        <span id="md-time__titleMonth"></span>
+      </h2>
+    </div>
+    <div class="md-picker__body">
+      <div id="md-time__viewHolder" class="md-picker__viewHolder animated">
+        <ul class="md-picker__views">
+          <li id="md-time__previous" class="md-picker__view">
+            <div class="md-picker__month"></div>
+            <div class="md-picker__grid">
+              <div class="md-picker__th">
+                <span>
+                  S
+                </span>
+                <span>
+                  M
+                </span>
+                <span>
+                  T
+                </span>
+                <span>
+                  W
+                </span>
+                <span>
+                  T
+                </span>
+                <span>
+                  F
+                </span>
+                <span>
+                  S
+                </span>
+              </div>
+              <div class="md-picker__tr"></div>
+            </div>
+          </li>
+          <li id="md-time__current" class="md-picker__view">
+            <div class="md-picker__month"></div>
+            <div class="md-picker__grid">
+              <div class="md-picker__th">
+                <span>
+                  S
+                </span>
+                <span>
+                  M
+                </span>
+                <span>
+                  T
+                </span>
+                <span>
+                  W
+                </span>
+                <span>
+                  T
+                </span>
+                <span>
+                  F
+                </span>
+                <span>
+                  S
+                </span>
+              </div>
+              <div class="md-picker__tr"></div>
+            </div>
+          </li>
+          <li id="md-time__next" class="md-picker__view">
+            <div class="md-picker__month"></div>
+            <div class="md-picker__grid">
+              <div class="md-picker__th">
+                <span>
+                  S
+                </span>
+                <span>
+                  M
+                </span>
+                <span>
+                  T
+                </span>
+                <span>
+                  W
+                </span>
+                <span>
+                  T
+                </span>
+                <span>
+                  F
+                </span>
+                <span>
+                  S
+                </span>
+              </div>
+              <div class="md-picker__tr"></div>
+            </div>
+          </li>
+        </ul>
+        <button id="md-time__left" class="md-button md-picker__left" type="button"></button>
+        <button id="md-time__right" class="md-button md-picker__right" type="button"></button>
+      </div>
+      <ul id="md-time__years" class="md-picker__years md-picker__years--invisible animated"></ul>
+      <div class="md-picker__action">
+        <button id="md-time__cancel" class="md-button" type="button">cancel</button>
+        <button id="md-time__ok" class="md-button" type="button">ok</button>
+      </div>
+    </div>
+  </div>
   <script src="js/moment.js"></script>
   <script src="js/md-date-time-picker.js"></script>
   <script type="text/javascript">
@@ -136,6 +256,10 @@
     });
     document.getElementById('trigger3').addEventListener('click', function() {
       z.toggle();
+    });
+    var a = new mdDateTimePicker('time');
+    document.getElementById('trigger4').addEventListener('click', function() {
+      a.toggle();
     });
     // }).call(this);
   </script>

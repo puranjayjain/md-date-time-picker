@@ -26,7 +26,7 @@ body {
   display: inline-block;
   padding: 0 8px;
   margin-right: 8px;
-  font-family: $medium;
+  font-family: $regular;
   font-size: 15px;
   text-transform: uppercase;
   outline: none;
@@ -65,12 +65,12 @@ body {
   border-radius: 3px;
   overflow: hidden;
   .md-picker__header {
-    width: 80px;
+    width: 100px;
     background-color: $picker-header-color;
     padding: 24px 24px 20px;
     .md-picker__title,
     .md-picker__subtitle {
-      margin: 0 0 8px; //TODO remove this on mobile
+      margin: 0;
       cursor: pointer;
     }
   }
@@ -131,14 +131,15 @@ body {
   .md-picker__header {
     .md-picker__title {
       color: $color-primary-text;
-      font-family: $medium;
-      font-size: 24px;
-      font-weight: 900;
+      font-family: $regular;
+      font-size: 28px;
+      font-weight: 700;
       span {
         display: block;
       }
     }
     .md-picker__subtitle {
+      font-weight: 400;
       color: $color-secondary-text;
       font-size: 16px; //TODO 17px on mobile
     }
@@ -191,7 +192,6 @@ body {
         span {
           display: inline-block;
           font-size: 13px;
-          font-weight: 600;
           margin: 2px;
           color: $picker-primary-text-theme-color;
           border-radius: 50%;
@@ -202,6 +202,7 @@ body {
         }
         .md-picker__cell--today {
           color: $md-button-color;
+          font-weight: 600;
         }
         .md-picker__cell--selected {
           background-color: $md-button-color;
