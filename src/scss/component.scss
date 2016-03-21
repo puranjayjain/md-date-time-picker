@@ -1,21 +1,7 @@
 @import "dependencies/variables";
 @import "dependencies/mixins";
 @import "dependencies/fonts";
-// Make html take up the entire screen
-// Then set touch-action to avoid touch delay on mobile IE
-html {
-  width: 100%;
-  height: 100%;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-}
-body {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  // background-color: $palette-primary-A100;
-  font-family: $regular !important;
-}
+
 //common components
 .md-button {
   height: 36px; //TODO touch target 48px
@@ -26,7 +12,7 @@ body {
   display: inline-block;
   padding: 0 8px;
   margin-right: 8px;
-  font-family: $regular;
+  font-family: $regular !important;
   font-size: 15px;
   text-transform: uppercase;
   outline: none;
@@ -55,6 +41,7 @@ body {
 //date or time component dialog
 .md-picker {
   @include shadow-8dp();
+  font-family: $regular !important;
   min-width: 5 * 56px;
   position: fixed;
   top: 50%;
@@ -357,7 +344,7 @@ body {
         .md-picker__cell--rotate-#{$i} {
           transform: rotate(#{(360 / 60) * $i}deg);
 
-          span {
+          span:not(.md-picker__line) {
             transform: rotate(-#{(360 / 60) * $i}deg);
           }
         }

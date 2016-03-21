@@ -4,18 +4,6 @@
 /* Shadows */
 /* Animations */
 /* Dialog */
-html {
-  width: 100%;
-  height: 100%;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation; }
-
-body {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important; }
-
 .md-button {
   height: 36px;
   min-width: 64px;
@@ -25,7 +13,7 @@ body {
   display: inline-block;
   padding: 0 8px;
   margin-right: 8px;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
   font-size: 15px;
   text-transform: uppercase;
   outline: none;
@@ -49,6 +37,7 @@ body {
 
 .md-picker {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
   min-width: 280px;
   position: fixed;
   top: 50%;
@@ -241,7 +230,7 @@ body {
   height: 250px;
   margin: 20px;
   border-radius: 50%;
-  background-color: #e0e0e0; }
+  background-color: #eeeeee; }
   .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__circularView {
     position: absolute;
     width: 100%;
@@ -296,7 +285,7 @@ body {
     -webkit-transform: rotate(6deg);
         -ms-transform: rotate(6deg);
             transform: rotate(6deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-1 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-1 span:not(.md-picker__line) {
       -webkit-transform: rotate(-6deg);
           -ms-transform: rotate(-6deg);
               transform: rotate(-6deg); }
@@ -304,7 +293,7 @@ body {
     -webkit-transform: rotate(12deg);
         -ms-transform: rotate(12deg);
             transform: rotate(12deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-2 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-2 span:not(.md-picker__line) {
       -webkit-transform: rotate(-12deg);
           -ms-transform: rotate(-12deg);
               transform: rotate(-12deg); }
@@ -312,7 +301,7 @@ body {
     -webkit-transform: rotate(18deg);
         -ms-transform: rotate(18deg);
             transform: rotate(18deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-3 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-3 span:not(.md-picker__line) {
       -webkit-transform: rotate(-18deg);
           -ms-transform: rotate(-18deg);
               transform: rotate(-18deg); }
@@ -320,7 +309,7 @@ body {
     -webkit-transform: rotate(24deg);
         -ms-transform: rotate(24deg);
             transform: rotate(24deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-4 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-4 span:not(.md-picker__line) {
       -webkit-transform: rotate(-24deg);
           -ms-transform: rotate(-24deg);
               transform: rotate(-24deg); }
@@ -328,7 +317,7 @@ body {
     -webkit-transform: rotate(30deg);
         -ms-transform: rotate(30deg);
             transform: rotate(30deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-5 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-5 span:not(.md-picker__line) {
       -webkit-transform: rotate(-30deg);
           -ms-transform: rotate(-30deg);
               transform: rotate(-30deg); }
@@ -336,7 +325,7 @@ body {
     -webkit-transform: rotate(36deg);
         -ms-transform: rotate(36deg);
             transform: rotate(36deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-6 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-6 span:not(.md-picker__line) {
       -webkit-transform: rotate(-36deg);
           -ms-transform: rotate(-36deg);
               transform: rotate(-36deg); }
@@ -344,7 +333,7 @@ body {
     -webkit-transform: rotate(42deg);
         -ms-transform: rotate(42deg);
             transform: rotate(42deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-7 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-7 span:not(.md-picker__line) {
       -webkit-transform: rotate(-42deg);
           -ms-transform: rotate(-42deg);
               transform: rotate(-42deg); }
@@ -352,7 +341,7 @@ body {
     -webkit-transform: rotate(48deg);
         -ms-transform: rotate(48deg);
             transform: rotate(48deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-8 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-8 span:not(.md-picker__line) {
       -webkit-transform: rotate(-48deg);
           -ms-transform: rotate(-48deg);
               transform: rotate(-48deg); }
@@ -360,7 +349,7 @@ body {
     -webkit-transform: rotate(54deg);
         -ms-transform: rotate(54deg);
             transform: rotate(54deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-9 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-9 span:not(.md-picker__line) {
       -webkit-transform: rotate(-54deg);
           -ms-transform: rotate(-54deg);
               transform: rotate(-54deg); }
@@ -368,7 +357,7 @@ body {
     -webkit-transform: rotate(60deg);
         -ms-transform: rotate(60deg);
             transform: rotate(60deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-10 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-10 span:not(.md-picker__line) {
       -webkit-transform: rotate(-60deg);
           -ms-transform: rotate(-60deg);
               transform: rotate(-60deg); }
@@ -376,7 +365,7 @@ body {
     -webkit-transform: rotate(66deg);
         -ms-transform: rotate(66deg);
             transform: rotate(66deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-11 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-11 span:not(.md-picker__line) {
       -webkit-transform: rotate(-66deg);
           -ms-transform: rotate(-66deg);
               transform: rotate(-66deg); }
@@ -384,7 +373,7 @@ body {
     -webkit-transform: rotate(72deg);
         -ms-transform: rotate(72deg);
             transform: rotate(72deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-12 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-12 span:not(.md-picker__line) {
       -webkit-transform: rotate(-72deg);
           -ms-transform: rotate(-72deg);
               transform: rotate(-72deg); }
@@ -392,7 +381,7 @@ body {
     -webkit-transform: rotate(78deg);
         -ms-transform: rotate(78deg);
             transform: rotate(78deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-13 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-13 span:not(.md-picker__line) {
       -webkit-transform: rotate(-78deg);
           -ms-transform: rotate(-78deg);
               transform: rotate(-78deg); }
@@ -400,7 +389,7 @@ body {
     -webkit-transform: rotate(84deg);
         -ms-transform: rotate(84deg);
             transform: rotate(84deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-14 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-14 span:not(.md-picker__line) {
       -webkit-transform: rotate(-84deg);
           -ms-transform: rotate(-84deg);
               transform: rotate(-84deg); }
@@ -408,7 +397,7 @@ body {
     -webkit-transform: rotate(90deg);
         -ms-transform: rotate(90deg);
             transform: rotate(90deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-15 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-15 span:not(.md-picker__line) {
       -webkit-transform: rotate(-90deg);
           -ms-transform: rotate(-90deg);
               transform: rotate(-90deg); }
@@ -416,7 +405,7 @@ body {
     -webkit-transform: rotate(96deg);
         -ms-transform: rotate(96deg);
             transform: rotate(96deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-16 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-16 span:not(.md-picker__line) {
       -webkit-transform: rotate(-96deg);
           -ms-transform: rotate(-96deg);
               transform: rotate(-96deg); }
@@ -424,7 +413,7 @@ body {
     -webkit-transform: rotate(102deg);
         -ms-transform: rotate(102deg);
             transform: rotate(102deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-17 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-17 span:not(.md-picker__line) {
       -webkit-transform: rotate(-102deg);
           -ms-transform: rotate(-102deg);
               transform: rotate(-102deg); }
@@ -432,7 +421,7 @@ body {
     -webkit-transform: rotate(108deg);
         -ms-transform: rotate(108deg);
             transform: rotate(108deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-18 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-18 span:not(.md-picker__line) {
       -webkit-transform: rotate(-108deg);
           -ms-transform: rotate(-108deg);
               transform: rotate(-108deg); }
@@ -440,7 +429,7 @@ body {
     -webkit-transform: rotate(114deg);
         -ms-transform: rotate(114deg);
             transform: rotate(114deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-19 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-19 span:not(.md-picker__line) {
       -webkit-transform: rotate(-114deg);
           -ms-transform: rotate(-114deg);
               transform: rotate(-114deg); }
@@ -448,7 +437,7 @@ body {
     -webkit-transform: rotate(120deg);
         -ms-transform: rotate(120deg);
             transform: rotate(120deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-20 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-20 span:not(.md-picker__line) {
       -webkit-transform: rotate(-120deg);
           -ms-transform: rotate(-120deg);
               transform: rotate(-120deg); }
@@ -456,7 +445,7 @@ body {
     -webkit-transform: rotate(126deg);
         -ms-transform: rotate(126deg);
             transform: rotate(126deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-21 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-21 span:not(.md-picker__line) {
       -webkit-transform: rotate(-126deg);
           -ms-transform: rotate(-126deg);
               transform: rotate(-126deg); }
@@ -464,7 +453,7 @@ body {
     -webkit-transform: rotate(132deg);
         -ms-transform: rotate(132deg);
             transform: rotate(132deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-22 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-22 span:not(.md-picker__line) {
       -webkit-transform: rotate(-132deg);
           -ms-transform: rotate(-132deg);
               transform: rotate(-132deg); }
@@ -472,7 +461,7 @@ body {
     -webkit-transform: rotate(138deg);
         -ms-transform: rotate(138deg);
             transform: rotate(138deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-23 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-23 span:not(.md-picker__line) {
       -webkit-transform: rotate(-138deg);
           -ms-transform: rotate(-138deg);
               transform: rotate(-138deg); }
@@ -480,7 +469,7 @@ body {
     -webkit-transform: rotate(144deg);
         -ms-transform: rotate(144deg);
             transform: rotate(144deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-24 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-24 span:not(.md-picker__line) {
       -webkit-transform: rotate(-144deg);
           -ms-transform: rotate(-144deg);
               transform: rotate(-144deg); }
@@ -488,7 +477,7 @@ body {
     -webkit-transform: rotate(150deg);
         -ms-transform: rotate(150deg);
             transform: rotate(150deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-25 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-25 span:not(.md-picker__line) {
       -webkit-transform: rotate(-150deg);
           -ms-transform: rotate(-150deg);
               transform: rotate(-150deg); }
@@ -496,7 +485,7 @@ body {
     -webkit-transform: rotate(156deg);
         -ms-transform: rotate(156deg);
             transform: rotate(156deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-26 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-26 span:not(.md-picker__line) {
       -webkit-transform: rotate(-156deg);
           -ms-transform: rotate(-156deg);
               transform: rotate(-156deg); }
@@ -504,7 +493,7 @@ body {
     -webkit-transform: rotate(162deg);
         -ms-transform: rotate(162deg);
             transform: rotate(162deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-27 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-27 span:not(.md-picker__line) {
       -webkit-transform: rotate(-162deg);
           -ms-transform: rotate(-162deg);
               transform: rotate(-162deg); }
@@ -512,7 +501,7 @@ body {
     -webkit-transform: rotate(168deg);
         -ms-transform: rotate(168deg);
             transform: rotate(168deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-28 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-28 span:not(.md-picker__line) {
       -webkit-transform: rotate(-168deg);
           -ms-transform: rotate(-168deg);
               transform: rotate(-168deg); }
@@ -520,7 +509,7 @@ body {
     -webkit-transform: rotate(174deg);
         -ms-transform: rotate(174deg);
             transform: rotate(174deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-29 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-29 span:not(.md-picker__line) {
       -webkit-transform: rotate(-174deg);
           -ms-transform: rotate(-174deg);
               transform: rotate(-174deg); }
@@ -528,7 +517,7 @@ body {
     -webkit-transform: rotate(180deg);
         -ms-transform: rotate(180deg);
             transform: rotate(180deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-30 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-30 span:not(.md-picker__line) {
       -webkit-transform: rotate(-180deg);
           -ms-transform: rotate(-180deg);
               transform: rotate(-180deg); }
@@ -536,7 +525,7 @@ body {
     -webkit-transform: rotate(186deg);
         -ms-transform: rotate(186deg);
             transform: rotate(186deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-31 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-31 span:not(.md-picker__line) {
       -webkit-transform: rotate(-186deg);
           -ms-transform: rotate(-186deg);
               transform: rotate(-186deg); }
@@ -544,7 +533,7 @@ body {
     -webkit-transform: rotate(192deg);
         -ms-transform: rotate(192deg);
             transform: rotate(192deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-32 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-32 span:not(.md-picker__line) {
       -webkit-transform: rotate(-192deg);
           -ms-transform: rotate(-192deg);
               transform: rotate(-192deg); }
@@ -552,7 +541,7 @@ body {
     -webkit-transform: rotate(198deg);
         -ms-transform: rotate(198deg);
             transform: rotate(198deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-33 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-33 span:not(.md-picker__line) {
       -webkit-transform: rotate(-198deg);
           -ms-transform: rotate(-198deg);
               transform: rotate(-198deg); }
@@ -560,7 +549,7 @@ body {
     -webkit-transform: rotate(204deg);
         -ms-transform: rotate(204deg);
             transform: rotate(204deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-34 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-34 span:not(.md-picker__line) {
       -webkit-transform: rotate(-204deg);
           -ms-transform: rotate(-204deg);
               transform: rotate(-204deg); }
@@ -568,7 +557,7 @@ body {
     -webkit-transform: rotate(210deg);
         -ms-transform: rotate(210deg);
             transform: rotate(210deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-35 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-35 span:not(.md-picker__line) {
       -webkit-transform: rotate(-210deg);
           -ms-transform: rotate(-210deg);
               transform: rotate(-210deg); }
@@ -576,7 +565,7 @@ body {
     -webkit-transform: rotate(216deg);
         -ms-transform: rotate(216deg);
             transform: rotate(216deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-36 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-36 span:not(.md-picker__line) {
       -webkit-transform: rotate(-216deg);
           -ms-transform: rotate(-216deg);
               transform: rotate(-216deg); }
@@ -584,7 +573,7 @@ body {
     -webkit-transform: rotate(222deg);
         -ms-transform: rotate(222deg);
             transform: rotate(222deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-37 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-37 span:not(.md-picker__line) {
       -webkit-transform: rotate(-222deg);
           -ms-transform: rotate(-222deg);
               transform: rotate(-222deg); }
@@ -592,7 +581,7 @@ body {
     -webkit-transform: rotate(228deg);
         -ms-transform: rotate(228deg);
             transform: rotate(228deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-38 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-38 span:not(.md-picker__line) {
       -webkit-transform: rotate(-228deg);
           -ms-transform: rotate(-228deg);
               transform: rotate(-228deg); }
@@ -600,7 +589,7 @@ body {
     -webkit-transform: rotate(234deg);
         -ms-transform: rotate(234deg);
             transform: rotate(234deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-39 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-39 span:not(.md-picker__line) {
       -webkit-transform: rotate(-234deg);
           -ms-transform: rotate(-234deg);
               transform: rotate(-234deg); }
@@ -608,7 +597,7 @@ body {
     -webkit-transform: rotate(240deg);
         -ms-transform: rotate(240deg);
             transform: rotate(240deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-40 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-40 span:not(.md-picker__line) {
       -webkit-transform: rotate(-240deg);
           -ms-transform: rotate(-240deg);
               transform: rotate(-240deg); }
@@ -616,7 +605,7 @@ body {
     -webkit-transform: rotate(246deg);
         -ms-transform: rotate(246deg);
             transform: rotate(246deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-41 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-41 span:not(.md-picker__line) {
       -webkit-transform: rotate(-246deg);
           -ms-transform: rotate(-246deg);
               transform: rotate(-246deg); }
@@ -624,7 +613,7 @@ body {
     -webkit-transform: rotate(252deg);
         -ms-transform: rotate(252deg);
             transform: rotate(252deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-42 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-42 span:not(.md-picker__line) {
       -webkit-transform: rotate(-252deg);
           -ms-transform: rotate(-252deg);
               transform: rotate(-252deg); }
@@ -632,7 +621,7 @@ body {
     -webkit-transform: rotate(258deg);
         -ms-transform: rotate(258deg);
             transform: rotate(258deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-43 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-43 span:not(.md-picker__line) {
       -webkit-transform: rotate(-258deg);
           -ms-transform: rotate(-258deg);
               transform: rotate(-258deg); }
@@ -640,7 +629,7 @@ body {
     -webkit-transform: rotate(264deg);
         -ms-transform: rotate(264deg);
             transform: rotate(264deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-44 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-44 span:not(.md-picker__line) {
       -webkit-transform: rotate(-264deg);
           -ms-transform: rotate(-264deg);
               transform: rotate(-264deg); }
@@ -648,7 +637,7 @@ body {
     -webkit-transform: rotate(270deg);
         -ms-transform: rotate(270deg);
             transform: rotate(270deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-45 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-45 span:not(.md-picker__line) {
       -webkit-transform: rotate(-270deg);
           -ms-transform: rotate(-270deg);
               transform: rotate(-270deg); }
@@ -656,7 +645,7 @@ body {
     -webkit-transform: rotate(276deg);
         -ms-transform: rotate(276deg);
             transform: rotate(276deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-46 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-46 span:not(.md-picker__line) {
       -webkit-transform: rotate(-276deg);
           -ms-transform: rotate(-276deg);
               transform: rotate(-276deg); }
@@ -664,7 +653,7 @@ body {
     -webkit-transform: rotate(282deg);
         -ms-transform: rotate(282deg);
             transform: rotate(282deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-47 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-47 span:not(.md-picker__line) {
       -webkit-transform: rotate(-282deg);
           -ms-transform: rotate(-282deg);
               transform: rotate(-282deg); }
@@ -672,7 +661,7 @@ body {
     -webkit-transform: rotate(288deg);
         -ms-transform: rotate(288deg);
             transform: rotate(288deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-48 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-48 span:not(.md-picker__line) {
       -webkit-transform: rotate(-288deg);
           -ms-transform: rotate(-288deg);
               transform: rotate(-288deg); }
@@ -680,7 +669,7 @@ body {
     -webkit-transform: rotate(294deg);
         -ms-transform: rotate(294deg);
             transform: rotate(294deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-49 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-49 span:not(.md-picker__line) {
       -webkit-transform: rotate(-294deg);
           -ms-transform: rotate(-294deg);
               transform: rotate(-294deg); }
@@ -688,7 +677,7 @@ body {
     -webkit-transform: rotate(300deg);
         -ms-transform: rotate(300deg);
             transform: rotate(300deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-50 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-50 span:not(.md-picker__line) {
       -webkit-transform: rotate(-300deg);
           -ms-transform: rotate(-300deg);
               transform: rotate(-300deg); }
@@ -696,7 +685,7 @@ body {
     -webkit-transform: rotate(306deg);
         -ms-transform: rotate(306deg);
             transform: rotate(306deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-51 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-51 span:not(.md-picker__line) {
       -webkit-transform: rotate(-306deg);
           -ms-transform: rotate(-306deg);
               transform: rotate(-306deg); }
@@ -704,7 +693,7 @@ body {
     -webkit-transform: rotate(312deg);
         -ms-transform: rotate(312deg);
             transform: rotate(312deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-52 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-52 span:not(.md-picker__line) {
       -webkit-transform: rotate(-312deg);
           -ms-transform: rotate(-312deg);
               transform: rotate(-312deg); }
@@ -712,7 +701,7 @@ body {
     -webkit-transform: rotate(318deg);
         -ms-transform: rotate(318deg);
             transform: rotate(318deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-53 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-53 span:not(.md-picker__line) {
       -webkit-transform: rotate(-318deg);
           -ms-transform: rotate(-318deg);
               transform: rotate(-318deg); }
@@ -720,7 +709,7 @@ body {
     -webkit-transform: rotate(324deg);
         -ms-transform: rotate(324deg);
             transform: rotate(324deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-54 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-54 span:not(.md-picker__line) {
       -webkit-transform: rotate(-324deg);
           -ms-transform: rotate(-324deg);
               transform: rotate(-324deg); }
@@ -728,7 +717,7 @@ body {
     -webkit-transform: rotate(330deg);
         -ms-transform: rotate(330deg);
             transform: rotate(330deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-55 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-55 span:not(.md-picker__line) {
       -webkit-transform: rotate(-330deg);
           -ms-transform: rotate(-330deg);
               transform: rotate(-330deg); }
@@ -736,7 +725,7 @@ body {
     -webkit-transform: rotate(336deg);
         -ms-transform: rotate(336deg);
             transform: rotate(336deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-56 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-56 span:not(.md-picker__line) {
       -webkit-transform: rotate(-336deg);
           -ms-transform: rotate(-336deg);
               transform: rotate(-336deg); }
@@ -744,7 +733,7 @@ body {
     -webkit-transform: rotate(342deg);
         -ms-transform: rotate(342deg);
             transform: rotate(342deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-57 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-57 span:not(.md-picker__line) {
       -webkit-transform: rotate(-342deg);
           -ms-transform: rotate(-342deg);
               transform: rotate(-342deg); }
@@ -752,7 +741,7 @@ body {
     -webkit-transform: rotate(348deg);
         -ms-transform: rotate(348deg);
             transform: rotate(348deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-58 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-58 span:not(.md-picker__line) {
       -webkit-transform: rotate(-348deg);
           -ms-transform: rotate(-348deg);
               transform: rotate(-348deg); }
@@ -760,7 +749,7 @@ body {
     -webkit-transform: rotate(354deg);
         -ms-transform: rotate(354deg);
             transform: rotate(354deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-59 span {
+    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-59 span:not(.md-picker__line) {
       -webkit-transform: rotate(-354deg);
           -ms-transform: rotate(-354deg);
               transform: rotate(-354deg); }
