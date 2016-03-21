@@ -36,7 +36,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		this._mode = mode;
 
 		/**
-  * [dialog selected classes has the same structure as dialog but one level down]
+  * [dialog selected classes have the same structure as dialog but one level down]
   * @type {Object}
   * e.g
   * sDialog = {
@@ -86,7 +86,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				if (this._type === 'date') {
 					this._initDateDialog(this._init);
 				} else if (this._type === 'time') {
-					// this._initTimeDialog(this._init)
+					this._initTimeDialog(this._init);
 				}
 				this._showDialog();
 			}
@@ -109,24 +109,20 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		// 	mdDateTimePicker.dialog = value
 		// }
 
-		/**
-  * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
-  * @param  {[moment]} m [date for today or current]
-  */
 		value: function _selectDialog() {
 			// clone elements and add them again to clear events attached to them
-			var picker = document.getElementById('md-picker__' + [this._type]),
+			var picker = document.getElementById('mddtp-picker__' + [this._type]),
 			    pickerClone = picker.cloneNode(!0);
 
 			picker.parentNode.replaceChild(pickerClone, picker);
 			// now do what you normally would do
-			this._sDialog.picker = document.getElementById('md-picker__' + [this._type]);
+			this._sDialog.picker = document.getElementById('mddtp-picker__' + [this._type]);
 			/**
    * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
    *
    * @type {Array}
    */
-			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth'],
+			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM'],
 			    _iteratorNormalCompletion = !0,
 			    _didIteratorError = !1,
 			    _iteratorError = undefined;
@@ -135,7 +131,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				for (var _iterator = sDialogEls[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = !0) {
 					var sDialogEl = _step.value;
 
-					this._sDialog[sDialogEl] = document.getElementById('md-' + this._type + '__' + sDialogEl);
+					this._sDialog[sDialogEl] = document.getElementById('mddtp-' + this._type + '__' + sDialogEl);
 				}
 			} catch (err) {
 				_didIteratorError = !0;
@@ -166,9 +162,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_showDialog',
 		value: function _showDialog() {
+			var me = this;
 			mdDateTimePicker.dialog.state = !0;
-			this._sDialog.picker.classList.remove('md-picker--inactive');
+			this._sDialog.picker.classList.remove('mddtp-picker--inactive');
 			this._sDialog.picker.classList.add('zoomIn');
+			setTimeout(function () {
+				me._sDialog.picker.classList.remove('zoomIn');
+			}, 300);
 		}
 
 		/**
@@ -192,23 +192,19 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._sDialog.picker.classList.add('zoomOut');
 			// reset classes
 			years.classList.remove('zoomIn', 'zoomOut');
-			years.classList.add('md-picker__years--invisible');
-			title.classList.remove('md-picker__color--active');
-			subtitle.classList.add('md-picker__color--active');
+			years.classList.add('mddtp-picker__years--invisible');
+			title.classList.remove('mddtp-picker__color--active');
+			subtitle.classList.add('mddtp-picker__color--active');
 			viewHolder.classList.remove('zoomOut');
 			setTimeout(function () {
-				me._sDialog.picker.classList.remove('zoomOut', 'zoomIn');
-				me._sDialog.picker.classList.add('md-picker--inactive');
+				me._sDialog.picker.classList.remove('zoomOut');
+				me._sDialog.picker.classList.add('mddtp-picker--inactive');
 			}, 300);
 		}
 
 		/**
-  * [_initTimeDialog description]
-  *
-  * @method _initTimeDialog
-  *
-  * @param  {[moment]}        m [description]
-  *
+  * [_initTimeDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
+  * @param  {[moment]} m [date for today or current]
   */
 
 	}, {
@@ -216,10 +212,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _initTimeDialog(m) {}
 
 		/**
-  * [initDateDialog description]
-  *
-  * @param  {[type]} m [description]
-  *
+  * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
+  * @param  {[moment]} m [date for today or current]
   */
 
 	}, {
@@ -261,16 +255,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._initMonth(current, m);
 			this._initMonth(next, moment(this._getMonth(m, 1)));
 			this._initMonth(previous, moment(this._getMonth(m, -1)));
-			this._switchToDateView(current.querySelector('.md-picker__month'));
+			this._switchToDateView(current.querySelector('.mddtp-picker__month'));
 			this._toMoveMonth();
 		}
 	}, {
 		key: '_initMonth',
 		value: function _initMonth(view, m) {
 			var displayMonth = m.format('MMMM YYYY');
-			view.querySelector('.md-picker__month').innerHTML = displayMonth;
+			view.querySelector('.mddtp-picker__month').innerHTML = displayMonth;
 			var docfrag = document.createDocumentFragment(),
-			    tr = view.querySelector('.md-picker__tr'),
+			    tr = view.querySelector('.mddtp-picker__tr'),
 			    firstDayOfMonth = parseInt(moment(m).date(1).day(), 10),
 			    today = -1,
 			    selected = -1,
@@ -301,17 +295,17 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 				if (i >= firstDayOfMonth && i <= lastDayOfMonth) {
 					if (i > future || i < past) {
-						cell.classList.add('md-picker__cell--disabled');
+						cell.classList.add('mddtp-picker__cell--disabled');
 					} else {
-						cell.classList.add('md-picker__cell');
+						cell.classList.add('mddtp-picker__cell');
 					}
 					cell.innerHTML = currentDay;
 				}
 				if (today === i) {
-					cell.classList.add('md-picker__cell--today');
+					cell.classList.add('mddtp-picker__cell--today');
 				}
 				if (selected === i) {
-					cell.classList.add('md-picker__cell--selected');
+					cell.classList.add('mddtp-picker__cell--selected');
 				}
 				docfrag.appendChild(cell);
 			}
@@ -345,8 +339,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				var li = document.createElement('li');
 				li.textContent = year;
 				if (year === currentYear) {
-					li.id = 'md-date__currentYear';
-					li.classList.add('md-picker__li--current');
+					li.id = 'mddtp-date__currentYear';
+					li.classList.add('mddtp-picker__li--current');
 				}
 				docfrag.appendChild(li);
 			}
@@ -398,11 +392,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    years = me._sDialog.years,
 			    title = me._sDialog.title,
 			    subtitle = me._sDialog.subtitle,
-			    currentYear = document.getElementById('md-date__currentYear');
+			    currentYear = document.getElementById('mddtp-date__currentYear');
 
 			if (mdDateTimePicker.dialog.view) {
 				viewHolder.classList.add('zoomOut');
-				years.classList.remove('md-picker__years--invisible');
+				years.classList.remove('mddtp-picker__years--invisible');
 				years.classList.add('zoomIn');
 				// scroll into the view
 				currentYear.scrollIntoViewIfNeeded();
@@ -412,12 +406,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				viewHolder.classList.add('zoomIn');
 				setTimeout(function () {
 					years.classList.remove('zoomIn', 'zoomOut');
-					years.classList.add('md-picker__years--invisible');
+					years.classList.add('mddtp-picker__years--invisible');
 					viewHolder.classList.remove('zoomIn');
 				}, 300);
 			}
-			title.classList.toggle('md-picker__color--active');
-			subtitle.classList.toggle('md-picker__color--active');
+			title.classList.toggle('mddtp-picker__color--active');
+			subtitle.classList.toggle('mddtp-picker__color--active');
 			mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
 			setTimeout(function () {
 				el.removeAttribute('disabled');
@@ -428,20 +422,20 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _addCellClickEvent(el) {
 			var me = this;
 			el.addEventListener('click', function (e) {
-				if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('md-picker__cell')) {
+				if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('mddtp-picker__cell')) {
 					var picker = me._sDialog.picker,
 					    day = e.target.innerHTML,
 					    currentDate = me._sDialog.tDate.date(day),
-					    selected = picker.querySelector('.md-picker__cell--selected'),
+					    selected = picker.querySelector('.mddtp-picker__cell--selected'),
 					    title = me._sDialog.title,
 					    subtitle = me._sDialog.subtitle,
 					    titleDay = me._sDialog.titleDay,
 					    titleMonth = me._sDialog.titleMonth;
 
 					if (selected) {
-						selected.classList.remove('md-picker__cell--selected');
+						selected.classList.remove('mddtp-picker__cell--selected');
 					}
-					e.target.classList.add('md-picker__cell--selected');
+					e.target.classList.add('mddtp-picker__cell--selected');
 
 					// update temp date object with the date selected
 					me._sDialog.sDate = currentDate.clone();
@@ -467,15 +461,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			left.removeAttribute('disabled');
 			right.removeAttribute('disabled');
-			left.classList.remove('md-button--disabled');
-			right.classList.remove('md-button--disabled');
+			left.classList.remove('mddtp-button--disabled');
+			right.classList.remove('mddtp-button--disabled');
 			if (m.isSame(past, 'month')) {
 				left.setAttribute('disabled', '');
-				left.classList.add('md-button--disabled');
+				left.classList.add('mddtp-button--disabled');
 			}
 			if (m.isSame(future, 'month')) {
 				right.setAttribute('disabled', '');
-				right.classList.add('md-button--disabled');
+				right.classList.add('mddtp-button--disabled');
 			}
 		}
 	}, {
@@ -484,9 +478,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			var me = this,
 			    left = this._sDialog.left,
 			    right = this._sDialog.right,
-			    mLeftClass = 'md-picker__view--left',
-			    mRightClass = 'md-picker__view--right',
-			    pause = 'md-picker__view--pause';
+			    mLeftClass = 'mddtp-picker__view--left',
+			    mRightClass = 'mddtp-picker__view--right',
+			    pause = 'mddtp-picker__view--pause';
 
 			left.addEventListener('click', function () {
 				moveStep(mRightClass, me._sDialog.previous);
@@ -561,10 +555,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					me._initViewHolder();
 				}, 350);
 				setTimeout(function () {
-					if (!left.classList.contains('md-button--disabled')) {
+					if (!left.classList.contains('mddtp-button--disabled')) {
 						left.removeAttribute('disabled');
 					}
-					if (!right.classList.contains('md-button--disabled')) {
+					if (!right.classList.contains('mddtp-button--disabled')) {
 						right.removeAttribute('disabled');
 					}
 				}, 400);
@@ -586,13 +580,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			var me = this;
 			el.addEventListener('click', function (e) {
 				if (e.target && e.target.nodeName == 'LI') {
-					var selected = document.getElementById('md-date__currentYear');
+					var selected = document.getElementById('mddtp-date__currentYear');
 					// clear previous selected
 					selected.id = '';
-					selected.classList.remove('md-picker__li--current');
+					selected.classList.remove('mddtp-picker__li--current');
 					// add the properties to the newer one
-					e.target.id = 'md-date__currentYear';
-					e.target.classList.add('md-picker__li--current');
+					e.target.id = 'mddtp-date__currentYear';
+					e.target.classList.add('mddtp-picker__li--current');
 					// switch view
 					me._switchToDateViewFunction(el, me);
 					// set the tdate to it

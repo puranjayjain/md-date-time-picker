@@ -9,34 +9,34 @@
 </head>
 
 <body>
-  <p>
+  <section>
     <h1>Date dialog</h1>
     <button type="button" id="trigger">Open Dialog 1</button>
     <button type="button" id="trigger2">Open Dialog 2</button>
     <button type="button" id="trigger3">Open Dialog 3</button>
-  </p>
-  <p>
+  </section>
+  <section>
     <h1>Time dialog</h1>
     <button type="button" id="trigger4">Open Dialog 1</button>
     <button type="button" id="trigger5">Open Dialog 2</button>
     <button type="button" id="trigger6">Open Dialog 3</button>
-  </p>
+  </section>
   <!-- date picker dialog -->
-  <div id="md-picker__date" class="md-picker md-picker-date md-picker--inactive animated">
-    <div id="md-date__header" class="md-picker__header">
-      <h4 id="md-date__subtitle" class="md-picker__subtitle md-picker__color--active"></h4>
-      <h2 id="md-date__title" class="md-picker__title">
-        <div id="md-date__titleDay"></div>
-        <div id="md-date__titleMonth"></div>
+  <div id="mddtp-picker__date" class="mddtp-picker mddtp-picker-date mddtp-picker--inactive animated">
+    <div id="mddtp-date__header" class="mddtp-picker__header">
+      <h4 id="mddtp-date__subtitle" class="mddtp-picker__subtitle mddtp-picker__color--active"></h4>
+      <h2 id="mddtp-date__title" class="mddtp-picker__title">
+        <div id="mddtp-date__titleDay"></div>
+        <div id="mddtp-date__titleMonth"></div>
       </h2>
     </div>
-    <div class="md-picker__body">
-      <div id="md-date__viewHolder" class="md-picker__viewHolder animated">
-        <ul class="md-picker__views">
-          <li id="md-date__previous" class="md-picker__view">
-            <div class="md-picker__month"></div>
-            <div class="md-picker__grid">
-              <div class="md-picker__th">
+    <div class="mddtp-picker__body">
+      <div id="mddtp-date__viewHolder" class="mddtp-picker__viewHolder animated">
+        <ul class="mddtp-picker__views">
+          <li id="mddtp-date__previous" class="mddtp-picker__view">
+            <div class="mddtp-picker__month"></div>
+            <div class="mddtp-picker__grid">
+              <div class="mddtp-picker__th">
                 <span>
                   S
                 </span>
@@ -59,13 +59,13 @@
                   S
                 </span>
               </div>
-              <div class="md-picker__tr"></div>
+              <div class="mddtp-picker__tr"></div>
             </div>
           </li>
-          <li id="md-date__current" class="md-picker__view">
-            <div class="md-picker__month"></div>
-            <div class="md-picker__grid">
-              <div class="md-picker__th">
+          <li id="mddtp-date__current" class="mddtp-picker__view">
+            <div class="mddtp-picker__month"></div>
+            <div class="mddtp-picker__grid">
+              <div class="mddtp-picker__th">
                 <span>
                   S
                 </span>
@@ -88,13 +88,13 @@
                   S
                 </span>
               </div>
-              <div class="md-picker__tr"></div>
+              <div class="mddtp-picker__tr"></div>
             </div>
           </li>
-          <li id="md-date__next" class="md-picker__view">
-            <div class="md-picker__month"></div>
-            <div class="md-picker__grid">
-              <div class="md-picker__th">
+          <li id="mddtp-date__next" class="mddtp-picker__view">
+            <div class="mddtp-picker__month"></div>
+            <div class="mddtp-picker__grid">
+              <div class="mddtp-picker__th">
                 <span>
                   S
                 </span>
@@ -117,82 +117,82 @@
                   S
                 </span>
               </div>
-              <div class="md-picker__tr"></div>
+              <div class="mddtp-picker__tr"></div>
             </div>
           </li>
         </ul>
-        <button id="md-date__left" class="md-button md-picker__left" type="button"></button>
-        <button id="md-date__right" class="md-button md-picker__right" type="button"></button>
+        <button id="mddtp-date__left" class="mddtp-button mddtp-picker__left" type="button"></button>
+        <button id="mddtp-date__right" class="mddtp-button mddtp-picker__right" type="button"></button>
       </div>
-      <ul id="md-date__years" class="md-picker__years md-picker__years--invisible animated"></ul>
-      <div class="md-picker__action">
-        <button id="md-date__cancel" class="md-button" type="button">cancel</button>
-        <button id="md-date__ok" class="md-button" type="button">ok</button>
+      <ul id="mddtp-date__years" class="mddtp-picker__years mddtp-picker__years--invisible animated"></ul>
+      <div class="mddtp-picker__action">
+        <button id="mddtp-date__cancel" class="mddtp-button" type="button">cancel</button>
+        <button id="mddtp-date__ok" class="mddtp-button" type="button">ok</button>
       </div>
     </div>
   </div>
   <!-- time picker dialog -->
-  <div id="md-picker__time" class="md-picker md-picker-time">
-    <div id="md-time__header" class="md-picker__header">
-      <h2 id="md-time__title" class="md-picker__title">
-        <span id="md-time__hour" class="md-picker__color--active">3</span>
+  <div id="mddtp-picker__time" class="mddtp-picker mddtp-picker-time">
+    <div id="mddtp-time__header" class="mddtp-picker__header">
+      <h2 id="mddtp-time__title" class="mddtp-picker__title">
+        <span id="mddtp-time__hour" class="mddtp-picker__color--active">3</span>
         <span>:</span>
-        <span id="md-time__minute">30</span>
+        <span id="mddtp-time__minute">30</span>
       </h2>
-      <div class="md-picker__subtitle">
-        <div id="md-time__AM" class="md-picker__color--active">AM</div>
-        <div id="md-time__PM">PM</div>
+      <div class="mddtp-picker__subtitle">
+        <div id="mddtp-time__AM" class="mddtp-picker__color--active">AM</div>
+        <div id="mddtp-time__PM">PM</div>
       </div>
     </div>
-    <div class="md-picker__body">
-      <div class="md-picker__circularHolder">
-        <div class="md-picker__selection">
-          <span class="md-picker__dot"></span>
-          <span class="md-picker__line"></span>
-          <span class="md-picker__circle"></span>
+    <div class="mddtp-picker__body">
+      <div class="mddtp-picker__circularHolder">
+        <div class="mddtp-picker__selection">
+          <span class="mddtp-picker__dot"></span>
+          <span class="mddtp-picker__line"></span>
+          <span class="mddtp-picker__circle"></span>
         </div>
-        <div id="md-time__hourView" class="md-picker__circularView">
-          <div class="md-picker__cell md-picker__cell--selected">
+        <div id="mddtp-time__hourView" class="mddtp-picker__circularView">
+          <div class="mddtp-picker__cell mddtp-picker__cell--selected">
             <span>3</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-5">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-5">
             <span>4</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-10">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-10">
             <span>5</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-15">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-15">
             <span>6</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-20">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-20">
             <span>7</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-25">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-25">
             <span>8</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-30">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-30">
             <span>9</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-35">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-35">
             <span>10</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-40">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-40">
             <span>11</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-45">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-45">
             <span>12</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-50">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-50">
             <span>1</span>
           </div>
-          <div class="md-picker__cell md-picker__cell--rotate-55">
+          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-55">
             <span>2</span>
           </div>
         </div>
       </div>
-      <div class="md-picker__action">
-        <button id="md-time__cancel" class="md-button" type="button">cancel</button>
-        <button id="md-time__ok" class="md-button" type="button">ok</button>
+      <div class="mddtp-picker__action">
+        <button id="mddtp-time__cancel" class="mddtp-button" type="button">cancel</button>
+        <button id="mddtp-time__ok" class="mddtp-button" type="button">ok</button>
       </div>
     </div>
   </div>

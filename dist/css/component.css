@@ -4,7 +4,7 @@
 /* Shadows */
 /* Animations */
 /* Dialog */
-.md-button {
+.mddtp-button {
   height: 36px;
   min-width: 64px;
   border: none;
@@ -24,18 +24,18 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0); }
 
-.md-button:hover,
-.md-button:focus {
+.mddtp-button:hover,
+.mddtp-button:focus {
   background-color: #e0e0e0; }
 
-.md-button:active {
+.mddtp-button:active {
   background-color: #bdbdbd; }
 
-.md-button:disabled {
+.mddtp-button:disabled {
   color: rgba(0, 0, 0, 0.26);
   cursor: not-allowed; }
 
-.md-picker {
+.mddtp-picker {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
   min-width: 280px;
@@ -50,49 +50,49 @@
   display: table;
   border-radius: 3px;
   overflow: hidden; }
-  .md-picker .md-picker__header {
+  .mddtp-picker .mddtp-picker__header {
     width: 100px;
     background-color: #009688;
     padding: 24px 24px 20px; }
-    .md-picker .md-picker__header .md-picker__title {
+    .mddtp-picker .mddtp-picker__header .mddtp-picker__title {
       color: rgba(255, 255, 255, 0.7);
       font-family: "Roboto", "Helvetica", "Arial", sans-serif;
       font-size: 28px;
       font-weight: 700; }
-    .md-picker .md-picker__header .md-picker__subtitle {
+    .mddtp-picker .mddtp-picker__header .mddtp-picker__subtitle {
       font-weight: 400;
       font-size: 16px;
       line-height: 20px; }
-    .md-picker .md-picker__header .md-picker__title,
-    .md-picker .md-picker__header .md-picker__subtitle {
+    .mddtp-picker .mddtp-picker__header .mddtp-picker__title,
+    .mddtp-picker .mddtp-picker__header .mddtp-picker__subtitle {
       color: rgba(255, 255, 255, 0.7);
       margin: 0;
       cursor: pointer; }
-    .md-picker .md-picker__header .md-picker__color--active {
+    .mddtp-picker .mddtp-picker__header .mddtp-picker__color--active {
       color: white; }
-  .md-picker .md-picker__body {
+  .mddtp-picker .mddtp-picker__body {
     position: relative;
     background-color: #fff; }
-    .md-picker .md-picker__body .md-picker__action {
+    .mddtp-picker .mddtp-picker__body .mddtp-picker__action {
       margin-top: 24px;
       padding: 8px 0;
       text-align: right; }
-  .md-picker .md-picker__header,
-  .md-picker .md-picker__body {
+  .mddtp-picker .mddtp-picker__header,
+  .mddtp-picker .mddtp-picker__body {
     display: table-cell;
     vertical-align: top;
     height: 100%; }
 
-.md-picker-date .md-picker__left {
+.mddtp-picker-date .mddtp-picker__left {
   background: url("../images/ic_keyboard_arrow_left_black_24px.svg");
   left: 4px; }
 
-.md-picker-date .md-picker__right {
+.mddtp-picker-date .mddtp-picker__right {
   background: url("../images/ic_keyboard_arrow_right_black_24px.svg");
   right: 4px; }
 
-.md-picker-date .md-picker__left,
-.md-picker-date .md-picker__right {
+.mddtp-picker-date .mddtp-picker__left,
+.mddtp-picker-date .mddtp-picker__right {
   position: absolute;
   background-repeat: no-repeat;
   background-position: center;
@@ -103,61 +103,61 @@
   top: 4px;
   border-radius: 50%; }
 
-.md-picker-date .md-picker__left:hover,
-.md-picker-date .md-picker__right:hover,
-.md-picker-date .md-picker__left:focus,
-.md-picker-date .md-picker__right:focus {
+.mddtp-picker-date .mddtp-picker__left:hover,
+.mddtp-picker-date .mddtp-picker__right:hover,
+.mddtp-picker-date .mddtp-picker__left:focus,
+.mddtp-picker-date .mddtp-picker__right:focus {
   background-color: #e0e0e0; }
 
-.md-picker-date .md-picker__left:active,
-.md-picker-date .md-picker__right:active {
+.mddtp-picker-date .mddtp-picker__left:active,
+.mddtp-picker-date .mddtp-picker__right:active {
   background-color: #bdbdbd; }
 
-.md-picker-date .md-picker__left:disabled {
+.mddtp-picker-date .mddtp-picker__left:disabled {
   background: url("../images/ic_keyboard_arrow_left_black_disabled_24px.svg"); }
 
-.md-picker-date .md-picker__right:disabled {
+.mddtp-picker-date .mddtp-picker__right:disabled {
   background: url("../images/ic_keyboard_arrow_right_black_disabled_24px.svg"); }
 
-.md-picker-date .md-picker__left:disabled,
-.md-picker-date .md-picker__right:disabled {
+.mddtp-picker-date .mddtp-picker__left:disabled,
+.mddtp-picker-date .mddtp-picker__right:disabled {
   background-repeat: no-repeat;
   background-position: center; }
 
-.md-picker-date .md-picker__body .md-picker__viewHolder {
+.mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder {
   width: 314px;
   overflow: hidden; }
-  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__views {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__views {
     list-style: none;
     margin: 0;
     padding: 0;
     font-size: 0;
     width: 2000px; }
-  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__view {
     display: inline-block;
     width: 314px;
     text-align: center;
     -webkit-transform: translate3d(-100%, 0, 0);
             transform: translate3d(-100%, 0, 0);
     transition: 0.3s cubic-bezier(0.42, 0, 0.58, 1); }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view .md-picker__month {
+    .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__view .mddtp-picker__month {
       display: inline-block;
       padding: 18px;
       font-size: 13px;
       font-weight: 600;
       color: rgba(0, 0, 0, 0.87);
       cursor: pointer; }
-  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view--left {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__view--left {
     -webkit-transform: translate3d(-200%, 0, 0);
             transform: translate3d(-200%, 0, 0); }
-  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view--right {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__view--right {
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0); }
-  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__view--pause {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__view--pause {
     transition: none; }
-  .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid {
     padding: 8px 14px 0; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid span {
+    .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid span {
       display: inline-block;
       font-size: 13px;
       margin: 2px;
@@ -167,24 +167,24 @@
       height: 36px;
       line-height: 36px;
       vertical-align: middle; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__cell--today {
+    .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__cell--today {
       color: #009688;
       font-weight: 600; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__cell--selected {
+    .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__cell--selected {
       background-color: #009688;
       color: #fff; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__cell--disabled {
+    .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__cell--disabled {
       color: rgba(0, 0, 0, 0.26);
       cursor: not-allowed; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr {
+    .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__tr {
       padding: 2px 0; }
-      .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__tr .md-picker__cell {
+      .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__tr .mddtp-picker__cell {
         pointer-events: all;
         cursor: pointer; }
-    .md-picker-date .md-picker__body .md-picker__viewHolder .md-picker__grid .md-picker__th span {
+    .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__th span {
       color: rgba(0, 0, 0, 0.54); }
 
-.md-picker-date .md-picker__body .md-picker__years {
+.mddtp-picker-date .mddtp-picker__body .mddtp-picker__years {
   position: absolute;
   left: 0;
   top: 0;
@@ -195,47 +195,47 @@
   height: calc(100% - 52px);
   text-align: center;
   overflow: auto; }
-  .md-picker-date .md-picker__body .md-picker__years li {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__years li {
     font-size: 16px;
     padding: 8px 0;
     color: rgba(0, 0, 0, 0.87);
     cursor: pointer; }
-  .md-picker-date .md-picker__body .md-picker__years .md-picker__li--current {
+  .mddtp-picker-date .mddtp-picker__body .mddtp-picker__years .mddtp-picker__li--current {
     font-size: 21px;
     color: #009688; }
 
-.md-picker-date .md-picker__body .md-picker__years--invisible {
+.mddtp-picker-date .mddtp-picker__body .mddtp-picker__years--invisible {
   display: none; }
 
-.md-picker-time .md-picker__header {
+.mddtp-picker-time .mddtp-picker__header {
   vertical-align: middle;
   width: 125px; }
-  .md-picker-time .md-picker__header .md-picker__title {
+  .mddtp-picker-time .mddtp-picker__header .mddtp-picker__title {
     text-align: right;
     font-size: 0; }
-    .md-picker-time .md-picker__header .md-picker__title span {
+    .mddtp-picker-time .mddtp-picker__header .mddtp-picker__title span {
       font-size: 45px;
       font-weight: 400;
       line-height: 48px;
       margin: 0 2px; }
-  .md-picker-time .md-picker__header .md-picker__subtitle {
+  .mddtp-picker-time .mddtp-picker__header .mddtp-picker__subtitle {
     margin-top: 8px;
     text-align: center; }
-    .md-picker-time .md-picker__header .md-picker__subtitle div {
+    .mddtp-picker-time .mddtp-picker__header .mddtp-picker__subtitle div {
       margin-top: 2px; }
 
-.md-picker-time .md-picker__body .md-picker__circularHolder {
+.mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder {
   position: relative;
   width: 250px;
   height: 250px;
   margin: 20px;
   border-radius: 50%;
   background-color: #eeeeee; }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__circularView {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circularView {
     position: absolute;
     width: 100%;
     height: 100%; }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__circularView .md-picker__cell {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circularView .mddtp-picker__cell {
       position: absolute;
       width: 50%;
       top: calc(50% - 18px);
@@ -244,7 +244,7 @@
       -webkit-transform-origin: left center;
           -ms-transform-origin: left center;
               transform-origin: left center; }
-      .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__circularView .md-picker__cell span {
+      .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circularView .mddtp-picker__cell span {
         display: inline-block;
         cursor: pointer;
         font-size: 13px;
@@ -255,9 +255,9 @@
         line-height: 36px;
         text-align: center;
         margin-right: 8px; }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__circularView .md-picker__cell--selected span {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circularView .mddtp-picker__cell--selected span {
       color: #fff; }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__selection {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection {
     position: absolute;
     left: 50%;
     top: calc(50% - 18px);
@@ -266,536 +266,536 @@
     -webkit-transform-origin: left center;
         -ms-transform-origin: left center;
             transform-origin: left center; }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__selection span {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection span {
       display: inline-block;
       background-color: #009688;
       height: 2px;
       vertical-align: middle; }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__selection .md-picker__dot {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection .mddtp-picker__dot {
       width: 8px;
       height: 8px;
       border-radius: 50%; }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__selection .md-picker__line {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection .mddtp-picker__line {
       width: calc(100% - 52px); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__selection .md-picker__circle {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection .mddtp-picker__circle {
       border-radius: 50%;
       height: 36px;
       width: 36px; }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-1 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-1 {
     -webkit-transform: rotate(6deg);
         -ms-transform: rotate(6deg);
             transform: rotate(6deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-1 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-1 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-6deg);
           -ms-transform: rotate(-6deg);
               transform: rotate(-6deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-2 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-2 {
     -webkit-transform: rotate(12deg);
         -ms-transform: rotate(12deg);
             transform: rotate(12deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-2 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-2 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-12deg);
           -ms-transform: rotate(-12deg);
               transform: rotate(-12deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-3 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-3 {
     -webkit-transform: rotate(18deg);
         -ms-transform: rotate(18deg);
             transform: rotate(18deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-3 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-3 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-18deg);
           -ms-transform: rotate(-18deg);
               transform: rotate(-18deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-4 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-4 {
     -webkit-transform: rotate(24deg);
         -ms-transform: rotate(24deg);
             transform: rotate(24deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-4 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-4 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-24deg);
           -ms-transform: rotate(-24deg);
               transform: rotate(-24deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-5 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-5 {
     -webkit-transform: rotate(30deg);
         -ms-transform: rotate(30deg);
             transform: rotate(30deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-5 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-5 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-30deg);
           -ms-transform: rotate(-30deg);
               transform: rotate(-30deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-6 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-6 {
     -webkit-transform: rotate(36deg);
         -ms-transform: rotate(36deg);
             transform: rotate(36deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-6 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-6 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-36deg);
           -ms-transform: rotate(-36deg);
               transform: rotate(-36deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-7 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-7 {
     -webkit-transform: rotate(42deg);
         -ms-transform: rotate(42deg);
             transform: rotate(42deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-7 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-7 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-42deg);
           -ms-transform: rotate(-42deg);
               transform: rotate(-42deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-8 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-8 {
     -webkit-transform: rotate(48deg);
         -ms-transform: rotate(48deg);
             transform: rotate(48deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-8 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-8 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-48deg);
           -ms-transform: rotate(-48deg);
               transform: rotate(-48deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-9 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-9 {
     -webkit-transform: rotate(54deg);
         -ms-transform: rotate(54deg);
             transform: rotate(54deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-9 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-9 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-54deg);
           -ms-transform: rotate(-54deg);
               transform: rotate(-54deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-10 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-10 {
     -webkit-transform: rotate(60deg);
         -ms-transform: rotate(60deg);
             transform: rotate(60deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-10 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-10 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-60deg);
           -ms-transform: rotate(-60deg);
               transform: rotate(-60deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-11 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-11 {
     -webkit-transform: rotate(66deg);
         -ms-transform: rotate(66deg);
             transform: rotate(66deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-11 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-11 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-66deg);
           -ms-transform: rotate(-66deg);
               transform: rotate(-66deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-12 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-12 {
     -webkit-transform: rotate(72deg);
         -ms-transform: rotate(72deg);
             transform: rotate(72deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-12 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-12 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-72deg);
           -ms-transform: rotate(-72deg);
               transform: rotate(-72deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-13 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-13 {
     -webkit-transform: rotate(78deg);
         -ms-transform: rotate(78deg);
             transform: rotate(78deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-13 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-13 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-78deg);
           -ms-transform: rotate(-78deg);
               transform: rotate(-78deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-14 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-14 {
     -webkit-transform: rotate(84deg);
         -ms-transform: rotate(84deg);
             transform: rotate(84deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-14 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-14 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-84deg);
           -ms-transform: rotate(-84deg);
               transform: rotate(-84deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-15 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-15 {
     -webkit-transform: rotate(90deg);
         -ms-transform: rotate(90deg);
             transform: rotate(90deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-15 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-15 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-90deg);
           -ms-transform: rotate(-90deg);
               transform: rotate(-90deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-16 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-16 {
     -webkit-transform: rotate(96deg);
         -ms-transform: rotate(96deg);
             transform: rotate(96deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-16 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-16 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-96deg);
           -ms-transform: rotate(-96deg);
               transform: rotate(-96deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-17 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-17 {
     -webkit-transform: rotate(102deg);
         -ms-transform: rotate(102deg);
             transform: rotate(102deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-17 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-17 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-102deg);
           -ms-transform: rotate(-102deg);
               transform: rotate(-102deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-18 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-18 {
     -webkit-transform: rotate(108deg);
         -ms-transform: rotate(108deg);
             transform: rotate(108deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-18 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-18 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-108deg);
           -ms-transform: rotate(-108deg);
               transform: rotate(-108deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-19 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-19 {
     -webkit-transform: rotate(114deg);
         -ms-transform: rotate(114deg);
             transform: rotate(114deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-19 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-19 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-114deg);
           -ms-transform: rotate(-114deg);
               transform: rotate(-114deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-20 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-20 {
     -webkit-transform: rotate(120deg);
         -ms-transform: rotate(120deg);
             transform: rotate(120deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-20 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-20 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-120deg);
           -ms-transform: rotate(-120deg);
               transform: rotate(-120deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-21 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-21 {
     -webkit-transform: rotate(126deg);
         -ms-transform: rotate(126deg);
             transform: rotate(126deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-21 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-21 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-126deg);
           -ms-transform: rotate(-126deg);
               transform: rotate(-126deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-22 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-22 {
     -webkit-transform: rotate(132deg);
         -ms-transform: rotate(132deg);
             transform: rotate(132deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-22 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-22 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-132deg);
           -ms-transform: rotate(-132deg);
               transform: rotate(-132deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-23 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-23 {
     -webkit-transform: rotate(138deg);
         -ms-transform: rotate(138deg);
             transform: rotate(138deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-23 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-23 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-138deg);
           -ms-transform: rotate(-138deg);
               transform: rotate(-138deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-24 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-24 {
     -webkit-transform: rotate(144deg);
         -ms-transform: rotate(144deg);
             transform: rotate(144deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-24 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-24 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-144deg);
           -ms-transform: rotate(-144deg);
               transform: rotate(-144deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-25 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-25 {
     -webkit-transform: rotate(150deg);
         -ms-transform: rotate(150deg);
             transform: rotate(150deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-25 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-25 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-150deg);
           -ms-transform: rotate(-150deg);
               transform: rotate(-150deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-26 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-26 {
     -webkit-transform: rotate(156deg);
         -ms-transform: rotate(156deg);
             transform: rotate(156deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-26 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-26 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-156deg);
           -ms-transform: rotate(-156deg);
               transform: rotate(-156deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-27 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-27 {
     -webkit-transform: rotate(162deg);
         -ms-transform: rotate(162deg);
             transform: rotate(162deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-27 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-27 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-162deg);
           -ms-transform: rotate(-162deg);
               transform: rotate(-162deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-28 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-28 {
     -webkit-transform: rotate(168deg);
         -ms-transform: rotate(168deg);
             transform: rotate(168deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-28 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-28 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-168deg);
           -ms-transform: rotate(-168deg);
               transform: rotate(-168deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-29 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-29 {
     -webkit-transform: rotate(174deg);
         -ms-transform: rotate(174deg);
             transform: rotate(174deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-29 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-29 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-174deg);
           -ms-transform: rotate(-174deg);
               transform: rotate(-174deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-30 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-30 {
     -webkit-transform: rotate(180deg);
         -ms-transform: rotate(180deg);
             transform: rotate(180deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-30 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-30 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-180deg);
           -ms-transform: rotate(-180deg);
               transform: rotate(-180deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-31 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-31 {
     -webkit-transform: rotate(186deg);
         -ms-transform: rotate(186deg);
             transform: rotate(186deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-31 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-31 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-186deg);
           -ms-transform: rotate(-186deg);
               transform: rotate(-186deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-32 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-32 {
     -webkit-transform: rotate(192deg);
         -ms-transform: rotate(192deg);
             transform: rotate(192deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-32 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-32 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-192deg);
           -ms-transform: rotate(-192deg);
               transform: rotate(-192deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-33 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-33 {
     -webkit-transform: rotate(198deg);
         -ms-transform: rotate(198deg);
             transform: rotate(198deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-33 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-33 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-198deg);
           -ms-transform: rotate(-198deg);
               transform: rotate(-198deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-34 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-34 {
     -webkit-transform: rotate(204deg);
         -ms-transform: rotate(204deg);
             transform: rotate(204deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-34 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-34 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-204deg);
           -ms-transform: rotate(-204deg);
               transform: rotate(-204deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-35 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-35 {
     -webkit-transform: rotate(210deg);
         -ms-transform: rotate(210deg);
             transform: rotate(210deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-35 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-35 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-210deg);
           -ms-transform: rotate(-210deg);
               transform: rotate(-210deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-36 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-36 {
     -webkit-transform: rotate(216deg);
         -ms-transform: rotate(216deg);
             transform: rotate(216deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-36 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-36 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-216deg);
           -ms-transform: rotate(-216deg);
               transform: rotate(-216deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-37 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-37 {
     -webkit-transform: rotate(222deg);
         -ms-transform: rotate(222deg);
             transform: rotate(222deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-37 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-37 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-222deg);
           -ms-transform: rotate(-222deg);
               transform: rotate(-222deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-38 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-38 {
     -webkit-transform: rotate(228deg);
         -ms-transform: rotate(228deg);
             transform: rotate(228deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-38 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-38 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-228deg);
           -ms-transform: rotate(-228deg);
               transform: rotate(-228deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-39 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-39 {
     -webkit-transform: rotate(234deg);
         -ms-transform: rotate(234deg);
             transform: rotate(234deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-39 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-39 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-234deg);
           -ms-transform: rotate(-234deg);
               transform: rotate(-234deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-40 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-40 {
     -webkit-transform: rotate(240deg);
         -ms-transform: rotate(240deg);
             transform: rotate(240deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-40 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-40 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-240deg);
           -ms-transform: rotate(-240deg);
               transform: rotate(-240deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-41 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-41 {
     -webkit-transform: rotate(246deg);
         -ms-transform: rotate(246deg);
             transform: rotate(246deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-41 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-41 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-246deg);
           -ms-transform: rotate(-246deg);
               transform: rotate(-246deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-42 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-42 {
     -webkit-transform: rotate(252deg);
         -ms-transform: rotate(252deg);
             transform: rotate(252deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-42 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-42 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-252deg);
           -ms-transform: rotate(-252deg);
               transform: rotate(-252deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-43 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-43 {
     -webkit-transform: rotate(258deg);
         -ms-transform: rotate(258deg);
             transform: rotate(258deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-43 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-43 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-258deg);
           -ms-transform: rotate(-258deg);
               transform: rotate(-258deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-44 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-44 {
     -webkit-transform: rotate(264deg);
         -ms-transform: rotate(264deg);
             transform: rotate(264deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-44 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-44 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-264deg);
           -ms-transform: rotate(-264deg);
               transform: rotate(-264deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-45 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-45 {
     -webkit-transform: rotate(270deg);
         -ms-transform: rotate(270deg);
             transform: rotate(270deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-45 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-45 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-270deg);
           -ms-transform: rotate(-270deg);
               transform: rotate(-270deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-46 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-46 {
     -webkit-transform: rotate(276deg);
         -ms-transform: rotate(276deg);
             transform: rotate(276deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-46 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-46 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-276deg);
           -ms-transform: rotate(-276deg);
               transform: rotate(-276deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-47 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-47 {
     -webkit-transform: rotate(282deg);
         -ms-transform: rotate(282deg);
             transform: rotate(282deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-47 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-47 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-282deg);
           -ms-transform: rotate(-282deg);
               transform: rotate(-282deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-48 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-48 {
     -webkit-transform: rotate(288deg);
         -ms-transform: rotate(288deg);
             transform: rotate(288deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-48 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-48 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-288deg);
           -ms-transform: rotate(-288deg);
               transform: rotate(-288deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-49 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-49 {
     -webkit-transform: rotate(294deg);
         -ms-transform: rotate(294deg);
             transform: rotate(294deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-49 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-49 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-294deg);
           -ms-transform: rotate(-294deg);
               transform: rotate(-294deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-50 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-50 {
     -webkit-transform: rotate(300deg);
         -ms-transform: rotate(300deg);
             transform: rotate(300deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-50 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-50 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-300deg);
           -ms-transform: rotate(-300deg);
               transform: rotate(-300deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-51 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-51 {
     -webkit-transform: rotate(306deg);
         -ms-transform: rotate(306deg);
             transform: rotate(306deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-51 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-51 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-306deg);
           -ms-transform: rotate(-306deg);
               transform: rotate(-306deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-52 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-52 {
     -webkit-transform: rotate(312deg);
         -ms-transform: rotate(312deg);
             transform: rotate(312deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-52 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-52 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-312deg);
           -ms-transform: rotate(-312deg);
               transform: rotate(-312deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-53 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-53 {
     -webkit-transform: rotate(318deg);
         -ms-transform: rotate(318deg);
             transform: rotate(318deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-53 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-53 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-318deg);
           -ms-transform: rotate(-318deg);
               transform: rotate(-318deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-54 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-54 {
     -webkit-transform: rotate(324deg);
         -ms-transform: rotate(324deg);
             transform: rotate(324deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-54 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-54 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-324deg);
           -ms-transform: rotate(-324deg);
               transform: rotate(-324deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-55 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-55 {
     -webkit-transform: rotate(330deg);
         -ms-transform: rotate(330deg);
             transform: rotate(330deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-55 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-55 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-330deg);
           -ms-transform: rotate(-330deg);
               transform: rotate(-330deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-56 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-56 {
     -webkit-transform: rotate(336deg);
         -ms-transform: rotate(336deg);
             transform: rotate(336deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-56 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-56 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-336deg);
           -ms-transform: rotate(-336deg);
               transform: rotate(-336deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-57 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-57 {
     -webkit-transform: rotate(342deg);
         -ms-transform: rotate(342deg);
             transform: rotate(342deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-57 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-57 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-342deg);
           -ms-transform: rotate(-342deg);
               transform: rotate(-342deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-58 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-58 {
     -webkit-transform: rotate(348deg);
         -ms-transform: rotate(348deg);
             transform: rotate(348deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-58 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-58 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-348deg);
           -ms-transform: rotate(-348deg);
               transform: rotate(-348deg); }
-  .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-59 {
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-59 {
     -webkit-transform: rotate(354deg);
         -ms-transform: rotate(354deg);
             transform: rotate(354deg); }
-    .md-picker-time .md-picker__body .md-picker__circularHolder .md-picker__cell--rotate-59 span:not(.md-picker__line) {
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-59 span:not(.mddtp-picker__line) {
       -webkit-transform: rotate(-354deg);
           -ms-transform: rotate(-354deg);
               transform: rotate(-354deg); }
 
 @media screen and (max-device-width: 425px) and (orientation: portrait) {
-  .md-picker {
+  .mddtp-picker {
     display: block; }
-    .md-picker .md-picker__header .md-picker__title,
-    .md-picker .md-picker__header .md-picker__subtitle {
+    .mddtp-picker .md-picker__header .md-picker__title,
+    .mddtp-picker .md-picker__header .md-picker__subtitle {
       margin: 0; }
-    .md-picker .md-picker__header .md-picker__title span {
+    .mddtp-picker .md-picker__header .md-picker__title span {
       display: inline-block; }
-    .md-picker .md-picker__header,
-    .md-picker .md-picker__body {
+    .mddtp-picker .md-picker__header,
+    .mddtp-picker .md-picker__body {
       display: block;
       height: 100%;
       width: 100%; } }
 
 @media screen and (max-width: 415px) {
-  .md-picker {
+  .mddtp-picker {
     display: block; }
-    .md-picker .md-picker__header .md-picker__title,
-    .md-picker .md-picker__header .md-picker__subtitle {
+    .mddtp-picker .md-picker__header .md-picker__title,
+    .mddtp-picker .md-picker__header .md-picker__subtitle {
       margin: 0; }
-    .md-picker .md-picker__header .md-picker__title span {
+    .mddtp-picker .md-picker__header .md-picker__title span {
       display: inline-block; }
-    .md-picker .md-picker__header,
-    .md-picker .md-picker__body {
+    .mddtp-picker .md-picker__header,
+    .mddtp-picker .md-picker__body {
       display: block;
       height: 100%;
       width: 100%; } }
 
-.md-picker--portrait {
+.mddtp-picker--portrait {
   display: block; }
-  .md-picker--portrait .md-picker__header .md-picker__title,
-  .md-picker--portrait .md-picker__header .md-picker__subtitle {
+  .mddtp-picker--portrait .md-picker__header .md-picker__title,
+  .mddtp-picker--portrait .md-picker__header .md-picker__subtitle {
     margin: 0; }
-  .md-picker--portrait .md-picker__header .md-picker__title span {
+  .mddtp-picker--portrait .md-picker__header .md-picker__title span {
     display: inline-block; }
-  .md-picker--portrait .md-picker__header,
-  .md-picker--portrait .md-picker__body {
+  .mddtp-picker--portrait .md-picker__header,
+  .mddtp-picker--portrait .md-picker__body {
     display: block;
     height: 100%;
     width: 100%; }
 
-.md-picker--inactive {
+.mddtp-picker--inactive {
   display: none; }
 
 @-webkit-keyframes zoomIn {
