@@ -198,7 +198,8 @@ class mdDateTimePicker {
 		}
 		minute.innerHTML = m.format('mm')
 		this._initHour()
-		this._initMinute()
+		this._initMinute()		
+		this._attachEventHandlers()
 		this._switchToView(hour)
 		this._switchToView(minute)
 	}
@@ -442,13 +443,38 @@ class mdDateTimePicker {
 	_switchToTimeView(el, me) {
 		let hourView = this._sDialog.hourView
 		let minuteView = this._sDialog.minuteView
+			let hour = this._sDialog.hour
+			let minute = this._sDialog.minute
+			let activeClass = 'mddtp-picker__color--active'
 		let needle = this._sDialog.needle
+		let spoke = 60
+		let value
 		// toggle view classes
 		hourView.classList.toggle('mddtp-picker__circularView--hidden')
 		minuteView.classList.toggle('mddtp-picker__circularView--hidden')
+		hour.classList.toggle(activeClass)
+		minute.classList.toggle(activeClass)
 		// move the needle to correct position
 		needle.className = ''
 		needle.classList.add('mddtp-picker__selection')
+		if (mdDateTimePicker.dialog.view) {
+			value = this._sDialog.tDate.format('m')
+		}
+		else {
+			if (this._mode) {
+				spoke = 24
+				value = this._sDialog.tDate.format('H')
+			}
+			else {
+				spoke = 12
+				value = this._sDialog.tDate.format('h')
+			}
+		}
+		let rotationClass = this._calcRotation(spoke, value)
+		if (rotationClass) {
+			needle.classList.add(rotationClass)
+		}
+		mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
 	}
 	/**
 	* [_switchToDateView the actual switchToDateView function so that it can be called by other elements as well]
@@ -498,7 +524,6 @@ class mdDateTimePicker {
 				let day = e.target.innerHTML
 				let currentDate = me._sDialog.tDate.date(day)
 				let selected = picker.querySelector('.mddtp-picker__cell--selected')
-				let title = me._sDialog.title
 				let subtitle = me._sDialog.subtitle
 				let titleDay = me._sDialog.titleDay
 				let titleMonth = me._sDialog.titleMonth
@@ -718,28 +743,35 @@ class mdDateTimePicker {
 	*/
 	_calcRotation(spoke, value) {
 		let start = (spoke / 12) * 3
+		let multiplicativeFactor
+		let cssClass
 		// set clocks top and right side value
 		if (spoke === 12) {
 			// if the value is above the top value and less than the right value then increment it
 			if (value < 3 && value >= 1) {
 				value += 12
 			}
+			multiplicativeFactor = 5
 		}
 		else if (spoke === 24) {
-
+			// REVIEW this multiplicativeFactor anf also revise css classes for this style
+			// multiplicativeFactor = 5
 		}
 		else {
 			// if the value is above the top value and less than the right value then increment it
 			if (value < 15 && value >= 0) {
 				value += 60
 			}
+			multiplicativeFactor = 1
 		}
 		//make values begin from 0 from the start
 		value -= start
 		// if value is not 0 i.e truthy
 		if (value) {
-
+			cssClass = 'mddtp-picker__cell--rotate-' + (value * multiplicativeFactor)
 		}
+		// return it
+		return cssClass
 	}
 }
 

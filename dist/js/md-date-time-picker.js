@@ -223,6 +223,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			minute.innerHTML = m.format('mm');
 			this._initHour();
 			this._initMinute();
+			this._attachEventHandlers();
 			this._switchToView(hour);
 			this._switchToView(minute);
 		}
@@ -484,14 +485,37 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _switchToTimeView(el, me) {
 			var hourView = this._sDialog.hourView,
 			    minuteView = this._sDialog.minuteView,
-			    needle = this._sDialog.needle;
+			    hour = this._sDialog.hour,
+			    minute = this._sDialog.minute,
+			    activeClass = 'mddtp-picker__color--active',
+			    needle = this._sDialog.needle,
+			    spoke = 60,
+			    value = void 0;
 
 			// toggle view classes
 			hourView.classList.toggle('mddtp-picker__circularView--hidden');
 			minuteView.classList.toggle('mddtp-picker__circularView--hidden');
+			hour.classList.toggle(activeClass);
+			minute.classList.toggle(activeClass);
 			// move the needle to correct position
 			needle.className = '';
 			needle.classList.add('mddtp-picker__selection');
+			if (mdDateTimePicker.dialog.view) {
+				value = this._sDialog.tDate.format('m');
+			} else {
+				if (this._mode) {
+					spoke = 24;
+					value = this._sDialog.tDate.format('H');
+				} else {
+					spoke = 12;
+					value = this._sDialog.tDate.format('h');
+				}
+			}
+			var rotationClass = this._calcRotation(spoke, value);
+			if (rotationClass) {
+				needle.classList.add(rotationClass);
+			}
+			mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
 		}
 		/**
   * [_switchToDateView the actual switchToDateView function so that it can be called by other elements as well]
@@ -546,7 +570,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					    day = e.target.innerHTML,
 					    currentDate = me._sDialog.tDate.date(day),
 					    selected = picker.querySelector('.mddtp-picker__cell--selected'),
-					    title = me._sDialog.title,
 					    subtitle = me._sDialog.subtitle,
 					    titleDay = me._sDialog.titleDay,
 					    titleMonth = me._sDialog.titleMonth;
@@ -788,23 +811,35 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_calcRotation',
 		value: function _calcRotation(spoke, value) {
-			var start = spoke / 12 * 3;
+			var start = spoke / 12 * 3,
+			    multiplicativeFactor = void 0,
+			    cssClass = void 0;
+
 			// set clocks top and right side value
 			if (spoke === 12) {
 				// if the value is above the top value and less than the right value then increment it
 				if (value < 3 && value >= 1) {
 					value += 12;
 				}
-			} else if (spoke === 24) {} else {
-				// if the value is above the top value and less than the right value then increment it
-				if (value < 15 && value >= 0) {
-					value += 60;
+				multiplicativeFactor = 5;
+			} else if (spoke === 24) {
+				// REVIEW this multiplicativeFactor anf also revise css classes for this style
+				// multiplicativeFactor = 5
+			} else {
+					// if the value is above the top value and less than the right value then increment it
+					if (value < 15 && value >= 0) {
+						value += 60;
+					}
+					multiplicativeFactor = 1;
 				}
-			}
 			//make values begin from 0 from the start
 			value -= start;
 			// if value is not 0 i.e truthy
-			if (value) {}
+			if (value) {
+				cssClass = 'mddtp-picker__cell--rotate-' + value * multiplicativeFactor;
+			}
+			// return it
+			return cssClass;
 		}
 	}], [{
 		key: 'dialog',
