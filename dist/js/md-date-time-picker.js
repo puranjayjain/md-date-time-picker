@@ -21,11 +21,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
  * @return {[Object]}    [mdDateTimePicker]
  */
 
-	function mdDateTimePicker(type) {
-		var init = arguments.length <= 1 || arguments[1] === undefined ? moment() : arguments[1],
-		    past = arguments.length <= 2 || arguments[2] === undefined ? moment().subtract(21, 'years') : arguments[2],
-		    future = arguments.length <= 3 || arguments[3] === undefined ? init : arguments[3],
-		    mode = arguments.length <= 4 || arguments[4] === undefined ? !1 : arguments[4];
+	function mdDateTimePicker(_ref) {
+		var type = _ref.type,
+		    _ref$init = _ref.init,
+		    init = _ref$init === undefined ? moment() : _ref$init,
+		    _ref$past = _ref.past,
+		    past = _ref$past === undefined ? moment().subtract(21, 'years') : _ref$past,
+		    _ref$future = _ref.future,
+		    future = _ref$future === undefined ? init : _ref$future,
+		    _ref$mode = _ref.mode,
+		    mode = _ref$mode === undefined ? !1 : _ref$mode;
 
 		_classCallCheck(this, mdDateTimePicker);
 
@@ -122,30 +127,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
    *
    * @type {Array}
    */
-			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM'],
-			    _iteratorNormalCompletion = !0,
-			    _didIteratorError = !1,
-			    _iteratorError = undefined;
+			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute'],
+			    i = sDialogEls.length;
 
-			try {
-				for (var _iterator = sDialogEls[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = !0) {
-					var sDialogEl = _step.value;
-
-					this._sDialog[sDialogEl] = document.getElementById('mddtp-' + this._type + '__' + sDialogEl);
-				}
-			} catch (err) {
-				_didIteratorError = !0;
-				_iteratorError = err;
-			} finally {
-				try {
-					if (!_iteratorNormalCompletion && _iterator.return) {
-						_iterator.return();
-					}
-				} finally {
-					if (_didIteratorError) {
-						throw _iteratorError;
-					}
-				}
+			while (i--) {
+				this._sDialog[sDialogEls[i]] = document.getElementById('mddtp-' + this._type + '__' + sDialogEls[i]);
 			}
 
 			this._sDialog.tDate = this._init.clone();
@@ -185,17 +171,29 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    years = this._sDialog.years,
 			    title = me._sDialog.title,
 			    subtitle = me._sDialog.subtitle,
-			    viewHolder = this._sDialog.viewHolder;
+			    viewHolder = this._sDialog.viewHolder,
+			    AM = this._sDialog.AM,
+			    PM = this._sDialog.PM,
+			    minute = this._sDialog.minute,
+			    hour = this._sDialog.hour;
 
 			mdDateTimePicker.dialog.state = !1;
 			mdDateTimePicker.dialog.view = !0;
 			this._sDialog.picker.classList.add('zoomOut');
 			// reset classes
-			years.classList.remove('zoomIn', 'zoomOut');
-			years.classList.add('mddtp-picker__years--invisible');
-			title.classList.remove('mddtp-picker__color--active');
-			subtitle.classList.add('mddtp-picker__color--active');
-			viewHolder.classList.remove('zoomOut');
+			if (this._type === 'date') {
+				years.classList.remove('zoomIn', 'zoomOut');
+				years.classList.add('mddtp-picker__years--invisible');
+				title.classList.remove('mddtp-picker__color--active');
+				subtitle.classList.add('mddtp-picker__color--active');
+				viewHolder.classList.remove('zoomOut');
+			} else {
+				AM.classList.remove('mddtp-picker__color--active');
+				PM.classList.remove('mddtp-picker__color--active');
+				minute.classList.remove('mddtp-picker__color--active');
+				hour.classList.add('mddtp-picker__color--active');
+				subtitle.setAttribute('style', 'display: none');
+			}
 			setTimeout(function () {
 				me._sDialog.picker.classList.remove('zoomOut');
 				me._sDialog.picker.classList.add('mddtp-picker--inactive');
@@ -209,7 +207,97 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 	}, {
 		key: '_initTimeDialog',
-		value: function _initTimeDialog(m) {}
+		value: function _initTimeDialog(m) {
+			var hour = this._sDialog.hour,
+			    minute = this._sDialog.minute,
+			    subtitle = this._sDialog.subtitle;
+
+			// switch according to 12 hour or 24 hour mode
+			if (this._mode) {
+				hour.innerHTML = m.format('H');
+			} else {
+				hour.innerHTML = m.format('h');
+				this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active');
+				subtitle.removeAttribute('style');
+			}
+			minute.innerHTML = m.format('mm');
+			this._initHour();
+			this._initMinute();
+			this._switchToView(hour);
+			this._switchToView(minute);
+		}
+	}, {
+		key: '_initHour',
+		value: function _initHour() {
+			var hourView = this._sDialog.hourView,
+			    needle = this._sDialog.needle,
+			    docfrag = document.createDocumentFragment();
+
+			if (this._mode) {} else {
+				for (var i = 3, j = 0; i <= 14; i++, j += 5) {
+					var k = void 0,
+					    div = document.createElement('div'),
+					    span = document.createElement('span');
+
+					div.classList.add('mddtp-picker__cell');
+					k = i;
+					if (i > 12) {
+						span.textContent = k - 12;
+					} else {
+						span.textContent = k;
+					}
+					if (j) {
+						div.classList.add('mddtp-picker__cell--rotate-' + j);
+					}
+					if (this._sDialog.tDate.format('h') == k) {
+						div.classList.add('mddtp-picker__cell--selected');
+						needle.classList.add('mddtp-picker__cell--rotate-' + j);
+					}
+					div.appendChild(span);
+					docfrag.appendChild(div);
+				}
+			}
+			//empty the hours
+			while (hourView.lastChild) {
+				hourView.removeChild(hourView.lastChild);
+			}
+			// set inner html accordingly
+			hourView.appendChild(docfrag);
+		}
+	}, {
+		key: '_initMinute',
+		value: function _initMinute() {
+			var minuteView = this._sDialog.minuteView,
+			    docfrag = document.createDocumentFragment();
+
+			for (var i = 15, j = 0; i <= 70; i += 5, j += 5) {
+				var k = void 0,
+				    div = document.createElement('div'),
+				    span = document.createElement('span');
+
+				div.classList.add('mddtp-picker__cell');
+				k = i;
+				if (i > 55) {
+					span.textContent = this._numWithZero(k - 60);
+				} else {
+					span.textContent = k;
+				}
+				if (j) {
+					div.classList.add('mddtp-picker__cell--rotate-' + j);
+				}
+				if (this._sDialog.tDate.format('mm') == k) {
+					div.classList.add('mddtp-picker__cell--selected');
+				}
+				div.appendChild(span);
+				docfrag.appendChild(div);
+			}
+			//empty the hours
+			while (minuteView.lastChild) {
+				minuteView.removeChild(minuteView.lastChild);
+			}
+			// set inner html accordingly
+			minuteView.appendChild(docfrag);
+		}
 
 		/**
   * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
@@ -231,8 +319,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._initViewHolder();
 			this._attachEventHandlers();
 			this._changeMonth();
-			this._switchToDateView(subtitle);
-			this._switchToDateView(title);
+			this._switchToView(subtitle);
+			this._switchToView(title);
 		}
 	}, {
 		key: '_initViewHolder',
@@ -255,7 +343,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._initMonth(current, m);
 			this._initMonth(next, moment(this._getMonth(m, 1)));
 			this._initMonth(previous, moment(this._getMonth(m, -1)));
-			this._switchToDateView(current.querySelector('.mddtp-picker__month'));
+			this._switchToView(current.querySelector('.mddtp-picker__month'));
 			this._toMoveMonth();
 		}
 	}, {
@@ -355,29 +443,60 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
-  * [_switchToDateView Adds event handler for the feature: switch between date and year view in date dialog]
+  * [_switchToView Adds event handler for the feature: switch between date and year view in date dialog]
   *
-  * @method _switchToDateView
+  * @method _switchToView
   *
   * @param  {[type]} picker [description]
+  *
   * @param  {[type]} el     [description]
   *
   */
 
 	}, {
-		key: '_switchToDateView',
-		value: function _switchToDateView(el) {
+		key: '_switchToView',
+		value: function _switchToView(el) {
 			var me = this;
 			// attach the view change button
-			el.addEventListener('click', function () {
-				me._switchToDateViewFunction(el, me);
-			}, !1);
+			if (this._type == 'date') {
+				el.addEventListener('click', function () {
+					me._switchToDateView(el, me);
+				}, !1);
+			} else {
+				el.addEventListener('click', function () {
+					me._switchToTimeView(el, me);
+				}, !1);
+			}
 		}
 
 		/**
-  * [_switchToDateViewFunction the actual switchToDateView function so that it can be called by other elements as well]
+  * [_switchToTimeView the actual switchToDateView function so that it can be called by other elements as well]
   *
-  * @method _switchToDateViewFunction
+  * @method _switchToTimeView
+  *
+  * @param  {[type]}          el [element to attach event to]
+  * @param  {[type]}          me [context]
+  *
+  */
+
+	}, {
+		key: '_switchToTimeView',
+		value: function _switchToTimeView(el, me) {
+			var hourView = this._sDialog.hourView,
+			    minuteView = this._sDialog.minuteView,
+			    needle = this._sDialog.needle;
+
+			// toggle view classes
+			hourView.classList.toggle('mddtp-picker__circularView--hidden');
+			minuteView.classList.toggle('mddtp-picker__circularView--hidden');
+			// move the needle to correct position
+			needle.className = '';
+			needle.classList.add('mddtp-picker__selection');
+		}
+		/**
+  * [_switchToDateView the actual switchToDateView function so that it can be called by other elements as well]
+  *
+  * @method _switchToDateView
   *
   * @param  {[type]}	el [element to attach event to]
   * @param  {[type]}	me [context]
@@ -385,8 +504,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
   */
 
 	}, {
-		key: '_switchToDateViewFunction',
-		value: function _switchToDateViewFunction(el, me) {
+		key: '_switchToDateView',
+		value: function _switchToDateView(el, me) {
 			el.setAttribute('disabled', '');
 			var viewHolder = me._sDialog.viewHolder,
 			    years = me._sDialog.years,
@@ -444,11 +563,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					titleMonth.innerHTML = currentDate.format('MMM D');
 				}
 			}, !1);
-		}
-	}, {
-		key: '_updateDialog',
-		value: function _updateDialog() {
-			this._initViewHolder();
 		}
 	}, {
 		key: '_toMoveMonth',
@@ -588,11 +702,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					e.target.id = 'mddtp-date__currentYear';
 					e.target.classList.add('mddtp-picker__li--current');
 					// switch view
-					me._switchToDateViewFunction(el, me);
+					me._switchToDateView(el, me);
 					// set the tdate to it
 					me._sDialog.tDate.year(parseInt(e.target.innerHTML, 10));
 					// update the dialog
-					me._updateDialog();
+					me._initViewHolder();
 				}
 			}, !1);
 		}
@@ -641,6 +755,56 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			} else {
 				return m.subtract(Math.abs(count), 'month');
 			}
+		}
+
+		/**
+  * [_numWithZero returns string number (n) with a prefixed 0 if 0 <= n <= 9]
+  *
+  * @method _numWithZero
+  *
+  * @param  {[int]}     n [description]
+  *
+  * @return {[string]}     [description]
+  */
+
+	}, {
+		key: '_numWithZero',
+		value: function _numWithZero(n) {
+			return n > 9 ? '' + n : '0' + n;
+		}
+
+		/**
+  * [_calcRotation calculate rotated angle and return the appropriate class for it]
+  *
+  * @method _calcRotation
+  *
+  * @param  {[int]}      spoke [spoke is the spoke count = [12,24,60]]
+  *
+  * @param  {[int]}      value [value for the spoke]
+  *
+  * @return {[string]}      [appropriate class]
+  */
+
+	}, {
+		key: '_calcRotation',
+		value: function _calcRotation(spoke, value) {
+			var start = spoke / 12 * 3;
+			// set clocks top and right side value
+			if (spoke === 12) {
+				// if the value is above the top value and less than the right value then increment it
+				if (value < 3 && value >= 1) {
+					value += 12;
+				}
+			} else if (spoke === 24) {} else {
+				// if the value is above the top value and less than the right value then increment it
+				if (value < 15 && value >= 0) {
+					value += 60;
+				}
+			}
+			//make values begin from 0 from the start
+			value -= start;
+			// if value is not 0 i.e truthy
+			if (value) {}
 		}
 	}], [{
 		key: 'dialog',

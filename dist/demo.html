@@ -132,62 +132,28 @@
     </div>
   </div>
   <!-- time picker dialog -->
-  <div id="mddtp-picker__time" class="mddtp-picker mddtp-picker-time">
+  <div id="mddtp-picker__time" class="mddtp-picker mddtp-picker-time mddtp-picker--inactive animated">
     <div id="mddtp-time__header" class="mddtp-picker__header">
       <h2 id="mddtp-time__title" class="mddtp-picker__title">
         <span id="mddtp-time__hour" class="mddtp-picker__color--active">3</span>
         <span>:</span>
         <span id="mddtp-time__minute">30</span>
       </h2>
-      <div class="mddtp-picker__subtitle">
+      <div id="mddtp-time__subtitle" class="mddtp-picker__subtitle" style="display: none">
         <div id="mddtp-time__AM" class="mddtp-picker__color--active">AM</div>
         <div id="mddtp-time__PM">PM</div>
       </div>
     </div>
     <div class="mddtp-picker__body">
       <div class="mddtp-picker__circularHolder">
-        <div class="mddtp-picker__selection">
+        <div id="mddtp-time__needle" class="mddtp-picker__selection">
           <span class="mddtp-picker__dot"></span>
           <span class="mddtp-picker__line"></span>
           <span class="mddtp-picker__circle"></span>
         </div>
+        <div id="mddtp-time__minuteView" class="mddtp-picker__circularView mddtp-picker__circularView--hidden">
+        </div>
         <div id="mddtp-time__hourView" class="mddtp-picker__circularView">
-          <div class="mddtp-picker__cell mddtp-picker__cell--selected">
-            <span>3</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-5">
-            <span>4</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-10">
-            <span>5</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-15">
-            <span>6</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-20">
-            <span>7</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-25">
-            <span>8</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-30">
-            <span>9</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-35">
-            <span>10</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-40">
-            <span>11</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-45">
-            <span>12</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-50">
-            <span>1</span>
-          </div>
-          <div class="mddtp-picker__cell mddtp-picker__cell--rotate-55">
-            <span>2</span>
-          </div>
         </div>
       </div>
       <div class="mddtp-picker__action">
@@ -200,9 +166,17 @@
   <script src="js/md-date-time-picker.js"></script>
   <script type="text/javascript">
     // (function() {
-    var x = new mdDateTimePicker('date');
-    var y = new mdDateTimePicker('date', moment('2016-02-29', 'YYYY-MM-DD'));
-    var z = new mdDateTimePicker('date', moment('2016-03-3', 'YYYY-MM-DD'));
+    var x = new mdDateTimePicker({
+      type: 'date'
+    });
+    var y = new mdDateTimePicker({
+      type: 'date',
+      init: moment('2016-02-29', 'YYYY-MM-DD')
+    });
+    var z = new mdDateTimePicker({
+      type: 'date',
+      init: moment('2016-03-3', 'YYYY-MM-DD')
+    });
     document.getElementById('trigger').addEventListener('click', function() {
       x.toggle();
     });
@@ -212,7 +186,9 @@
     document.getElementById('trigger3').addEventListener('click', function() {
       z.toggle();
     });
-    var a = new mdDateTimePicker('time');
+    var a = new mdDateTimePicker({
+      type: 'time'
+    });
     document.getElementById('trigger4').addEventListener('click', function() {
       a.toggle();
     });

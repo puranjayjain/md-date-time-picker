@@ -114,27 +114,27 @@
     min-width: 48px;
     top: 4px;
     border-radius: 50%;
-  }
-  .mddtp-picker__left:hover,
-  .mddtp-picker__right:hover,
-  .mddtp-picker__left:focus,
-  .mddtp-picker__right:focus {
-    background-color: $md-button-color--focus;
-  }
-  .mddtp-picker__left:active,
-  .mddtp-picker__right:active {
-    background-color: $md-button-color--active;
+    &:hover,
+    &:hover,
+    &:focus,
+    &:focus {
+      background-color: $md-button-color--focus;
+    }
+    &:active,
+    &:active {
+      background-color: $md-button-color--active;
+    }
+    &:disabled,
+    &:disabled {
+      background-repeat: no-repeat;
+      background-position: center;
+    }
   }
   .mddtp-picker__left:disabled {
-    background: url($picker-button-left-disabled);
+    background-image: url($picker-button-left-disabled);
   }
   .mddtp-picker__right:disabled {
-    background: url($picker-button-right-disabled);
-  }
-  .mddtp-picker__left:disabled,
-  .mddtp-picker__right:disabled {
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url($picker-button-right-disabled);
   }
   .mddtp-picker__body {
     .mddtp-picker__viewHolder {
@@ -152,7 +152,7 @@
         width: 314px;
         text-align: center;
         transform: translate3d(-100%,0,0);
-        transition: 0.3s cubic-bezier(.42, 0, .58, 1);
+        transition: .3s cubic-bezier(.42, 0, .58, 1);
         .mddtp-picker__month {
           display: inline-block;
           padding: 18px;
@@ -183,27 +183,27 @@
           height: 36px;
           line-height: 36px;
           vertical-align: middle;
-        }
-        .mddtp-picker__cell--today {
-          color: $md-button-color;
-          font-weight: 600;
-        }
-        .mddtp-picker__cell--selected {
-          background-color: $md-button-color;
-          color: $picker-body-color;
-        }
-        .mddtp-picker__cell--disabled {
-          color: $md-button-color--disabled;
-          cursor: not-allowed;
+          &.mddtp-picker__cell--today {
+            color: $md-button-color;
+            font-weight: 600;
+          }
+          &.mddtp-picker__cell--selected {
+            background-color: $md-button-color;
+            color: $picker-body-color;
+          }
+          &.mddtp-picker__cell--disabled {
+            color: $md-button-color--disabled;
+            cursor: not-allowed;
+          }
         }
         .mddtp-picker__tr {
           padding: 2px 0;
           .mddtp-picker__cell {
             pointer-events: all;
             cursor: pointer;
-          }
-          .mddtp-picker__cell:hover {
-            @extend .mddtp-picker__selected;
+            &:hover {
+              @extend .mddtp-picker__selected;
+            }
           }
         }
         .mddtp-picker__th {
@@ -235,9 +235,9 @@
         font-size: 21px;
         color: $md-button-color;
       }
-    }
-    .mddtp-picker__years--invisible {
-      display: none;
+      &--invisible {
+        display: none;
+      }
     }
   }
 }
@@ -299,11 +299,15 @@
             text-align: center;
             margin-right: 8px;
           }
-        }
-        .mddtp-picker__cell--selected {
-          span {
-            color: $picker-body-color;
+          &--selected {
+            span {
+              color: $picker-body-color;
+            }
           }
+        }
+
+        &--hidden {
+          display: none;
         }
       }
 
@@ -314,6 +318,7 @@
         width: 50%;
         font-size: 0;
         transform-origin: left center;
+        transition: .3s cubic-bezier(.42, 0, .58, 1);
 
         span {
           display: inline-block;
@@ -352,6 +357,24 @@
     }
   }
 }
+
+// animation classes
+.mddtp-picker,
+.mddtp-picker__viewHolder,
+.mddtp-picker__years {
+  &.zoomIn {
+    animation-name: zoomIn;
+  }
+  &.zoomOut {
+    animation-name: zoomOut;
+  }
+  &.animated {
+    animation-duration: .3s;
+    animation-timing-function: cubic-bezier(.42, 0, .58, 1);
+    animation-fill-mode: both;
+  }
+}
+
 // media queries
 // As the responsive approach is desktop first and on mobile landscape first, we handle the rest here
 @media screen and (max-device-width: 425px) and (orientation: portrait) {
@@ -379,14 +402,11 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
-    transform: scale3d(.3, .3, .3);
+    transform: scale(.3);
   }
   50% {
     opacity: 1;
   }
-}
-.zoomIn {
-  animation-name: zoomIn;
 }
 @keyframes zoomOut {
   from {
@@ -394,17 +414,9 @@
   }
   50% {
     opacity: 0;
-    transform: scale3d(.3, .3, .3);
+    transform: scale(.3);
   }
   to {
     opacity: 0;
   }
-}
-.zoomOut {
-  animation-name: zoomOut;
-}
-.animated {
-  animation-duration: 0.3s;
-  animation-timing-function: cubic-bezier(.42, 0, .58, 1);
-  animation-fill-mode: both;
 }
