@@ -210,10 +210,10 @@ class mdDateTimePicker {
 		let needle = this._sDialog.needle
 		let docfrag = document.createDocumentFragment()
 		if (this._mode) {
-
+			const hourNow = parseInt(this._sDialog.tDate.format('H'), 10)
 		}
 		else {
-			const hourNow = this._sDialog.tDate.format('h')
+			const hourNow = parseInt(this._sDialog.tDate.format('h'), 10)
 			for (let i = 3,j = 0; i <= 14; i++, j += 5) {
 				let k
 				let div = document.createElement('div')
@@ -229,7 +229,7 @@ class mdDateTimePicker {
 				if (j) {
 					div.classList.add('mddtp-picker__cell--rotate-' + j)
 				}
-				if (hourNow == k) {
+				if (hourNow === k) {
 					div.classList.add('mddtp-picker__cell--selected')
 					needle.classList.add('mddtp-picker__cell--rotate-' + j)
 				}
@@ -247,9 +247,7 @@ class mdDateTimePicker {
 
 	_initMinute() {
 		let minuteView = this._sDialog.minuteView
-		const minuteNow = this._sDialog.tDate.format('mm')
-		const minuteAhead = minuteNow + 1
-		const minuteBehind = minuteNow - 1
+		const minuteNow = parseInt(this._sDialog.tDate.format('mm'), 10)
 		let docfrag = document.createDocumentFragment()
 		for (let i = 15,j = 0; i <= 70; i += 5, j += 5) {
 			let k
@@ -266,7 +264,7 @@ class mdDateTimePicker {
 			if (j) {
 				div.classList.add('mddtp-picker__cell--rotate-' + j)
 			}
-			if ((minuteNow == k) || (minuteAhead == k) || (minuteBehind == k)) {
+			if ((minuteNow == k) || (minuteNow - 1 == k) || (minuteNow + 1 == k)) {
 				div.classList.add('mddtp-picker__cell--selected')
 			}
 			div.appendChild(span)
@@ -475,7 +473,7 @@ class mdDateTimePicker {
 				value = this._sDialog.tDate.format('h')
 			}
 		}
-		let rotationClass = this._calcRotation(spoke, value)
+		let rotationClass = this._calcRotation(spoke, parseInt(value, 10))
 		if (rotationClass) {
 			needle.classList.add(rotationClass)
 		}
@@ -789,7 +787,7 @@ class mdDateTimePicker {
 		}
 		else if (spoke === 24) {
 			// REVIEW this multiplicativeFactor anf also revise css classes for this style
-			// multiplicativeFactor = 5
+			multiplicativeFactor = 10
 		}
 		else {
 			// if the value is above the top value and less than the right value then increment it

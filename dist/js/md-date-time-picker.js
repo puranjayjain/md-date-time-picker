@@ -235,8 +235,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    needle = this._sDialog.needle,
 			    docfrag = document.createDocumentFragment();
 
-			if (this._mode) {} else {
-				var hourNow = this._sDialog.tDate.format('h');
+			if (this._mode) {
+				var hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
+			} else {
+				var _hourNow = parseInt(this._sDialog.tDate.format('h'), 10);
 				for (var i = 3, j = 0; i <= 14; i++, j += 5) {
 					var k = void 0,
 					    div = document.createElement('div'),
@@ -252,7 +254,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					if (j) {
 						div.classList.add('mddtp-picker__cell--rotate-' + j);
 					}
-					if (hourNow == k) {
+					if (_hourNow === k) {
 						div.classList.add('mddtp-picker__cell--selected');
 						needle.classList.add('mddtp-picker__cell--rotate-' + j);
 					}
@@ -271,9 +273,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_initMinute',
 		value: function _initMinute() {
 			var minuteView = this._sDialog.minuteView,
-			    minuteNow = this._sDialog.tDate.format('mm'),
-			    minuteAhead = minuteNow + 1,
-			    minuteBehind = minuteNow - 1,
+			    minuteNow = parseInt(this._sDialog.tDate.format('mm'), 10),
 			    docfrag = document.createDocumentFragment();
 
 			for (var i = 15, j = 0; i <= 70; i += 5, j += 5) {
@@ -291,7 +291,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				if (j) {
 					div.classList.add('mddtp-picker__cell--rotate-' + j);
 				}
-				if (minuteNow == k || minuteAhead == k || minuteBehind == k) {
+				if (minuteNow == k || minuteNow - 1 == k || minuteNow + 1 == k) {
 					div.classList.add('mddtp-picker__cell--selected');
 				}
 				div.appendChild(span);
@@ -516,7 +516,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					value = this._sDialog.tDate.format('h');
 				}
 			}
-			var rotationClass = this._calcRotation(spoke, value);
+			var rotationClass = this._calcRotation(spoke, parseInt(value, 10));
 			if (rotationClass) {
 				needle.classList.add(rotationClass);
 			}
@@ -862,14 +862,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				multiplicativeFactor = 5;
 			} else if (spoke === 24) {
 				// REVIEW this multiplicativeFactor anf also revise css classes for this style
-				// multiplicativeFactor = 5
+				multiplicativeFactor = 10;
 			} else {
-					// if the value is above the top value and less than the right value then increment it
-					if (value < 15 && value >= 0) {
-						value += 60;
-					}
-					multiplicativeFactor = 1;
+				// if the value is above the top value and less than the right value then increment it
+				if (value < 15 && value >= 0) {
+					value += 60;
 				}
+				multiplicativeFactor = 1;
+			}
 			//make values begin from 0 from the start
 			value -= start;
 			// if value is not 0 i.e truthy
