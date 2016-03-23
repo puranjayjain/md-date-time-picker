@@ -198,8 +198,9 @@ class mdDateTimePicker {
 		}
 		minute.innerHTML = m.format('mm')
 		this._initHour()
-		this._initMinute()		
+		this._initMinute()
 		this._attachEventHandlers()
+		this._changeM()
 		this._switchToView(hour)
 		this._switchToView(minute)
 	}
@@ -212,6 +213,7 @@ class mdDateTimePicker {
 
 		}
 		else {
+			const hourNow = this._sDialog.tDate.format('h')
 			for (let i = 3,j = 0; i <= 14; i++, j += 5) {
 				let k
 				let div = document.createElement('div')
@@ -227,7 +229,7 @@ class mdDateTimePicker {
 				if (j) {
 					div.classList.add('mddtp-picker__cell--rotate-' + j)
 				}
-				if (this._sDialog.tDate.format('h') == k) {
+				if (hourNow == k) {
 					div.classList.add('mddtp-picker__cell--selected')
 					needle.classList.add('mddtp-picker__cell--rotate-' + j)
 				}
@@ -245,6 +247,9 @@ class mdDateTimePicker {
 
 	_initMinute() {
 		let minuteView = this._sDialog.minuteView
+		const minuteNow = this._sDialog.tDate.format('mm')
+		const minuteAhead = minuteNow + 1
+		const minuteBehind = minuteNow - 1
 		let docfrag = document.createDocumentFragment()
 		for (let i = 15,j = 0; i <= 70; i += 5, j += 5) {
 			let k
@@ -261,7 +266,7 @@ class mdDateTimePicker {
 			if (j) {
 				div.classList.add('mddtp-picker__cell--rotate-' + j)
 			}
-			if (this._sDialog.tDate.format('mm') == k) {
+			if ((minuteNow == k) || (minuteAhead == k) || (minuteBehind == k)) {
 				div.classList.add('mddtp-picker__cell--selected')
 			}
 			div.appendChild(span)
@@ -443,9 +448,9 @@ class mdDateTimePicker {
 	_switchToTimeView(el, me) {
 		let hourView = this._sDialog.hourView
 		let minuteView = this._sDialog.minuteView
-			let hour = this._sDialog.hour
-			let minute = this._sDialog.minute
-			let activeClass = 'mddtp-picker__color--active'
+		let hour = this._sDialog.hour
+		let minute = this._sDialog.minute
+		let activeClass = 'mddtp-picker__color--active'
 		let needle = this._sDialog.needle
 		let spoke = 60
 		let value
@@ -679,6 +684,35 @@ class mdDateTimePicker {
 	}
 
 	/**
+	* [_changeM switch between am and pm modes]
+	*
+	* @method _changeM
+	*
+	* @return {[type]} [description]
+	*/
+	_changeM() {
+		let me = this
+		let AM = this._sDialog.AM
+		let PM = this._sDialog.PM
+		AM.addEventListener('click', function (e) {
+			let m = me._sDialog.sDate.format('A')
+			if (m === 'PM') {
+				me._sDialog.sDate.subtract(12, 'h')
+				AM.classList.toggle('mddtp-picker__color--active')
+				PM.classList.toggle('mddtp-picker__color--active')
+			}
+		}, false)
+		PM.addEventListener('click', function (e) {
+			let m = me._sDialog.sDate.format('A')
+			if (m === 'AM') {
+				me._sDialog.sDate.add(12, 'h')
+				AM.classList.toggle('mddtp-picker__color--active')
+				PM.classList.toggle('mddtp-picker__color--active')
+			}
+		}, false)
+	}
+
+	/**
 	* [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
 	*
 	* @method _attachEventHandlers
@@ -711,9 +745,9 @@ class mdDateTimePicker {
 		let m
 		m = moment.clone()
 		if (count > 0) {
-			return m.add(Math.abs(count), 'month')
+			return m.add(Math.abs(count), 'M')
 		} else {
-			return m.subtract(Math.abs(count), 'month')
+			return m.subtract(Math.abs(count), 'M')
 		}
 	}
 

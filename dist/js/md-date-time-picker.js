@@ -224,6 +224,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._initHour();
 			this._initMinute();
 			this._attachEventHandlers();
+			this._changeM();
 			this._switchToView(hour);
 			this._switchToView(minute);
 		}
@@ -235,6 +236,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    docfrag = document.createDocumentFragment();
 
 			if (this._mode) {} else {
+				var hourNow = this._sDialog.tDate.format('h');
 				for (var i = 3, j = 0; i <= 14; i++, j += 5) {
 					var k = void 0,
 					    div = document.createElement('div'),
@@ -250,7 +252,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					if (j) {
 						div.classList.add('mddtp-picker__cell--rotate-' + j);
 					}
-					if (this._sDialog.tDate.format('h') == k) {
+					if (hourNow == k) {
 						div.classList.add('mddtp-picker__cell--selected');
 						needle.classList.add('mddtp-picker__cell--rotate-' + j);
 					}
@@ -269,6 +271,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_initMinute',
 		value: function _initMinute() {
 			var minuteView = this._sDialog.minuteView,
+			    minuteNow = this._sDialog.tDate.format('mm'),
+			    minuteAhead = minuteNow + 1,
+			    minuteBehind = minuteNow - 1,
 			    docfrag = document.createDocumentFragment();
 
 			for (var i = 15, j = 0; i <= 70; i += 5, j += 5) {
@@ -286,7 +291,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				if (j) {
 					div.classList.add('mddtp-picker__cell--rotate-' + j);
 				}
-				if (this._sDialog.tDate.format('mm') == k) {
+				if (minuteNow == k || minuteAhead == k || minuteBehind == k) {
 					div.classList.add('mddtp-picker__cell--selected');
 				}
 				div.appendChild(span);
@@ -735,6 +740,39 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
+  * [_changeM switch between am and pm modes]
+  *
+  * @method _changeM
+  *
+  * @return {[type]} [description]
+  */
+
+	}, {
+		key: '_changeM',
+		value: function _changeM() {
+			var me = this,
+			    AM = this._sDialog.AM,
+			    PM = this._sDialog.PM;
+
+			AM.addEventListener('click', function (e) {
+				var m = me._sDialog.sDate.format('A');
+				if (m === 'PM') {
+					me._sDialog.sDate.subtract(12, 'h');
+					AM.classList.toggle('mddtp-picker__color--active');
+					PM.classList.toggle('mddtp-picker__color--active');
+				}
+			}, !1);
+			PM.addEventListener('click', function (e) {
+				var m = me._sDialog.sDate.format('A');
+				if (m === 'AM') {
+					me._sDialog.sDate.add(12, 'h');
+					AM.classList.toggle('mddtp-picker__color--active');
+					PM.classList.toggle('mddtp-picker__color--active');
+				}
+			}, !1);
+		}
+
+		/**
   * [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
   *
   * @method _attachEventHandlers
@@ -774,9 +812,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			var m = void 0;
 			m = moment.clone();
 			if (count > 0) {
-				return m.add(Math.abs(count), 'month');
+				return m.add(Math.abs(count), 'M');
 			} else {
-				return m.subtract(Math.abs(count), 'month');
+				return m.subtract(Math.abs(count), 'M');
 			}
 		}
 
