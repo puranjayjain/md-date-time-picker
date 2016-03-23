@@ -115,11 +115,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		// }
 
 		value: function _selectDialog() {
-			// clone elements and add them again to clear events attached to them
-			var picker = document.getElementById('mddtp-picker__' + [this._type]),
-			    pickerClone = picker.cloneNode(!0);
-
-			picker.parentNode.replaceChild(pickerClone, picker);
 			// now do what you normally would do
 			this._sDialog.picker = document.getElementById('mddtp-picker__' + [this._type]);
 			/**
@@ -175,7 +170,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    AM = this._sDialog.AM,
 			    PM = this._sDialog.PM,
 			    minute = this._sDialog.minute,
-			    hour = this._sDialog.hour;
+			    hour = this._sDialog.hour,
+			    minuteView = this._sDialog.minuteView,
+			    hourView = this._sDialog.hourView,
+			    picker = this._sDialog.picker;
 
 			mdDateTimePicker.dialog.state = !1;
 			mdDateTimePicker.dialog.view = !0;
@@ -192,11 +190,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				PM.classList.remove('mddtp-picker__color--active');
 				minute.classList.remove('mddtp-picker__color--active');
 				hour.classList.add('mddtp-picker__color--active');
+				minuteView.classList.add('mddtp-picker__circularView--hidden');
+				hourView.classList.remove('mddtp-picker__circularView--hidden');
 				subtitle.setAttribute('style', 'display: none');
 			}
 			setTimeout(function () {
 				me._sDialog.picker.classList.remove('zoomOut');
 				me._sDialog.picker.classList.add('mddtp-picker--inactive');
+				// clone elements and add them again to clear events attached to them
+				var pickerClone = picker.cloneNode(!0);
+				picker.parentNode.replaceChild(pickerClone, picker);
 			}, 300);
 		}
 
@@ -239,22 +242,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				var hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
 			} else {
 				var _hourNow = parseInt(this._sDialog.tDate.format('h'), 10);
-				for (var i = 3, j = 0; i <= 14; i++, j += 5) {
-					var k = void 0,
-					    div = document.createElement('div'),
+				for (var i = 1, j = 5; i <= 12; i++, j += 5) {
+					var div = document.createElement('div'),
 					    span = document.createElement('span');
 
 					div.classList.add('mddtp-picker__cell');
-					k = i;
-					if (i > 12) {
-						span.textContent = k - 12;
-					} else {
-						span.textContent = k;
-					}
-					if (j) {
-						div.classList.add('mddtp-picker__cell--rotate-' + j);
-					}
-					if (_hourNow === k) {
+					span.textContent = i;
+					div.classList.add('mddtp-picker__cell--rotate-' + j);
+					if (_hourNow === i) {
 						div.classList.add('mddtp-picker__cell--selected');
 						needle.classList.add('mddtp-picker__cell--rotate-' + j);
 					}
@@ -276,26 +271,50 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    minuteNow = parseInt(this._sDialog.tDate.format('mm'), 10),
 			    docfrag = document.createDocumentFragment();
 
-			for (var i = 15, j = 0; i <= 70; i += 5, j += 5) {
-				var k = void 0,
-				    div = document.createElement('div'),
-				    span = document.createElement('span');
+			for (var i = 5, j = 5; i <= 60; i += 5, j += 5) {
+				var div = document.createElement('div'),
+				    div1 = document.createElement('div'),
+				    div2 = document.createElement('div'),
+				    div3 = document.createElement('div'),
+				    div4 = document.createElement('div'),
+				    span = document.createElement('span'),
+				    span1 = document.createElement('span'),
+				    span2 = document.createElement('span'),
+				    span3 = document.createElement('span'),
+				    span4 = document.createElement('span');
 
+				span1.textContent = '.';
+				span2.textContent = '.';
+				span3.textContent = '.';
+				span4.textContent = '.';
 				div.classList.add('mddtp-picker__cell');
-				k = i;
-				if (i > 55) {
-					span.textContent = this._numWithZero(k - 60);
+				div1.classList.add('mddtp-picker__cell');
+				div2.classList.add('mddtp-picker__cell');
+				div3.classList.add('mddtp-picker__cell');
+				div4.classList.add('mddtp-picker__cell');
+				if (i === 60) {
+					span.textContent = this._numWithZero(0);
 				} else {
-					span.textContent = k;
+					span.textContent = this._numWithZero(i);
 				}
-				if (j) {
-					div.classList.add('mddtp-picker__cell--rotate-' + j);
-				}
-				if (minuteNow == k || minuteNow - 1 == k || minuteNow + 1 == k) {
+				div.classList.add('mddtp-picker__cell--rotate-' + j);
+				div1.classList.add('mddtp-picker__cell--rotate-' + (j - 4));
+				div2.classList.add('mddtp-picker__cell--rotate-' + (j - 3));
+				div3.classList.add('mddtp-picker__cell--rotate-' + (j - 2));
+				div4.classList.add('mddtp-picker__cell--rotate-' + (j - 1));
+				if (minuteNow == i || minuteNow - 1 == i || minuteNow + 1 == i) {
 					div.classList.add('mddtp-picker__cell--selected');
 				}
 				div.appendChild(span);
+				div1.appendChild(span1);
+				div2.appendChild(span2);
+				div3.appendChild(span3);
+				div4.appendChild(span4);
 				docfrag.appendChild(div);
+				docfrag.appendChild(div1);
+				docfrag.appendChild(div2);
+				docfrag.appendChild(div3);
+				docfrag.appendChild(div4);
 			}
 			//empty the hours
 			while (minuteView.lastChild) {
@@ -467,11 +486,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			if (this._type == 'date') {
 				el.addEventListener('click', function () {
 					me._switchToDateView(el, me);
-				}, !1);
+				});
 			} else {
 				el.addEventListener('click', function () {
 					me._switchToTimeView(el, me);
-				}, !1);
+				});
 			}
 		}
 
@@ -590,7 +609,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					titleDay.innerHTML = currentDate.format('ddd, ');
 					titleMonth.innerHTML = currentDate.format('MMM D');
 				}
-			}, !1);
+			});
 		}
 	}, {
 		key: '_toMoveMonth',
@@ -626,11 +645,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			left.addEventListener('click', function () {
 				moveStep(mRightClass, me._sDialog.previous);
-			}, !1);
+			});
 
 			right.addEventListener('click', function () {
 				moveStep(mLeftClass, me._sDialog.next);
-			}, !1);
+			});
 
 			function moveStep(aClass, to) {
 				/**
@@ -736,7 +755,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					// update the dialog
 					me._initViewHolder();
 				}
-			}, !1);
+			});
 		}
 
 		/**
@@ -761,7 +780,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					AM.classList.toggle('mddtp-picker__color--active');
 					PM.classList.toggle('mddtp-picker__color--active');
 				}
-			}, !1);
+			});
 			PM.addEventListener('click', function (e) {
 				var m = me._sDialog.sDate.format('A');
 				if (m === 'AM') {
@@ -769,7 +788,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					AM.classList.toggle('mddtp-picker__color--active');
 					PM.classList.toggle('mddtp-picker__color--active');
 				}
-			}, !1);
+			});
 		}
 
 		/**
@@ -788,11 +807,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			cancel.addEventListener('click', function () {
 				me.toggle();
-			}, !1);
+			});
 			ok.addEventListener('click', function () {
 				me._init = me._sDialog.sDate;
 				me.toggle();
-			}, !1);
+			});
 		}
 
 		/**
@@ -850,15 +869,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_calcRotation',
 		value: function _calcRotation(spoke, value) {
 			var start = spoke / 12 * 3,
-			    multiplicativeFactor = void 0,
-			    cssClass = void 0;
+			    multiplicativeFactor = void 0;
 
 			// set clocks top and right side value
 			if (spoke === 12) {
-				// if the value is above the top value and less than the right value then increment it
-				if (value < 3 && value >= 1) {
-					value += 12;
-				}
 				multiplicativeFactor = 5;
 			} else if (spoke === 24) {
 				// REVIEW this multiplicativeFactor anf also revise css classes for this style
@@ -871,13 +885,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				multiplicativeFactor = 1;
 			}
 			//make values begin from 0 from the start
-			value -= start;
-			// if value is not 0 i.e truthy
-			if (value) {
-				cssClass = 'mddtp-picker__cell--rotate-' + value * multiplicativeFactor;
-			}
-			// return it
-			return cssClass;
+			// value -= start
+			return 'mddtp-picker__cell--rotate-' + value * multiplicativeFactor;
 		}
 	}], [{
 		key: 'dialog',

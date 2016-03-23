@@ -45,7 +45,9 @@ Let's take an example:
   new Date('1/10/2016')
 ```
 
-What should it output? ... well it is interpreted as 1st October 2016 in some browsers and 10th January 2016 in some [Refer Me](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse).
+What should it output? ... well it is interpreted as 1st October 2016 in some browsers and 10th January 2016 in some.
+
+For more information refer [link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse).
 
 ### What's included
 
@@ -90,5 +92,4 @@ but we'll adhere to those rules whenever possible.
 ## License
 
 © Puranjay Jain, 2016. Licensed under an
-[MIT License](https://github.com/puranjayjain/md-date-time-picker/blob/master/LICENSE.md)
-license.
+[MIT License](https://github.com/puranjayjain/md-date-time-picker/blob/master/LICENSE.md).

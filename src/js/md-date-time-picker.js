@@ -100,10 +100,6 @@ class mdDateTimePicker {
 	// }
 
 	_selectDialog() {
-		// clone elements and add them again to clear events attached to them
-		let picker = document.getElementById('mddtp-picker__' + [this._type])
-		let pickerClone = picker.cloneNode(true)
-		picker.parentNode.replaceChild(pickerClone, picker)
 		// now do what you normally would do
 		this._sDialog.picker = document.getElementById('mddtp-picker__' + [this._type])
 		/**
@@ -155,6 +151,9 @@ class mdDateTimePicker {
 		let PM = this._sDialog.PM
 		let minute = this._sDialog.minute
 		let hour = this._sDialog.hour
+		let minuteView = this._sDialog.minuteView
+		let hourView = this._sDialog.hourView
+		let picker = this._sDialog.picker
 		mdDateTimePicker.dialog.state = false
 		mdDateTimePicker.dialog.view = true
 		this._sDialog.picker.classList.add('zoomOut')
@@ -171,11 +170,16 @@ class mdDateTimePicker {
 			PM.classList.remove('mddtp-picker__color--active')
 			minute.classList.remove('mddtp-picker__color--active')
 			hour.classList.add('mddtp-picker__color--active')
+			minuteView.classList.add('mddtp-picker__circularView--hidden')
+			hourView.classList.remove('mddtp-picker__circularView--hidden')
 			subtitle.setAttribute('style', 'display: none')
 		}
 		setTimeout(function () {
 			me._sDialog.picker.classList.remove('zoomOut')
 			me._sDialog.picker.classList.add('mddtp-picker--inactive')
+			// clone elements and add them again to clear events attached to them
+			let pickerClone = picker.cloneNode(true)
+			picker.parentNode.replaceChild(pickerClone, picker)
 		}, 300)
 	}
 
@@ -214,22 +218,13 @@ class mdDateTimePicker {
 		}
 		else {
 			const hourNow = parseInt(this._sDialog.tDate.format('h'), 10)
-			for (let i = 3,j = 0; i <= 14; i++, j += 5) {
-				let k
+			for (let i = 1,j = 5; i <= 12; i++, j += 5) {
 				let div = document.createElement('div')
 				let span = document.createElement('span')
 				div.classList.add('mddtp-picker__cell')
-				k = i
-				if (i > 12) {
-					span.textContent = k - 12
-				}
-				else {
-					span.textContent = k
-				}
-				if (j) {
-					div.classList.add('mddtp-picker__cell--rotate-' + j)
-				}
-				if (hourNow === k) {
+				span.textContent = i
+				div.classList.add('mddtp-picker__cell--rotate-' + j)
+				if (hourNow === i) {
 					div.classList.add('mddtp-picker__cell--selected')
 					needle.classList.add('mddtp-picker__cell--rotate-' + j)
 				}
@@ -249,26 +244,50 @@ class mdDateTimePicker {
 		let minuteView = this._sDialog.minuteView
 		const minuteNow = parseInt(this._sDialog.tDate.format('mm'), 10)
 		let docfrag = document.createDocumentFragment()
-		for (let i = 15,j = 0; i <= 70; i += 5, j += 5) {
-			let k
+		for (let i = 5,j = 5; i <= 60; i += 5, j += 5) {
 			let div = document.createElement('div')
+			let div1 = document.createElement('div')
+			let div2 = document.createElement('div')
+			let div3 = document.createElement('div')
+			let div4 = document.createElement('div')
 			let span = document.createElement('span')
+			let span1 = document.createElement('span')
+			let span2 = document.createElement('span')
+			let span3 = document.createElement('span')
+			let span4 = document.createElement('span')
+			span1.textContent = '.'
+			span2.textContent = '.'
+			span3.textContent = '.'
+			span4.textContent = '.'
 			div.classList.add('mddtp-picker__cell')
-			k = i
-			if (i > 55) {
-				span.textContent = this._numWithZero(k - 60)
+			div1.classList.add('mddtp-picker__cell')
+			div2.classList.add('mddtp-picker__cell')
+			div3.classList.add('mddtp-picker__cell')
+			div4.classList.add('mddtp-picker__cell')
+			if (i === 60) {
+				span.textContent = this._numWithZero(0)
 			}
 			else {
-				span.textContent = k
+				span.textContent = this._numWithZero(i)
 			}
-			if (j) {
-				div.classList.add('mddtp-picker__cell--rotate-' + j)
-			}
-			if ((minuteNow == k) || (minuteNow - 1 == k) || (minuteNow + 1 == k)) {
+			div.classList.add('mddtp-picker__cell--rotate-' + j)
+			div1.classList.add('mddtp-picker__cell--rotate-' + (j - 4))
+			div2.classList.add('mddtp-picker__cell--rotate-' + (j - 3))
+			div3.classList.add('mddtp-picker__cell--rotate-' + (j - 2))
+			div4.classList.add('mddtp-picker__cell--rotate-' + (j - 1))
+			if ((minuteNow == i) || (minuteNow - 1 == i) || (minuteNow + 1 == i)) {
 				div.classList.add('mddtp-picker__cell--selected')
 			}
 			div.appendChild(span)
+			div1.appendChild(span1)
+			div2.appendChild(span2)
+			div3.appendChild(span3)
+			div4.appendChild(span4)
 			docfrag.appendChild(div)
+			docfrag.appendChild(div1)
+			docfrag.appendChild(div2)
+			docfrag.appendChild(div3)
+			docfrag.appendChild(div4)
 		}
 		//empty the hours
 		while (minuteView.lastChild) {
@@ -423,14 +442,14 @@ class mdDateTimePicker {
 		let me = this
 		// attach the view change button
 		if (this._type == 'date') {
-			el.addEventListener('click', function () {
+			el.addEventListener('click',function () {
 				me._switchToDateView(el, me)
-			}, false)
+			})
 		}
 		else {
 			el.addEventListener('click', function () {
 				me._switchToTimeView(el, me)
-			}, false)
+			})
 		}
 	}
 
@@ -541,7 +560,7 @@ class mdDateTimePicker {
 				titleDay.innerHTML = currentDate.format('ddd, ')
 				titleMonth.innerHTML = currentDate.format('MMM D')
 			}
-		}, false)
+		})
 	}
 
 	_toMoveMonth() {
@@ -573,11 +592,11 @@ class mdDateTimePicker {
 		let pause = 'mddtp-picker__view--pause'
 		left.addEventListener('click', function () {
 			moveStep(mRightClass, me._sDialog.previous)
-		}, false)
+		})
 
 		right.addEventListener('click', function () {
 			moveStep(mLeftClass, me._sDialog.next)
-		}, false)
+		})
 
 		function moveStep(aClass, to) {
 			/**
@@ -678,7 +697,7 @@ class mdDateTimePicker {
 				// update the dialog
 				me._initViewHolder()
 			}
-		}, false)
+		})
 	}
 
 	/**
@@ -699,7 +718,7 @@ class mdDateTimePicker {
 				AM.classList.toggle('mddtp-picker__color--active')
 				PM.classList.toggle('mddtp-picker__color--active')
 			}
-		}, false)
+		})
 		PM.addEventListener('click', function (e) {
 			let m = me._sDialog.sDate.format('A')
 			if (m === 'AM') {
@@ -707,7 +726,7 @@ class mdDateTimePicker {
 				AM.classList.toggle('mddtp-picker__color--active')
 				PM.classList.toggle('mddtp-picker__color--active')
 			}
-		}, false)
+		})
 	}
 
 	/**
@@ -722,11 +741,11 @@ class mdDateTimePicker {
 		let cancel = this._sDialog.cancel
 		cancel.addEventListener('click', function () {
 			me.toggle()
-		}, false)
+		})
 		ok.addEventListener('click', function () {
 			me._init = me._sDialog.sDate
 			me.toggle()
-		}, false)
+		})
 	}
 
 	/**
@@ -776,13 +795,8 @@ class mdDateTimePicker {
 	_calcRotation(spoke, value) {
 		let start = (spoke / 12) * 3
 		let multiplicativeFactor
-		let cssClass
 		// set clocks top and right side value
 		if (spoke === 12) {
-			// if the value is above the top value and less than the right value then increment it
-			if (value < 3 && value >= 1) {
-				value += 12
-			}
 			multiplicativeFactor = 5
 		}
 		else if (spoke === 24) {
@@ -797,13 +811,8 @@ class mdDateTimePicker {
 			multiplicativeFactor = 1
 		}
 		//make values begin from 0 from the start
-		value -= start
-		// if value is not 0 i.e truthy
-		if (value) {
-			cssClass = 'mddtp-picker__cell--rotate-' + (value * multiplicativeFactor)
-		}
-		// return it
-		return cssClass
+		// value -= start
+		return 'mddtp-picker__cell--rotate-' + (value * multiplicativeFactor)
 	}
 }
 

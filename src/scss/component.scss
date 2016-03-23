@@ -345,19 +345,19 @@
       }
 
       //60 minute deg rotations
-      @for $i from 1 through 59 {
+      @for $i from 1 through 60 {
         .mddtp-picker__cell--rotate-#{$i} {
-          transform: rotate(#{(360 / 60) * $i}deg);
+          transform: rotate(#{(360 / 60) * $i - 90}deg);
 
           span:not(.mddtp-picker__line) {
-            transform: rotate(-#{(360 / 60) * $i}deg);
+            $reverse: -((360 / 60) * $i - 90);
+            transform: rotate(#{$reverse}deg);
           }
         }
       }
     }
   }
 }
-
 // animation classes
 .mddtp-picker,
 .mddtp-picker__viewHolder,
