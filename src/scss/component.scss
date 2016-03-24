@@ -311,6 +311,24 @@
         }
       }
 
+      .mddtp-picker__circle--fake {
+        position: absolute;
+        border-radius: 50%;
+        height: 36px;
+        width: 36px;
+        border: 1px solid $picker-line-color;
+        cursor: move; /* fallback if grab cursor is unsupported */
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+
+        &.is-pointer-down,&:active {
+          cursor: grabbing;
+          cursor: -moz-grabbing;
+          cursor: -webkit-grabbing;
+        }
+      }
+
       .mddtp-picker__selection {
         position: absolute;
         left: 50%;
@@ -325,22 +343,26 @@
           background-color: $picker-line-color;
           height: 2px;
           vertical-align: middle;
+
+          &.mddtp-picker__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+          }
+
+          &.mddtp-picker__line {
+            width: calc(100% - 52px);
+          }
+
+          &.mddtp-picker__circle {
+            border-radius: 50%;
+            height: 36px;
+            width: 36px;
+          }
         }
 
-        .mddtp-picker__dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-        }
-
-        .mddtp-picker__line {
-          width: calc(100% - 52px);
-        }
-
-        .mddtp-picker__circle {
-          border-radius: 50%;
-          height: 36px;
-          width: 36px;
+        &--quick {
+          transition: none;
         }
       }
 
@@ -402,7 +424,7 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
-    transform: scale(.3);
+    transform: scale3d(.3,.3,.3);
   }
   50% {
     opacity: 1;
@@ -414,7 +436,7 @@
   }
   50% {
     opacity: 0;
-    transform: scale(.3);
+    transform: scale3d(.3,.3,.3);
   }
   to {
     opacity: 0;

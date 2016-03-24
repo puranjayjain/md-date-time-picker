@@ -19,21 +19,22 @@ class mdDateTimePicker {
 	*
 	* @method constructor
 	*
-	* @param  {[string]}    type         [type of dialog] ['date','time']
-	* @param  {[moment]}    init   = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
-	* @param  {[moment]}    past   = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
-	* @param  {[moment]}    future = moment() [the future moment till which the calendar shall render] [@default value of init]
+	* @param  {[string]}   type = 'date' or 'time 									[type of dialog]
+	* @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
+	* @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
+	* @param  {[moment]}   future = moment() 												[the future moment till which the calendar shall render] [@default = init]
+	* @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
+	* @param  {[string]}    orientation = 'LANDSCAPE' or 'PORTRAIT' [force the orientation of the picker @default = 'LANDSCAPE']
 	*
-	* @param	 {[Boolean]}    mode  = false [this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default 12 hour mode = false]
-	*
-	* @return {[Object]}    [mdDateTimePicker]
+	* @return {[Object]}    																				[mdDateTimePicker]
 	*/
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE'}) {
 		this._type = type
 		this._init = init
 		this._past = past
 		this._future = future
 		this._mode = mode
+		this._orientation = orientation
 
 		/**
 		* [dialog selected classes have the same structure as dialog but one level down]
@@ -283,7 +284,70 @@ class mdDateTimePicker {
 			body.appendChild(years)
 		}
 		else {
-
+			let title = document.createElement('h2')
+			let hour = document.createElement('span')
+			let span = document.createElement('span')
+			let minute = document.createElement('span')
+			let subtitle = document.createElement('div')
+			let AM = document.createElement('div')
+			let PM = document.createElement('div')
+			let circularHolder = document.createElement('div')
+			let needle = document.createElement('div')
+			let dot = document.createElement('span')
+			let line = document.createElement('span')
+			let circle = document.createElement('span')
+			let minuteView = document.createElement('div')
+			let fakeNeedle = document.createElement('div')
+			let hourView = document.createElement('div')
+			// add properties to them
+			// inside header
+			this._addId(title, 'title')
+			this._addClass(title, 'title')
+			this._addId(hour, 'hour')
+			hour.classList.add('mddtp-picker__color--active')
+			span.textContent = ':'
+			this._addId(minute, 'minute')
+			this._addId(subtitle, 'subtitle')
+			this._addClass(subtitle, 'subtitle')
+			subtitle.setAttribute('style', 'display: none')
+			this._addId(AM, 'AM')
+			AM.textContent = 'AM'
+			this._addId(PM, 'PM')
+			PM.textContent = 'PM'
+			// add them to title and subtitle
+			title.appendChild(hour)
+			title.appendChild(span)
+			title.appendChild(minute)
+			subtitle.appendChild(AM)
+			subtitle.appendChild(PM)
+			// add them to header
+			header.appendChild(title)
+			header.appendChild(subtitle)
+			// inside body
+			this._addId(circularHolder, 'circularHolder')
+			this._addClass(circularHolder, 'circularHolder')
+			this._addId(needle, 'needle')
+			needle.classList.add('mddtp-picker__selection')
+			this._addClass(dot, 'dot')
+			this._addClass(line, 'line')
+			this._addClass(circle, 'circle')
+			this._addId(minuteView, 'minuteView')
+			minuteView.classList.add('mddtp-picker__circularView', 'mddtp-picker__circularView--hidden')
+			this._addId(fakeNeedle, 'fakeNeedle')
+			fakeNeedle.classList.add('mddtp-picker__circle--fake')
+			this._addId(hourView, 'hourView')
+			hourView.classList.add('mddtp-picker__circularView')
+			// add them to needle
+			needle.appendChild(dot)
+			needle.appendChild(line)
+			needle.appendChild(circle)
+			// add them to circularHolder
+			circularHolder.appendChild(needle)
+			circularHolder.appendChild(minuteView)
+			circularHolder.appendChild(fakeNeedle)
+			circularHolder.appendChild(hourView)
+			// add them to body
+			body.appendChild(circularHolder)
 		}
 		action.classList.add('mddtp-picker__action')
 		this._addId(cancel, 'cancel')
@@ -314,6 +378,7 @@ class mdDateTimePicker {
 		let subtitle = this._sDialog.subtitle
 		// switch according to 12 hour or 24 hour mode
 		if (this._mode) {
+			// REVIEW 24 HOUR MODE
 			hour.innerHTML = m.format('H')
 		}
 		else {
@@ -335,6 +400,7 @@ class mdDateTimePicker {
 		let needle = this._sDialog.needle
 		let docfrag = document.createDocumentFragment()
 		if (this._mode) {
+			// REVIEW 24 HOUR MODE
 			const hourNow = parseInt(this._sDialog.tDate.format('H'), 10)
 		}
 		else {
@@ -363,52 +429,27 @@ class mdDateTimePicker {
 
 	_initMinute() {
 		let minuteView = this._sDialog.minuteView
-		const minuteNow = parseInt(this._sDialog.tDate.format('mm'), 10)
+		let minuteNow = parseInt(this._sDialog.tDate.format('m'), 10)
 		let docfrag = document.createDocumentFragment()
 		for (let i = 5,j = 5; i <= 60; i += 5, j += 5) {
 			let div = document.createElement('div')
-			let div1 = document.createElement('div')
-			let div2 = document.createElement('div')
-			let div3 = document.createElement('div')
-			let div4 = document.createElement('div')
 			let span = document.createElement('span')
-			let span1 = document.createElement('span')
-			let span2 = document.createElement('span')
-			let span3 = document.createElement('span')
-			let span4 = document.createElement('span')
-			span1.textContent = '.'
-			span2.textContent = '.'
-			span3.textContent = '.'
-			span4.textContent = '.'
 			div.classList.add('mddtp-picker__cell')
-			div1.classList.add('mddtp-picker__cell')
-			div2.classList.add('mddtp-picker__cell')
-			div3.classList.add('mddtp-picker__cell')
-			div4.classList.add('mddtp-picker__cell')
 			if (i === 60) {
 				span.textContent = this._numWithZero(0)
 			}
 			else {
 				span.textContent = this._numWithZero(i)
 			}
+			if (minuteNow === 0) {
+				minuteNow = 60
+			}
 			div.classList.add('mddtp-picker__cell--rotate-' + j)
-			div1.classList.add('mddtp-picker__cell--rotate-' + (j - 4))
-			div2.classList.add('mddtp-picker__cell--rotate-' + (j - 3))
-			div3.classList.add('mddtp-picker__cell--rotate-' + (j - 2))
-			div4.classList.add('mddtp-picker__cell--rotate-' + (j - 1))
-			if ((minuteNow == i) || (minuteNow - 1 == i) || (minuteNow + 1 == i)) {
+			if ((minuteNow === i) || (minuteNow - 1 === i) || (minuteNow + 1 === i)) {
 				div.classList.add('mddtp-picker__cell--selected')
 			}
 			div.appendChild(span)
-			div1.appendChild(span1)
-			div2.appendChild(span2)
-			div3.appendChild(span3)
-			div4.appendChild(span4)
 			docfrag.appendChild(div)
-			docfrag.appendChild(div1)
-			docfrag.appendChild(div2)
-			docfrag.appendChild(div3)
-			docfrag.appendChild(div4)
 		}
 		//empty the hours
 		while (minuteView.lastChild) {
@@ -930,7 +971,7 @@ class mdDateTimePicker {
 			more.reverse()
 		}
 		while (i--) {
-				el.classList.add(more[i])
+			el.classList.add(more[i])
 		}
 	}
 
@@ -978,19 +1019,19 @@ class mdDateTimePicker {
 	*/
 	_calcRotation(spoke, value) {
 		let start = (spoke / 12) * 3
-		let multiplicativeFactor
 		// set clocks top and right side value
 		if (spoke === 12) {
-			multiplicativeFactor = 5
+			value *= 5
 		}
 		else if (spoke === 24) {
 			// REVIEW this multiplicativeFactor and also revise css classes for this style
-			multiplicativeFactor = 10
+			value *= 10
 		}
-		else {
-			multiplicativeFactor = 1
+		// special case for 00 => 60
+		if (spoke === 60 && value === 0) {
+			value = 60
 		}
-		return 'mddtp-picker__cell--rotate-' + (value * multiplicativeFactor)
+		return 'mddtp-picker__cell--rotate-' + value
 	}
 }
 

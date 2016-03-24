@@ -21,38 +21,8 @@
     <button type="button" id="trigger5">Open Dialog 2</button>
     <button type="button" id="trigger6">Open Dialog 3</button>
   </section>
-  <!-- time picker dialog -->
-  <div id="mddtp-picker__time" class="mddtp-picker mddtp-picker-time mddtp-picker--inactive animated">
-    <div id="mddtp-time__header" class="mddtp-picker__header">
-      <h2 id="mddtp-time__title" class="mddtp-picker__title">
-        <span id="mddtp-time__hour" class="mddtp-picker__color--active">3</span>
-        <span>:</span>
-        <span id="mddtp-time__minute">30</span>
-      </h2>
-      <div id="mddtp-time__subtitle" class="mddtp-picker__subtitle" style="display: none">
-        <div id="mddtp-time__AM">AM</div>
-        <div id="mddtp-time__PM">PM</div>
-      </div>
-    </div>
-    <div class="mddtp-picker__body">
-      <div class="mddtp-picker__circularHolder">
-        <div id="mddtp-time__needle" class="mddtp-picker__selection">
-          <span class="mddtp-picker__dot"></span>
-          <span class="mddtp-picker__line"></span>
-          <span class="mddtp-picker__circle"></span>
-        </div>
-        <div id="mddtp-time__minuteView" class="mddtp-picker__circularView mddtp-picker__circularView--hidden">
-        </div>
-        <div id="mddtp-time__hourView" class="mddtp-picker__circularView">
-        </div>
-      </div>
-      <div class="mddtp-picker__action">
-        <button id="mddtp-time__cancel" class="mddtp-button" type="button">cancel</button>
-        <button id="mddtp-time__ok" class="mddtp-button" type="button">ok</button>
-      </div>
-    </div>
-  </div>
   <script src="js/moment.js"></script>
+  <script src="js/draggabilly.pkgd.min.js"></script>
   <script src="js/md-date-time-picker.js"></script>
   <script type="text/javascript">
     // (function() {
@@ -81,13 +51,57 @@
     });
     var b = new mdDateTimePicker({
       type: 'time',
-      init: moment('10:11 PM', 'h:m A')
+      init: moment('10:5 PM', 'h:m A')
+    });
+    var c = new mdDateTimePicker({
+      type: 'time',
+      init: moment('9:0 PM', 'h:m A')
     });
     document.getElementById('trigger4').addEventListener('click', function() {
       a.toggle();
     });
     document.getElementById('trigger5').addEventListener('click', function() {
       b.toggle();
+    });
+    document.getElementById('trigger6').addEventListener('click', function() {
+      c.toggle();
+    });
+    var needle = document.getElementById('mddtp-time__needle');
+    var circle = needle.querySelector('.mddtp-picker__circle');
+    var fakeNeedle = document.getElementById('mddtp-time__fakeNeedle');
+    var holder = document.getElementById('mddtp-time__circularHolder');
+    var hOffset = holder.getBoundingClientRect();
+    var fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
+      containment: true
+    });
+    fakeNeedleDraggabilly.on('pointerDown', function(e) {
+      hOffset = holder.getBoundingClientRect();
+    });
+    fakeNeedleDraggabilly.on('dragMove', function(e) {
+      var xPos = e.clientX - hOffset.left - (hOffset.width / 2);
+      var yPos = e.clientY - hOffset.top - (hOffset.height / 2);
+      var slope = Math.atan2(-yPos, xPos);
+      needle.className = '';
+      if (slope < 0) {
+        slope += 2 * Math.PI;
+      }
+      slope *= 180 / Math.PI;
+      slope = 360 - slope;
+      if (slope > 270) {
+        slope -= 360;
+      }
+      var divides = parseInt(slope / 6);
+      var same = Math.abs((6 * divides) - slope)
+      var upper = Math.abs((6 * (divides + 1)) - slope)
+      if (upper < same) {
+        divides++;
+      }
+      needle.classList.add('mddtp-picker__selection', 'mddtp-picker__selection--quick', 'mddtp-picker__cell--rotate-' + (divides + 15));
+    });
+    fakeNeedleDraggabilly.on('dragEnd', function(e) {
+      var cOffset = circle.getBoundingClientRect();
+      fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
+      needle.classList.remove('mddtp-picker__selection--quick');
     });
     // }).call(this);
   </script>

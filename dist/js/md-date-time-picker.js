@@ -11,14 +11,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
  *
  * @method constructor
  *
- * @param  {[string]}    type         [type of dialog] ['date','time']
- * @param  {[moment]}    init   = moment() [initial value for the dialog date or time, defaults to today] [@default value of today]
- * @param  {[moment]}    past   = moment() [the past moment till which the calendar shall render] [@default value of exactly 21 Years ago from init]
- * @param  {[moment]}    future = moment() [the future moment till which the calendar shall render] [@default value of init]
+ * @param  {[string]}   type = 'date' or 'time 									[type of dialog]
+ * @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
+ * @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
+ * @param  {[moment]}   future = moment() 												[the future moment till which the calendar shall render] [@default = init]
+ * @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
+ * @param  {[string]}    orientation = 'LANDSCAPE' or 'PORTRAIT' [force the orientation of the picker @default = 'LANDSCAPE']
  *
- * @param	 {[Boolean]}    mode  = false [this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default 12 hour mode = false]
- *
- * @return {[Object]}    [mdDateTimePicker]
+ * @return {[Object]}    																				[mdDateTimePicker]
  */
 
 	function mdDateTimePicker(_ref) {
@@ -30,7 +30,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		    _ref$future = _ref.future,
 		    future = _ref$future === undefined ? init : _ref$future,
 		    _ref$mode = _ref.mode,
-		    mode = _ref$mode === undefined ? !1 : _ref$mode;
+		    mode = _ref$mode === undefined ? !1 : _ref$mode,
+		    _ref$orientation = _ref.orientation,
+		    orientation = _ref$orientation === undefined ? 'LANDSCAPE' : _ref$orientation;
 
 		_classCallCheck(this, mdDateTimePicker);
 
@@ -39,6 +41,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		this._past = past;
 		this._future = future;
 		this._mode = mode;
+		this._orientation = orientation;
 
 		/**
   * [dialog selected classes have the same structure as dialog but one level down]
@@ -309,7 +312,73 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				body.appendChild(left);
 				body.appendChild(right);
 				body.appendChild(years);
-			} else {}
+			} else {
+				var _title = document.createElement('h2'),
+				    hour = document.createElement('span'),
+				    span = document.createElement('span'),
+				    minute = document.createElement('span'),
+				    _subtitle = document.createElement('div'),
+				    AM = document.createElement('div'),
+				    PM = document.createElement('div'),
+				    circularHolder = document.createElement('div'),
+				    needle = document.createElement('div'),
+				    dot = document.createElement('span'),
+				    line = document.createElement('span'),
+				    circle = document.createElement('span'),
+				    minuteView = document.createElement('div'),
+				    fakeNeedle = document.createElement('div'),
+				    hourView = document.createElement('div');
+
+				// add properties to them
+				// inside header
+				this._addId(_title, 'title');
+				this._addClass(_title, 'title');
+				this._addId(hour, 'hour');
+				hour.classList.add('mddtp-picker__color--active');
+				span.textContent = ':';
+				this._addId(minute, 'minute');
+				this._addId(_subtitle, 'subtitle');
+				this._addClass(_subtitle, 'subtitle');
+				_subtitle.setAttribute('style', 'display: none');
+				this._addId(AM, 'AM');
+				AM.textContent = 'AM';
+				this._addId(PM, 'PM');
+				PM.textContent = 'PM';
+				// add them to title and subtitle
+				_title.appendChild(hour);
+				_title.appendChild(span);
+				_title.appendChild(minute);
+				_subtitle.appendChild(AM);
+				_subtitle.appendChild(PM);
+				// add them to header
+				header.appendChild(_title);
+				header.appendChild(_subtitle);
+				// inside body
+				this._addId(circularHolder, 'circularHolder');
+				this._addClass(circularHolder, 'circularHolder');
+				this._addId(needle, 'needle');
+				needle.classList.add('mddtp-picker__selection');
+				this._addClass(dot, 'dot');
+				this._addClass(line, 'line');
+				this._addClass(circle, 'circle');
+				this._addId(minuteView, 'minuteView');
+				minuteView.classList.add('mddtp-picker__circularView', 'mddtp-picker__circularView--hidden');
+				this._addId(fakeNeedle, 'fakeNeedle');
+				fakeNeedle.classList.add('mddtp-picker__circle--fake');
+				this._addId(hourView, 'hourView');
+				hourView.classList.add('mddtp-picker__circularView');
+				// add them to needle
+				needle.appendChild(dot);
+				needle.appendChild(line);
+				needle.appendChild(circle);
+				// add them to circularHolder
+				circularHolder.appendChild(needle);
+				circularHolder.appendChild(minuteView);
+				circularHolder.appendChild(fakeNeedle);
+				circularHolder.appendChild(hourView);
+				// add them to body
+				body.appendChild(circularHolder);
+			}
 			action.classList.add('mddtp-picker__action');
 			this._addId(cancel, 'cancel');
 			cancel.classList.add('mddtp-button');
@@ -343,6 +412,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			// switch according to 12 hour or 24 hour mode
 			if (this._mode) {
+				// REVIEW 24 HOUR MODE
 				hour.innerHTML = m.format('H');
 			} else {
 				hour.innerHTML = m.format('h');
@@ -365,6 +435,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    docfrag = document.createDocumentFragment();
 
 			if (this._mode) {
+				// REVIEW 24 HOUR MODE
 				var hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
 			} else {
 				var _hourNow = parseInt(this._sDialog.tDate.format('h'), 10);
@@ -394,53 +465,28 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_initMinute',
 		value: function _initMinute() {
 			var minuteView = this._sDialog.minuteView,
-			    minuteNow = parseInt(this._sDialog.tDate.format('mm'), 10),
+			    minuteNow = parseInt(this._sDialog.tDate.format('m'), 10),
 			    docfrag = document.createDocumentFragment();
 
 			for (var i = 5, j = 5; i <= 60; i += 5, j += 5) {
 				var div = document.createElement('div'),
-				    div1 = document.createElement('div'),
-				    div2 = document.createElement('div'),
-				    div3 = document.createElement('div'),
-				    div4 = document.createElement('div'),
-				    span = document.createElement('span'),
-				    span1 = document.createElement('span'),
-				    span2 = document.createElement('span'),
-				    span3 = document.createElement('span'),
-				    span4 = document.createElement('span');
+				    span = document.createElement('span');
 
-				span1.textContent = '.';
-				span2.textContent = '.';
-				span3.textContent = '.';
-				span4.textContent = '.';
 				div.classList.add('mddtp-picker__cell');
-				div1.classList.add('mddtp-picker__cell');
-				div2.classList.add('mddtp-picker__cell');
-				div3.classList.add('mddtp-picker__cell');
-				div4.classList.add('mddtp-picker__cell');
 				if (i === 60) {
 					span.textContent = this._numWithZero(0);
 				} else {
 					span.textContent = this._numWithZero(i);
 				}
+				if (minuteNow === 0) {
+					minuteNow = 60;
+				}
 				div.classList.add('mddtp-picker__cell--rotate-' + j);
-				div1.classList.add('mddtp-picker__cell--rotate-' + (j - 4));
-				div2.classList.add('mddtp-picker__cell--rotate-' + (j - 3));
-				div3.classList.add('mddtp-picker__cell--rotate-' + (j - 2));
-				div4.classList.add('mddtp-picker__cell--rotate-' + (j - 1));
-				if (minuteNow == i || minuteNow - 1 == i || minuteNow + 1 == i) {
+				if (minuteNow === i || minuteNow - 1 === i || minuteNow + 1 === i) {
 					div.classList.add('mddtp-picker__cell--selected');
 				}
 				div.appendChild(span);
-				div1.appendChild(span1);
-				div2.appendChild(span2);
-				div3.appendChild(span3);
-				div4.appendChild(span4);
 				docfrag.appendChild(div);
-				docfrag.appendChild(div1);
-				docfrag.appendChild(div2);
-				docfrag.appendChild(div3);
-				docfrag.appendChild(div4);
 			}
 			//empty the hours
 			while (minuteView.lastChild) {
@@ -1067,19 +1113,19 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_calcRotation',
 		value: function _calcRotation(spoke, value) {
-			var start = spoke / 12 * 3,
-			    multiplicativeFactor = void 0;
-
+			var start = spoke / 12 * 3;
 			// set clocks top and right side value
 			if (spoke === 12) {
-				multiplicativeFactor = 5;
+				value *= 5;
 			} else if (spoke === 24) {
 				// REVIEW this multiplicativeFactor and also revise css classes for this style
-				multiplicativeFactor = 10;
-			} else {
-				multiplicativeFactor = 1;
+				value *= 10;
 			}
-			return 'mddtp-picker__cell--rotate-' + value * multiplicativeFactor;
+			// special case for 00 => 60
+			if (spoke === 60 && value === 0) {
+				value = 60;
+			}
+			return 'mddtp-picker__cell--rotate-' + value;
 		}
 	}], [{
 		key: 'dialog',

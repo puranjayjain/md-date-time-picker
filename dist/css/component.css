@@ -258,6 +258,19 @@
         color: #fff; }
     .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circularView--hidden {
       display: none; }
+  .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circle--fake {
+    position: absolute;
+    border-radius: 50%;
+    height: 36px;
+    width: 36px;
+    border: 1px solid #009688;
+    cursor: move;
+    /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -webkit-grab; }
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circle--fake.is-pointer-down, .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__circle--fake:active {
+      cursor: grabbing;
+      cursor: -webkit-grabbing; }
   .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection {
     position: absolute;
     left: 50%;
@@ -273,16 +286,18 @@
       background-color: #009688;
       height: 2px;
       vertical-align: middle; }
-    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection .mddtp-picker__dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%; }
-    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection .mddtp-picker__line {
-      width: calc(100% - 52px); }
-    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection .mddtp-picker__circle {
-      border-radius: 50%;
-      height: 36px;
-      width: 36px; }
+      .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection span.mddtp-picker__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%; }
+      .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection span.mddtp-picker__line {
+        width: calc(100% - 52px); }
+      .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection span.mddtp-picker__circle {
+        border-radius: 50%;
+        height: 36px;
+        width: 36px; }
+    .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__selection--quick {
+      transition: none; }
   .mddtp-picker-time .mddtp-picker__body .mddtp-picker__circularHolder .mddtp-picker__cell--rotate-1 {
     -webkit-transform: rotate(-84deg);
         -ms-transform: rotate(-84deg);
@@ -833,16 +848,16 @@
 @-webkit-keyframes zoomIn {
   from {
     opacity: 0;
-    -webkit-transform: scale(0.3);
-            transform: scale(0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   50% {
     opacity: 1; } }
 
 @keyframes zoomIn {
   from {
     opacity: 0;
-    -webkit-transform: scale(0.3);
-            transform: scale(0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   50% {
     opacity: 1; } }
 
@@ -851,8 +866,8 @@
     opacity: 1; }
   50% {
     opacity: 0;
-    -webkit-transform: scale(0.3);
-            transform: scale(0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   to {
     opacity: 0; } }
 
@@ -861,7 +876,7 @@
     opacity: 1; }
   50% {
     opacity: 0;
-    -webkit-transform: scale(0.3);
-            transform: scale(0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   to {
     opacity: 0; } }
