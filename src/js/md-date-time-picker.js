@@ -44,6 +44,10 @@ class mdDateTimePicker {
 		* }
 		*/
 		this._sDialog = {}
+		// attach the dialog if not present
+		if (!document.getElementById('mddtp-picker__' + this._type)) {
+			this._buildDialog()
+		}
 	}
 
 	/**
@@ -181,6 +185,123 @@ class mdDateTimePicker {
 			let pickerClone = picker.cloneNode(true)
 			picker.parentNode.replaceChild(pickerClone, picker)
 		}, 300)
+	}
+
+	/**
+	* [_buildDialog make the dialog elements and add them to the document]
+	*
+	* @method _buildDateDialog
+	*
+	*/
+	_buildDialog() {
+		let type = this._type
+		let docfrag = document.createDocumentFragment()
+		// outer most container of the picker
+		let container = document.createElement('div')
+		// header container of the picker
+		let header = document.createElement('div')
+		// body container of the picker
+		let body = document.createElement('div')
+		// action elements container
+		let action = document.createElement('div')
+		let cancel = document.createElement('button')
+		let ok = document.createElement('button')
+		// ... add properties to them
+		container.id = 'mddtp-picker__' + type
+		container.classList.add('mddtp-picker','mddtp-picker-' + type, 'mddtp-picker--inactive', 'animated')
+		this._addId(header, 'header')
+		this._addClass(header, 'header')
+		// add header to container
+		container.appendChild(header)
+		this._addClass(body, 'body')
+		body.appendChild(action)
+		// add body to container
+		container.appendChild(body)
+		// add stuff to header and body according to dialog type
+		if (this._type === 'date') {
+			let subtitle = document.createElement('h4')
+			let title = document.createElement('h2')
+			let titleDay = document.createElement('div')
+			let titleMonth = document.createElement('div')
+			let viewHolder = document.createElement('div')
+			let views = document.createElement('ul')
+			let previous = document.createElement('li')
+			let current = document.createElement('li')
+			let next = document.createElement('li')
+			let left = document.createElement('button')
+			let right = document.createElement('button')
+			let years = document.createElement('ul')
+			// inside header
+			// adding properties to them
+			this._addId(subtitle, 'subtitle')
+			this._addClass(subtitle, 'subtitle', ['mddtp-picker__color--active'])
+			this._addId(title, 'title')
+			this._addClass(title, 'title')
+			this._addId(titleDay, 'titleDay')
+			this._addId(titleMonth, 'titleMonth')
+			// add title stuff to it
+			title.appendChild(titleDay)
+			title.appendChild(titleMonth)
+			// add them to header
+			header.appendChild(subtitle)
+			header.appendChild(title)
+			// inside body
+			// inside viewHolder
+			this._addId(viewHolder, 'viewHolder')
+			this._addClass(viewHolder, 'viewHolder', ['animated'])
+			this._addClass(views, 'views')
+			this._addId(previous, 'previous')
+			previous.classList.add('mddtp-picker__view')
+			this._addId(current, 'current')
+			current.classList.add('mddtp-picker__view')
+			this._addId(next, 'next')
+			next.classList.add('mddtp-picker__view')
+			// fill the views
+			this._addView(previous)
+			this._addView(current)
+			this._addView(next)
+			// add them
+			viewHolder.appendChild(views)
+			views.appendChild(previous)
+			views.appendChild(current)
+			views.appendChild(next)
+			// inside body again
+			this._addId(left, 'left')
+			left.classList.add('mddtp-button')
+			this._addClass(left, 'left')
+			left.setAttribute('type', 'button')
+			this._addId(right, 'right')
+			right.classList.add('mddtp-button')
+			this._addClass(right, 'right')
+			right.setAttribute('type', 'button')
+			this._addId(years, 'years')
+			this._addClass(years, 'years', ['mddtp-picker__years--invisible', 'animated'])
+			// add them to body
+			body.appendChild(viewHolder)
+			body.appendChild(left)
+			body.appendChild(right)
+			body.appendChild(years)
+		}
+		else {
+
+		}
+		action.classList.add('mddtp-picker__action')
+		this._addId(cancel, 'cancel')
+		cancel.classList.add('mddtp-button')
+		cancel.setAttribute('type', 'button')
+		cancel.textContent = 'cancel'
+		this._addId(ok, 'ok')
+		ok.classList.add('mddtp-button')
+		ok.setAttribute('type', 'button')
+		ok.textContent = 'ok'
+		// add actions
+		action.appendChild(cancel)
+		action.appendChild(ok)
+		// add actions to body
+		body.appendChild(action)
+		docfrag.appendChild(container)
+		// add the container to the end of body
+		document.getElementsByTagName('body').item(0).appendChild(docfrag);
 	}
 
 	/**
@@ -777,8 +898,71 @@ class mdDateTimePicker {
 	*
 	* @return {[string]}     [description]
 	*/
-	_numWithZero(n){
+	_numWithZero(n) {
 		return n > 9 ? '' + n: '0' + n
+	}
+
+	/**
+	* [_addId add id to picker element]
+	*
+	* @method _addId
+	*
+	* @param  {[type]} el [description]
+	*/
+	_addId(el, id) {
+		el.id = 'mddtp-' + this._type + '__' + id
+	}
+
+	/**
+	* [_addClass add the default class to picker element]
+	*
+	* @method _addClass
+	*
+	* @param  {[type]}  el    [description]
+	* @param  {[type]}  class [description]
+	* @param  {[type]}  more [description]
+	*/
+	_addClass(el, aClass, more) {
+		el.classList.add('mddtp-picker__' + aClass)
+		let i = 0
+		if (more) {
+			i = more.length
+			more.reverse()
+		}
+		while (i--) {
+				el.classList.add(more[i])
+		}
+	}
+
+	/**
+	* [_addView add view]
+	*
+	* @method _addView
+	*
+	* @param  {[type]} view [description]
+	*/
+	_addView (view) {
+		let month = document.createElement('div')
+		let grid = document.createElement('div')
+		let th = document.createElement('div')
+		let tr = document.createElement('div')
+		let weekDays = ['S', 'F', 'T', 'W', 'T', 'M', 'S']
+		let week = 6
+		while (week--) {
+			let span = document.createElement('span')
+			span.textContent = weekDays[week]
+			th.appendChild(span)
+		}
+		// add properties to them
+		this._addClass(month, 'month')
+		this._addClass(grid, 'grid')
+		this._addClass(th, 'th')
+		this._addClass(tr, 'tr')
+		// add them to the view
+		view.appendChild(month)
+		view.appendChild(grid)
+		grid.appendChild(th)
+		grid.appendChild(tr)
 	}
 
 	/**
@@ -800,18 +984,12 @@ class mdDateTimePicker {
 			multiplicativeFactor = 5
 		}
 		else if (spoke === 24) {
-			// REVIEW this multiplicativeFactor anf also revise css classes for this style
+			// REVIEW this multiplicativeFactor and also revise css classes for this style
 			multiplicativeFactor = 10
 		}
 		else {
-			// if the value is above the top value and less than the right value then increment it
-			if (value < 15 && value >= 0) {
-				value += 60
-			}
 			multiplicativeFactor = 1
 		}
-		//make values begin from 0 from the start
-		// value -= start
 		return 'mddtp-picker__cell--rotate-' + (value * multiplicativeFactor)
 	}
 }

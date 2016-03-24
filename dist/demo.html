@@ -21,116 +21,6 @@
     <button type="button" id="trigger5">Open Dialog 2</button>
     <button type="button" id="trigger6">Open Dialog 3</button>
   </section>
-  <!-- date picker dialog -->
-  <div id="mddtp-picker__date" class="mddtp-picker mddtp-picker-date mddtp-picker--inactive animated">
-    <div id="mddtp-date__header" class="mddtp-picker__header">
-      <h4 id="mddtp-date__subtitle" class="mddtp-picker__subtitle mddtp-picker__color--active"></h4>
-      <h2 id="mddtp-date__title" class="mddtp-picker__title">
-        <div id="mddtp-date__titleDay"></div>
-        <div id="mddtp-date__titleMonth"></div>
-      </h2>
-    </div>
-    <div class="mddtp-picker__body">
-      <div id="mddtp-date__viewHolder" class="mddtp-picker__viewHolder animated">
-        <ul class="mddtp-picker__views">
-          <li id="mddtp-date__previous" class="mddtp-picker__view">
-            <div class="mddtp-picker__month"></div>
-            <div class="mddtp-picker__grid">
-              <div class="mddtp-picker__th">
-                <span>
-                  S
-                </span>
-                <span>
-                  M
-                </span>
-                <span>
-                  T
-                </span>
-                <span>
-                  W
-                </span>
-                <span>
-                  T
-                </span>
-                <span>
-                  F
-                </span>
-                <span>
-                  S
-                </span>
-              </div>
-              <div class="mddtp-picker__tr"></div>
-            </div>
-          </li>
-          <li id="mddtp-date__current" class="mddtp-picker__view">
-            <div class="mddtp-picker__month"></div>
-            <div class="mddtp-picker__grid">
-              <div class="mddtp-picker__th">
-                <span>
-                  S
-                </span>
-                <span>
-                  M
-                </span>
-                <span>
-                  T
-                </span>
-                <span>
-                  W
-                </span>
-                <span>
-                  T
-                </span>
-                <span>
-                  F
-                </span>
-                <span>
-                  S
-                </span>
-              </div>
-              <div class="mddtp-picker__tr"></div>
-            </div>
-          </li>
-          <li id="mddtp-date__next" class="mddtp-picker__view">
-            <div class="mddtp-picker__month"></div>
-            <div class="mddtp-picker__grid">
-              <div class="mddtp-picker__th">
-                <span>
-                  S
-                </span>
-                <span>
-                  M
-                </span>
-                <span>
-                  T
-                </span>
-                <span>
-                  W
-                </span>
-                <span>
-                  T
-                </span>
-                <span>
-                  F
-                </span>
-                <span>
-                  S
-                </span>
-              </div>
-              <div class="mddtp-picker__tr"></div>
-            </div>
-          </li>
-        </ul>
-        <button id="mddtp-date__left" class="mddtp-button mddtp-picker__left" type="button"></button>
-        <button id="mddtp-date__right" class="mddtp-button mddtp-picker__right" type="button"></button>
-      </div>
-      <ul id="mddtp-date__years" class="mddtp-picker__years mddtp-picker__years--invisible animated"></ul>
-      <div class="mddtp-picker__action">
-        <button id="mddtp-date__cancel" class="mddtp-button" type="button">cancel</button>
-        <button id="mddtp-date__ok" class="mddtp-button" type="button">ok</button>
-      </div>
-    </div>
-  </div>
   <!-- time picker dialog -->
   <div id="mddtp-picker__time" class="mddtp-picker mddtp-picker-time mddtp-picker--inactive animated">
     <div id="mddtp-time__header" class="mddtp-picker__header">
@@ -189,8 +79,15 @@
     var a = new mdDateTimePicker({
       type: 'time'
     });
+    var b = new mdDateTimePicker({
+      type: 'time',
+      init: moment('10:11 PM', 'h:m A')
+    });
     document.getElementById('trigger4').addEventListener('click', function() {
       a.toggle();
+    });
+    document.getElementById('trigger5').addEventListener('click', function() {
+      b.toggle();
     });
     // }).call(this);
   </script>
