@@ -263,7 +263,6 @@
     border-radius: 50%;
     height: 36px;
     width: 36px;
-    border: 1px solid #009688;
     cursor: move;
     /* fallback if grab cursor is unsupported */
     cursor: grab;

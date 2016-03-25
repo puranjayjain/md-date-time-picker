@@ -113,7 +113,7 @@ class mdDateTimePicker {
 		* @type {Array}
 		*/
 		let sDialogEls = [
-			'viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute'
+			'viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute', 'fakeNeedle', 'circularHolder', 'circle'
 		]
 		let i = sDialogEls.length
 		while (i--) {
@@ -159,29 +159,39 @@ class mdDateTimePicker {
 		let minuteView = this._sDialog.minuteView
 		let hourView = this._sDialog.hourView
 		let picker = this._sDialog.picker
+		let needle = this._sDialog.needle
+		let active = 'mddtp-picker__color--active'
+		let inactive = 'mddtp-picker--inactive'
+		let invisible = 'mddtp-picker__years--invisible'
+		let zoomIn = 'zoomIn'
+		let zoomOut = 'zoomOut'
+		let hidden = 'mddtp-picker__circularView--hidden'
+		let selection = 'mddtp-picker__selection'
 		mdDateTimePicker.dialog.state = false
 		mdDateTimePicker.dialog.view = true
-		this._sDialog.picker.classList.add('zoomOut')
+		this._sDialog.picker.classList.add(zoomOut)
 		// reset classes
 		if (this._type === 'date') {
-			years.classList.remove('zoomIn', 'zoomOut')
-			years.classList.add('mddtp-picker__years--invisible')
-			title.classList.remove('mddtp-picker__color--active')
-			subtitle.classList.add('mddtp-picker__color--active')
-			viewHolder.classList.remove('zoomOut')
+			years.classList.remove(zoomIn, zoomOut)
+			years.classList.add(invisible)
+			title.classList.remove(active)
+			subtitle.classList.add(active)
+			viewHolder.classList.remove(zoomOut)
 		}
 		else {
-			AM.classList.remove('mddtp-picker__color--active')
-			PM.classList.remove('mddtp-picker__color--active')
-			minute.classList.remove('mddtp-picker__color--active')
-			hour.classList.add('mddtp-picker__color--active')
-			minuteView.classList.add('mddtp-picker__circularView--hidden')
-			hourView.classList.remove('mddtp-picker__circularView--hidden')
+			AM.classList.remove()
+			PM.classList.remove(active)
+			minute.classList.remove(active)
+			hour.classList.add(active)
+			minuteView.classList.add(hidden)
+			hourView.classList.remove(hidden)
 			subtitle.setAttribute('style', 'display: none')
+			needle.className = ''
+			needle.classList.add(selection)
 		}
 		setTimeout(function () {
-			me._sDialog.picker.classList.remove('zoomOut')
-			me._sDialog.picker.classList.add('mddtp-picker--inactive')
+			me._sDialog.picker.classList.remove(zoomOut)
+			me._sDialog.picker.classList.add(inactive)
 			// clone elements and add them again to clear events attached to them
 			let pickerClone = picker.cloneNode(true)
 			picker.parentNode.replaceChild(pickerClone, picker)
@@ -330,6 +340,7 @@ class mdDateTimePicker {
 			needle.classList.add('mddtp-picker__selection')
 			this._addClass(dot, 'dot')
 			this._addClass(line, 'line')
+			this._addId(circle, 'circle')
 			this._addClass(circle, 'circle')
 			this._addId(minuteView, 'minuteView')
 			minuteView.classList.add('mddtp-picker__circularView', 'mddtp-picker__circularView--hidden')
@@ -365,7 +376,7 @@ class mdDateTimePicker {
 		body.appendChild(action)
 		docfrag.appendChild(container)
 		// add the container to the end of body
-		document.getElementsByTagName('body').item(0).appendChild(docfrag);
+		document.getElementsByTagName('body').item(0).appendChild(docfrag)
 	}
 
 	/**
@@ -391,6 +402,7 @@ class mdDateTimePicker {
 		this._initMinute()
 		this._attachEventHandlers()
 		this._changeM()
+		this._dragDial()
 		this._switchToView(hour)
 		this._switchToView(minute)
 	}
@@ -430,11 +442,14 @@ class mdDateTimePicker {
 	_initMinute() {
 		let minuteView = this._sDialog.minuteView
 		let minuteNow = parseInt(this._sDialog.tDate.format('m'), 10)
+		let selected = 'mddtp-picker__cell--selected'
+		let rotate = 'mddtp-picker__cell--rotate-'
+		let cell = 'mddtp-picker__cell'
 		let docfrag = document.createDocumentFragment()
 		for (let i = 5,j = 5; i <= 60; i += 5, j += 5) {
 			let div = document.createElement('div')
 			let span = document.createElement('span')
-			div.classList.add('mddtp-picker__cell')
+			div.classList.add(cell)
 			if (i === 60) {
 				span.textContent = this._numWithZero(0)
 			}
@@ -444,9 +459,10 @@ class mdDateTimePicker {
 			if (minuteNow === 0) {
 				minuteNow = 60
 			}
-			div.classList.add('mddtp-picker__cell--rotate-' + j)
-			if ((minuteNow === i) || (minuteNow - 1 === i) || (minuteNow + 1 === i)) {
-				div.classList.add('mddtp-picker__cell--selected')
+			div.classList.add(rotate + j)
+			// (minuteNow === 1 && i === 60) for corner case highlight 00 at 01
+			if ((minuteNow === i) || (minuteNow - 1 === i) || (minuteNow + 1 === i) || (minuteNow === 1 && i === 60)) {
+				div.classList.add(selected)
 			}
 			div.appendChild(span)
 			docfrag.appendChild(div)
@@ -625,39 +641,51 @@ class mdDateTimePicker {
 	*
 	*/
 	_switchToTimeView(el, me) {
-		let hourView = this._sDialog.hourView
-		let minuteView = this._sDialog.minuteView
-		let hour = this._sDialog.hour
-		let minute = this._sDialog.minute
+		let hourView = me._sDialog.hourView
+		let minuteView = me._sDialog.minuteView
+		let hour = me._sDialog.hour
+		let minute = me._sDialog.minute
 		let activeClass = 'mddtp-picker__color--active'
-		let needle = this._sDialog.needle
+		let hidden = 'mddtp-picker__circularView--hidden'
+		let selection = 'mddtp-picker__selection'
+		let needle = me._sDialog.needle
+		let circularHolder = me._sDialog.circularHolder
+		let circle = me._sDialog.circle
+		let fakeNeedle = me._sDialog.fakeNeedle
 		let spoke = 60
 		let value
 		// toggle view classes
-		hourView.classList.toggle('mddtp-picker__circularView--hidden')
-		minuteView.classList.toggle('mddtp-picker__circularView--hidden')
+		hourView.classList.toggle(hidden)
+		minuteView.classList.toggle(hidden)
 		hour.classList.toggle(activeClass)
 		minute.classList.toggle(activeClass)
 		// move the needle to correct position
 		needle.className = ''
-		needle.classList.add('mddtp-picker__selection')
+		needle.classList.add(selection)
 		if (mdDateTimePicker.dialog.view) {
-			value = this._sDialog.tDate.format('m')
+			value = me._sDialog.sDate.format('m')
+			// move the fakeNeedle to correct position
+			setTimeout(function () {
+				let hOffset = circularHolder.getBoundingClientRect()
+				let cOffset = circle.getBoundingClientRect()
+				fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px')
+			}, 300)
 		}
 		else {
-			if (this._mode) {
+			if (me._mode) {
 				spoke = 24
-				value = this._sDialog.tDate.format('H')
+				value = me._sDialog.sDate.format('H')
 			}
 			else {
 				spoke = 12
-				value = this._sDialog.tDate.format('h')
+				value = me._sDialog.sDate.format('h')
 			}
 		}
-		let rotationClass = this._calcRotation(spoke, parseInt(value, 10))
+		let rotationClass = me._calcRotation(spoke, parseInt(value, 10))
 		if (rotationClass) {
 			needle.classList.add(rotationClass)
 		}
+		// toggle the view type
 		mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
 	}
 	/**
@@ -891,6 +919,83 @@ class mdDateTimePicker {
 		})
 	}
 
+	_dragDial() {
+		let me = this
+		let needle = this._sDialog.needle
+		let circle = this._sDialog.circle
+		let fakeNeedle = this._sDialog.fakeNeedle
+		let circularHolder = this._sDialog.circularHolder
+		let minute = this._sDialog.minute
+		let quick = 'mddtp-picker__selection--quick'
+		let selection = 'mddtp-picker__selection'
+		let selected = 'mddtp-picker__cell--selected'
+		let rotate = 'mddtp-picker__cell--rotate-'
+		let hOffset = circularHolder.getBoundingClientRect()
+		let divides
+		let fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
+			containment: true
+		});
+		fakeNeedleDraggabilly.on('pointerDown', function() {
+			hOffset = circularHolder.getBoundingClientRect()
+		})
+		fakeNeedleDraggabilly.on('dragMove', function(e) {
+			let xPos = e.clientX - hOffset.left - (hOffset.width / 2)
+			let yPos = e.clientY - hOffset.top - (hOffset.height / 2)
+			let slope = Math.atan2(-yPos, xPos)
+			needle.className = ''
+			if (slope < 0) {
+				slope += 2 * Math.PI
+			}
+			slope *= 180 / Math.PI
+			slope = 360 - slope
+			if (slope > 270) {
+				slope -= 360
+			}
+			divides = parseInt(slope / 6)
+			let same = Math.abs((6 * divides) - slope)
+			let upper = Math.abs((6 * (divides + 1)) - slope)
+			if (upper < same) {
+				divides++
+			}
+			divides += 15
+			needle.classList.add(selection, quick, rotate + divides)
+		})
+		fakeNeedleDraggabilly.on('dragEnd', function() {
+			let minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')
+			let minuteNow = parseInt(me._sDialog.sDate.format('m'), 10)
+			let cOffset = circle.getBoundingClientRect()
+			fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px')
+			needle.classList.remove(quick)
+			let select = divides
+			if (select === 1) {
+				select = 60
+			}
+			select = me._nearestDivisor(select, 5)
+			// normalize 60 => 0
+			if (divides === 60) {
+				divides = 0
+			}
+			// remove previously selected value
+			// normalize 0 and 1 => 60
+			if (minuteNow >= 0 && minuteNow <= 1) {
+				minuteNow = 60
+			}
+			minuteNow = me._nearestDivisor(minuteNow, 5)
+			if (minuteNow % 5 === 0) {
+				minuteNow /= 5
+				minuteNow--
+				minuteViewChildren[minuteNow].classList.remove(selected)
+			}
+			if (select > 0) {
+				select /= 5
+				select--
+				minuteViewChildren[select].classList.add(selected)
+			}
+			minute.textContent = me._numWithZero(divides)
+			me._sDialog.sDate.minutes(divides)
+		})
+	}
+
 	/**
 	* [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
 	*
@@ -928,6 +1033,29 @@ class mdDateTimePicker {
 		} else {
 			return m.subtract(Math.abs(count), 'M')
 		}
+	}
+
+	/**
+	* [_nearestDivisor gets the nearest number which is divisible by a number]
+	*
+	* @method _nearestDivisor
+	*
+	* @param  {[int]}        number  [number to check]
+	* @param  {[int]}        divided [number to be divided by]
+	*
+	* @return {[int]}        [returns -1 if not found]
+	*/
+	_nearestDivisor(number, divided) {
+		if (number % divided === 0)  {
+			return number
+		}
+		else if ((number - 1) % divided === 0) {
+			return number - 1
+		}
+		else if ((number + 1) % divided === 0) {
+			return number + 1
+		}
+		return -1
 	}
 
 	/**

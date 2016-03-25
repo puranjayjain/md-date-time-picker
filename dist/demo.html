@@ -25,85 +25,48 @@
   <script src="js/draggabilly.pkgd.min.js"></script>
   <script src="js/md-date-time-picker.js"></script>
   <script type="text/javascript">
-    // (function() {
-    var x = new mdDateTimePicker({
-      type: 'date'
-    });
-    var y = new mdDateTimePicker({
-      type: 'date',
-      init: moment('2016-02-29', 'YYYY-MM-DD')
-    });
-    var z = new mdDateTimePicker({
-      type: 'date',
-      init: moment('2016-03-3', 'YYYY-MM-DD')
-    });
-    document.getElementById('trigger').addEventListener('click', function() {
-      x.toggle();
-    });
-    document.getElementById('trigger2').addEventListener('click', function() {
-      y.toggle();
-    });
-    document.getElementById('trigger3').addEventListener('click', function() {
-      z.toggle();
-    });
-    var a = new mdDateTimePicker({
-      type: 'time'
-    });
-    var b = new mdDateTimePicker({
-      type: 'time',
-      init: moment('10:5 PM', 'h:m A')
-    });
-    var c = new mdDateTimePicker({
-      type: 'time',
-      init: moment('9:0 PM', 'h:m A')
-    });
-    document.getElementById('trigger4').addEventListener('click', function() {
-      a.toggle();
-    });
-    document.getElementById('trigger5').addEventListener('click', function() {
-      b.toggle();
-    });
-    document.getElementById('trigger6').addEventListener('click', function() {
-      c.toggle();
-    });
-    var needle = document.getElementById('mddtp-time__needle');
-    var circle = needle.querySelector('.mddtp-picker__circle');
-    var fakeNeedle = document.getElementById('mddtp-time__fakeNeedle');
-    var holder = document.getElementById('mddtp-time__circularHolder');
-    var hOffset = holder.getBoundingClientRect();
-    var fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
-      containment: true
-    });
-    fakeNeedleDraggabilly.on('pointerDown', function(e) {
-      hOffset = holder.getBoundingClientRect();
-    });
-    fakeNeedleDraggabilly.on('dragMove', function(e) {
-      var xPos = e.clientX - hOffset.left - (hOffset.width / 2);
-      var yPos = e.clientY - hOffset.top - (hOffset.height / 2);
-      var slope = Math.atan2(-yPos, xPos);
-      needle.className = '';
-      if (slope < 0) {
-        slope += 2 * Math.PI;
-      }
-      slope *= 180 / Math.PI;
-      slope = 360 - slope;
-      if (slope > 270) {
-        slope -= 360;
-      }
-      var divides = parseInt(slope / 6);
-      var same = Math.abs((6 * divides) - slope)
-      var upper = Math.abs((6 * (divides + 1)) - slope)
-      if (upper < same) {
-        divides++;
-      }
-      needle.classList.add('mddtp-picker__selection', 'mddtp-picker__selection--quick', 'mddtp-picker__cell--rotate-' + (divides + 15));
-    });
-    fakeNeedleDraggabilly.on('dragEnd', function(e) {
-      var cOffset = circle.getBoundingClientRect();
-      fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
-      needle.classList.remove('mddtp-picker__selection--quick');
-    });
-    // }).call(this);
+    (function() {
+      var x = new mdDateTimePicker({
+        type: 'date'
+      });
+      var y = new mdDateTimePicker({
+        type: 'date',
+        init: moment('2016-02-29', 'YYYY-MM-DD')
+      });
+      var z = new mdDateTimePicker({
+        type: 'date',
+        init: moment('2016-03-3', 'YYYY-MM-DD')
+      });
+      document.getElementById('trigger').addEventListener('click', function() {
+        x.toggle();
+      });
+      document.getElementById('trigger2').addEventListener('click', function() {
+        y.toggle();
+      });
+      document.getElementById('trigger3').addEventListener('click', function() {
+        z.toggle();
+      });
+      var a = new mdDateTimePicker({
+        type: 'time'
+      });
+      var b = new mdDateTimePicker({
+        type: 'time',
+        init: moment('10:5 PM', 'h:m A')
+      });
+      var c = new mdDateTimePicker({
+        type: 'time',
+        init: moment('9:0 PM', 'h:m A')
+      });
+      document.getElementById('trigger4').addEventListener('click', function() {
+        a.toggle();
+      });
+      document.getElementById('trigger5').addEventListener('click', function() {
+        b.toggle();
+      });
+      document.getElementById('trigger6').addEventListener('click', function() {
+        c.toggle();
+      });
+    }).call(this);
   </script>
 </body>
 
