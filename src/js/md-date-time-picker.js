@@ -410,6 +410,8 @@ class mdDateTimePicker {
 	_initHour() {
 		let hourView = this._sDialog.hourView
 		let needle = this._sDialog.needle
+		let selected = 'mddtp-picker__cell--selected'
+		let rotate = 'mddtp-picker__cell--rotate-'
 		let docfrag = document.createDocumentFragment()
 		if (this._mode) {
 			// REVIEW 24 HOUR MODE
@@ -422,10 +424,10 @@ class mdDateTimePicker {
 				let span = document.createElement('span')
 				div.classList.add('mddtp-picker__cell')
 				span.textContent = i
-				div.classList.add('mddtp-picker__cell--rotate-' + j)
+				div.classList.add(rotate + j)
 				if (hourNow === i) {
-					div.classList.add('mddtp-picker__cell--selected')
-					needle.classList.add('mddtp-picker__cell--rotate-' + j)
+					div.classList.add(selected)
+					needle.classList.add(rotate + j)
 				}
 				div.appendChild(span)
 				docfrag.appendChild(div)
@@ -519,14 +521,18 @@ class mdDateTimePicker {
 
 	_initMonth(view, m) {
 		let displayMonth = m.format('MMMM YYYY')
-		this._fillText(view.querySelector('.mddtp-picker__month'), displayMonth)
+		// get the .mddtp-picker__month element using innerDivs[0]
+		let innerDivs = view.getElementsByTagName('div')
+		this._fillText(innerDivs[0], displayMonth)
 		let docfrag = document.createDocumentFragment()
-		let tr = view.querySelector('.mddtp-picker__tr')
+		// get the .mddtp-picker__tr element using innerDivs[3]
+		let tr = innerDivs[3]
 		let firstDayOfMonth = parseInt(moment(m).date(1).day(), 10)
 		let today = -1
 		let selected = -1
 		let lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1
 		let past = firstDayOfMonth
+		let cellClass = 'mddtp-picker__cell'
 		let future = lastDayOfMonth
 		if (moment().isSame(m, 'month')) {
 			today = parseInt(moment().format('D'), 10)
@@ -550,17 +556,18 @@ class mdDateTimePicker {
 			let currentDay = i - firstDayOfMonth + 1
 			if ((i >= firstDayOfMonth) && (i <= lastDayOfMonth)) {
 				if (i > future || i < past) {
-					cell.classList.add('mddtp-picker__cell--disabled')
+					cell.classList.add(cellClass + '--disabled')
 				} else {
-					cell.classList.add('mddtp-picker__cell')
+					cell.classList.add(cellClass)
 				}
 				this._fillText(cell, currentDay)
 			}
 			if (today === i) {
-				cell.classList.add('mddtp-picker__cell--today')
+				cell.classList.add(cellClass + '--today')
 			}
 			if (selected === i) {
-				cell.classList.add('mddtp-picker__cell--selected')
+				cell.classList.add(cellClass + 'l--selected')
+				cell.id = 'mddtp-date__selected'
 			}
 			docfrag.appendChild(cell)
 		}
@@ -734,21 +741,25 @@ class mdDateTimePicker {
 				let picker = me._sDialog.picker
 				let day = e.target.textContent
 				let currentDate = me._sDialog.tDate.date(day)
-				let selected = picker.querySelector('.mddtp-picker__cell--selected')
+				let sId = 'mddtp-date__selected'
+				let sClass = 'mddtp-picker__cell--selected'
+				let selected = document.getElementById(sId)
 				let subtitle = me._sDialog.subtitle
 				let titleDay = me._sDialog.titleDay
 				let titleMonth = me._sDialog.titleMonth
 				if (selected) {
-					selected.classList.remove('mddtp-picker__cell--selected')
+					selected.classList.remove(sClass)
+					selected.id = ''
 				}
-				e.target.classList.add('mddtp-picker__cell--selected')
+				e.target.classList.add(sClass)
+				e.target.id = sId
 
 				// update temp date object with the date selected
 				me._sDialog.sDate = currentDate.clone()
 
-				this._fillText(subtitle, currentDate.year())
-				this._fillText(titleDay, currentDate.format('ddd, '))
-				this._fillText(titleMonth, currentDate.format('MMM D'))
+				me._fillText(subtitle, currentDate.year())
+				me._fillText(titleDay, currentDate.format('ddd, '))
+				me._fillText(titleMonth, currentDate.format('MMM D'))
 			}
 		})
 	}

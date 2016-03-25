@@ -444,6 +444,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _initHour() {
 			var hourView = this._sDialog.hourView,
 			    needle = this._sDialog.needle,
+			    selected = 'mddtp-picker__cell--selected',
+			    rotate = 'mddtp-picker__cell--rotate-',
 			    docfrag = document.createDocumentFragment();
 
 			if (this._mode) {
@@ -457,10 +459,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 					div.classList.add('mddtp-picker__cell');
 					span.textContent = i;
-					div.classList.add('mddtp-picker__cell--rotate-' + j);
+					div.classList.add(rotate + j);
 					if (_hourNow === i) {
-						div.classList.add('mddtp-picker__cell--selected');
-						needle.classList.add('mddtp-picker__cell--rotate-' + j);
+						div.classList.add(selected);
+						needle.classList.add(rotate + j);
 					}
 					div.appendChild(span);
 					docfrag.appendChild(div);
@@ -561,16 +563,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_initMonth',
 		value: function _initMonth(view, m) {
-			var displayMonth = m.format('MMMM YYYY');
-			this._fillText(view.querySelector('.mddtp-picker__month'), displayMonth);
+			var displayMonth = m.format('MMMM YYYY'),
+			    innerDivs = view.getElementsByTagName('div');
+			// get the .mddtp-picker__month element using innerDivs[0]
+
+			this._fillText(innerDivs[0], displayMonth);
 			var docfrag = document.createDocumentFragment(),
-			    tr = view.querySelector('.mddtp-picker__tr'),
+			    tr = innerDivs[3],
 			    firstDayOfMonth = parseInt(moment(m).date(1).day(), 10),
 			    today = -1,
 			    selected = -1,
 			    lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1,
 			    past = firstDayOfMonth,
+			    cellClass = 'mddtp-picker__cell',
 			    future = lastDayOfMonth;
+			// get the .mddtp-picker__tr element using innerDivs[3]
 
 			if (moment().isSame(m, 'month')) {
 				today = parseInt(moment().format('D'), 10);
@@ -595,17 +602,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 				if (i >= firstDayOfMonth && i <= lastDayOfMonth) {
 					if (i > future || i < past) {
-						cell.classList.add('mddtp-picker__cell--disabled');
+						cell.classList.add(cellClass + '--disabled');
 					} else {
-						cell.classList.add('mddtp-picker__cell');
+						cell.classList.add(cellClass);
 					}
 					this._fillText(cell, currentDay);
 				}
 				if (today === i) {
-					cell.classList.add('mddtp-picker__cell--today');
+					cell.classList.add(cellClass + '--today');
 				}
 				if (selected === i) {
-					cell.classList.add('mddtp-picker__cell--selected');
+					cell.classList.add(cellClass + 'l--selected');
+					cell.id = 'mddtp-date__selected';
 				}
 				docfrag.appendChild(cell);
 			}
@@ -793,22 +801,26 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					var picker = me._sDialog.picker,
 					    day = e.target.textContent,
 					    currentDate = me._sDialog.tDate.date(day),
-					    selected = picker.querySelector('.mddtp-picker__cell--selected'),
+					    sId = 'mddtp-date__selected',
+					    sClass = 'mddtp-picker__cell--selected',
+					    selected = document.getElementById(sId),
 					    subtitle = me._sDialog.subtitle,
 					    titleDay = me._sDialog.titleDay,
 					    titleMonth = me._sDialog.titleMonth;
 
 					if (selected) {
-						selected.classList.remove('mddtp-picker__cell--selected');
+						selected.classList.remove(sClass);
+						selected.id = '';
 					}
-					e.target.classList.add('mddtp-picker__cell--selected');
+					e.target.classList.add(sClass);
+					e.target.id = sId;
 
 					// update temp date object with the date selected
 					me._sDialog.sDate = currentDate.clone();
 
-					this._fillText(subtitle, currentDate.year());
-					this._fillText(titleDay, currentDate.format('ddd, '));
-					this._fillText(titleMonth, currentDate.format('MMM D'));
+					me._fillText(subtitle, currentDate.year());
+					me._fillText(titleDay, currentDate.format('ddd, '));
+					me._fillText(titleMonth, currentDate.format('MMM D'));
 				}
 			});
 		}

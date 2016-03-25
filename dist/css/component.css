@@ -145,8 +145,7 @@
       padding: 18px;
       font-size: 13px;
       font-weight: 600;
-      color: rgba(0, 0, 0, 0.87);
-      cursor: pointer; }
+      color: rgba(0, 0, 0, 0.87); }
   .mddtp-picker-date .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__view--left {
     -webkit-transform: translate3d(-200%, 0, 0);
             transform: translate3d(-200%, 0, 0); }
