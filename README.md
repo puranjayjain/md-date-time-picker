@@ -10,6 +10,8 @@
 
 Share the :heart: !
 
+:heart: the package? Then :star: it!
+
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/puranjayjain/md-date-time-picker.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
 > An implementation of [Material Design Picker](https://www.google.com/design/spec/components/pickers.html)

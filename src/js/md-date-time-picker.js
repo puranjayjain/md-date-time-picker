@@ -1,6 +1,6 @@
 /**
 * @package md-date-time-picker
-* @version [0.0.1]
+* @version [0.1.0]
 * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
 * @license MIT
 * @website puranjayjain.github.io/md-date-time-picker/demo.html

@@ -1,41 +1,41 @@
 {
-  "name": "md-date-time-picker",
-  "version": "0.0.1",
-  "description": "An implementation of the Material Design Picker components in vanilla CSS, JS, and HTML",
-  "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Puranjay Jain",
-  "license": "MIT",
-  "devDependencies": {
-    "babel-plugin-transform-member-expression-literals": "^6.5.0",
-    "babel-plugin-transform-merge-sibling-variables": "^6.5.0",
-    "babel-plugin-transform-minify-booleans": "^6.5.0",
-    "babel-plugin-transform-property-literals": "^6.5.0",
-    "babel-preset-es2015": "^6.6.0",
-    "browser-sync": "^2.6.5",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.0.2",
-    "gulp-babel": "^6.1.2",
-    "gulp-cache": "^0.2.8",
-    "gulp-concat": "^2.5.2",
-    "gulp-minify-css": "1.0.0",
-    "gulp-plumber": "1.0.0",
-    "gulp-rename": "^1.2.0",
-    "gulp-sass": "^2.0.0",
-    "gulp-uglify": "^1.2.0",
-    "webpack": "^1.12.14"
-  },
-  "dependencies": {
-    "moment": "^2.12.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/puranjayjain/md-date-time-picker.git"
-  },
-  "bugs": {
-    "url": "https://github.com/puranjayjain/md-date-time-picker/issues"
-  },
-  "homepage": "https://puranjayjain.github.io/md-date-time-picker"
+	"name": "md-date-time-picker",
+	"version": "0.1.0",
+	"description": "An implementation of the Material Design Picker components in vanilla CSS, JS, and HTML",
+	"main": "gulpfile.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Puranjay Jain",
+	"license": "MIT",
+	"devDependencies": {
+		"babel-plugin-transform-member-expression-literals": "^6.5.0",
+		"babel-plugin-transform-merge-sibling-variables": "^6.5.0",
+		"babel-plugin-transform-minify-booleans": "^6.5.0",
+		"babel-plugin-transform-property-literals": "^6.5.0",
+		"babel-preset-es2015": "^6.6.0",
+		"browser-sync": "^2.6.5",
+		"gulp": "^3.9.0",
+		"gulp-autoprefixer": "^3.0.2",
+		"gulp-babel": "^6.1.2",
+		"gulp-cache": "^0.2.8",
+		"gulp-concat": "^2.5.2",
+		"gulp-minify-css": "1.0.0",
+		"gulp-plumber": "1.0.0",
+		"gulp-rename": "^1.2.0",
+		"gulp-sass": "^2.0.0",
+		"gulp-uglify": "^1.2.0",
+		"webpack": "^1.12.14"
+	},
+	"dependencies": {
+		"moment": "^2.12.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/puranjayjain/md-date-time-picker.git"
+	},
+	"bugs": {
+		"url": "https://github.com/puranjayjain/md-date-time-picker/issues"
+	},
+	"homepage": "https://puranjayjain.github.io/md-date-time-picker"
 }
