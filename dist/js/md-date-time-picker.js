@@ -275,9 +275,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				// inside header
 				// adding properties to them
 				this._addId(subtitle, 'subtitle');
-				this._addClass(subtitle, 'subtitle', ['mddtp-picker__color--active']);
+				this._addClass(subtitle, 'subtitle');
 				this._addId(title, 'title');
-				this._addClass(title, 'title');
+				this._addClass(title, 'title', ['mddtp-picker__color--active']);
 				this._addId(titleDay, 'titleDay');
 				this._addId(titleMonth, 'titleMonth');
 				// add title stuff to it
@@ -424,13 +424,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			// switch according to 12 hour or 24 hour mode
 			if (this._mode) {
 				// REVIEW 24 HOUR MODE
-				hour.innerHTML = m.format('H');
+				this._fillText(hour, m.format('H'));
 			} else {
-				hour.innerHTML = m.format('h');
+				this._fillText(hour, m.format('h'));
 				this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active');
 				subtitle.removeAttribute('style');
 			}
-			minute.innerHTML = m.format('mm');
+			this._fillText(minute, m.format('mm'));
 			this._initHour();
 			this._initMinute();
 			this._attachEventHandlers();
@@ -525,9 +525,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    titleDay = this._sDialog.titleDay,
 			    titleMonth = this._sDialog.titleMonth;
 
-			subtitle.innerHTML = m.format('YYYY');
-			titleDay.innerHTML = m.format('ddd, ');
-			titleMonth.innerHTML = m.format('MMM D');
+			this._fillText(subtitle, m.format('YYYY'));
+			this._fillText(titleDay, m.format('ddd, '));
+			this._fillText(titleMonth, m.format('MMM D'));
 			this._initYear();
 			this._initViewHolder();
 			this._attachEventHandlers();
@@ -556,14 +556,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._initMonth(current, m);
 			this._initMonth(next, moment(this._getMonth(m, 1)));
 			this._initMonth(previous, moment(this._getMonth(m, -1)));
-			this._switchToView(current.querySelector('.mddtp-picker__month'));
 			this._toMoveMonth();
 		}
 	}, {
 		key: '_initMonth',
 		value: function _initMonth(view, m) {
 			var displayMonth = m.format('MMMM YYYY');
-			view.querySelector('.mddtp-picker__month').innerHTML = displayMonth;
+			this._fillText(view.querySelector('.mddtp-picker__month'), displayMonth);
 			var docfrag = document.createDocumentFragment(),
 			    tr = view.querySelector('.mddtp-picker__tr'),
 			    firstDayOfMonth = parseInt(moment(m).date(1).day(), 10),
@@ -600,7 +599,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					} else {
 						cell.classList.add('mddtp-picker__cell');
 					}
-					cell.innerHTML = currentDay;
+					this._fillText(cell, currentDay);
 				}
 				if (today === i) {
 					cell.classList.add('mddtp-picker__cell--today');
@@ -792,7 +791,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			el.addEventListener('click', function (e) {
 				if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('mddtp-picker__cell')) {
 					var picker = me._sDialog.picker,
-					    day = e.target.innerHTML,
+					    day = e.target.textContent,
 					    currentDate = me._sDialog.tDate.date(day),
 					    selected = picker.querySelector('.mddtp-picker__cell--selected'),
 					    subtitle = me._sDialog.subtitle,
@@ -806,9 +805,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 					// update temp date object with the date selected
 					me._sDialog.sDate = currentDate.clone();
-					subtitle.innerHTML = currentDate.year();
-					titleDay.innerHTML = currentDate.format('ddd, ');
-					titleMonth.innerHTML = currentDate.format('MMM D');
+
+					this._fillText(subtitle, currentDate.year());
+					this._fillText(titleDay, currentDate.format('ddd, '));
+					this._fillText(titleMonth, currentDate.format('MMM D'));
 				}
 			});
 		}
@@ -952,7 +952,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					// switch view
 					me._switchToDateView(el, me);
 					// set the tdate to it
-					me._sDialog.tDate.year(parseInt(e.target.innerHTML, 10));
+					me._sDialog.tDate.year(parseInt(e.target.textContent, 10));
 					// update the dialog
 					me._initViewHolder();
 				}
@@ -1161,6 +1161,27 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		}
 
 		/**
+  * [_fillText fills element with text]
+  *
+  * @method _fillText
+  *
+  * @param  {[type]}  el   [description]
+  * @param  {[type]}  text [description]
+  *
+  * @return {[type]}  [description]
+  */
+
+	}, {
+		key: '_fillText',
+		value: function _fillText(el, text) {
+			if (el.firstChild) {
+				el.firstChild.nodeValue = text;
+			} else {
+				el.appendChild(document.createTextNode(text));
+			}
+		}
+
+		/**
   * [_addId add id to picker element]
   *
   * @method _addId
@@ -1312,4 +1333,18 @@ if (!Element.prototype.scrollIntoViewIfNeeded) {
 			this.scrollIntoView(alignWithTop);
 		}
 	};
+}
+// polyfill for text content for ie8
+if (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, 'textContent') && !Object.getOwnPropertyDescriptor(Element.prototype, 'textContent').get) {
+	(function () {
+		var innerText = Object.getOwnPropertyDescriptor(Element.prototype, 'innerText');
+		Object.defineProperty(Element.prototype, 'textContent', {
+			get: function get() {
+				return innerText.get.call(this);
+			},
+			set: function set(s) {
+				return innerText.set.call(this, s);
+			}
+		});
+	})();
 }
