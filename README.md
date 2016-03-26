@@ -20,6 +20,10 @@ Share the :heart: !
 > An implementation of [Material Design Picker](https://www.google.com/design/spec/components/pickers.html)
 components in vanilla CSS, JS, and HTML
 
+##Documentation
+
+The Documentation is at [https://puranjayjain.github.io/md-date-time-picker](https://github.com/PuranjayJain/md-date-time-picker)
+
 ## Browser Support
 
 Supported evergreen browsers:
