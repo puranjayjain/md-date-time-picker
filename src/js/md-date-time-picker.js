@@ -113,7 +113,7 @@ class mdDateTimePicker {
 		* @type {Array}
 		*/
 		let sDialogEls = [
-			'viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute', 'fakeNeedle', 'circularHolder', 'circle'
+			'viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute', 'fakeNeedle', 'circularHolder', 'circle', 'dotSpan'
 		]
 		let i = sDialogEls.length
 		while (i--) {
@@ -160,6 +160,7 @@ class mdDateTimePicker {
 		let hourView = this._sDialog.hourView
 		let picker = this._sDialog.picker
 		let needle = this._sDialog.needle
+		let dotSpan = this._sDialog.dotSpan
 		let active = 'mddtp-picker__color--active'
 		let inactive = 'mddtp-picker--inactive'
 		let invisible = 'mddtp-picker__years--invisible'
@@ -186,6 +187,7 @@ class mdDateTimePicker {
 			minuteView.classList.add(hidden)
 			hourView.classList.remove(hidden)
 			subtitle.setAttribute('style', 'display: none')
+			dotSpan.setAttribute('style', 'display: none')
 			needle.className = ''
 			needle.classList.add(selection)
 		}
@@ -316,6 +318,8 @@ class mdDateTimePicker {
 			this._addId(hour, 'hour')
 			hour.classList.add('mddtp-picker__color--active')
 			span.textContent = ':'
+			this._addId(span, 'dotSpan')
+			span.setAttribute('style', 'display: none')
 			this._addId(minute, 'minute')
 			this._addId(subtitle, 'subtitle')
 			this._addClass(subtitle, 'subtitle')
@@ -387,6 +391,7 @@ class mdDateTimePicker {
 		let hour = this._sDialog.hour
 		let minute = this._sDialog.minute
 		let subtitle = this._sDialog.subtitle
+		let dotSpan = this._sDialog.dotSpan
 		// switch according to 12 hour or 24 hour mode
 		if (this._mode) {
 			this._fillText(hour, m.format('H'))
@@ -395,6 +400,7 @@ class mdDateTimePicker {
 			this._fillText(hour, m.format('h'))
 			this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active')
 			subtitle.removeAttribute('style')
+			dotSpan.removeAttribute('style')
 		}
 		this._fillText(minute, m.format('mm'))
 		this._initHour()
@@ -585,7 +591,7 @@ class mdDateTimePicker {
 				cell.classList.add(cellClass + '--today')
 			}
 			if (selected === i) {
-				cell.classList.add(cellClass + 'l--selected')
+				cell.classList.add(cellClass + '--selected')
 				cell.id = 'mddtp-date__selected'
 			}
 			docfrag.appendChild(cell)

@@ -129,7 +129,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
    *
    * @type {Array}
    */
-			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute', 'fakeNeedle', 'circularHolder', 'circle'],
+			var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute', 'fakeNeedle', 'circularHolder', 'circle', 'dotSpan'],
 			    i = sDialogEls.length;
 
 			while (i--) {
@@ -182,6 +182,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    hourView = this._sDialog.hourView,
 			    picker = this._sDialog.picker,
 			    needle = this._sDialog.needle,
+			    dotSpan = this._sDialog.dotSpan,
 			    active = 'mddtp-picker__color--active',
 			    inactive = 'mddtp-picker--inactive',
 			    invisible = 'mddtp-picker__years--invisible',
@@ -208,6 +209,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				minuteView.classList.add(hidden);
 				hourView.classList.remove(hidden);
 				subtitle.setAttribute('style', 'display: none');
+				dotSpan.setAttribute('style', 'display: none');
 				needle.className = '';
 				needle.classList.add(selection);
 			}
@@ -346,6 +348,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				this._addId(hour, 'hour');
 				hour.classList.add('mddtp-picker__color--active');
 				span.textContent = ':';
+				this._addId(span, 'dotSpan');
+				span.setAttribute('style', 'display: none');
 				this._addId(minute, 'minute');
 				this._addId(_subtitle, 'subtitle');
 				this._addClass(_subtitle, 'subtitle');
@@ -419,7 +423,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _initTimeDialog(m) {
 			var hour = this._sDialog.hour,
 			    minute = this._sDialog.minute,
-			    subtitle = this._sDialog.subtitle;
+			    subtitle = this._sDialog.subtitle,
+			    dotSpan = this._sDialog.dotSpan;
 
 			// switch according to 12 hour or 24 hour mode
 			if (this._mode) {
@@ -428,6 +433,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				this._fillText(hour, m.format('h'));
 				this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active');
 				subtitle.removeAttribute('style');
+				dotSpan.removeAttribute('style');
 			}
 			this._fillText(minute, m.format('mm'));
 			this._initHour();
@@ -632,7 +638,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					cell.classList.add(cellClass + '--today');
 				}
 				if (selected === i) {
-					cell.classList.add(cellClass + 'l--selected');
+					cell.classList.add(cellClass + '--selected');
 					cell.id = 'mddtp-date__selected';
 				}
 				docfrag.appendChild(cell);
