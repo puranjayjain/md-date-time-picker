@@ -1,6 +1,6 @@
 {
 	"name": "md-date-time-picker",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "An implementation of the Material Design Picker components in vanilla CSS, JS, and HTML",
 	"main": "gulpfile.js",
 	"scripts": {
