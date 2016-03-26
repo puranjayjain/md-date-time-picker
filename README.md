@@ -1,5 +1,7 @@
 # md-date-time-picker
 
+[![npm version](https://badge.fury.io/js/md-date-time-picker.svg)](https://badge.fury.io/js/md-date-time-picker)
+[![Bower version](https://badge.fury.io/bo/md-date-time-picker.svg)](https://badge.fury.io/bo/md-date-time-picker)
 [![Dependency Status](https://david-dm.org/puranjayjain/md-date-time-picker.svg)](https://david-dm.org/puranjayjain/md-date-time-picker)
 
 [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)]()
@@ -62,6 +64,7 @@ In the repo you'll find the following directories and files.
 | gulpfile.js     | gulp configuration.                                                      |
 | LICENSE.md      | Project license information.                                             |
 | package.json    | npm package information.                                                 |
+| bower.json      | bower package information.                                               |
 | README.md       | Details for quickly understanding the project.                           |
 | src             | Source code.                                                             |
 | dist            | Distributable code.                                                      |
