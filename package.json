@@ -1,12 +1,13 @@
 {
 	"name": "md-date-time-picker",
-	"version": "0.2.2",
-	"description": "An implementation of the Material Design Picker components in vanilla CSS, JS, and HTML",
-	"main": "gulpfile.js",
+	"version": "0.3.0",
+	"description": "An implementation of the Material Design Picker components in vanilla CSS, JS and HTML",
+	"keywords": ["material", "design", "picker", "pickers", "date", "time", "calendar", "input"],
+	"main": "dist",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "Puranjay Jain",
+	"author": "Puranjay Jain <puranjay.jain@st.niituniversity.in>",
 	"license": "MIT",
 	"devDependencies": {
 		"babel-plugin-transform-member-expression-literals": "^6.5.0",
@@ -28,7 +29,8 @@
 		"webpack": "^1.12.14"
 	},
 	"dependencies": {
-		"moment": "^2.12.0"
+		"moment": "^2.12.0",
+		"draggabilly": "^2.1.0"
 	},
 	"repository": {
 		"type": "git",

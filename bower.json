@@ -1,6 +1,6 @@
 {
 	"name": "md-date-time-picker",
-	"description": "An implementation of the Material Design Picker components in vanilla CSS, JS, and HTML",
+	"description": "An implementation of the Material Design Picker components in vanilla CSS, JS and HTML",
 	"main": [
 		"dist/js/main.js",
 		"src/scss/component.scss",
