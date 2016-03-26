@@ -423,7 +423,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 			// switch according to 12 hour or 24 hour mode
 			if (this._mode) {
-				// REVIEW 24 HOUR MODE
 				this._fillText(hour, m.format('H'));
 			} else {
 				this._fillText(hour, m.format('h'));
@@ -438,34 +437,53 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			this._dragDial();
 			this._switchToView(hour);
 			this._switchToView(minute);
+			this._addClockEvent();
 		}
 	}, {
 		key: '_initHour',
 		value: function _initHour() {
 			var hourView = this._sDialog.hourView,
 			    needle = this._sDialog.needle,
+			    hour = 'mddtp-hour__selected',
 			    selected = 'mddtp-picker__cell--selected',
 			    rotate = 'mddtp-picker__cell--rotate-',
-			    docfrag = document.createDocumentFragment();
+			    cell = 'mddtp-picker__cell',
+			    docfrag = document.createDocumentFragment(),
+			    hourNow = void 0;
 
 			if (this._mode) {
-				// REVIEW 24 HOUR MODE
-				var hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
-			} else {
-				var _hourNow = parseInt(this._sDialog.tDate.format('h'), 10);
-				for (var i = 1, j = 5; i <= 12; i++, j += 5) {
+				hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
+				for (var i = 1, j = 5; i <= 24; i++, j += 5) {
 					var div = document.createElement('div'),
 					    span = document.createElement('span');
 
-					div.classList.add('mddtp-picker__cell');
+					div.classList.add(cell);
 					span.textContent = i;
 					div.classList.add(rotate + j);
-					if (_hourNow === i) {
+					if (hourNow === i) {
+						div.id = hour;
 						div.classList.add(selected);
 						needle.classList.add(rotate + j);
 					}
 					div.appendChild(span);
 					docfrag.appendChild(div);
+				}
+			} else {
+				hourNow = parseInt(this._sDialog.tDate.format('h'), 10);
+				for (var _i = 1, _j = 10; _i <= 12; _i++, _j += 10) {
+					var _div = document.createElement('div'),
+					    _span = document.createElement('span');
+
+					_div.classList.add(cell);
+					_span.textContent = _i;
+					_div.classList.add(rotate + _j);
+					if (hourNow === _i) {
+						_div.id = hour;
+						_div.classList.add(selected);
+						needle.classList.add(rotate + _j);
+					}
+					_div.appendChild(_span);
+					docfrag.appendChild(_div);
 				}
 			}
 			//empty the hours
@@ -480,12 +498,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _initMinute() {
 			var minuteView = this._sDialog.minuteView,
 			    minuteNow = parseInt(this._sDialog.tDate.format('m'), 10),
+			    sMinute = 'mddtp-minute__selected',
 			    selected = 'mddtp-picker__cell--selected',
 			    rotate = 'mddtp-picker__cell--rotate-',
 			    cell = 'mddtp-picker__cell',
 			    docfrag = document.createDocumentFragment();
 
-			for (var i = 5, j = 5; i <= 60; i += 5, j += 5) {
+			for (var i = 5, j = 10; i <= 60; i += 5, j += 10) {
 				var div = document.createElement('div'),
 				    span = document.createElement('span');
 
@@ -501,6 +520,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				div.classList.add(rotate + j);
 				// (minuteNow === 1 && i === 60) for corner case highlight 00 at 01
 				if (minuteNow === i || minuteNow - 1 === i || minuteNow + 1 === i || minuteNow === 1 && i === 60) {
+					div.id = sMinute;
 					div.classList.add(selected);
 				}
 				div.appendChild(span);
@@ -684,7 +704,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				});
 			} else {
 				el.addEventListener('click', function () {
-					me._switchToTimeView(el, me);
+					me._switchToTimeView(me);
 				});
 			}
 		}
@@ -694,14 +714,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
   *
   * @method _switchToTimeView
   *
-  * @param  {[type]}          el [element to attach event to]
   * @param  {[type]}          me [context]
   *
   */
 
 	}, {
 		key: '_switchToTimeView',
-		value: function _switchToTimeView(el, me) {
+		value: function _switchToTimeView(me) {
 			var hourView = me._sDialog.hourView,
 			    minuteView = me._sDialog.minuteView,
 			    hour = me._sDialog.hour,
@@ -791,6 +810,67 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			setTimeout(function () {
 				el.removeAttribute('disabled');
 			}, 300);
+		}
+	}, {
+		key: '_addClockEvent',
+		value: function _addClockEvent() {
+			var me = this,
+			    hourView = this._sDialog.hourView,
+			    minuteView = this._sDialog.minuteView,
+			    sClass = 'mddtp-picker__cell--selected';
+
+			hourView.addEventListener('click', function (e) {
+				var sHour = 'mddtp-hour__selected',
+				    selectedHour = document.getElementById(sHour),
+				    setHour = 0;
+
+				if (e.target && e.target.nodeName == 'SPAN') {
+					// clear the previously selected hour
+					selectedHour.id = '';
+					selectedHour.classList.remove(sClass);
+					// select the new hour
+					e.target.parentNode.classList.add(sClass);
+					e.target.parentNode.id = sHour;
+					// set the sDate according to 24 or 12 hour mode
+					if (me._mode) {
+						setHour = e.target.textContent;
+					} else {
+						if (me._sDialog.sDate.format('A') === 'AM') {
+							setHour = e.target.textContent;
+						} else {
+							setHour = parseInt(e.target.textContent, 10) + 12;
+						}
+					}
+					me._sDialog.sDate.hour(setHour);
+					// set the display hour
+					me._sDialog.hour.textContent = e.target.textContent;
+					// switch the view
+					me._switchToTimeView(me);
+				}
+			});
+			minuteView.addEventListener('click', function (e) {
+				var sMinute = 'mddtp-minute__selected',
+				    selectedMinute = document.getElementById(sMinute),
+				    setMinute = 0;
+
+				if (e.target && e.target.nodeName == 'SPAN') {
+					// clear the previously selected hour
+					if (selectedMinute) {
+						selectedMinute.id = '';
+						selectedMinute.classList.remove(sClass);
+					}
+					// select the new hour
+					e.target.parentNode.classList.add(sClass);
+					e.target.parentNode.id = sMinute;
+					// set the sDate minute
+					setMinute = e.target.textContent;
+					me._sDialog.sDate.minute(setMinute);
+					// set the display minute
+					me._sDialog.minute.textContent = setMinute;
+					// switch the view
+					me._switchToTimeView(me);
+				}
+			});
 		}
 	}, {
 		key: '_addCellClickEvent',
@@ -1047,11 +1127,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					divides++;
 				}
 				divides += 15;
-				needle.classList.add(selection, quick, rotate + divides);
+				needle.classList.add(selection, quick, rotate + divides * 2);
 			});
 			fakeNeedleDraggabilly.on('dragEnd', function () {
 				var minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div'),
-				    minuteNow = parseInt(me._sDialog.sDate.format('m'), 10),
+				    sMinute = 'mddtp-minute__selected',
+				    selectedMinute = document.getElementById(sMinute),
 				    cOffset = circle.getBoundingClientRect();
 
 				fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
@@ -1066,19 +1147,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					divides = 0;
 				}
 				// remove previously selected value
-				// normalize 0 and 1 => 60
-				if (minuteNow >= 0 && minuteNow <= 1) {
-					minuteNow = 60;
+				if (selectedMinute) {
+					selectedMinute.id = '';
+					selectedMinute.classList.remove(selected);
 				}
-				minuteNow = me._nearestDivisor(minuteNow, 5);
-				if (minuteNow % 5 === 0) {
-					minuteNow /= 5;
-					minuteNow--;
-					minuteViewChildren[minuteNow].classList.remove(selected);
-				}
+				// add the new selected
 				if (select > 0) {
 					select /= 5;
 					select--;
+					minuteViewChildren[select].id = sMinute;
 					minuteViewChildren[select].classList.add(selected);
 				}
 				minute.textContent = me._numWithZero(divides);
@@ -1284,14 +1361,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			var start = spoke / 12 * 3;
 			// set clocks top and right side value
 			if (spoke === 12) {
-				value *= 5;
-			} else if (spoke === 24) {
-				// REVIEW this multiplicativeFactor and also revise css classes for this style
 				value *= 10;
+			} else if (spoke === 24) {
+				value *= 5;
+			} else {
+				value *= 2;
 			}
 			// special case for 00 => 60
 			if (spoke === 60 && value === 0) {
-				value = 60;
+				value = 120;
 			}
 			return 'mddtp-picker__cell--rotate-' + value;
 		}

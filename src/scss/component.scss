@@ -365,12 +365,12 @@
       }
 
       //60 minute deg rotations
-      @for $i from 1 through 60 {
+      @for $i from 1 through 120 {
         .mddtp-picker__cell--rotate-#{$i} {
-          transform: rotate(#{(360 / 60) * $i - 90}deg);
+          transform: rotate(#{(360 / 120) * $i - 90}deg);
 
           span:not(.mddtp-picker__line) {
-            $reverse: -((360 / 60) * $i - 90);
+            $reverse: -((360 / 120) * $i - 90);
             transform: rotate(#{$reverse}deg);
           }
         }

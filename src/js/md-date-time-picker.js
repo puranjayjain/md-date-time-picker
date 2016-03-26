@@ -389,7 +389,6 @@ class mdDateTimePicker {
 		let subtitle = this._sDialog.subtitle
 		// switch according to 12 hour or 24 hour mode
 		if (this._mode) {
-			// REVIEW 24 HOUR MODE
 			this._fillText(hour, m.format('H'))
 		}
 		else {
@@ -405,27 +404,45 @@ class mdDateTimePicker {
 		this._dragDial()
 		this._switchToView(hour)
 		this._switchToView(minute)
+		this._addClockEvent()
 	}
 
 	_initHour() {
 		let hourView = this._sDialog.hourView
 		let needle = this._sDialog.needle
+		let hour = 'mddtp-hour__selected'
 		let selected = 'mddtp-picker__cell--selected'
 		let rotate = 'mddtp-picker__cell--rotate-'
+		let cell = 'mddtp-picker__cell'
 		let docfrag = document.createDocumentFragment()
+		let hourNow
 		if (this._mode) {
-			// REVIEW 24 HOUR MODE
-			const hourNow = parseInt(this._sDialog.tDate.format('H'), 10)
-		}
-		else {
-			const hourNow = parseInt(this._sDialog.tDate.format('h'), 10)
-			for (let i = 1,j = 5; i <= 12; i++, j += 5) {
+			hourNow = parseInt(this._sDialog.tDate.format('H'), 10)
+			for (let i = 1,j = 5; i <= 24; i++, j += 5) {
 				let div = document.createElement('div')
 				let span = document.createElement('span')
-				div.classList.add('mddtp-picker__cell')
+				div.classList.add(cell)
 				span.textContent = i
 				div.classList.add(rotate + j)
 				if (hourNow === i) {
+					div.id = hour
+					div.classList.add(selected)
+					needle.classList.add(rotate + j)
+				}
+				div.appendChild(span)
+				docfrag.appendChild(div)
+			}
+		}
+		else {
+			hourNow = parseInt(this._sDialog.tDate.format('h'), 10)
+			for (let i = 1,j = 10; i <= 12; i++, j += 10) {
+				let div = document.createElement('div')
+				let span = document.createElement('span')
+				div.classList.add(cell)
+				span.textContent = i
+				div.classList.add(rotate + j)
+				if (hourNow === i) {
+					div.id = hour
 					div.classList.add(selected)
 					needle.classList.add(rotate + j)
 				}
@@ -444,11 +461,12 @@ class mdDateTimePicker {
 	_initMinute() {
 		let minuteView = this._sDialog.minuteView
 		let minuteNow = parseInt(this._sDialog.tDate.format('m'), 10)
+		let sMinute = 'mddtp-minute__selected'
 		let selected = 'mddtp-picker__cell--selected'
 		let rotate = 'mddtp-picker__cell--rotate-'
 		let cell = 'mddtp-picker__cell'
 		let docfrag = document.createDocumentFragment()
-		for (let i = 5,j = 5; i <= 60; i += 5, j += 5) {
+		for (let i = 5,j = 10; i <= 60; i += 5, j += 10) {
 			let div = document.createElement('div')
 			let span = document.createElement('span')
 			div.classList.add(cell)
@@ -464,6 +482,7 @@ class mdDateTimePicker {
 			div.classList.add(rotate + j)
 			// (minuteNow === 1 && i === 60) for corner case highlight 00 at 01
 			if ((minuteNow === i) || (minuteNow - 1 === i) || (minuteNow + 1 === i) || (minuteNow === 1 && i === 60)) {
+				div.id = sMinute
 				div.classList.add(selected)
 			}
 			div.appendChild(span)
@@ -632,7 +651,7 @@ class mdDateTimePicker {
 		}
 		else {
 			el.addEventListener('click', function () {
-				me._switchToTimeView(el, me)
+				me._switchToTimeView(me)
 			})
 		}
 	}
@@ -642,11 +661,10 @@ class mdDateTimePicker {
 	*
 	* @method _switchToTimeView
 	*
-	* @param  {[type]}          el [element to attach event to]
 	* @param  {[type]}          me [context]
 	*
 	*/
-	_switchToTimeView(el, me) {
+	_switchToTimeView(me) {
 		let hourView = me._sDialog.hourView
 		let minuteView = me._sDialog.minuteView
 		let hour = me._sDialog.hour
@@ -732,6 +750,65 @@ class mdDateTimePicker {
 		setTimeout((function () {
 			el.removeAttribute('disabled')
 		}), 300)
+	}
+
+	_addClockEvent() {
+		let me = this
+		let hourView = this._sDialog.hourView
+		let minuteView = this._sDialog.minuteView
+		let sClass = 'mddtp-picker__cell--selected'
+		hourView.addEventListener('click', function (e) {
+			let sHour = 'mddtp-hour__selected'
+			let selectedHour = document.getElementById(sHour)
+			let setHour = 0
+			if (e.target && e.target.nodeName == 'SPAN') {
+				// clear the previously selected hour
+				selectedHour.id = ''
+				selectedHour.classList.remove(sClass)
+				// select the new hour
+				e.target.parentNode.classList.add(sClass)
+				e.target.parentNode.id = sHour
+				// set the sDate according to 24 or 12 hour mode
+				if (me._mode) {
+					setHour = e.target.textContent
+				}
+				else {
+					if (me._sDialog.sDate.format('A') === 'AM') {
+						setHour = e.target.textContent
+					}
+					else {
+						setHour = parseInt(e.target.textContent, 10) + 12
+					}
+				}
+				me._sDialog.sDate.hour(setHour)
+				// set the display hour
+				me._sDialog.hour.textContent = e.target.textContent
+				// switch the view
+				me._switchToTimeView(me)
+			}
+		})
+		minuteView.addEventListener('click', function (e) {
+			let sMinute = 'mddtp-minute__selected'
+			let selectedMinute = document.getElementById(sMinute)
+			let setMinute = 0
+			if (e.target && e.target.nodeName == 'SPAN') {
+				// clear the previously selected hour
+				if (selectedMinute) {
+					selectedMinute.id = ''
+					selectedMinute.classList.remove(sClass)
+				}
+				// select the new hour
+				e.target.parentNode.classList.add(sClass)
+				e.target.parentNode.id = sMinute
+				// set the sDate minute
+				setMinute = e.target.textContent
+				me._sDialog.sDate.minute(setMinute)
+				// set the display minute
+				me._sDialog.minute.textContent = setMinute
+				// switch the view
+				me._switchToTimeView(me)
+			}
+		})
 	}
 
 	_addCellClickEvent(el) {
@@ -969,11 +1046,12 @@ class mdDateTimePicker {
 				divides++
 			}
 			divides += 15
-			needle.classList.add(selection, quick, rotate + divides)
+			needle.classList.add(selection, quick, rotate + (divides * 2))
 		})
 		fakeNeedleDraggabilly.on('dragEnd', function() {
 			let minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')
-			let minuteNow = parseInt(me._sDialog.sDate.format('m'), 10)
+			let sMinute = 'mddtp-minute__selected'
+			let selectedMinute = document.getElementById(sMinute)
 			let cOffset = circle.getBoundingClientRect()
 			fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px')
 			needle.classList.remove(quick)
@@ -987,19 +1065,15 @@ class mdDateTimePicker {
 				divides = 0
 			}
 			// remove previously selected value
-			// normalize 0 and 1 => 60
-			if (minuteNow >= 0 && minuteNow <= 1) {
-				minuteNow = 60
+			if (selectedMinute) {
+				selectedMinute.id = ''
+				selectedMinute.classList.remove(selected)
 			}
-			minuteNow = me._nearestDivisor(minuteNow, 5)
-			if (minuteNow % 5 === 0) {
-				minuteNow /= 5
-				minuteNow--
-				minuteViewChildren[minuteNow].classList.remove(selected)
-			}
+			// add the new selected
 			if (select > 0) {
 				select /= 5
 				select--
+				minuteViewChildren[select].id = sMinute
 				minuteViewChildren[select].classList.add(selected)
 			}
 			minute.textContent = me._numWithZero(divides)
@@ -1178,15 +1252,17 @@ class mdDateTimePicker {
 		let start = (spoke / 12) * 3
 		// set clocks top and right side value
 		if (spoke === 12) {
-			value *= 5
+			value *= 10
 		}
 		else if (spoke === 24) {
-			// REVIEW this multiplicativeFactor and also revise css classes for this style
-			value *= 10
+			value *= 5
+		}
+		else {
+			value *= 2
 		}
 		// special case for 00 => 60
 		if (spoke === 60 && value === 0) {
-			value = 60
+			value = 120
 		}
 		return 'mddtp-picker__cell--rotate-' + value
 	}

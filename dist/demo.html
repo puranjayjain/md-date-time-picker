@@ -55,7 +55,8 @@
       });
       var c = new mdDateTimePicker({
         type: 'time',
-        init: moment('9:0 PM', 'h:m A')
+        init: moment('22:0', 'H:m'),
+        mode: true
       });
       document.getElementById('trigger4').addEventListener('click', function() {
         a.toggle();
