@@ -1,7 +1,8 @@
 {
   "name": "md-date-time-picker-pages",
   "version": "0.5.2",
-  "description": "An implementation of the Material Design Picker components in vanilla CSS, JS, and HTML",
+  "private": true,
+  "description": "An implementation of the Material Design Picker components in vanilla CSS, JS and HTML",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,5 +1,22 @@
 <section class="mdl-layout__tab-panel" id="scroll-tab-6">
-  <div class="page-content">
-    Your content goes here
+  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    {{ components.tabBar(tabs = [{href: 'github', text: 'github', 'active': true}, {href: 'npm', text: 'npm'}, {href: 'bower', text: 'bower'}]) }}
+    <div class="mdl-tabs__panel is-active" id="github">
+      <h6 class="mddtpp-section__subtitle">You can download the latest release on <a class="mddtpp-a" href="https://github.com/puranjayjain/md-date-time-picker/releases">github</a></h6>
+    </div>
+    <div class="mdl-tabs__panel" id="npm">
+      <pre>
+        <code>
+          npm install md-date-time-picker --save
+        </code>
+      </pre>
+    </div>
+    <div class="mdl-tabs__panel" id="bower">
+      <pre>
+        <code>
+          bower install md-date-time-picker --save
+        </code>
+      </pre>
+    </div>
   </div>
 </section>

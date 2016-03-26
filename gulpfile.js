@@ -39,7 +39,7 @@ gulp.task('imagesRoot', function() {
 });
 
 gulp.task('scripts', function() {
-  return gulp.src(['src/js/material.min.js', 'src/js/moment.min.js', 'src/js/highlight.pack.js', 'src/js/md-date-time-picker.min.js', 'src/js/main.js'])
+  return gulp.src(['src/js/material.min.js', 'src/js/moment.min.js', 'draggabilly.pkgd.min.js', 'src/js/highlight.pack.js', 'src/js/md-date-time-picker.min.js', 'src/js/main.js'])
     .pipe(concat('scripts.js'))
     .pipe(uglify())
     .pipe(gulp.dest('js'))
@@ -73,7 +73,7 @@ gulp.task('scss', function() {
 
 // concat files
 gulp.task('build-css', function() {
-  return gulp.src(['src/css/material.min.css', 'src/css/component.css', 'src/css/main.css'])
+  return gulp.src(['src/css/material.min.css', 'src/css/main.css', 'src/css/md-date-time-picker.min.css'])
     .pipe(concatCss('bundle.css'))
     // .pipe(cssnano())
     .pipe(cleanCSS())

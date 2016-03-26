@@ -6,6 +6,10 @@ body {
 main {
   overflow: visible !important; }
 
+pre {
+  margin: 0;
+  padding: 0; }
+
 .mdl-layout__header {
   background-repeat: no-repeat;
   background-position: 25px 18px;
@@ -45,54 +49,66 @@ main {
 .mdl-mega-footer__link-list a:hover {
   color: #fff; }
 
-.mddtp-a {
+.mddtpp-a {
   color: #7c4dff; }
 
-.mddtp-p {
-  padding: 20px 40px; }
+.mddtpp-p {
+  padding: 20px 40px;
+  margin: 0; }
 
-.mddtp-section--grow {
+.mddtpp-table {
+  margin-left: 31px; }
+
+.mddtpp-section--grow {
   -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1; }
 
-.mddtp-section--white {
+.mddtpp-section--white {
   background-color: #fff; }
 
-.mddtp-section__subtitle {
+.mddtpp-section__subtitle {
   margin-top: 0; }
 
-.mddtp-section__title,
-.mddtp-section__subtitle {
+.mddtpp-section__note {
+  margin: 0 auto;
+  background-color: #FFF9C4;
+  padding: 16px;
+  margin: 0 31px 16px 31px;
+  border-radius: 2px;
+  color: #212121; }
+
+.mddtpp-section__title,
+.mddtpp-section__subtitle {
   padding-left: 31px; }
 
-.mddtp-div__swatch {
+.mddtpp-div__swatch {
   height: 16px; }
 
-.mddtp-nav__toc {
+.mddtpp-nav__toc {
   margin: 32px; }
 
-.mddtp-nav__toc ul {
+.mddtpp-nav__toc ul {
   list-style-type: none;
   border-left: solid 3px #7c4dff;
   padding-left: 20px;
   line-height: 28px; }
 
-.mddtp-nav__toc a {
+.mddtpp-nav__toc a {
   font-size: 16px;
   color: #7c4dff;
   font-weight: 400;
   text-decoration: none; }
 
-.mddtp-dl__about {
+.mddtpp-dl__about {
   padding: 5%; }
-  .mddtp-dl__about dt {
+  .mddtpp-dl__about dt {
     font-weight: 700; }
-  .mddtp-dl__about figcaption {
+  .mddtpp-dl__about figcaption {
     padding: 8px; }
 
-.mddtp-dl__about,
-.mddtp-section__images {
+.mddtpp-dl__about,
+.mddtpp-section__images {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -101,12 +117,12 @@ main {
               -ms-grid-row-align: center;
           align-items: center; }
 
-.mddtp-cell__logo {
+.mddtpp-cell__logo {
   vertical-align: middle;
   text-align: center;
   padding: 8px; }
 
-.mddtp-cell__logo img {
+.mddtpp-cell__logo img {
   width: 64px; }
 
 /* ==========  Color Palettes  ========== */
@@ -183,3 +199,17 @@ main {
   .hljs-selector-id .hljs-attr,
   .hljs-selector-class .hljs-attr {
     color: #ffc107; }
+
+/* Meta color: hue: 200 */
+.hljs-meta {
+  color: #1f7199; }
+
+.hljs-meta-string {
+  color: #4d99bf; }
+
+/* Misc effects */
+.hljs-emphasis {
+  font-style: italic; }
+
+.hljs-strong {
+  font-weight: bold; }
