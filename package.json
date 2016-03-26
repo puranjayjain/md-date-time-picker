@@ -14,12 +14,7 @@
 		"clock",
 		"input"
 	],
-	"main": [
-		"dist/js/md-date-time-picker.js",
-		"dist/css/md-date-time-picker.css",
-		"dist/js/md-date-time-picker.min.js",
-		"dist/css/md-date-time-picker.min.css"
-	],
+	"main": "dist",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
