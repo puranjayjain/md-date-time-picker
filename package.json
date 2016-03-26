@@ -2,8 +2,24 @@
 	"name": "md-date-time-picker",
 	"version": "0.3.0",
 	"description": "An implementation of the Material Design Picker components in vanilla CSS, JS and HTML",
-	"keywords": ["material", "design", "picker", "pickers", "date", "time", "calendar", "input"],
-	"main": "dist",
+	"keywords": [
+		"material",
+		"design",
+		"date",
+		"time",
+		"picker",
+		"pickers",
+		"dialog",
+		"calendar",
+		"clock",
+		"input"
+	],
+	"main": [
+		"dist/js/md-date-time-picker.js",
+		"dist/css/md-date-time-picker.css",
+		"dist/js/md-date-time-picker.min.js",
+		"dist/css/md-date-time-picker.min.css"
+	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
