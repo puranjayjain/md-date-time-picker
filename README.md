@@ -58,6 +58,10 @@ What should it output? ... well it is interpreted as 1st October 2016 in some br
 
 For more information refer [link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse).
 
+### Draggabilly
+
+This is an optional dependency if you want to make the dial draggable in time picker in minute which makes it useful there to select values which are not a divisor of 5 (e.g 3, 6) or in layman terms the values which come between 5, 10, 15, etc.
+
 ### What's included
 
 In the repo you'll find the following directories and files.

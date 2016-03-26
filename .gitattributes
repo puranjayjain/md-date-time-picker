@@ -13,44 +13,13 @@
 #
 
 # source code
-*.php text
 *.css text
-*.sass text
 *.scss text
-*.less text
-*.styl text
 *.js text
-*.ts text
 *.coffee text
 *.json text
-*.htm text
 *.html text
-*.xml text
 *.svg text
-*.txt text
-*.ini text
-*.inc text
-*.pl text
-*.rb text
-*.py text
-*.scm text
-*.sql text
-*.sh text
-*.bat text
-
-# templates
-*.ejs text
-*.hbt text
-*.jade text
-*.haml text
-*.hbs text
-*.dot text
-*.tmpl text
-*.phtml text
-*.latte text
-
-# server config
-.htaccess text
 
 # git config
 .gitattributes text
@@ -64,9 +33,7 @@
 .csslintrc text
 
 # misc config
-*.yaml text
-*.yml text
-.editorconfig text
+.jsbeautifyrc
 
 # build config
 *.npmignore text
