@@ -60,7 +60,7 @@ In the repo you'll find the following directories and files.
 
 | File/Folder     | Provides                                                                 |
 |-----------------|--------------------------------------------------------------------------|
-| .github         | Contains CONTRIBUTING.md, ISSUE_TEMPLATE.md and PULL_REQUEST_TEMPLATE.md.|
+| .github         | Contains CONTRIBUTING.md, ISSUE_TEMPLATE.md and PULL_REQUEST_TEMPLATE.md |
 | CONTRIBUTING.md | contribution guidelines.                                                 |
 | gulpfile.js     | gulp configuration.                                                      |
 | LICENSE.md      | Project license information.                                             |
