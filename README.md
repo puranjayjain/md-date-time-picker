@@ -1,8 +1,8 @@
 # md-date-time-picker
 
-[![GitHub version](https://badge.fury.io/gh/puranjayjain%2Fmd-date-time-picker.svg)](https://badge.fury.io/gh/puranjayjain%2Fmd-date-time-picker)
-[![npm version](https://badge.fury.io/js/md-date-time-picker.svg)](https://badge.fury.io/js/md-date-time-picker)
-[![Bower version](https://badge.fury.io/bo/puranjayjain%2Fmd-date-time-picker.svg)](https://badge.fury.io/bo/puranjayjain%2Fmd-date-time-picker)
+[![GitHub version](https://img.shields.io/github/release/puranjayjain/md-date-time-picker.svg)](https://badge.fury.io/gh/puranjayjain%2Fmd-date-time-picker)
+[![npm version](https://img.shields.io/npm/v/md-date-time-picker.svg)](https://badge.fury.io/js/md-date-time-picker)
+[![Bower version](https://img.shields.io/bower/v/md-date-time-picker.svg)](https://badge.fury.io/bo/puranjayjain%2Fmd-date-time-picker)
 [![Dependency Status](https://david-dm.org/puranjayjain/md-date-time-picker.svg)](https://david-dm.org/puranjayjain/md-date-time-picker)
 
 [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)]()
