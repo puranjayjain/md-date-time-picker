@@ -35,7 +35,8 @@
       });
       var z = new mdDateTimePicker({
         type: 'date',
-        init: moment('2016-03-3', 'YYYY-MM-DD')
+        init: moment('2016-03-3', 'YYYY-MM-DD'),
+        orientation: 'PORTRAIT'
       });
       document.getElementById('trigger').addEventListener('click', function() {
         x.toggle();
@@ -51,12 +52,14 @@
       });
       var b = new mdDateTimePicker({
         type: 'time',
-        init: moment('10:5 PM', 'h:m A')
+        init: moment('10:5 PM', 'h:m A'),
+        orientation: 'PORTRAIT'
       });
       var c = new mdDateTimePicker({
         type: 'time',
         init: moment('22:0', 'H:m'),
-        mode: true
+        mode: true,
+        orientation: 'PORTRAIT'
       });
       document.getElementById('trigger4').addEventListener('click', function() {
         a.toggle();

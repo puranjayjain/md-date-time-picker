@@ -1,9 +1,9 @@
 /**
 * @package md-date-time-picker
-* @version [0.3.0]
+* @version [0.4.0]
 * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
 * @license MIT
-* @website puranjayjain.github.io/md-date-time-picker/demo.html
+* @website puranjayjain.github.io/md-date-time-picker
 */
 
 /**
@@ -22,7 +22,7 @@ class mdDateTimePicker {
 	* @param  {[string]}   type = 'date' or 'time 									[type of dialog]
 	* @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
 	* @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-	* @param  {[moment]}   future = moment() 												[the future moment till which the calendar shall render] [@default = init]
+	* @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
 	* @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
 	* @param  {[string]}    orientation = 'LANDSCAPE' or 'PORTRAIT' [force the orientation of the picker @default = 'LANDSCAPE']
 	*
@@ -132,11 +132,16 @@ class mdDateTimePicker {
 	*/
 	_showDialog() {
 		let me = this
+		let zoomIn = 'zoomIn'
 		mdDateTimePicker.dialog.state = true
 		this._sDialog.picker.classList.remove('mddtp-picker--inactive')
-		this._sDialog.picker.classList.add('zoomIn')
+		this._sDialog.picker.classList.add(zoomIn)
+		// if the dialog is forced into portrait mode
+		if (this._orientation === 'PORTRAIT') {
+			this._sDialog.picker.classList.add('mddtp-picker--portrait')
+		}
 		setTimeout(function () {
-			me._sDialog.picker.classList.remove('zoomIn')
+			me._sDialog.picker.classList.remove(zoomIn)
 		}, 300)
 	}
 
@@ -192,6 +197,8 @@ class mdDateTimePicker {
 			needle.classList.add(selection)
 		}
 		setTimeout(function () {
+			// remove portrait mode
+			me._sDialog.picker.classList.remove('mddtp-picker--portrait')
 			me._sDialog.picker.classList.remove(zoomOut)
 			me._sDialog.picker.classList.add(inactive)
 			// clone elements and add them again to clear events attached to them
@@ -232,8 +239,8 @@ class mdDateTimePicker {
 		container.appendChild(body)
 		// add stuff to header and body according to dialog type
 		if (this._type === 'date') {
-			let subtitle = document.createElement('h4')
-			let title = document.createElement('h2')
+			let subtitle = document.createElement('div')
+			let title = document.createElement('div')
 			let titleDay = document.createElement('div')
 			let titleMonth = document.createElement('div')
 			let viewHolder = document.createElement('div')
@@ -296,7 +303,7 @@ class mdDateTimePicker {
 			body.appendChild(years)
 		}
 		else {
-			let title = document.createElement('h2')
+			let title = document.createElement('div')
 			let hour = document.createElement('span')
 			let span = document.createElement('span')
 			let minute = document.createElement('span')
@@ -1225,7 +1232,7 @@ class mdDateTimePicker {
 		let th = document.createElement('div')
 		let tr = document.createElement('div')
 		let weekDays = ['S', 'F', 'T', 'W', 'T', 'M', 'S']
-		let week = 6
+		let week = 7
 		while (week--) {
 			let span = document.createElement('span')
 			span.textContent = weekDays[week]

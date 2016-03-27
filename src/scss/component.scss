@@ -51,6 +51,7 @@
   display: table;
   border-radius: 3px;
   overflow: hidden;
+  z-index: 99999;
   .mddtp-picker__header {
     width: 100px;
     background-color: $picker-header-color;
@@ -136,108 +137,108 @@
   .mddtp-picker__right:disabled {
     background-image: url($picker-button-right-disabled);
   }
-  .mddtp-picker__body {
-    .mddtp-picker__viewHolder {
-      width: 314px;
-      overflow: hidden;
-      .mddtp-picker__views {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        font-size: 0; //fix weird element gap
-        width: 2000px;
-      }
-      .mddtp-picker__view {
-        display: inline-block;
-        width: 314px;
-        text-align: center;
-        transform: translate3d(-100%,0,0);
-        transition: .3s cubic-bezier(.42, 0, .58, 1);
-        .mddtp-picker__month {
-          display: inline-block;
-          padding: 18px;
-          font-size: 13px;
-          font-weight: 600;
-          color: $picker-primary-text-theme-color;
-        }
-      }
-      .mddtp-picker__view--left {
-        transform: translate3d(-200%,0,0);
-      }
-      .mddtp-picker__view--right {
-        transform: translate3d(0,0,0);
-      }
-      .mddtp-picker__view--pause {
-        transition: none;
-      }
-      .mddtp-picker__grid {
-        padding: 8px 14px 0;
-        span {
-          display: inline-block;
-          font-size: 13px;
-          margin: 2px;
-          color: $picker-primary-text-theme-color;
-          border-radius: 50%;
-          width: 36px;
-          height: 36px;
-          line-height: 36px;
-          vertical-align: middle;
-          &.mddtp-picker__cell--today {
-            color: $md-button-color;
-            font-weight: 600;
-          }
-          &.mddtp-picker__cell--selected {
-            background-color: $md-button-color;
-            color: $picker-body-color;
-          }
-          &.mddtp-picker__cell--disabled {
-            color: $md-button-color--disabled;
-            cursor: not-allowed;
-          }
-        }
-        .mddtp-picker__tr {
-          padding: 2px 0;
-          .mddtp-picker__cell {
-            pointer-events: all;
-            cursor: pointer;
-            &:hover {
-              @extend .mddtp-picker__selected;
-            }
-          }
-        }
-        .mddtp-picker__th {
-          span {
-            color: $picker-secondary-text-theme-color;
-          }
-        }
-      }
-    }
-    .mddtp-picker__years {
-      position: absolute;
-      left: 0;
-      top: 0;
+}
+.mddtp-picker__body {
+  .mddtp-picker__viewHolder {
+    width: 314px;
+    overflow: hidden;
+    .mddtp-picker__views {
       list-style: none;
       margin: 0;
       padding: 0;
-      width: 100%;
-      height: calc(100% - 52px);
+      font-size: 0; //fix weird element gap
+      width: 2000px;
+    }
+    .mddtp-picker__view {
+      display: inline-block;
+      width: 314px;
       text-align: center;
-      overflow: auto;
-      li {
-        font-size: 16px; //TODO make this 17 px on mobile
-        padding: 8px 0;
+      transform: translate3d(-100%,0,0);
+      transition: .3s cubic-bezier(.42, 0, .58, 1);
+      .mddtp-picker__month {
+        display: inline-block;
+        padding: 18px;
+        font-size: 13px;
+        font-weight: 600;
         color: $picker-primary-text-theme-color;
-        cursor: pointer;
-      }
-      //current year
-      .mddtp-picker__li--current {
-        font-size: 21px;
-        color: $md-button-color;
-      }
-      &--invisible {
-        display: none;
       }
     }
+    .mddtp-picker__view--left {
+      transform: translate3d(-200%,0,0);
+    }
+    .mddtp-picker__view--right {
+      transform: translate3d(0,0,0);
+    }
+    .mddtp-picker__view--pause {
+      transition: none;
+    }
+    .mddtp-picker__grid {
+      padding: 8px 14px 0;
+      span {
+        display: inline-block;
+        font-size: 13px;
+        margin: 2px;
+        color: $picker-primary-text-theme-color;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        vertical-align: middle;
+        &.mddtp-picker__cell--today {
+          color: $md-button-color;
+          font-weight: 600;
+        }
+        &.mddtp-picker__cell--selected {
+          background-color: $md-button-color;
+          color: $picker-body-color;
+        }
+        &.mddtp-picker__cell--disabled {
+          color: $md-button-color--disabled;
+          cursor: not-allowed;
+        }
+      }
+      .mddtp-picker__tr {
+        padding: 2px 0;
+        .mddtp-picker__cell {
+          pointer-events: all;
+          cursor: pointer;
+          &:hover {
+            @extend .mddtp-picker__selected;
+          }
+        }
+      }
+      .mddtp-picker__th {
+        span {
+          color: $picker-secondary-text-theme-color;
+        }
+      }
+    }
+  }
+}
+.mddtp-picker__years {
+  position: absolute;
+  left: 0;
+  top: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: calc(100% - 52px);
+  text-align: center;
+  overflow: auto;
+  li {
+    font-size: 16px; //TODO make this 17 px on mobile
+    padding: 8px 0;
+    color: $picker-primary-text-theme-color;
+    cursor: pointer;
+  }
+  //current year
+  .mddtp-picker__li--current {
+    font-size: 21px;
+    color: $md-button-color;
+  }
+  &--invisible {
+    display: none;
   }
 }
 //time component dialog
@@ -266,115 +267,112 @@
       }
     }
   }
-  .mddtp-picker__body {
-    .mddtp-picker__circularHolder {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      margin: 20px;
+}
+.mddtp-picker__circularHolder {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 20px;
+  border-radius: 50%;
+  background-color: $picker-circle-color;
+}
+.mddtp-picker__circularView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .mddtp-picker__cell {
+    position: absolute;
+    width: 50%;
+    top: calc(50% - 18px);
+    left: 50%;
+    text-align: right;
+    transform-origin: left center;
+    span {
+      display: inline-block;
+      cursor: pointer;
+      font-size: 13px;
+      color: $picker-primary-text-theme-color;
       border-radius: 50%;
-      background-color: $picker-circle-color;
-
-      .mddtp-picker__circularView {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        .mddtp-picker__cell {
-          position: absolute;
-          width: 50%;
-          top: calc(50% - 18px);
-          left: 50%;
-          text-align: right;
-          transform-origin: left center;
-          span {
-            display: inline-block;
-            cursor: pointer;
-            font-size: 13px;
-            color: $picker-primary-text-theme-color;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
-            text-align: center;
-            margin-right: 8px;
-          }
-          &--selected {
-            span {
-              color: $picker-body-color;
-            }
-          }
-        }
-
-        &--hidden {
-          display: none;
-        }
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      margin-right: 8px;
+    }
+    &--selected {
+      span {
+        color: $picker-body-color;
       }
+    }
+  }
 
-      .mddtp-picker__circle--fake {
-        position: absolute;
-        border-radius: 50%;
-        height: 36px;
-        width: 36px;
-        cursor: move; /* fallback if grab cursor is unsupported */
-        cursor: grab;
-        cursor: -moz-grab;
-        cursor: -webkit-grab;
+  &--hidden {
+    display: none;
+  }
+}
 
-        &.is-pointer-down,&:active {
-          cursor: grabbing;
-          cursor: -moz-grabbing;
-          cursor: -webkit-grabbing;
-        }
-      }
+.mddtp-picker__circle--fake {
+  position: absolute;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 
-      .mddtp-picker__selection {
-        position: absolute;
-        left: 50%;
-        top: calc(50% - 18px);
-        width: 50%;
-        font-size: 0;
-        transform-origin: left center;
-        transition: .3s cubic-bezier(.42, 0, .58, 1);
+  &.is-pointer-down,&:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+}
 
-        span {
-          display: inline-block;
-          background-color: $picker-line-color;
-          height: 2px;
-          vertical-align: middle;
+.mddtp-picker__selection {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 18px);
+  width: 50%;
+  font-size: 0;
+  transform-origin: left center;
+  transition: .3s cubic-bezier(.42, 0, .58, 1);
 
-          &.mddtp-picker__dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-          }
+  span {
+    display: inline-block;
+    background-color: $picker-line-color;
+    height: 2px;
+    vertical-align: middle;
 
-          &.mddtp-picker__line {
-            width: calc(100% - 52px);
-          }
+    &.mddtp-picker__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
 
-          &.mddtp-picker__circle {
-            border-radius: 50%;
-            height: 36px;
-            width: 36px;
-          }
-        }
+    &.mddtp-picker__line {
+      width: calc(100% - 52px);
+    }
 
-        &--quick {
-          transition: none;
-        }
-      }
+    &.mddtp-picker__circle {
+      border-radius: 50%;
+      height: 36px;
+      width: 36px;
+    }
+  }
 
-      //60 minute deg rotations
-      @for $i from 1 through 120 {
-        .mddtp-picker__cell--rotate-#{$i} {
-          transform: rotate(#{(360 / 120) * $i - 90}deg);
+  &--quick {
+    transition: none;
+  }
+}
 
-          span:not(.mddtp-picker__line) {
-            $reverse: -((360 / 120) * $i - 90);
-            transform: rotate(#{$reverse}deg);
-          }
-        }
-      }
+//60 minute deg rotations
+@for $i from 1 through 120 {
+  .mddtp-picker__cell--rotate-#{$i} {
+    transform: rotate(#{(360 / 120) * $i - 90}deg);
+
+    span:not(.mddtp-picker__line) {
+      $reverse: -((360 / 120) * $i - 90);
+      transform: rotate(#{$reverse}deg);
     }
   }
 }

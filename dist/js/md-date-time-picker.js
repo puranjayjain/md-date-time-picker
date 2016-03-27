@@ -14,7 +14,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
  * @param  {[string]}   type = 'date' or 'time 									[type of dialog]
  * @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
  * @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
- * @param  {[moment]}   future = moment() 												[the future moment till which the calendar shall render] [@default = init]
+ * @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
  * @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
  * @param  {[string]}    orientation = 'LANDSCAPE' or 'PORTRAIT' [force the orientation of the picker @default = 'LANDSCAPE']
  *
@@ -150,12 +150,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}, {
 		key: '_showDialog',
 		value: function _showDialog() {
-			var me = this;
+			var me = this,
+			    zoomIn = 'zoomIn';
+
 			mdDateTimePicker.dialog.state = !0;
 			this._sDialog.picker.classList.remove('mddtp-picker--inactive');
-			this._sDialog.picker.classList.add('zoomIn');
+			this._sDialog.picker.classList.add(zoomIn);
+			// if the dialog is forced into portrait mode
+			if (this._orientation === 'PORTRAIT') {
+				this._sDialog.picker.classList.add('mddtp-picker--portrait');
+			}
 			setTimeout(function () {
-				me._sDialog.picker.classList.remove('zoomIn');
+				me._sDialog.picker.classList.remove(zoomIn);
 			}, 300);
 		}
 
@@ -214,6 +220,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				needle.classList.add(selection);
 			}
 			setTimeout(function () {
+				// remove portrait mode
+				me._sDialog.picker.classList.remove('mddtp-picker--portrait');
 				me._sDialog.picker.classList.remove(zoomOut);
 				me._sDialog.picker.classList.add(inactive);
 				// clone elements and add them again to clear events attached to them
@@ -261,8 +269,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			container.appendChild(body);
 			// add stuff to header and body according to dialog type
 			if (this._type === 'date') {
-				var subtitle = document.createElement('h4'),
-				    title = document.createElement('h2'),
+				var subtitle = document.createElement('div'),
+				    title = document.createElement('div'),
 				    titleDay = document.createElement('div'),
 				    titleMonth = document.createElement('div'),
 				    viewHolder = document.createElement('div'),
@@ -325,7 +333,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				body.appendChild(right);
 				body.appendChild(years);
 			} else {
-				var _title = document.createElement('h2'),
+				var _title = document.createElement('div'),
 				    hour = document.createElement('span'),
 				    span = document.createElement('span'),
 				    minute = document.createElement('span'),
@@ -1330,7 +1338,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    th = document.createElement('div'),
 			    tr = document.createElement('div'),
 			    weekDays = ['S', 'F', 'T', 'W', 'T', 'M', 'S'],
-			    week = 6;
+			    week = 7;
 
 			while (week--) {
 				var span = document.createElement('span');
@@ -1389,10 +1397,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	return mdDateTimePicker;
 }(); /**
      * @package md-date-time-picker
-     * @version [0.3.0]
+     * @version [0.4.0]
      * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
      * @license MIT
-     * @website puranjayjain.github.io/md-date-time-picker/demo.html
+     * @website puranjayjain.github.io/md-date-time-picker
      */
 
 /**
