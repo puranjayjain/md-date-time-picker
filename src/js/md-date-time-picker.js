@@ -52,7 +52,7 @@ class mdDateTimePicker {
 	}
 
 	/**
-	* [upDate to get or set the current picker's moment]
+	* [time to get or set the current picker's moment]
 	*
 	* @method time
 	*

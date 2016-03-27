@@ -59,7 +59,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	}
 
 	/**
- * [upDate to get or set the current picker's moment]
+ * [time to get or set the current picker's moment]
  *
  * @method time
  *
