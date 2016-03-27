@@ -10,6 +10,8 @@ var cache = require('gulp-cache');
 var minifycss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
+var replace = require('gulp-replace');
+var runSequence = require('run-sequence');
 
 var src = {
 	scss: 'src/scss/**/*.scss',
@@ -25,6 +27,13 @@ var dist = {
 	js: 'dist/js/'
 };
 
+var colors = ['red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'light-blue', 'cyan', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'grey', 'blue-grey', 'teal'];
+var prefix = '$palette-';
+var color = 'teal';
+var contrast = false;
+var contrasts = ['false','true'];
+var themeFolder = ['light','dark'];
+
 gulp.task('browser-sync', function () {
 	browserSync({
 		server: {
@@ -39,50 +48,74 @@ gulp.task('bs-reload', function () {
 
 gulp.task('images', function () {
 	gulp.src(src.images)
-		.pipe(cache(imagemin({
-			optimizationLevel: 3,
-			progressive: true,
-			interlaced: true
-		})))
-		.pipe(gulp.dest(dist.images));
+	.pipe(cache(imagemin({
+		optimizationLevel: 3,
+		progressive: true,
+		interlaced: true
+	})))
+	.pipe(gulp.dest(dist.images));
 });
 
 gulp.task('styles', function () {
 	gulp.src([src.scss])
-		.pipe(plumber({
-			errorHandler: function (error) {
-				console.log(error.message);
-				this.emit('end');
-			}
-		}))
-		.pipe(sass())
-		.pipe(autoprefixer({
-			browsers: ['last 4 versions', 'ie >= 6']
-		}))
-		.pipe(rename('md-date-time-picker.css'))
-		.pipe(gulp.dest(dist.css))
-		.pipe(rename({
-			suffix: '.min'
-		}))
-		.pipe(minifycss())
-		.pipe(gulp.dest(dist.css))
-		.pipe(browserSync.reload({
-			stream: true
-		}));
+	.pipe(plumber({
+		errorHandler: function (error) {
+			console.log(error.message);
+			this.emit('end');
+		}
+	}))
+	.pipe(sass())
+	.pipe(autoprefixer({
+		browsers: ['last 4 versions', 'ie >= 6']
+	}))
+	.pipe(rename('md-date-time-picker.css'))
+	.pipe(gulp.dest(dist.css))
+	.pipe(rename({
+		suffix: '.min'
+	}))
+	.pipe(minifycss())
+	.pipe(gulp.dest(dist.css))
+	.pipe(browserSync.reload({
+		stream: true
+	}));
 });
 
 gulp.task('scripts', function () {
 	return gulp.src(src.js)
-		.pipe(babel())
-		.pipe(gulp.dest(dist.js))
-		.pipe(rename({
-			suffix: '.min'
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest(dist.js))
-		.pipe(browserSync.reload({
-			stream: true
-		}));
+	.pipe(babel())
+	.pipe(gulp.dest(dist.js))
+	.pipe(rename({
+		suffix: '.min'
+	}))
+	.pipe(uglify())
+	.pipe(gulp.dest(dist.js))
+	.pipe(browserSync.reload({
+		stream: true
+	}));
+});
+
+gulp.task('themes', function() {
+	// runSequence('init-theme');
+	for (j in contrasts) {
+		contrast = contrasts[j];
+		for (i in colors) {
+			color = colors[i];
+			dist.css = 'dist/css/themes/' + themeFolder[j] + '/' + color + '/';
+			runSequence('theme','styles');
+		}
+	}
+});
+
+gulp.task('init-theme', function() {
+	gulp.src('src/scss/dependencies/_global.scss')
+	.pipe(gulp.dest('src/scss/dependencies/_global'));
+});
+
+gulp.task('theme', function() {
+	gulp.src('src/scss/dependencies/_global/_global.scss')
+	.pipe(replace('false', contrast))
+	.pipe(replace(prefix + 'teal', prefix + color))
+	.pipe(gulp.dest('src/scss/dependencies'));
 });
 
 gulp.task('default', ['browser-sync'], function () {
