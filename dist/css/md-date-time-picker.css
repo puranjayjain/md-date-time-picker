@@ -49,6 +49,7 @@
           transform-origin: 0 0;
   display: table;
   border-radius: 3px;
+  line-height: normal;
   overflow: hidden;
   z-index: 99999; }
   .mddtp-picker .mddtp-picker__header {
