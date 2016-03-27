@@ -15,7 +15,7 @@
         </pre>
       </section>
       <section id="documentation/type">
-        <h4 class="mddtpp-section__title">Type</h4>
+        <h4 class="mddtpp-section__title">Type <strong>Argument</strong></h4>
         <h6 class="mddtpp-section__subtitle">The type of dialog.</h6>
         <p class="mddtpp-section__note">
           <strong>Note: </strong>
@@ -41,7 +41,7 @@
         </table>
       </section>
       <section id="documentation/init">
-        <h4 class="mddtpp-section__title">Init <mark>Optional</mark></h4>
+        <h4 class="mddtpp-section__title">Init <strong>Argument</strong> <mark>Optional</mark></h4>
         <h6 class="mddtpp-section__subtitle">The currently set value of dialog or the value of dialog to begin with.</h6>
         <table class="mdl-data-table mdl-js-data-table mddtpp-table mdl-shadow--2dp">
           <thead>
@@ -61,7 +61,7 @@
         </table>
       </section>
       <section id="documentation/past">
-        <h4 class="mddtpp-section__title">Past <mark>Optional</mark></h4>
+        <h4 class="mddtpp-section__title">Past <strong>Argument</strong> <mark>Optional</mark></h4>
         <h6 class="mddtpp-section__subtitle">The past until which the dialog will render dates.</h6>
         <p class="mddtpp-section__note">
           <strong>Note: </strong>
@@ -85,7 +85,7 @@
         </table>
       </section>
       <section id="documentation/future">
-        <h4 class="mddtpp-section__title">Future <mark>Optional</mark></h4>
+        <h4 class="mddtpp-section__title">Future <strong>Argument</strong> <mark>Optional</mark></h4>
         <h6 class="mddtpp-section__subtitle">The future value till which the dialog will render dates.</h6>
         <p class="mddtpp-section__note">
           <strong>Note: </strong>
@@ -109,7 +109,7 @@
         </table>
       </section>
       <section id="documentation/mode">
-        <h4 class="mddtpp-section__title">Mode <mark>Optional</mark></h4>
+        <h4 class="mddtpp-section__title">Mode <strong>Argument</strong> <mark>Optional</mark></h4>
         <p class="mddtpp-section__note">
           <strong>Note: </strong>
           The value is only relevant in case of the <strong>'time'</strong> dialog.
@@ -137,7 +137,7 @@
         </table>
       </section>
       <section id="documentation/orientation">
-        <h4 class="mddtpp-section__title">Orientation <mark>Optional</mark></h4>
+        <h4 class="mddtpp-section__title">Orientation <strong>Argument</strong> <mark>Optional</mark></h4>
         <h6 class="mddtpp-section__subtitle">Force the orientation of the picker in certain mode at initial render.</h6>
         <table class="mdl-data-table mdl-js-data-table mddtpp-table mdl-shadow--2dp">
           <thead>
@@ -161,8 +161,32 @@
           </tbody>
         </table>
       </section>
+      <section id="documentation/time">
+        <h4 class="mddtpp-section__title">Time <strong>Method</strong> <mark>Optional</mark></h4>
+        <h6 class="mddtpp-section__subtitle">You can get or set the current time of the dialog.</h6>
+        <p class="mddtpp-section__note">
+          <strong>Note: </strong>
+          Don't pass any parameters for getting the value and pass a moment to set a new date on the dialog. Also the component is not responsible for checking if the the set date is in the valid range
+        </p>
+        <h6 class="mddtpp-section__subtitle">Here, is a usage example of get</h6>
+        <div class="mddtpp-p">
+          <pre><code>var time = dialog.time();</code></pre>
+        </div>
+        <h6 class="mddtpp-section__subtitle">Here, is a usage example of set</h6>
+        <div class="mddtpp-p">
+          <pre><code>dialog.time(moment());</code></pre>
+        </div>
+      </section>
+      <section id="documentation/toggle">
+        <h4 class="mddtpp-section__title">Toggle <strong>Method</strong> <mark>Optional</mark></h4>
+        <h6 class="mddtpp-section__subtitle">Toggles the display state of the dialog between open and close.</h6>
+        <h6 class="mddtpp-section__subtitle">Here, is a usage example</h6>
+        <div class="mddtpp-p">
+          <pre><code>dialog.toggle();</code></pre>
+        </div>
+      </section>
       <section id="documentation/custombuild">
-        <h4 class="mddtpp-section__title">Custom Build <mark>Optional</mark></h4>
+        <h4 class="mddtpp-section__title">Custom Build <strong>Other</strong> <mark>Optional</mark></h4>
         <h6 class="mddtpp-section__subtitle">You can tweak the entire component as and where you like. To do so, </h6>
         <ol>
           <li>
@@ -203,7 +227,7 @@
         </table>
       </section>
       <section id="documentation/anewfeature">
-        <h4 class="mddtpp-section__title">A New Feature</h4>
+        <h4 class="mddtpp-section__title">A New Feature <strong>Other</strong></h4>
         <h6 class="mddtpp-section__subtitle">Feel free to open an issue on <a class="mddtpp-a" href="https://github.com/PuranjayJain/md-date-time-picker">github</a>.</h6>
       </section>
     </article>
@@ -218,6 +242,8 @@
           <li><a href="#documentation/future">Future</a></li>
           <li><a href="#documentation/mode">Mode</a></li>
           <li><a href="#documentation/orientation">Orientation</a></li>
+          <li><a href="#documentation/time">Time</a></li>
+          <li><a href="#documentation/toggle">Toggle</a></li>
           <li><a href="#documentation/custombuild">Custom Build</a></li>
           <li><a href="#documentation/anewfeature">A New Feature</a></li>
         </ul>
