@@ -11,7 +11,8 @@ var minifycss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var replace = require('gulp-replace');
-var runSequence = require('run-sequence');
+var merge = require('merge-stream');
+var del = require('del');
 
 var src = {
 	scss: 'src/scss/**/*.scss',
@@ -27,12 +28,160 @@ var dist = {
 	js: 'dist/js/'
 };
 
-var colors = ['red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'light-blue', 'cyan', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'grey', 'blue-grey', 'teal'];
-var prefix = '$palette-';
-var color = 'teal';
-var contrast = false;
-var contrasts = ['false','true'];
-var themeFolder = ['light','dark'];
+var themeSheet = [{
+	color: 'red',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'pink',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'purple',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'deep-purple',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'indigo',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'blue',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'light-blue',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'cyan',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'green',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'light-green',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'lime',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'yellow',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'amber',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'orange',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'deep-orange',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'brown',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'grey',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'blue-grey',
+	dark: ': false',
+	path: 'light'
+}, {
+	color: 'teal',
+	dark: ': false',
+	path: 'light'
+},
+{
+	color: 'red',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'pink',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'purple',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'deep-purple',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'indigo',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'blue',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'light-blue',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'cyan',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'green',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'light-green',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'lime',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'yellow',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'amber',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'orange',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'deep-orange',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'brown',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'grey',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'blue-grey',
+	dark: ': true',
+	path: 'dark'
+}, {
+	color: 'teal',
+	dark: ': true',
+	path: 'dark'
+}];
 
 gulp.task('browser-sync', function () {
 	browserSync({
@@ -94,33 +243,60 @@ gulp.task('scripts', function () {
 	}));
 });
 
-gulp.task('themes', function() {
-	// runSequence('init-theme');
-	for (j in contrasts) {
-		contrast = contrasts[j];
-		for (i in colors) {
-			color = colors[i];
-			dist.css = 'dist/css/themes/' + themeFolder[j] + '/' + color + '/';
-			runSequence('theme','styles');
-		}
-	}
+gulp.task('init-themes', function () {
+	var tasks = themeSheet.map(function(theme) {
+		return gulp.src('src/scss/**/*')
+		.pipe(gulp.dest('temp/scss/themes/' + theme.path + '/' + theme.color));
+	});
+	return merge(tasks);
 });
 
-gulp.task('init-theme', function() {
-	gulp.src('src/scss/dependencies/_global.scss')
-	.pipe(gulp.dest('src/scss/dependencies/_global'));
+gulp.task('themes', function () {
+	var tasks = themeSheet.map(function(theme) {
+		return gulp.src('src/scss/dependencies/_global.scss')
+		.pipe(replace(': false',theme.dark))
+		.pipe(replace('teal', theme.color))
+		.pipe(gulp.dest('temp/scss/themes/' + theme.path + '/' + theme.color + '/dependencies'));
+	});
+	return merge(tasks);
 });
 
-gulp.task('theme', function() {
-	gulp.src('src/scss/dependencies/_global/_global.scss')
-	.pipe(replace('false', contrast))
-	.pipe(replace(prefix + 'teal', prefix + color))
-	.pipe(gulp.dest('src/scss/dependencies'));
+gulp.task('generate-stylesheets', function () {
+	var tasks = themeSheet.map(function(theme) {
+		return gulp.src(['temp/scss/themes/' + theme.path + '/' + theme.color + '/**/*.scss'])
+		.pipe(plumber({
+			errorHandler: function (error) {
+				console.log(error.message);
+				this.emit('end');
+			}
+		}))
+		.pipe(sass())
+		.pipe(autoprefixer({
+			browsers: ['last 4 versions', 'ie >= 6']
+		}))
+		.pipe(rename('md-date-time-picker.css'))
+		.pipe(gulp.dest('dist/css/themes/' + theme.path + '/' + theme.color + '/'))
+		.pipe(rename({
+			suffix: '.min'
+		}))
+		.pipe(minifycss())
+		.pipe(gulp.dest('dist/css/themes/' + theme.path + '/' + theme.color + '/'));
+	});
+	return merge(tasks);
 });
 
-gulp.task('default', ['browser-sync'], function () {
+gulp.task('clean-dir', function () {
+	return del('temp/**/*');
+});
+
+gulp.task('generate-themes', gulp.series('init-themes','themes', 'generate-stylesheets', 'clean-dir', function (done) {
+	// just an empty placeholder to run the tasks
+	done();
+}));
+
+gulp.task('default', gulp.series('browser-sync', function () {
 	gulp.watch(src.scss, ['styles']);
 	gulp.watch(src.js, ['scripts']);
 	gulp.watch(src.svg, ['images']);
 	gulp.watch(dist.html, ['bs-reload']);
-});
+}));

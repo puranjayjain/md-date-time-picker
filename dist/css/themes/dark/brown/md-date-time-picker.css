@@ -18,7 +18,7 @@
   text-transform: uppercase;
   outline: none;
   cursor: pointer;
-  color: #b0bec5;
+  color: #bcaaa4;
   -webkit-appearance: button;
   overflow: visible;
   -webkit-tap-highlight-color: transparent;
@@ -169,10 +169,10 @@
       line-height: 36px;
       vertical-align: middle; }
       .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid span.mddtp-picker__cell--today {
-        color: #b0bec5;
+        color: #bcaaa4;
         font-weight: 600; }
       .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid span.mddtp-picker__cell--selected {
-        background-color: #b0bec5;
+        background-color: #bcaaa4;
         color: #424242; }
       .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid span.mddtp-picker__cell--disabled {
         color: rgba(255, 255, 255, 0.3);
@@ -203,7 +203,7 @@
     cursor: pointer; }
   .mddtp-picker__years .mddtp-picker__li--current {
     font-size: 21px;
-    color: #b0bec5; }
+    color: #bcaaa4; }
   .mddtp-picker__years--invisible {
     display: none; }
 
@@ -286,7 +286,7 @@
   transition: 0.3s cubic-bezier(0.42, 0, 0.58, 1); }
   .mddtp-picker__selection span {
     display: inline-block;
-    background-color: #b0bec5;
+    background-color: #bcaaa4;
     height: 2px;
     vertical-align: middle; }
     .mddtp-picker__selection span.mddtp-picker__dot {
