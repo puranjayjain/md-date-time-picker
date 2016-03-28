@@ -1417,9 +1417,9 @@
       display: block;
       height: 100%;
       width: 100%; }
-    .mddtp-picker.mddtp-picker-date .mddtp-date__title div {
+    .mddtp-picker.mddtp-picker-date .mddtp-picker__title div {
       display: inline-block; }
-      .mddtp-picker.mddtp-picker-date .mddtp-date__title div#mddtp-date__titleMonth {
+      .mddtp-picker.mddtp-picker-date .mddtp-picker__title div#mddtp-date__titleMonth {
         margin-left: 8px; }
     .mddtp-picker.mddtp-picker-time .mddtp-picker__header {
       text-align: right;
@@ -1443,9 +1443,9 @@
       display: block;
       height: 100%;
       width: 100%; }
-    .mddtp-picker.mddtp-picker-date .mddtp-date__title div {
+    .mddtp-picker.mddtp-picker-date .mddtp-picker__title div {
       display: inline-block; }
-      .mddtp-picker.mddtp-picker-date .mddtp-date__title div#mddtp-date__titleMonth {
+      .mddtp-picker.mddtp-picker-date .mddtp-picker__title div#mddtp-date__titleMonth {
         margin-left: 8px; }
     .mddtp-picker.mddtp-picker-time .mddtp-picker__header {
       text-align: right;
@@ -1468,9 +1468,9 @@
     display: block;
     height: 100%;
     width: 100%; }
-  .mddtp-picker--portrait.mddtp-picker-date .mddtp-date__title div {
+  .mddtp-picker--portrait.mddtp-picker-date .mddtp-picker__title div {
     display: inline-block; }
-    .mddtp-picker--portrait.mddtp-picker-date .mddtp-date__title div#mddtp-date__titleMonth {
+    .mddtp-picker--portrait.mddtp-picker-date .mddtp-picker__title div#mddtp-date__titleMonth {
       margin-left: 8px; }
   .mddtp-picker--portrait.mddtp-picker-time .mddtp-picker__header {
     text-align: right;

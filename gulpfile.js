@@ -184,7 +184,7 @@ var themeSheet = [{
 }];
 
 gulp.task('browser-sync', function () {
-	browserSync({
+	return browserSync({
 		server: {
 			baseDir: "./dist"
 		}
@@ -192,11 +192,11 @@ gulp.task('browser-sync', function () {
 });
 
 gulp.task('bs-reload', function () {
-	browserSync.reload();
+	return	browserSync.reload();
 });
 
 gulp.task('images', function () {
-	gulp.src(src.images)
+	return gulp.src(src.images)
 	.pipe(cache(imagemin({
 		optimizationLevel: 3,
 		progressive: true,
@@ -206,7 +206,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('styles', function () {
-	gulp.src([src.scss])
+	return gulp.src([src.scss])
 	.pipe(plumber({
 		errorHandler: function (error) {
 			console.log(error.message);
