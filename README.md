@@ -13,9 +13,11 @@
 
 Share the :heart: !
 
-:heart: the package? Then :star: it!
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/puranjayjain/md-date-time-picker.svg?style=social)](https://twitter.com/intent/tweet?text=check%20out&url=https://puranjayjain.github.io/md-date-time-picker&via=puranjayjain)
+[![Google Plus](https://www.gstatic.com/images/icons/gplus-16.png)](https://plus.google.com/share?url=https://puranjayjain.github.io/md-date-time-picker)
+[![Facebook](https://github.com/puranjayjain/md-date-time-picker/blob/master/src/images/FB-f-Logo__blue_29.png)](https://www.facebook.com/sharer.php?u=https://puranjayjain.github.io/md-date-time-picker&media=https://puranjayjain.github.io/md-date-time-picker/favicon-128.png&description=An%20implementation%20of%20Material%20Design%20Picker%20components%20in%20vanilla%20CSS,%20JS,%20and%20HTML)
 
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/puranjayjain/md-date-time-picker.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+:heart: the package? Then :star: it!
 
 > An implementation of [Material Design Picker](https://www.google.com/design/spec/components/pickers.html)
 components in vanilla CSS, JS, and HTML
