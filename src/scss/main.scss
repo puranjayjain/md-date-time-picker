@@ -52,6 +52,9 @@ pre {
   height: 20px;
   width: 20px;
 }
+.mdl-mega-footer {
+  z-index: 2;
+}
 .mdl-mega-footer__link-list a:hover {
   color: #fff;
 }
@@ -99,8 +102,21 @@ pre {
 .mddtpp-div__swatch {
   height: 16px;
 }
+.mddtpp-article__docs {
+  width: calc(100% - 224px);
+}
+.mddtpp-toc {
+  width: 225px;
+  &--fixed {
+    position: fixed;
+    right: 16px;
+    top: 112px;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
 .mddtpp-nav__toc {
-  margin: 32px;
+  margin: 16px 32px;
 }
 .mddtpp-nav__toc ul {
   list-style-type: none;
@@ -136,5 +152,6 @@ pre {
 .mddtpp-cell__logo img {
   width: 64px;
 }
+
 
 @import 'dependencies/code';

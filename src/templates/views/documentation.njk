@@ -1,6 +1,6 @@
 <section class="mdl-layout__tab-panel" id="scroll-tab-4">
-  <div class="page-content mdl-grid mdl-grid--no-spacing">
-    <article class="mdl-cell mddtpp-section--grow">
+  <div class="page-content">
+    <article class="mddtpp-article__docs">
       <section id="documentation/basicexample">
         <h4 class="mddtpp-section__title">Basic Example</h4>
         <p class="mddtpp-p">
@@ -161,6 +161,26 @@
           </tbody>
         </table>
       </section>
+      <section id="documentation/trigger1">
+        <h4 class="mddtpp-section__title">Trigger <strong>Argument</strong> <mark>Optional</mark></h4>
+        <h6 class="mddtpp-section__subtitle">Adds an event trigger to element for that instance of the dialog.</h6>
+        <table class="mdl-data-table mdl-js-data-table mddtpp-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Key</th>
+              <th>Value <mark>element</mark></th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">trigger</td>
+              <td>Element selector e.g document.getElementById('someElement')</td>
+              <td>No element</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
       <section id="documentation/time">
         <h4 class="mddtpp-section__title">Time <strong>Method</strong> <mark>Optional</mark></h4>
         <h6 class="mddtpp-section__subtitle">You can get or set the current time of the dialog.</h6>
@@ -183,6 +203,63 @@
         <h6 class="mddtpp-section__subtitle">Here, is a usage example</h6>
         <div class="mddtpp-p">
           <pre><code>dialog.toggle();</code></pre>
+        </div>
+      </section>
+      <section id="documentation/trigger2">
+        <h4 class="mddtpp-section__title">Trigger <strong>Method</strong> <mark>Optional</mark></h4>
+        <h6 class="mddtpp-section__subtitle">Adds an event trigger to element for that instance of the dialog.</h6>
+        <table class="mdl-data-table mdl-js-data-table mddtpp-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Method</th>
+              <th>Parameters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">trigger</td>
+              <td>Element selector e.g document.getElementById('someElement')</td>
+            </tr>
+          </tbody>
+        </table>
+        <h6 class="mddtpp-section__subtitle">Here, is a usage example</h6>
+        <div class="mddtpp-p">
+          <pre><code>dialog.trigger(document.getElementById('someElement'));</code></pre>
+        </div>
+      </section>
+      <section id="documentation/onOk">
+        <h4 class="mddtpp-section__title">onOk <strong>Event</strong> <mark>Optional</mark></h4>
+        <h6 class="mddtpp-section__subtitle">This event is dispatched on the trigger element when the ok button is pressed in the dialog.</h6>
+        <h6 class="mddtpp-section__subtitle">Here, is a usage example</h6>
+        <div class="mddtpp-p">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="test1">
+            <label class="mdl-textfield__label" for="test1">Date will be updated here</label>
+          </div>
+          <button id="trigger-2" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+            Date
+          </button>
+        </div>
+        <div class="mddtpp-p">
+          <pre><code>
+            // assuming test1 is an input text element
+            document.getElementById('test1').addEventListener('onOk', function() {
+              this.value = x.time().toString();
+            });
+          </code></pre>
+        </div>
+      </section>
+      <section id="documentation/onCancel">
+        <h4 class="mddtpp-section__title">onCancel <strong>Event</strong> <mark>Optional</mark></h4>
+        <h6 class="mddtpp-section__subtitle">This event is dispatched on the trigger element when the cancel button is pressed in the dialog.</h6>
+        <h6 class="mddtpp-section__subtitle">Here, is a usage example</h6>
+        <div class="mddtpp-p">
+          <pre><code>
+            // assuming test1 is an input text element
+            document.getElementById('test1').addEventListener('onCancel', function() {
+              this.value = x.time().toString();
+            });
+          </code></pre>
         </div>
       </section>
       <section id="documentation/custombuild">
@@ -238,9 +315,9 @@
         <h6 class="mddtpp-section__subtitle">Feel free to open an issue on <a class="mddtpp-a" href="https://github.com/PuranjayJain/md-date-time-picker">github</a>.</h6>
       </section>
     </article>
-    <section id="documentation/toc" class="mdl-cell mdl-cell--2-col md-cell mddtpp-section--white">
+    <section id="documentation/toc" class="mddtpp-toc mddtpp-toc--fixed mddtpp-section--white">
       <nav class="mddtpp-nav__toc">
-        <a href="#documentation/top">Table of contents</a>
+        <a href="#">Argument</a>
         <ul>
           <li><a href="#documentation/basicexample">Basic Example</a></li>
           <li><a href="#documentation/type">Type</a></li>
@@ -249,8 +326,27 @@
           <li><a href="#documentation/future">Future</a></li>
           <li><a href="#documentation/mode">Mode</a></li>
           <li><a href="#documentation/orientation">Orientation</a></li>
+          <li><a href="#documentation/trigger1">Trigger</a></li>
+        </ul>
+      </nav>
+      <nav class="mddtpp-nav__toc">
+        <a href="#documentation/time">Method</a>
+        <ul>
           <li><a href="#documentation/time">Time</a></li>
           <li><a href="#documentation/toggle">Toggle</a></li>
+          <li><a href="#documentation/trigger2">Trigger</a></li>
+        </ul>
+      </nav>
+      <nav class="mddtpp-nav__toc">
+        <a href="#documentation/onOk">Event</a>
+        <ul>
+          <li><a href="#documentation/onOk">onOk</a></li>
+          <li><a href="#documentation/onCancel">onCancel</a></li>
+        </ul>
+      </nav>
+      <nav class="mddtpp-nav__toc">
+        <a href="#documentation/custombuild">Build</a>
+        <ul>
           <li><a href="#documentation/custombuild">Custom Build</a></li>
           <li><a href="#documentation/anewfeature">A New Feature</a></li>
         </ul>

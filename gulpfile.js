@@ -13,7 +13,7 @@ var nunjucksRender = require('gulp-nunjucks-render');
 var htmlmin = require('gulp-htmlmin');
 
 gulp.task('images', function() {
-  gulp.src('src/images/*')
+  return gulp.src('src/images/*')
     .pipe(cache(imagemin({
       optimizationLevel: 3,
       progressive: true,
@@ -26,7 +26,7 @@ gulp.task('images', function() {
 });
 
 gulp.task('imagesRoot', function() {
-  gulp.src(['src/favicons/*.png','src/favicons/*.ico'], {base: 'src/'})
+  return gulp.src(['src/favicons/*.png','src/favicons/*.ico'], {base: 'src/'})
     .pipe(cache(imagemin({
       optimizationLevel: 3,
       progressive: true,
@@ -50,7 +50,7 @@ gulp.task('scripts', function() {
 
 // anything below this line is freshly baked
 gulp.task('browser-sync', function() {
-  browserSync({
+  return browserSync({
     server: {
       baseDir: "./"
     }
@@ -58,7 +58,7 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('bs-reload', function() {
-  browserSync.reload();
+  return browserSync.reload();
 });
 
 //process sass
@@ -98,7 +98,7 @@ gulp.task('nunjucks', function() {
 
 //run css tasks
 gulp.task('run-css', function() {
-  runSequence(['scss', 'build-css']);
+  return runSequence(['scss', 'build-css']);
 });
 
 gulp.task('default', ['browser-sync'], function() {
