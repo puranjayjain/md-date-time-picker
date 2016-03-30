@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
@@ -295,8 +297,8 @@ gulp.task('generate-themes', gulp.series('init-themes','themes', 'generate-style
 }));
 
 gulp.task('default', gulp.series('browser-sync', function () {
-	gulp.watch(src.scss, ['styles']);
-	gulp.watch(src.js, ['scripts']);
-	gulp.watch(src.svg, ['images']);
-	gulp.watch(dist.html, ['bs-reload']);
+	gulp.watch(src.js, 'scripts');
+	gulp.watch(src.scss, 'styles');
+	gulp.watch(src.svg, 'images');
+	gulp.watch(dist.html, 'bs-reload');
 }));

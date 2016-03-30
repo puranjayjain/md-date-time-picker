@@ -1,6 +1,6 @@
 /**
 * @package md-date-time-picker
-* @version [1.0.1]
+* @version [1.1.0]
 * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
 * @license MIT
 * @website puranjayjain.github.io/md-date-time-picker
@@ -24,17 +24,19 @@ class mdDateTimePicker {
 	* @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
 	* @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
 	* @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-	* @param  {[string]}    orientation = 'LANDSCAPE' or 'PORTRAIT' [force the orientation of the picker @default = 'LANDSCAPE']
+	* @param  {[string]}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
+	* @param  {[element]}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
 	*
 	* @return {[Object]}    																				[mdDateTimePicker]
 	*/
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE'}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = ''}) {
 		this._type = type
 		this._init = init
 		this._past = past
 		this._future = future
 		this._mode = mode
 		this._orientation = orientation
+		this._trigger = trigger
 
 		/**
 		* [dialog selected classes have the same structure as dialog but one level down]
@@ -64,6 +66,20 @@ class mdDateTimePicker {
 			return this._init
 		} else {
 			this._init = m
+		}
+	}
+
+	/**
+	* [trigger sets a new trigger for the dialog]
+	*
+	* @method trigger
+	*
+	* @param  {[type]} el [element e.g var foo = document.getElementById('bar'), here el = foo]
+	*
+	*/
+	trigger(el) {
+		if (el) {
+			this._trigger = el
 		}
 	}
 
@@ -658,14 +674,14 @@ class mdDateTimePicker {
 		let me = this
 		// attach the view change button
 		if (this._type == 'date') {
-			el.addEventListener('click',function () {
+			el.onclick = function () {
 				me._switchToDateView(el, me)
-			})
+			}
 		}
 		else {
-			el.addEventListener('click', function () {
+			el.onclick = function () {
 				me._switchToTimeView(me)
-			})
+			}
 		}
 	}
 
@@ -770,7 +786,7 @@ class mdDateTimePicker {
 		let hourView = this._sDialog.hourView
 		let minuteView = this._sDialog.minuteView
 		let sClass = 'mddtp-picker__cell--selected'
-		hourView.addEventListener('click', function (e) {
+		hourView.onclick = function (e) {
 			let sHour = 'mddtp-hour__selected'
 			let selectedHour = document.getElementById(sHour)
 			let setHour = 0
@@ -799,8 +815,8 @@ class mdDateTimePicker {
 				// switch the view
 				me._switchToTimeView(me)
 			}
-		})
-		minuteView.addEventListener('click', function (e) {
+		}
+		minuteView.onclick = function (e) {
 			let sMinute = 'mddtp-minute__selected'
 			let selectedMinute = document.getElementById(sMinute)
 			let setMinute = 0
@@ -821,12 +837,12 @@ class mdDateTimePicker {
 				// switch the view
 				me._switchToTimeView(me)
 			}
-		})
+		}
 	}
 
 	_addCellClickEvent(el) {
 		let me = this
-		el.addEventListener('click', function (e) {
+		el.onclick = function (e) {
 			if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('mddtp-picker__cell')) {
 				let picker = me._sDialog.picker
 				let day = e.target.textContent
@@ -851,7 +867,7 @@ class mdDateTimePicker {
 				me._fillText(titleDay, currentDate.format('ddd, '))
 				me._fillText(titleMonth, currentDate.format('MMM D'))
 			}
-		})
+		}
 	}
 
 	_toMoveMonth() {
@@ -881,13 +897,13 @@ class mdDateTimePicker {
 		let mLeftClass = 'mddtp-picker__view--left'
 		let mRightClass = 'mddtp-picker__view--right'
 		let pause = 'mddtp-picker__view--pause'
-		left.addEventListener('click', function () {
+		left.onclick = function () {
 			moveStep(mRightClass, me._sDialog.previous)
-		})
+		}
 
-		right.addEventListener('click', function () {
+		right.onclick = function () {
 			moveStep(mLeftClass, me._sDialog.next)
-		})
+		}
 
 		function moveStep(aClass, to) {
 			/**
@@ -972,7 +988,7 @@ class mdDateTimePicker {
 	*/
 	_changeYear(el) {
 		let me = this
-		el.addEventListener('click', function (e) {
+		el.onclick = function (e) {
 			if (e.target && e.target.nodeName == 'LI') {
 				let selected = document.getElementById('mddtp-date__currentYear')
 				// clear previous selected
@@ -988,7 +1004,7 @@ class mdDateTimePicker {
 				// update the dialog
 				me._initViewHolder()
 			}
-		})
+		}
 	}
 
 	/**
@@ -1002,22 +1018,22 @@ class mdDateTimePicker {
 		let me = this
 		let AM = this._sDialog.AM
 		let PM = this._sDialog.PM
-		AM.addEventListener('click', function (e) {
+		AM.onclick = function (e) {
 			let m = me._sDialog.sDate.format('A')
 			if (m === 'PM') {
 				me._sDialog.sDate.subtract(12, 'h')
 				AM.classList.toggle('mddtp-picker__color--active')
 				PM.classList.toggle('mddtp-picker__color--active')
 			}
-		})
-		PM.addEventListener('click', function (e) {
+		}
+		PM.onclick = function (e) {
 			let m = me._sDialog.sDate.format('A')
 			if (m === 'AM') {
 				me._sDialog.sDate.add(12, 'h')
 				AM.classList.toggle('mddtp-picker__color--active')
 				PM.classList.toggle('mddtp-picker__color--active')
 			}
-		})
+		}
 	}
 
 	_dragDial() {
@@ -1104,13 +1120,26 @@ class mdDateTimePicker {
 		let me = this
 		let ok = this._sDialog.ok
 		let cancel = this._sDialog.cancel
-		cancel.addEventListener('click', function () {
+		// create cutom events to dispatch
+		let onCancel = document.createEvent('Event')
+		let onOk = document.createEvent('Event')
+		// initiate the events
+		onCancel.initEvent('onCancel', true, true)
+		onOk.initEvent('onOk', true, true)
+		// normal events
+		cancel.onclick = function () {
 			me.toggle()
-		})
-		ok.addEventListener('click', function () {
+			if (me._trigger) {
+				me._trigger.dispatchEvent(onCancel)
+			}
+		}
+		ok.onclick = function () {
 			me._init = me._sDialog.sDate
 			me.toggle()
-		})
+			if (me._trigger) {
+				me._trigger.dispatchEvent(onOk)
+			}
+		}
 	}
 
 	/**
@@ -1280,51 +1309,80 @@ class mdDateTimePicker {
 		return 'mddtp-picker__cell--rotate-' + value
 	}
 }
+(function() {
+	// polyfill for scrollintoviewifneeded
+	if (!Element.prototype.scrollIntoViewIfNeeded) {
+		Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
+			centerIfNeeded = arguments.length === 0 ? true : !!centerIfNeeded
 
-// polyfill for scrollintoviewifneeded
-if (!Element.prototype.scrollIntoViewIfNeeded) {
-	Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
-		centerIfNeeded = arguments.length === 0 ? true : !!centerIfNeeded
+			let parent = this.parentNode,
+			parentComputedStyle = window.getComputedStyle(parent, null),
+			parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
+			parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width'), 10),
+			overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
+			overBottom = (this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth) > (parent.scrollTop + parent.clientHeight),
+			overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
+			overRight = (this.offsetLeft - parent.offsetLeft + this.clientWidth - parentBorderLeftWidth) > (parent.scrollLeft + parent.clientWidth),
+			alignWithTop = overTop && !overBottom
 
-		let parent = this.parentNode,
-		parentComputedStyle = window.getComputedStyle(parent, null),
-		parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
-		parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width'), 10),
-		overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
-		overBottom = (this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth) > (parent.scrollTop + parent.clientHeight),
-		overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
-		overRight = (this.offsetLeft - parent.offsetLeft + this.clientWidth - parentBorderLeftWidth) > (parent.scrollLeft + parent.clientWidth),
-		alignWithTop = overTop && !overBottom
+			if ((overTop || overBottom) && centerIfNeeded) {
+				parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2
+			}
 
-		if ((overTop || overBottom) && centerIfNeeded) {
-			parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2
-		}
+			if ((overLeft || overRight) && centerIfNeeded) {
+				parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2
+			}
 
-		if ((overLeft || overRight) && centerIfNeeded) {
-			parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2
-		}
-
-		if ((overTop || overBottom || overLeft || overRight) && !centerIfNeeded) {
-			this.scrollIntoView(alignWithTop)
+			if ((overTop || overBottom || overLeft || overRight) && !centerIfNeeded) {
+				this.scrollIntoView(alignWithTop)
+			}
 		}
 	}
-}
-// polyfill for text content for ie8
-if (Object.defineProperty
-	&& Object.getOwnPropertyDescriptor
-	&& Object.getOwnPropertyDescriptor(Element.prototype, 'textContent')
-	&& !Object.getOwnPropertyDescriptor(Element.prototype, 'textContent').get) {
-		(function() {
-			let innerText = Object.getOwnPropertyDescriptor(Element.prototype, 'innerText')
-			Object.defineProperty(Element.prototype, 'textContent',
-			{
-				get: function() {
-					return innerText.get.call(this)
-				},
-				set: function(s) {
-					return innerText.set.call(this, s)
+	// polyfill for text content for ie8
+	if (Object.defineProperty
+		&& Object.getOwnPropertyDescriptor
+		&& Object.getOwnPropertyDescriptor(Element.prototype, 'textContent')
+		&& !Object.getOwnPropertyDescriptor(Element.prototype, 'textContent').get) {
+			(function() {
+				let innerText = Object.getOwnPropertyDescriptor(Element.prototype, 'innerText')
+				Object.defineProperty(Element.prototype, 'textContent',
+				{
+					get: function() {
+						return innerText.get.call(this)
+					},
+					set: function(s) {
+						return innerText.set.call(this, s)
+					}
+				}
+			)
+		})()
+	}
+	!window.addEventListener && (function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
+		WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
+			let target = this
+
+			registry.unshift([target, type, listener, function (event) {
+				event.currentTarget = target
+				event.preventDefault = function () { event.returnValue = false }
+				event.stopPropagation = function () { event.cancelBubble = true }
+				event.target = event.srcElement || target
+
+				listener.call(target, event)
+			}]);
+
+			this.attachEvent("on" + type, registry[0][3])
+		};
+
+		WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
+			for (let index = 0, register; register = registry[index]; ++index) {
+				if (register[0] == this && register[1] == type && register[2] == listener) {
+					return this.detachEvent("on" + type, registry.splice(index, 1)[0][3])
 				}
 			}
-		)
-	})()
-}
+		};
+
+		WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
+			return this.fireEvent("on" + eventObject.type, eventObject)
+		};
+	})(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", [])
+})()

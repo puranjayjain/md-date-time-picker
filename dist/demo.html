@@ -16,6 +16,10 @@
     <button type="button" id="trigger3">Open Dialog 3</button>
   </section>
   <section>
+    This input is updated with x's value on clicking ok
+    <input type="text" id="test1" value="">
+  </section>
+  <section>
     <h1>Time dialog</h1>
     <button type="button" id="trigger4">Open Dialog 1</button>
     <button type="button" id="trigger5">Open Dialog 2</button>
@@ -69,6 +73,11 @@
       });
       document.getElementById('trigger6').addEventListener('click', function() {
         c.toggle();
+      });
+      // dispatch event test
+      x.trigger(document.getElementById('test1'));
+      document.getElementById('test1').addEventListener('onOk', function() {
+        this.value = x.time().toString();
       });
     }).call(this);
   </script>

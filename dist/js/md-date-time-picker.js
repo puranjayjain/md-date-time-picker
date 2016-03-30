@@ -16,7 +16,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
  * @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
  * @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
  * @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
- * @param  {[string]}    orientation = 'LANDSCAPE' or 'PORTRAIT' [force the orientation of the picker @default = 'LANDSCAPE']
+ * @param  {[string]}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
+ * @param  {[element]}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
  *
  * @return {[Object]}    																				[mdDateTimePicker]
  */
@@ -32,7 +33,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		    _ref$mode = _ref.mode,
 		    mode = _ref$mode === undefined ? !1 : _ref$mode,
 		    _ref$orientation = _ref.orientation,
-		    orientation = _ref$orientation === undefined ? 'LANDSCAPE' : _ref$orientation;
+		    orientation = _ref$orientation === undefined ? 'LANDSCAPE' : _ref$orientation,
+		    _ref$trigger = _ref.trigger,
+		    trigger = _ref$trigger === undefined ? '' : _ref$trigger;
 
 		_classCallCheck(this, mdDateTimePicker);
 
@@ -42,6 +45,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		this._future = future;
 		this._mode = mode;
 		this._orientation = orientation;
+		this._trigger = trigger;
 
 		/**
   * [dialog selected classes have the same structure as dialog but one level down]
@@ -77,6 +81,23 @@ var _createClass = function () { function defineProperties(target, props) { for 
 				return this._init;
 			} else {
 				this._init = m;
+			}
+		}
+
+		/**
+  * [trigger sets a new trigger for the dialog]
+  *
+  * @method trigger
+  *
+  * @param  {[type]} el [element e.g var foo = document.getElementById('bar'), here el = foo]
+  *
+  */
+
+	}, {
+		key: 'trigger',
+		value: function trigger(el) {
+			if (el) {
+				this._trigger = el;
 			}
 		}
 
@@ -713,13 +734,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			var me = this;
 			// attach the view change button
 			if (this._type == 'date') {
-				el.addEventListener('click', function () {
+				el.onclick = function () {
 					me._switchToDateView(el, me);
-				});
+				};
 			} else {
-				el.addEventListener('click', function () {
+				el.onclick = function () {
 					me._switchToTimeView(me);
-				});
+				};
 			}
 		}
 
@@ -833,7 +854,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    minuteView = this._sDialog.minuteView,
 			    sClass = 'mddtp-picker__cell--selected';
 
-			hourView.addEventListener('click', function (e) {
+			hourView.onclick = function (e) {
 				var sHour = 'mddtp-hour__selected',
 				    selectedHour = document.getElementById(sHour),
 				    setHour = 0;
@@ -861,8 +882,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					// switch the view
 					me._switchToTimeView(me);
 				}
-			});
-			minuteView.addEventListener('click', function (e) {
+			};
+			minuteView.onclick = function (e) {
 				var sMinute = 'mddtp-minute__selected',
 				    selectedMinute = document.getElementById(sMinute),
 				    setMinute = 0;
@@ -884,13 +905,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					// switch the view
 					me._switchToTimeView(me);
 				}
-			});
+			};
 		}
 	}, {
 		key: '_addCellClickEvent',
 		value: function _addCellClickEvent(el) {
 			var me = this;
-			el.addEventListener('click', function (e) {
+			el.onclick = function (e) {
 				if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('mddtp-picker__cell')) {
 					var picker = me._sDialog.picker,
 					    day = e.target.textContent,
@@ -916,7 +937,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					me._fillText(titleDay, currentDate.format('ddd, '));
 					me._fillText(titleMonth, currentDate.format('MMM D'));
 				}
-			});
+			};
 		}
 	}, {
 		key: '_toMoveMonth',
@@ -950,13 +971,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    mRightClass = 'mddtp-picker__view--right',
 			    pause = 'mddtp-picker__view--pause';
 
-			left.addEventListener('click', function () {
+			left.onclick = function () {
 				moveStep(mRightClass, me._sDialog.previous);
-			});
+			};
 
-			right.addEventListener('click', function () {
+			right.onclick = function () {
 				moveStep(mLeftClass, me._sDialog.next);
-			});
+			};
 
 			function moveStep(aClass, to) {
 				/**
@@ -1046,7 +1067,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		key: '_changeYear',
 		value: function _changeYear(el) {
 			var me = this;
-			el.addEventListener('click', function (e) {
+			el.onclick = function (e) {
 				if (e.target && e.target.nodeName == 'LI') {
 					var selected = document.getElementById('mddtp-date__currentYear');
 					// clear previous selected
@@ -1062,7 +1083,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 					// update the dialog
 					me._initViewHolder();
 				}
-			});
+			};
 		}
 
 		/**
@@ -1080,22 +1101,22 @@ var _createClass = function () { function defineProperties(target, props) { for 
 			    AM = this._sDialog.AM,
 			    PM = this._sDialog.PM;
 
-			AM.addEventListener('click', function (e) {
+			AM.onclick = function (e) {
 				var m = me._sDialog.sDate.format('A');
 				if (m === 'PM') {
 					me._sDialog.sDate.subtract(12, 'h');
 					AM.classList.toggle('mddtp-picker__color--active');
 					PM.classList.toggle('mddtp-picker__color--active');
 				}
-			});
-			PM.addEventListener('click', function (e) {
+			};
+			PM.onclick = function (e) {
 				var m = me._sDialog.sDate.format('A');
 				if (m === 'AM') {
 					me._sDialog.sDate.add(12, 'h');
 					AM.classList.toggle('mddtp-picker__color--active');
 					PM.classList.toggle('mddtp-picker__color--active');
 				}
-			});
+			};
 		}
 	}, {
 		key: '_dragDial',
@@ -1189,15 +1210,28 @@ var _createClass = function () { function defineProperties(target, props) { for 
 		value: function _attachEventHandlers() {
 			var me = this,
 			    ok = this._sDialog.ok,
-			    cancel = this._sDialog.cancel;
+			    cancel = this._sDialog.cancel,
+			    onCancel = document.createEvent('Event'),
+			    onOk = document.createEvent('Event');
+			// create cutom events to dispatch
 
-			cancel.addEventListener('click', function () {
+			// initiate the events
+			onCancel.initEvent('onCancel', !0, !0);
+			onOk.initEvent('onOk', !0, !0);
+			// normal events
+			cancel.onclick = function () {
 				me.toggle();
-			});
-			ok.addEventListener('click', function () {
+				if (me._trigger) {
+					me._trigger.dispatchEvent(onCancel);
+				}
+			};
+			ok.onclick = function () {
 				me._init = me._sDialog.sDate;
 				me.toggle();
-			});
+				if (me._trigger) {
+					me._trigger.dispatchEvent(onOk);
+				}
+			};
 		}
 
 		/**
@@ -1397,7 +1431,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	return mdDateTimePicker;
 }(); /**
      * @package md-date-time-picker
-     * @version [1.0.1]
+     * @version [1.1.0]
      * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
      * @license MIT
      * @website puranjayjain.github.io/md-date-time-picker
@@ -1410,45 +1444,79 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-// polyfill for scrollintoviewifneeded
-if (!Element.prototype.scrollIntoViewIfNeeded) {
-	Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
-		centerIfNeeded = arguments.length === 0 ? !0 : !!centerIfNeeded;
+(function () {
+	// polyfill for scrollintoviewifneeded
+	if (!Element.prototype.scrollIntoViewIfNeeded) {
+		Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
+			centerIfNeeded = arguments.length === 0 ? !0 : !!centerIfNeeded;
 
-		var parent = this.parentNode,
-		    parentComputedStyle = window.getComputedStyle(parent, null),
-		    parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
-		    parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width'), 10),
-		    overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
-		    overBottom = this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth > parent.scrollTop + parent.clientHeight,
-		    overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
-		    overRight = this.offsetLeft - parent.offsetLeft + this.clientWidth - parentBorderLeftWidth > parent.scrollLeft + parent.clientWidth,
-		    alignWithTop = overTop && !overBottom;
+			var parent = this.parentNode,
+			    parentComputedStyle = window.getComputedStyle(parent, null),
+			    parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
+			    parentBorderLeftWidth = parseInt(parentComputedStyle.getPropertyValue('border-left-width'), 10),
+			    overTop = this.offsetTop - parent.offsetTop < parent.scrollTop,
+			    overBottom = this.offsetTop - parent.offsetTop + this.clientHeight - parentBorderTopWidth > parent.scrollTop + parent.clientHeight,
+			    overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
+			    overRight = this.offsetLeft - parent.offsetLeft + this.clientWidth - parentBorderLeftWidth > parent.scrollLeft + parent.clientWidth,
+			    alignWithTop = overTop && !overBottom;
 
-		if ((overTop || overBottom) && centerIfNeeded) {
-			parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2;
-		}
-
-		if ((overLeft || overRight) && centerIfNeeded) {
-			parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2;
-		}
-
-		if ((overTop || overBottom || overLeft || overRight) && !centerIfNeeded) {
-			this.scrollIntoView(alignWithTop);
-		}
-	};
-}
-// polyfill for text content for ie8
-if (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, 'textContent') && !Object.getOwnPropertyDescriptor(Element.prototype, 'textContent').get) {
-	(function () {
-		var innerText = Object.getOwnPropertyDescriptor(Element.prototype, 'innerText');
-		Object.defineProperty(Element.prototype, 'textContent', {
-			get: function get() {
-				return innerText.get.call(this);
-			},
-			set: function set(s) {
-				return innerText.set.call(this, s);
+			if ((overTop || overBottom) && centerIfNeeded) {
+				parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2;
 			}
-		});
-	})();
-}
+
+			if ((overLeft || overRight) && centerIfNeeded) {
+				parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2;
+			}
+
+			if ((overTop || overBottom || overLeft || overRight) && !centerIfNeeded) {
+				this.scrollIntoView(alignWithTop);
+			}
+		};
+	}
+	// polyfill for text content for ie8
+	if (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, 'textContent') && !Object.getOwnPropertyDescriptor(Element.prototype, 'textContent').get) {
+		(function () {
+			var innerText = Object.getOwnPropertyDescriptor(Element.prototype, 'innerText');
+			Object.defineProperty(Element.prototype, 'textContent', {
+				get: function get() {
+					return innerText.get.call(this);
+				},
+				set: function set(s) {
+					return innerText.set.call(this, s);
+				}
+			});
+		})();
+	}
+	!window.addEventListener && function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
+		WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
+			var target = this;
+
+			registry.unshift([target, type, listener, function (event) {
+				event.currentTarget = target;
+				event.preventDefault = function () {
+					event.returnValue = !1;
+				};
+				event.stopPropagation = function () {
+					event.cancelBubble = !0;
+				};
+				event.target = event.srcElement || target;
+
+				listener.call(target, event);
+			}]);
+
+			this.attachEvent("on" + type, registry[0][3]);
+		};
+
+		WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
+			for (var index = 0, register; register = registry[index]; ++index) {
+				if (register[0] == this && register[1] == type && register[2] == listener) {
+					return this.detachEvent("on" + type, registry.splice(index, 1)[0][3]);
+				}
+			}
+		};
+
+		WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
+			return this.fireEvent("on" + eventObject.type, eventObject);
+		};
+	}(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
+})();
