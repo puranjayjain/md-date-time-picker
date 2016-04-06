@@ -9,11 +9,17 @@
     type: 'date',
     trigger: document.getElementById('test1')
   });
+  var z = new mdDateTimePicker({
+    type: 'time'
+  });
   document.getElementById('trigger-1').addEventListener('click', function() {
     x.toggle();
   });
   document.getElementById('trigger-2').addEventListener('click', function() {
     y.toggle();
+  });
+  document.getElementById('trigger-3').addEventListener('click', function() {
+    z.toggle();
   });
   document.getElementById('test1').addEventListener('onOk', function() {
     this.value = y.time().toString();

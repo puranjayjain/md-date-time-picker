@@ -121,7 +121,7 @@
       <h6 class="mddtpp-section__subtitle">Here are some usage examples</h6>
       <p class="mddtpp-p">
         <button id="trigger-1" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-          Toggle Dialog
+          Toggle Date Dialog
         </button>
         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
           {{ components.tabBar(tabs = [{href: 'sample-html-panel-1', text: 'html', 'active': true}, {href: 'sample-javascript-panel-1', text: 'javascript'}]) }}
@@ -132,7 +132,6 @@
                 rel=&#x27;stylesheet&#x27; type=&#x27;text/css&#x27;&#x3E;
                 &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;css/md-date-time-picker.css&#x22;&#x3E;
                 &#x3C;script src=&#x22;js/moment.js&#x22;&#x3E;&#x3C;/script&#x3E;
-                &#x3C;script src=&#x22;js/draggabilly.pkgd.min.js&#x22;&#x3E;&#x3C;/script&#x3E;
                 &#x3C;script src=&#x22;js/md-date-time-picker.js&#x22;&#x3E;&#x3C;/script&#x3E;
               </code>
               <pre>
@@ -140,17 +139,49 @@
               <div class="mdl-tabs__panel" id="sample-javascript-panel-1">
                 <pre>
                   <code>
-                    var x = new mdDateTimePicker({
+                    var dialog = new mdDateTimePicker({
                       type: 'date'
                     });
                     document.getElementById('trigger-1').addEventListener('click', function() {
-                      x.toggle();
+                      dialog.toggle();
                     });
                   </code>
                 </pre>
               </div>
             </div>
           </p>
+          <p class="mddtpp-p">
+            <button id="trigger-3" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              Toggle Time Dialog
+            </button>
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+              {{ components.tabBar(tabs = [{href: 'sample-html-panel-1', text: 'html', 'active': true}, {href: 'sample-javascript-panel-1', text: 'javascript'}]) }}
+              <div class="mdl-tabs__panel is-active" id="sample-html-panel-1">
+                <pre>
+                  <code class="html language-html">
+                    &#x3C;link href=&#x27;https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&#x26;amp;lang=en&#x27;
+                    rel=&#x27;stylesheet&#x27; type=&#x27;text/css&#x27;&#x3E;
+                    &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;css/md-date-time-picker.css&#x22;&#x3E;
+                    &#x3C;script src=&#x22;js/moment.js&#x22;&#x3E;&#x3C;/script&#x3E;
+                    &#x3C;script src=&#x22;js/draggabilly.pkgd.min.js&#x22;&#x3E;&#x3C;/script&#x3E;
+                    &#x3C;script src=&#x22;js/md-date-time-picker.js&#x22;&#x3E;&#x3C;/script&#x3E;
+                  </code>
+                  <pre>
+                  </div>
+                  <div class="mdl-tabs__panel" id="sample-javascript-panel-1">
+                    <pre>
+                      <code>
+                        var dialog = new mdDateTimePicker({
+                          type: 'time'
+                        });
+                        document.getElementById('trigger-1').addEventListener('click', function() {
+                          dialog.toggle();
+                        });
+                      </code>
+                    </pre>
+                  </div>
+                </div>
+              </p>
+            </section>
+          </div>
         </section>
-      </div>
-    </section>
