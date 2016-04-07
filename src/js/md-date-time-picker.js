@@ -201,7 +201,7 @@ class mdDateTimePicker {
 			viewHolder.classList.remove(zoomOut)
 		}
 		else {
-			AM.classList.remove()
+			AM.classList.remove(active)
 			PM.classList.remove(active)
 			minute.classList.remove(active)
 			hour.classList.add(active)
@@ -209,8 +209,7 @@ class mdDateTimePicker {
 			hourView.classList.remove(hidden)
 			subtitle.setAttribute('style', 'display: none')
 			dotSpan.setAttribute('style', 'display: none')
-			needle.className = ''
-			needle.classList.add(selection)
+			needle.className = selection
 		}
 		setTimeout(function () {
 			// remove portrait mode
@@ -244,7 +243,10 @@ class mdDateTimePicker {
 		let ok = document.createElement('button')
 		// ... add properties to them
 		container.id = 'mddtp-picker__' + type
-		container.classList.add('mddtp-picker','mddtp-picker-' + type, 'mddtp-picker--inactive', 'animated')
+		container.classList.add('mddtp-picker')
+		container.classList.add('mddtp-picker-' + type)
+		container.classList.add('mddtp-picker--inactive')
+		container.classList.add('animated')
 		this._addId(header, 'header')
 		this._addClass(header, 'header')
 		// add header to container
@@ -370,7 +372,8 @@ class mdDateTimePicker {
 			this._addId(circle, 'circle')
 			this._addClass(circle, 'circle')
 			this._addId(minuteView, 'minuteView')
-			minuteView.classList.add('mddtp-picker__circularView', 'mddtp-picker__circularView--hidden')
+			minuteView.classList.add('mddtp-picker__circularView')
+			minuteView.classList.add('mddtp-picker__circularView--hidden')
 			this._addId(fakeNeedle, 'fakeNeedle')
 			fakeNeedle.classList.add('mddtp-picker__circle--fake')
 			this._addId(hourView, 'hourView')
@@ -1075,7 +1078,9 @@ class mdDateTimePicker {
 				divides++
 			}
 			divides += 15
-			needle.classList.add(selection, quick, rotate + (divides * 2))
+			needle.classList.add(selection)
+			needle.classList.add(quick)
+			needle.classList.add(rotate + (divides * 2))
 		})
 		fakeNeedleDraggabilly.on('dragEnd', function() {
 			let minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')

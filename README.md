@@ -30,16 +30,17 @@ The Documentation is at [https://puranjayjain.github.io/md-date-time-picker](htt
 
 Supported evergreen browsers:
 
-- Chrome
+- Chrome (and Chrome for Android)
 - Edge
 - Firefox
 - Opera
 
 Supported versioned browsers:
 
-- Internet Explorer 8
-- Safari 8
-- Mobile Safari 8
+- Internet Explorer 8+
+- Safari 8+
+- Mobile Safari 8+
+- Android Browser 4.3+
 
 ## Dependency
 
@@ -71,7 +72,6 @@ In the repo you'll find the following directories and files.
 | File/Folder     | Provides                                                                 |
 |-----------------|--------------------------------------------------------------------------|
 | .github         | Contains CONTRIBUTING.md, ISSUE_TEMPLATE.md and PULL_REQUEST_TEMPLATE.md |
-| CONTRIBUTING.md | contribution guidelines.                                                 |
 | gulpfile.js     | gulp configuration.                                                      |
 | LICENSE.md      | Project license information.                                             |
 | package.json    | npm package information.                                                 |
