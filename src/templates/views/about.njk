@@ -142,7 +142,8 @@
                     var dialog = new mdDateTimePicker({
                       type: 'date'
                     });
-                    document.getElementById('trigger-1').addEventListener('click', function() {
+                    var toggleButton = document.getElementById('id-of-button-to-open-it');
+                    toggleButton.addEventListener('click', function() {
                       dialog.toggle();
                     });
                   </code>
@@ -174,7 +175,8 @@
                         var dialog = new mdDateTimePicker({
                           type: 'time'
                         });
-                        document.getElementById('trigger-1').addEventListener('click', function() {
+                        var toggleButton = document.getElementById('id-of-button-to-open-it');
+                        toggleButton.addEventListener('click', function() {
                           dialog.toggle();
                         });
                       </code>
