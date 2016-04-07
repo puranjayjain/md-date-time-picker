@@ -1436,7 +1436,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 	return mdDateTimePicker;
 }(); /**
      * @package md-date-time-picker
-     * @version [1.1.0]
+     * @version [1.1.1]
      * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
      * @license MIT
      * @website puranjayjain.github.io/md-date-time-picker
