@@ -41,7 +41,7 @@
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.0.0",
     "gulp-uglify": "^1.2.0",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.15"
   },
   "dependencies": {
     "moment": "^2.12.0",
