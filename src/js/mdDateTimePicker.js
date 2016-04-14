@@ -13,7 +13,7 @@ let _dialog = {
 	view: true,
 	state: false
 }
-class mdDateTimePicker {
+export default class mdDateTimePicker {
 	/**
 	* [constructor of the mdDateTimePicker]
 	*
