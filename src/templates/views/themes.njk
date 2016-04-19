@@ -10,20 +10,20 @@
       Since, themes override the default stylesheets, so in order to use a theme just replace your previously used css and min.css files with these files.
     </p>
     <h4 class="mddtpp-section__title">All themes in light</h4>
-    <h6 class="mddtpp-section__subtitle">Production version (md-date-time-picker.css)</h6>
+    <h6 class="mddtpp-section__subtitle">Production version (mdDateTimePicker.css)</h6>
     <div class="mddtpp-p">
       {% for theme in themeSheet %}
-      {% set currentLink = themeLink + mode + theme + "/md-date-time-picker.css" %}
+      {% set currentLink = themeLink + mode + theme + "/mdDateTimePicker.css" %}
       <a id="mddtpp-themeProd-{{ mode }}{{ theme }}" class="mddtpp-a__patch mdl-color--{{ theme }}-500" href="{{ currentLink }}" download></a>
       <div class="mdl-tooltip" for="mddtpp-themeProd-{{ mode }}{{ theme }}">
         {{ theme }}
       </div>
       {% endfor %}
     </div>
-    <h6 class="mddtpp-section__subtitle">Release version (md-date-time-picker.min.css)</h6>
+    <h6 class="mddtpp-section__subtitle">Release version (mdDateTimePicker.min.css)</h6>
     <div class="mddtpp-p">
       {% for theme in themeSheet %}
-      {% set currentLink = themeLink + mode + theme + "/md-date-time-picker.min.css" %}
+      {% set currentLink = themeLink + mode + theme + "/mdDateTimePicker.min.css" %}
       <a id="mddtpp-themeRel-{{ mode }}{{ theme }}" class="mddtpp-a__patch mdl-color--{{ theme }}-500" href="{{ currentLink }}" download></a>
       <div class="mdl-tooltip" for="mddtpp-themeRel-{{ mode }}{{ theme }}">
         {{ theme }}
@@ -32,20 +32,20 @@
     </div>
     {% set mode = "dark/" %}
     <h4 class="mddtpp-section__title">All themes in dark</h4>
-    <h6 class="mddtpp-section__subtitle">Production version (md-date-time-picker.css)</h6>
+    <h6 class="mddtpp-section__subtitle">Production version (mdDateTimePicker.css)</h6>
     <div class="mddtpp-p">
       {% for theme in themeSheet %}
-      {% set currentLink = themeLink + mode + theme + "/md-date-time-picker.css" %}
+      {% set currentLink = themeLink + mode + theme + "/mdDateTimePicker.css" %}
       <a id="mddtpp-themeProd-{{ mode }}{{ theme }}" class="mddtpp-a__patch mdl-color--{{ theme }}-500" href="{{ currentLink }}" download></a>
       <div class="mdl-tooltip" for="mddtpp-themeProd-{{ mode }}{{ theme }}">
         {{ theme }}
       </div>
       {% endfor %}
     </div>
-    <h6 class="mddtpp-section__subtitle">Release version (md-date-time-picker.min.css)</h6>
+    <h6 class="mddtpp-section__subtitle">Release version (mdDateTimePicker.min.css)</h6>
     <div class="mddtpp-p">
       {% for theme in themeSheet %}
-      {% set currentLink = themeLink + mode + theme + "/md-date-time-picker.min.css" %}
+      {% set currentLink = themeLink + mode + theme + "/mdDateTimePicker.min.css" %}
       <a id="mddtpp-themeRel-{{ mode }}{{ theme }}" class="mddtpp-a__patch mdl-color--{{ theme }}-500" href="{{ currentLink }}" download></a>
       <div class="mdl-tooltip" for="mddtpp-themeRel-{{ mode }}{{ theme }}">
         {{ theme }}
