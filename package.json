@@ -14,7 +14,10 @@
 		"clock",
 		"input"
 	],
-	"main": "dist/js/md-date-time-picker.js",
+	"main": [
+		"dist/js/Globals/mdDateTimePicker.js",
+		"dist/js/Umd/mdDateTimePicker.js"
+	],
 	"author": "Puranjay Jain <puranjay.jain@st.niituniversity.in>",
 	"license": "MIT",
 	"devDependencies": {
