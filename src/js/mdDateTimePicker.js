@@ -13,7 +13,10 @@ let _dialog = {
 	view: true,
 	state: false
 }
-export default class mdDateTimePicker {
+// XXX
+// Uncomment the line below when compiling for umd and make it like this => export default class mdDateTimePicker
+// export default
+class mdDateTimePicker {
 	/**
 	* [constructor of the mdDateTimePicker]
 	*
