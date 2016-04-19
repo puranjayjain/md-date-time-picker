@@ -14,10 +14,10 @@
 		"clock",
 		"input"
 	],
-	"main": [
-		"dist/js/Globals/mdDateTimePicker.js",
-		"dist/js/Umd/mdDateTimePicker.js"
-	],
+	"main": "dist/js/Umd/mdDateTimePicker.js",
+	"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
 	"author": "Puranjay Jain <puranjay.jain@st.niituniversity.in>",
 	"license": "MIT",
 	"devDependencies": {
