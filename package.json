@@ -19,8 +19,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "contributors": [
-    "Seth Westphal <https://github.com/westy92>",
-    "Robert Schönthal <https://github.com/digitalkaoz>"
+    "Seth Westphal (https://github.com/westy92)",
+    "Robert Schönthal (https://github.com/digitalkaoz)"
   ],
   "author": "Puranjay Jain <puranjay.jain@st.niituniversity.in>",
   "license": "MIT",
