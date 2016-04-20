@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var webpack = require('webpack-stream');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 var babel = require('gulp-babel');
@@ -28,8 +27,7 @@ var dist = {
 	css: 'dist/css/',
 	html: 'dist/*.html',
 	images: 'dist/images/',
-	js: 'dist/js/Globals',
-	umd: 'dist/js/Umd'
+	js: 'dist/js'
 };
 
 var themeSheet = [{
@@ -245,17 +243,6 @@ gulp.task('scripts', function () {
 	.pipe(browserSync.reload({
 		stream: true
 	}));
-});
-
-gulp.task('scriptsUMD', function () {
-	return gulp.src(src.js)
-	.pipe(webpack(require('./webpack.config.js')))
-	.pipe(gulp.dest(dist.umd))
-	.pipe(rename({
-		suffix: '.min'
-	}))
-	.pipe(uglify())
-	.pipe(gulp.dest(dist.umd));
 });
 
 gulp.task('init-themes', function () {

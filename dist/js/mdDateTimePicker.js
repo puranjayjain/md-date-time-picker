@@ -1,87 +1,66 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define("mdDateTimePicker", [], factory);
-	else if(typeof exports === 'object')
-		exports["mdDateTimePicker"] = factory();
-	else
-		root["mdDateTimePicker"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-/******/
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports) {
-
+(function (global, factory) {
+	if (typeof define === "function" && define.amd) {
+		define(['exports'], factory);
+	} else if (typeof exports !== "undefined") {
+		factory(exports);
+	} else {
+		var mod = {
+			exports: {}
+		};
+		factory(mod.exports);
+		global.mdDateTimePicker = mod.exports;
+	}
+})(this, function (exports) {
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
-		value: !0
+		value: true
 	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || !1; descriptor.configurable = !0; if ("value" in descriptor) descriptor.writable = !0; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(),
+
+	function _classCallCheck(instance, Constructor) {
+		if (!(instance instanceof Constructor)) {
+			throw new TypeError("Cannot call a class as a function");
+		}
+	}
+
+	var _createClass = function () {
+		function defineProperties(target, props) {
+			for (var i = 0; i < props.length; i++) {
+				var descriptor = props[i];
+				descriptor.enumerable = descriptor.enumerable || !1;
+				descriptor.configurable = !0;
+				if ("value" in descriptor) descriptor.writable = !0;
+				Object.defineProperty(target, descriptor.key, descriptor);
+			}
+		}
+
+		return function (Constructor, protoProps, staticProps) {
+			if (protoProps) defineProperties(Constructor.prototype, protoProps);
+			if (staticProps) defineProperties(Constructor, staticProps);
+			return Constructor;
+		};
+	}(),
 	    _dialog = {
 		view: !0,
 		state: !1
 	},
 	    mdDateTimePicker = function () {
 		/**
-	 * [constructor of the mdDateTimePicker]
-	 *
-	 * @method constructor
-	 *
-	 * @param  {[string]}   type = 'date' or 'time 									[type of dialog]
-	 * @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
-	 * @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-	 * @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
-	 * @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-	 * @param  {[string]}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
-	 * @param  {[element]}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
-	 *
-	 * @return {[Object]}    																				[mdDateTimePicker]
-	 */
-	
+  * [constructor of the mdDateTimePicker]
+  *
+  * @method constructor
+  *
+  * @param  {[string]}   type = 'date' or 'time 									[type of dialog]
+  * @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
+  * @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
+  * @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
+  * @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
+  * @param  {[string]}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
+  * @param  {[element]}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
+  *
+  * @return {[Object]}    																				[mdDateTimePicker]
+  */
+
 		function mdDateTimePicker(_ref) {
 			var type = _ref.type,
 			    _ref$init = _ref.init,
@@ -96,9 +75,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			    orientation = _ref$orientation === undefined ? 'LANDSCAPE' : _ref$orientation,
 			    _ref$trigger = _ref.trigger,
 			    trigger = _ref$trigger === undefined ? '' : _ref$trigger;
-	
+
 			_classCallCheck(this, mdDateTimePicker);
-	
+
 			this._type = type;
 			this._init = init;
 			this._past = past;
@@ -106,69 +85,33 @@ return /******/ (function(modules) { // webpackBootstrap
 			this._mode = mode;
 			this._orientation = orientation;
 			this._trigger = trigger;
-	
+
 			/**
-	  * [dialog selected classes have the same structure as dialog but one level down]
-	  * @type {Object}
-	  * e.g
-	  * sDialog = {
-	  *   picker: 'some-picker-selected'
-	  * }
-	  */
+   * [dialog selected classes have the same structure as dialog but one level down]
+   * @type {Object}
+   * e.g
+   * sDialog = {
+   *   picker: 'some-picker-selected'
+   * }
+   */
 			this._sDialog = {};
 			// attach the dialog if not present
 			if (!document.getElementById('mddtp-picker__' + this._type)) {
 				this._buildDialog();
 			}
 		}
-	
+
 		/**
-	 * [time to get or set the current picker's moment]
-	 *
-	 * @method time
-	 *
-	 * @param  {[moment]} m
-	 *
-	 */
-	
-	
+  * [time to get or set the current picker's moment]
+  *
+  * @method time
+  *
+  * @param  {[moment]} m
+  *
+  */
+
+
 		_createClass(mdDateTimePicker, [{
-			key: 'time',
-			value: function time() {
-				var m = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
-	
-				if (m === '') {
-					return this._init;
-				} else {
-					this._init = m;
-				}
-			}
-	
-			/**
-	  * [trigger sets a new trigger for the dialog]
-	  *
-	  * @method trigger
-	  *
-	  * @param  {[type]} el [element e.g var foo = document.getElementById('bar'), here el = foo]
-	  *
-	  */
-	
-		}, {
-			key: 'trigger',
-			value: function trigger(el) {
-				if (el) {
-					this._trigger = el;
-				}
-			}
-	
-			/**
-	  * [toggle toggle the dialog's between the visible and invisible state]
-	  *
-	  * @method toggle
-	  *
-	  */
-	
-		}, {
 			key: 'toggle',
 			value: function toggle() {
 				this._selectDialog();
@@ -184,56 +127,32 @@ return /******/ (function(modules) { // webpackBootstrap
 					this._showDialog();
 				}
 			}
-	
-			/**
-	  * [dialog getter and setter for _dialog value]
-	  *
-	  * @method dialog
-	  *
-	  * @return {[_dialog]} [static or prototype value for the _dialog of the component]
-	  */
-	
 		}, {
 			key: '_selectDialog',
-	
-	
-			// REVIEW the code below is unnecessary or necessary
-			// static set dialog(value) {
-			// 	mdDateTimePicker.dialog = value
-			// }
-	
 			value: function _selectDialog() {
 				// now do what you normally would do
 				this._sDialog.picker = document.getElementById('mddtp-picker__' + [this._type]);
 				/**
-	   * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
-	   *
-	   * @type {Array}
-	   */
+    * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
+    *
+    * @type {Array}
+    */
 				var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute', 'fakeNeedle', 'circularHolder', 'circle', 'dotSpan'],
 				    i = sDialogEls.length;
-	
+
 				while (i--) {
 					this._sDialog[sDialogEls[i]] = document.getElementById('mddtp-' + this._type + '__' + sDialogEls[i]);
 				}
-	
+
 				this._sDialog.tDate = this._init.clone();
 				this._sDialog.sDate = this._init.clone();
 			}
-	
-			/**
-	  * [_showDialog make the dialog visible with animation]
-	  *
-	  * @method _showDialog
-	  *
-	  */
-	
 		}, {
 			key: '_showDialog',
 			value: function _showDialog() {
 				var me = this,
 				    zoomIn = 'zoomIn';
-	
+
 				mdDateTimePicker.dialog.state = !0;
 				this._sDialog.picker.classList.remove('mddtp-picker--inactive');
 				this._sDialog.picker.classList.add(zoomIn);
@@ -245,14 +164,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					me._sDialog.picker.classList.remove(zoomIn);
 				}, 300);
 			}
-	
-			/**
-	  * [_hideDialog make the dialog invisible with animation]
-	  *
-	  * @method _hideDialog
-	  *
-	  */
-	
 		}, {
 			key: '_hideDialog',
 			value: function _hideDialog() {
@@ -277,7 +188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    zoomOut = 'zoomOut',
 				    hidden = 'mddtp-picker__circularView--hidden',
 				    selection = 'mddtp-picker__selection';
-	
+
 				mdDateTimePicker.dialog.state = !1;
 				mdDateTimePicker.dialog.view = !0;
 				this._sDialog.picker.classList.add(zoomOut);
@@ -309,14 +220,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					picker.parentNode.replaceChild(pickerClone, picker);
 				}, 300);
 			}
-	
-			/**
-	  * [_buildDialog make the dialog elements and add them to the document]
-	  *
-	  * @method _buildDateDialog
-	  *
-	  */
-	
 		}, {
 			key: '_buildDialog',
 			value: function _buildDialog() {
@@ -329,13 +232,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				    cancel = document.createElement('button'),
 				    ok = document.createElement('button');
 				// outer most container of the picker
-	
+
 				// header container of the picker
-	
+
 				// body container of the picker
-	
+
 				// action elements container
-	
+
 				// ... add properties to them
 				container.id = 'mddtp-picker__' + type;
 				container.classList.add('mddtp-picker');
@@ -364,7 +267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					    left = document.createElement('button'),
 					    right = document.createElement('button'),
 					    years = document.createElement('ul');
-	
+
 					// inside header
 					// adding properties to them
 					this._addId(subtitle, 'subtitle');
@@ -431,7 +334,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					    minuteView = document.createElement('div'),
 					    fakeNeedle = document.createElement('div'),
 					    hourView = document.createElement('div');
-	
+
 					// add properties to them
 					// inside header
 					this._addId(_title, 'title');
@@ -504,12 +407,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				// add the container to the end of body
 				document.getElementsByTagName('body').item(0).appendChild(docfrag);
 			}
-	
-			/**
-	  * [_initTimeDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
-	  * @param  {[moment]} m [date for today or current]
-	  */
-	
 		}, {
 			key: '_initTimeDialog',
 			value: function _initTimeDialog(m) {
@@ -517,7 +414,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    minute = this._sDialog.minute,
 				    subtitle = this._sDialog.subtitle,
 				    dotSpan = this._sDialog.dotSpan;
-	
+
 				// switch according to 12 hour or 24 hour mode
 				if (this._mode) {
 					this._fillText(hour, m.format('H'));
@@ -548,13 +445,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				    cell = 'mddtp-picker__cell',
 				    docfrag = document.createDocumentFragment(),
 				    hourNow = void 0;
-	
+
 				if (this._mode) {
 					hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
 					for (var i = 1, j = 5; i <= 24; i++, j += 5) {
 						var div = document.createElement('div'),
 						    span = document.createElement('span');
-	
+
 						div.classList.add(cell);
 						span.textContent = i;
 						div.classList.add(rotate + j);
@@ -571,7 +468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					for (var _i = 1, _j = 10; _i <= 12; _i++, _j += 10) {
 						var _div = document.createElement('div'),
 						    _span = document.createElement('span');
-	
+
 						_div.classList.add(cell);
 						_span.textContent = _i;
 						_div.classList.add(rotate + _j);
@@ -601,11 +498,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				    rotate = 'mddtp-picker__cell--rotate-',
 				    cell = 'mddtp-picker__cell',
 				    docfrag = document.createDocumentFragment();
-	
+
 				for (var i = 5, j = 10; i <= 60; i += 5, j += 10) {
 					var div = document.createElement('div'),
 					    span = document.createElement('span');
-	
+
 					div.classList.add(cell);
 					if (i === 60) {
 						span.textContent = this._numWithZero(0);
@@ -631,12 +528,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				// set inner html accordingly
 				minuteView.appendChild(docfrag);
 			}
-	
-			/**
-	  * [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
-	  * @param  {[moment]} m [date for today or current]
-	  */
-	
 		}, {
 			key: '_initDateDialog',
 			value: function _initDateDialog(m) {
@@ -644,7 +535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    title = this._sDialog.title,
 				    titleDay = this._sDialog.titleDay,
 				    titleMonth = this._sDialog.titleMonth;
-	
+
 				this._fillText(subtitle, m.format('YYYY'));
 				this._fillText(titleDay, m.format('ddd, '));
 				this._fillText(titleMonth, m.format('MMM D'));
@@ -665,7 +556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    next = this._sDialog.next,
 				    past = this._past,
 				    future = this._future;
-	
+
 				if (m.isBefore(past, 'month')) {
 					m = past.clone();
 				}
@@ -684,7 +575,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var displayMonth = m.format('MMMM YYYY'),
 				    innerDivs = view.getElementsByTagName('div');
 				// get the .mddtp-picker__month element using innerDivs[0]
-	
+
 				this._fillText(innerDivs[0], displayMonth);
 				var docfrag = document.createDocumentFragment(),
 				    tr = innerDivs[3],
@@ -696,7 +587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    cellClass = 'mddtp-picker__cell',
 				    future = lastDayOfMonth;
 				// get the .mddtp-picker__tr element using innerDivs[3]
-	
+
 				if (moment().isSame(m, 'month')) {
 					today = parseInt(moment().format('D'), 10);
 					today += firstDayOfMonth - 1;
@@ -717,7 +608,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					// create cell
 					var cell = document.createElement('span'),
 					    currentDay = i - firstDayOfMonth + 1;
-	
+
 					if (i >= firstDayOfMonth && i <= lastDayOfMonth) {
 						if (i > future || i < past) {
 							cell.classList.add(cellClass + '--disabled');
@@ -743,15 +634,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				tr.appendChild(docfrag);
 				this._addCellClickEvent(tr);
 			}
-	
-			/**
-	  * [_initYear Adds year elements]
-	  *
-	  * @method _initYear
-	  *
-	  * @return {[type]}  [description]
-	  */
-	
 		}, {
 			key: '_initYear',
 			value: function _initYear() {
@@ -760,7 +642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    docfrag = document.createDocumentFragment(),
 				    past = this._past.year(),
 				    future = this._future.year();
-	
+
 				for (var year = past; year <= future; year++) {
 					var li = document.createElement('li');
 					li.textContent = year;
@@ -779,18 +661,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				// attach event handler to the ul to get the benefit of event delegation
 				this._changeYear(years);
 			}
-	
-			/**
-	  * [_switchToView Adds event handler for the feature: switch between date and year view in date dialog]
-	  *
-	  * @method _switchToView
-	  *
-	  * @param  {[type]} picker [description]
-	  *
-	  * @param  {[type]} el     [description]
-	  *
-	  */
-	
 		}, {
 			key: '_switchToView',
 			value: function _switchToView(el) {
@@ -806,16 +676,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					};
 				}
 			}
-	
-			/**
-	  * [_switchToTimeView the actual switchToDateView function so that it can be called by other elements as well]
-	  *
-	  * @method _switchToTimeView
-	  *
-	  * @param  {[type]}          me [context]
-	  *
-	  */
-	
 		}, {
 			key: '_switchToTimeView',
 			value: function _switchToTimeView(me) {
@@ -832,7 +692,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    fakeNeedle = me._sDialog.fakeNeedle,
 				    spoke = 60,
 				    value = void 0;
-	
+
 				// toggle view classes
 				hourView.classList.toggle(hidden);
 				minuteView.classList.toggle(hidden);
@@ -847,7 +707,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					setTimeout(function () {
 						var hOffset = circularHolder.getBoundingClientRect(),
 						    cOffset = circle.getBoundingClientRect();
-	
+
 						fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
 					}, 300);
 				} else {
@@ -866,16 +726,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				// toggle the view type
 				mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
 			}
-			/**
-	  * [_switchToDateView the actual switchToDateView function so that it can be called by other elements as well]
-	  *
-	  * @method _switchToDateView
-	  *
-	  * @param  {[type]}	el [element to attach event to]
-	  * @param  {[type]}	me [context]
-	  *
-	  */
-	
 		}, {
 			key: '_switchToDateView',
 			value: function _switchToDateView(el, me) {
@@ -885,7 +735,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    title = me._sDialog.title,
 				    subtitle = me._sDialog.subtitle,
 				    currentYear = document.getElementById('mddtp-date__currentYear');
-	
+
 				if (mdDateTimePicker.dialog.view) {
 					viewHolder.classList.add('zoomOut');
 					years.classList.remove('mddtp-picker__years--invisible');
@@ -916,12 +766,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				    hourView = this._sDialog.hourView,
 				    minuteView = this._sDialog.minuteView,
 				    sClass = 'mddtp-picker__cell--selected';
-	
+
 				hourView.onclick = function (e) {
 					var sHour = 'mddtp-hour__selected',
 					    selectedHour = document.getElementById(sHour),
 					    setHour = 0;
-	
+
 					if (e.target && e.target.nodeName == 'SPAN') {
 						// clear the previously selected hour
 						selectedHour.id = '';
@@ -950,7 +800,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					var sMinute = 'mddtp-minute__selected',
 					    selectedMinute = document.getElementById(sMinute),
 					    setMinute = 0;
-	
+
 					if (e.target && e.target.nodeName == 'SPAN') {
 						// clear the previously selected hour
 						if (selectedMinute) {
@@ -985,17 +835,17 @@ return /******/ (function(modules) { // webpackBootstrap
 						    subtitle = me._sDialog.subtitle,
 						    titleDay = me._sDialog.titleDay,
 						    titleMonth = me._sDialog.titleMonth;
-	
+
 						if (selected) {
 							selected.classList.remove(sClass);
 							selected.id = '';
 						}
 						e.target.classList.add(sClass);
 						e.target.id = sId;
-	
+
 						// update temp date object with the date selected
 						me._sDialog.sDate = currentDate.clone();
-	
+
 						me._fillText(subtitle, currentDate.year());
 						me._fillText(titleDay, currentDate.format('ddd, '));
 						me._fillText(titleMonth, currentDate.format('MMM D'));
@@ -1010,7 +860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    right = this._sDialog.right,
 				    past = this._past,
 				    future = this._future;
-	
+
 				left.removeAttribute('disabled');
 				right.removeAttribute('disabled');
 				left.classList.remove('mddtp-button--disabled');
@@ -1033,26 +883,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				    mLeftClass = 'mddtp-picker__view--left',
 				    mRightClass = 'mddtp-picker__view--right',
 				    pause = 'mddtp-picker__view--pause';
-	
+
 				left.onclick = function () {
 					moveStep(mRightClass, me._sDialog.previous);
 				};
-	
+
 				right.onclick = function () {
 					moveStep(mLeftClass, me._sDialog.next);
 				};
-	
+
 				function moveStep(aClass, to) {
 					/**
-	    * [stepBack to know if the to step is going back or not]
-	    *
-	    * @type {Boolean}
-	    */
+     * [stepBack to know if the to step is going back or not]
+     *
+     * @type {Boolean}
+     */
 					var stepBack = !1,
 					    next = me._sDialog.next,
 					    current = me._sDialog.current,
 					    previous = me._sDialog.previous;
-	
+
 					left.setAttribute('disabled', '');
 					right.setAttribute('disabled', '');
 					current.classList.add(aClass);
@@ -1060,7 +910,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					next.classList.add(aClass);
 					var clone = to.cloneNode(!0),
 					    del = void 0;
-	
+
 					if (to === next) {
 						del = previous;
 						current.parentNode.appendChild(clone);
@@ -1116,16 +966,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					}, 400);
 				}
 			}
-	
-			/**
-	  * [_changeYear the on click event handler for year]
-	  *
-	  * @method _changeYear
-	  *
-	  * @param  {[type]}    el [description]
-	  *
-	  */
-	
 		}, {
 			key: '_changeYear',
 			value: function _changeYear(el) {
@@ -1148,22 +988,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				};
 			}
-	
-			/**
-	  * [_changeM switch between am and pm modes]
-	  *
-	  * @method _changeM
-	  *
-	  * @return {[type]} [description]
-	  */
-	
 		}, {
 			key: '_changeM',
 			value: function _changeM() {
 				var me = this,
 				    AM = this._sDialog.AM,
 				    PM = this._sDialog.PM;
-	
+
 				AM.onclick = function (e) {
 					var m = me._sDialog.sDate.format('A');
 					if (m === 'PM') {
@@ -1199,7 +1030,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
 					containment: !0
 				});
-	
+
 				fakeNeedleDraggabilly.on('pointerDown', function () {
 					hOffset = circularHolder.getBoundingClientRect();
 				});
@@ -1207,7 +1038,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					var xPos = e.clientX - hOffset.left - hOffset.width / 2,
 					    yPos = e.clientY - hOffset.top - hOffset.height / 2,
 					    slope = Math.atan2(-yPos, xPos);
-	
+
 					needle.className = '';
 					if (slope < 0) {
 						slope += 2 * Math.PI;
@@ -1220,7 +1051,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					divides = parseInt(slope / 6);
 					var same = Math.abs(6 * divides - slope),
 					    upper = Math.abs(6 * (divides + 1) - slope);
-	
+
 					if (upper < same) {
 						divides++;
 					}
@@ -1234,7 +1065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					    sMinute = 'mddtp-minute__selected',
 					    selectedMinute = document.getElementById(sMinute),
 					    cOffset = circle.getBoundingClientRect();
-	
+
 					fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
 					needle.classList.remove(quick);
 					var select = divides;
@@ -1262,28 +1093,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					me._sDialog.sDate.minutes(divides);
 				});
 			}
-	
-			/**
-	  * [_attachEventHandlers attach event handlers for actions to the date or time picker dialog]
-	  *
-	  * @method _attachEventHandlers
-	  *
-	  */
-	
 		}, {
 			key: '_attachEventHandlers',
 			value: function _attachEventHandlers() {
 				var me = this,
 				    ok = this._sDialog.ok,
 				    cancel = this._sDialog.cancel,
-				    onCancel = document.createEvent('Event'),
-				    onOk = document.createEvent('Event');
+				    onCancel = new CustomEvent('onCancel'),
+				    onOk = new CustomEvent('onOk');
 				// create cutom events to dispatch
-	
-				// initiate the events
-				onCancel.initEvent('onCancel', !0, !0);
-				onOk.initEvent('onOk', !0, !0);
-				// normal events
+
 				cancel.onclick = function () {
 					me.toggle();
 					if (me._trigger) {
@@ -1298,18 +1117,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				};
 			}
-	
-			/**
-	  * [_getMonth get the next or previous month]
-	  *
-	  * @method _getMonth
-	  *
-	  * @param  {[type]}  moment [description]
-	  * @param  {[type]}  count  [pass -ve values for past months and positive ones for future values]
-	  *
-	  * @return {[moment]}  [returns the relative moment]
-	  */
-	
 		}, {
 			key: '_getMonth',
 			value: function _getMonth(moment, count) {
@@ -1321,18 +1128,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					return m.subtract(Math.abs(count), 'M');
 				}
 			}
-	
-			/**
-	  * [_nearestDivisor gets the nearest number which is divisible by a number]
-	  *
-	  * @method _nearestDivisor
-	  *
-	  * @param  {[int]}        number  [number to check]
-	  * @param  {[int]}        divided [number to be divided by]
-	  *
-	  * @return {[int]}        [returns -1 if not found]
-	  */
-	
 		}, {
 			key: '_nearestDivisor',
 			value: function _nearestDivisor(number, divided) {
@@ -1345,34 +1140,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return -1;
 			}
-	
-			/**
-	  * [_numWithZero returns string number (n) with a prefixed 0 if 0 <= n <= 9]
-	  *
-	  * @method _numWithZero
-	  *
-	  * @param  {[int]}     n [description]
-	  *
-	  * @return {[string]}     [description]
-	  */
-	
 		}, {
 			key: '_numWithZero',
 			value: function _numWithZero(n) {
 				return n > 9 ? '' + n : '0' + n;
 			}
-	
-			/**
-	  * [_fillText fills element with text]
-	  *
-	  * @method _fillText
-	  *
-	  * @param  {[type]}  el   [description]
-	  * @param  {[type]}  text [description]
-	  *
-	  * @return {[type]}  [description]
-	  */
-	
 		}, {
 			key: '_fillText',
 			value: function _fillText(el, text) {
@@ -1382,31 +1154,11 @@ return /******/ (function(modules) { // webpackBootstrap
 					el.appendChild(document.createTextNode(text));
 				}
 			}
-	
-			/**
-	  * [_addId add id to picker element]
-	  *
-	  * @method _addId
-	  *
-	  * @param  {[type]} el [description]
-	  */
-	
 		}, {
 			key: '_addId',
 			value: function _addId(el, id) {
 				el.id = 'mddtp-' + this._type + '__' + id;
 			}
-	
-			/**
-	  * [_addClass add the default class to picker element]
-	  *
-	  * @method _addClass
-	  *
-	  * @param  {[type]}  el    [description]
-	  * @param  {[type]}  class [description]
-	  * @param  {[type]}  more [description]
-	  */
-	
 		}, {
 			key: '_addClass',
 			value: function _addClass(el, aClass, more) {
@@ -1420,15 +1172,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					el.classList.add(more[i]);
 				}
 			}
-	
-			/**
-	  * [_addView add view]
-	  *
-	  * @method _addView
-	  *
-	  * @param  {[type]} view [description]
-	  */
-	
 		}, {
 			key: '_addView',
 			value: function _addView(view) {
@@ -1438,7 +1181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				    tr = document.createElement('div'),
 				    weekDays = ['S', 'F', 'T', 'W', 'T', 'M', 'S'],
 				    week = 7;
-	
+
 				while (week--) {
 					var span = document.createElement('span');
 					span.textContent = weekDays[week];
@@ -1455,19 +1198,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				grid.appendChild(th);
 				grid.appendChild(tr);
 			}
-	
-			/**
-	  * [_calcRotation calculate rotated angle and return the appropriate class for it]
-	  *
-	  * @method _calcRotation
-	  *
-	  * @param  {[int]}      spoke [spoke is the spoke count = [12,24,60]]
-	  *
-	  * @param  {[int]}      value [value for the spoke]
-	  *
-	  * @return {[string]}      [appropriate class]
-	  */
-	
 		}, {
 			key: '_calcRotation',
 			value: function _calcRotation(spoke, value) {
@@ -1486,37 +1216,44 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return 'mddtp-picker__cell--rotate-' + value;
 			}
+		}, {
+			key: 'time',
+			get: function get() {
+				return this._init;
+			},
+			set: function set(m) {
+				if (m) {
+					this._init = m;
+				}
+			}
+		}, {
+			key: 'trigger',
+			get: function get() {
+				return this._trigger;
+			},
+			set: function set(el) {
+				if (el) {
+					this._trigger = el;
+				}
+			}
 		}], [{
 			key: 'dialog',
 			get: function get() {
 				return _dialog;
 			}
 		}]);
-	
+
 		return mdDateTimePicker;
-	}(); /**
-	     * @package md-date-time-picker
-	     * @version [1.1.1]
-	     * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
-	     * @license MIT
-	     * @website puranjayjain.github.io/md-date-time-picker
-	     */
-	
-	/**
-	* All declarations starting with _ are considered @private
-	*/
-	
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+	}();
+
 	exports.default = mdDateTimePicker;
-	
+
 	(function () {
 		// polyfill for scrollintoviewifneeded
 		if (!Element.prototype.scrollIntoViewIfNeeded) {
 			Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
 				centerIfNeeded = arguments.length === 0 ? !0 : !!centerIfNeeded;
-	
+
 				var parent = this.parentNode,
 				    parentComputedStyle = window.getComputedStyle(parent, null),
 				    parentBorderTopWidth = parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10),
@@ -1526,15 +1263,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				    overLeft = this.offsetLeft - parent.offsetLeft < parent.scrollLeft,
 				    overRight = this.offsetLeft - parent.offsetLeft + this.clientWidth - parentBorderLeftWidth > parent.scrollLeft + parent.clientWidth,
 				    alignWithTop = overTop && !overBottom;
-	
+
 				if ((overTop || overBottom) && centerIfNeeded) {
 					parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2;
 				}
-	
+
 				if ((overLeft || overRight) && centerIfNeeded) {
 					parent.scrollLeft = this.offsetLeft - parent.offsetLeft - parent.clientWidth / 2 - parentBorderLeftWidth + this.clientWidth / 2;
 				}
-	
+
 				if ((overTop || overBottom || overLeft || overRight) && !centerIfNeeded) {
 					this.scrollIntoView(alignWithTop);
 				}
@@ -1557,7 +1294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		!window.addEventListener && function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
 			WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
 				var target = this;
-	
+
 				registry.unshift([target, type, listener, function (event) {
 					event.currentTarget = target;
 					event.preventDefault = function () {
@@ -1567,13 +1304,13 @@ return /******/ (function(modules) { // webpackBootstrap
 						event.cancelBubble = !0;
 					};
 					event.target = event.srcElement || target;
-	
+
 					listener.call(target, event);
 				}]);
-	
+
 				this.attachEvent("on" + type, registry[0][3]);
 			};
-	
+
 			WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
 				for (var index = 0, register; register = registry[index]; ++index) {
 					if (register[0] == this && register[1] == type && register[2] == listener) {
@@ -1581,15 +1318,26 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				}
 			};
-	
+
 			WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
 				return this.fireEvent("on" + eventObject.type, eventObject);
 			};
-		}(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
-	})();
+		}(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", [])
+		// custom event for ie9 https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+		(function () {
 
-/***/ }
-/******/ ])
+			if (typeof window.CustomEvent === "function") return !1;
+
+			function CustomEvent(event, params) {
+				params = params || { bubbles: !1, cancelable: !1, detail: undefined };
+				var evt = document.createEvent('CustomEvent');
+				evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+				return evt;
+			}
+
+			CustomEvent.prototype = window.Event.prototype;
+
+			window.CustomEvent = CustomEvent;
+		})();
+	})();
 });
-;
-//# sourceMappingURL=mdDateTimePicker.js.map

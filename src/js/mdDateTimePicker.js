@@ -1,9 +1,9 @@
 /**
 * @package md-date-time-picker
-* @version [1.1.1]
+* @version [2.0.0]
 * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
 * @license MIT
-* @website puranjayjain.github.io/md-date-time-picker
+* @website https://puranjayjain.github.io/md-date-time-picker
 */
 
 /**
@@ -13,10 +13,9 @@ let _dialog = {
 	view: true,
 	state: false
 }
-// XXX
+// NOTE mdDateTimePicker
 // Uncomment the line below when compiling for umd and make it like this => export default class mdDateTimePicker
-// export default
-class mdDateTimePicker {
+export default class mdDateTimePicker {
 	/**
 	* [constructor of the mdDateTimePicker]
 	*
@@ -64,10 +63,12 @@ class mdDateTimePicker {
 	* @param  {[moment]} m
 	*
 	*/
-	time(m = '') {
-		if (m === '') {
-			return this._init
-		} else {
+	get time() {
+		return this._init
+	}
+
+	set time(m) {
+		if (m) {
 			this._init = m
 		}
 	}
@@ -80,7 +81,10 @@ class mdDateTimePicker {
 	* @param  {[type]} el [element e.g var foo = document.getElementById('bar'), here el = foo]
 	*
 	*/
-	trigger(el) {
+	get trigger() {
+		return this._trigger
+	}
+	set trigger(el) {
 		if (el) {
 			this._trigger = el
 		}
@@ -1129,13 +1133,9 @@ class mdDateTimePicker {
 		let ok = this._sDialog.ok
 		let cancel = this._sDialog.cancel
 		// create cutom events to dispatch
-		let onCancel = document.createEvent('Event')
-		let onOk = document.createEvent('Event')
-		// initiate the events
-		onCancel.initEvent('onCancel', true, true)
-		onOk.initEvent('onOk', true, true)
-		// normal events
-		cancel.onclick = function () {
+		let onCancel = new CustomEvent('onCancel')
+		let onOk = new CustomEvent('onOk')
+		cancel.onclick = function() {
 			me.toggle()
 			if (me._trigger) {
 				me._trigger.dispatchEvent(onCancel)
@@ -1376,10 +1376,10 @@ class mdDateTimePicker {
 				event.target = event.srcElement || target
 
 				listener.call(target, event)
-			}]);
+			}])
 
 			this.attachEvent("on" + type, registry[0][3])
-		};
+		}
 
 		WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
 			for (let index = 0, register; register = registry[index]; ++index) {
@@ -1387,10 +1387,26 @@ class mdDateTimePicker {
 					return this.detachEvent("on" + type, registry.splice(index, 1)[0][3])
 				}
 			}
-		};
+		}
 
 		WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
 			return this.fireEvent("on" + eventObject.type, eventObject)
-		};
+		}
 	})(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", [])
+	// custom event for ie9 https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+	(function () {
+
+		if ( typeof window.CustomEvent === "function" ) return false
+
+		function CustomEvent ( event, params ) {
+			params = params || { bubbles: false, cancelable: false, detail: undefined }
+			let evt = document.createEvent( 'CustomEvent' )
+			evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail )
+			return evt
+		}
+
+		CustomEvent.prototype = window.Event.prototype
+
+		window.CustomEvent = CustomEvent
+	})()
 })()

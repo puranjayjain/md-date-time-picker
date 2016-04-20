@@ -4,6 +4,7 @@
 		"transform-member-expression-literals",
 		"transform-merge-sibling-variables",
 		"transform-minify-booleans",
-		"transform-property-literals"
+		"transform-property-literals",
+		"transform-es2015-modules-umd"
 	]
 }

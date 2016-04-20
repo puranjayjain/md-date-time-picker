@@ -25,19 +25,19 @@
     <button type="button" id="trigger5">Open Dialog 2</button>
     <button type="button" id="trigger6">Open Dialog 3</button>
   </section>
-  <script src="js/Globals/moment.min.js"></script>
-  <script src="js/Globals/draggabilly.pkgd.min.js"></script>
-  <script src="js/Globals/mdDateTimePicker.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/draggabilly.pkgd.min.js"></script>
+  <script src="js/mdDateTimePicker.js"></script>
   <script type="text/javascript">
     (function() {
-      var x = new mdDateTimePicker({
+      var x = new mdDateTimePicker.default({
         type: 'date'
       });
-      var y = new mdDateTimePicker({
+      var y = new mdDateTimePicker.default({
         type: 'date',
         init: moment('2016-02-29', 'YYYY-MM-DD')
       });
-      var z = new mdDateTimePicker({
+      var z = new mdDateTimePicker.default({
         type: 'date',
         init: moment('2016-03-3', 'YYYY-MM-DD'),
         orientation: 'PORTRAIT'
@@ -51,15 +51,15 @@
       document.getElementById('trigger3').addEventListener('click', function() {
         z.toggle();
       });
-      var a = new mdDateTimePicker({
+      var a = new mdDateTimePicker.default({
         type: 'time'
       });
-      var b = new mdDateTimePicker({
+      var b = new mdDateTimePicker.default({
         type: 'time',
         init: moment('10:5 PM', 'h:m A'),
         orientation: 'PORTRAIT'
       });
-      var c = new mdDateTimePicker({
+      var c = new mdDateTimePicker.default({
         type: 'time',
         init: moment('22:0', 'H:m'),
         mode: true,
@@ -75,9 +75,9 @@
         c.toggle();
       });
       // dispatch event test
-      x.trigger(document.getElementById('test1'));
+      x.trigger = document.getElementById('test1');
       document.getElementById('test1').addEventListener('onOk', function() {
-        this.value = x.time().toString();
+        this.value = x.time.toString();
       });
     }).call(this);
   </script>
