@@ -33,7 +33,7 @@
     "babel-plugin-transform-minify-booleans": "^6.5.0",
     "babel-plugin-transform-property-literals": "^6.5.0",
     "babel-preset-es2015": "^6.3.13",
-    "browser-sync": "^2.12.4",
+    "browser-sync": "^2.12.5",
     "chokidar": "^1.4.3",
     "del": "^2.2.0",
     "gulp": "github:gulpjs/gulp#4.0",
