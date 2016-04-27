@@ -7,6 +7,10 @@
           <strong>Note: </strong>
           Starting from v1.2.0 the all the files have been renamed from md-date-time-picker.* to mdDateTimePicker.* so make sure to update it
         </p>
+        <p class="mddtpp-section__note">
+          <strong>Note: </strong>
+          Starting from v2.0.0 there is only one build
+        </p>
         <p class="mddtpp-p">
           Let us begin by creating a very simple dialog. You can specify properties as key value pairs inside an object. As shown below.
         </p>
@@ -317,22 +321,40 @@
       <section id="documentation/ie">
         <h4 class="mddtpp-section__title">Supporting Internet Explorer <strong>Polyfills</strong></h4>
         <h6 class="mddtpp-section__subtitle">Supporting internet explorer versions 8 - 10 Requires the use of polyfills</h6>
-          <p class="mddtpp-section__note">
-            <strong>Note: </strong>
-            You can find a list of polyfills here at <a class="mddtpp-a" href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">Modernizr WIki</a>
-          </p>
-          <table class="mdl-data-table mdl-js-data-table mddtpp-table mdl-shadow--2dp">
-            <thead>
-              <tr>
-                <th class="mdl-data-table__cell--non-numeric">List of polyfills to use</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="mdl-data-table__cell--non-numeric">classList</td>
-              </tr>
-            </tbody>
-          </table>
+        <p class="mddtpp-section__note">
+          <strong>Note: </strong>
+          You can find a list of polyfills here at <a class="mddtpp-a" href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">Modernizr WIki</a>
+        </p>
+        <table class="mdl-data-table mdl-js-data-table mddtpp-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">IE versions (where required)</th>
+              <th class="mdl-data-table__cell--non-numeric">List of polyfills to use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8 - 10</td>
+              <td class="mdl-data-table__cell--non-numeric">classList</td>
+            </tr>
+            <tr>
+              <td>8 - 11</td>
+              <td class="mdl-data-table__cell--non-numeric"><a class="mddtpp-a" href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill">CustomEvent</a></td>
+            </tr>
+            <tr>
+              <td>8 - 11</td>
+              <td class="mdl-data-table__cell--non-numeric"><a class="mddtpp-a" href="https://gist.github.com/hsablonniere/2581101#file-index-js">scrollIntoViewIfNeeded</a></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td class="mdl-data-table__cell--non-numeric"><a class="mddtpp-a" href="https://gist.github.com/joshrhoades/8874249#file-textcontentpolyfill-js">Textcontent</a></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td class="mdl-data-table__cell--non-numeric"><a class="mddtpp-a" href="https://gist.github.com/jonathantneal/3748027#file-eventlistener-polyfill-js">EventListeners</a></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section id="documentation/anewfeature">
         <h4 class="mddtpp-section__title">A New Feature <strong>Other</strong></h4>
