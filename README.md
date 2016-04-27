@@ -1,5 +1,7 @@
 # md-date-time-picker
 
+[![Gitter](https://badges.gitter.im/puranjayjain/md-date-time-picker.svg)](https://gitter.im/puranjayjain/md-date-time-picker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 [![GitHub version](https://img.shields.io/github/release/puranjayjain/md-date-time-picker.svg)](https://badge.fury.io/gh/puranjayjain%2Fmd-date-time-picker)
 [![npm version](https://img.shields.io/npm/v/md-date-time-picker.svg)](https://badge.fury.io/js/md-date-time-picker)
 [![Bower version](https://img.shields.io/bower/v/md-date-time-picker.svg)](https://badge.fury.io/bo/puranjayjain%2Fmd-date-time-picker)

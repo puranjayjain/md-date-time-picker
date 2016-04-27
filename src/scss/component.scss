@@ -204,7 +204,7 @@
           pointer-events: all;
           cursor: pointer;
           &:hover {
-            @extend .mddtp-picker__selected !optional;
+            @extend .mddtp-picker__cell--selected;
           }
         }
       }
