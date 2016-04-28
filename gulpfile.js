@@ -39,7 +39,7 @@ gulp.task('imagesRoot', function() {
 });
 
 gulp.task('scripts', function() {
-  return gulp.src(['src/js/material.min.js', 'src/js/moment.min.js', 'src/js/draggabilly.pkgd.min.js', 'src/js/highlight.pack.js', 'src/js/md-date-time-picker.min.js', 'src/js/main.js'])
+  return gulp.src(['src/js/material.min.js', 'src/js/moment.min.js', 'src/js/draggabilly.pkgd.min.js', 'src/js/highlight.pack.js', 'src/js/mdDateTimePicker.min.js', 'src/js/main.js'])
     .pipe(concat('scripts.js'))
     .pipe(uglify())
     .pipe(gulp.dest('js'))

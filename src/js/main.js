@@ -2,14 +2,14 @@
   // highlight js code block
   hljs.initHighlightingOnLoad();
   // example on page 1 script
-  var x = new mdDateTimePicker({
+  var x = new mdDateTimePicker.default({
     type: 'date'
   });
-  var y = new mdDateTimePicker({
+  var y = new mdDateTimePicker.default({
     type: 'date',
     trigger: document.getElementById('test1')
   });
-  var z = new mdDateTimePicker({
+  var z = new mdDateTimePicker.default({
     type: 'time'
   });
   document.getElementById('trigger-1').addEventListener('click', function() {
