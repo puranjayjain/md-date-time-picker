@@ -27,7 +27,7 @@
   "devDependencies": {
     "babel-core": "^6.8.0",
     "babel-plugin-add-module-exports": "^0.1.4",
-    "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
+    "babel-plugin-transform-es2015-modules-umd": "^6.8.0",
     "babel-plugin-transform-member-expression-literals": "^6.8.0",
     "babel-plugin-transform-merge-sibling-variables": "^6.8.0",
     "babel-plugin-transform-minify-booleans": "^6.8.0",
