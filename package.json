@@ -34,7 +34,7 @@
     "babel-plugin-transform-property-literals": "^6.8.0",
     "babel-preset-es2015": "^6.3.13",
     "browser-sync": "^2.12.7",
-    "chokidar": "^1.4.3",
+    "chokidar": "^1.5.0",
     "del": "^2.2.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^3.0.2",
