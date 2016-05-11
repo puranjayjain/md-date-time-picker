@@ -39,7 +39,7 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^3.0.2",
     "gulp-babel": "^6.1.2",
-    "gulp-cache": "^0.4.4",
+    "gulp-cache": "^0.4.5",
     "gulp-concat": "^2.5.2",
     "gulp-imagemin": "^3.0.1",
     "gulp-minify-css": "1.2.4",
