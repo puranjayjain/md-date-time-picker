@@ -198,7 +198,7 @@
         </p>
         <h6 class="mddtpp-section__subtitle">Here, is a usage example of get</h6>
         <div class="mddtpp-p">
-          <pre><code>var time = dialog.time();</code></pre>
+          <pre><code>var time = dialog.time;</code></pre>
         </div>
         <h6 class="mddtpp-section__subtitle">Here, is a usage example of set</h6>
         <div class="mddtpp-p">
@@ -252,7 +252,7 @@
           <pre><code>
             // assuming test1 is an input text element
             document.getElementById('test1').addEventListener('onOk', function() {
-              this.value = x.time().toString();
+              this.value = x.time.toString();
             });
           </code></pre>
         </div>
@@ -265,7 +265,7 @@
           <pre><code>
             // assuming test1 is an input text element
             document.getElementById('test1').addEventListener('onCancel', function() {
-              this.value = x.time().toString();
+              this.value = x.time.toString();
             });
           </code></pre>
         </div>

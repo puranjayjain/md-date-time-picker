@@ -22,7 +22,7 @@
     z.toggle();
   });
   document.getElementById('test1').addEventListener('onOk', function() {
-    this.value = y.time().toString();
+    this.value = y.time.toString();
   });
   var header = document.getElementById('mddtpp-header');
   var documentation = document.getElementById('documentation/toc')
