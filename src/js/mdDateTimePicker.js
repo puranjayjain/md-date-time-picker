@@ -1,6 +1,6 @@
 /**
 * @package md-date-time-picker
-* @version [2.0.0]
+* @version [2.1.0]
 * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
 * @license MIT
 * @website https://puranjayjain.github.io/md-date-time-picker
@@ -21,17 +21,19 @@ export default class mdDateTimePicker {
 	*
 	* @method constructor
 	*
-	* @param  {[string]}   type = 'date' or 'time 									[type of dialog]
-	* @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
-	* @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-	* @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
-	* @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-	* @param  {[string]}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
-	* @param  {[element]}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
+	* @param  {string}   type = 'date' or 'time 									[type of dialog]
+	* @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
+	* @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
+	* @param  {moment}   future           												[the future moment till which the calendar shall render] [@default = init]
+	* @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
+	* @param  {string}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
+	* @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
+	* @param  {string}  ok = 'ok'																	[ok button's text]
+	* @param  {string}  cancel = 'cancel'													[cancel button's text]
 	*
-	* @return {[Object]}    																				[mdDateTimePicker]
+	* @return {Object}    																				[mdDateTimePicker]
 	*/
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = ''}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel'}) {
 		this._type = type
 		this._init = init
 		this._past = past
@@ -39,6 +41,8 @@ export default class mdDateTimePicker {
 		this._mode = mode
 		this._orientation = orientation
 		this._trigger = trigger
+		this._ok = ok
+		this._cancel = cancel
 
 		/**
 		* [dialog selected classes have the same structure as dialog but one level down]
@@ -60,7 +64,7 @@ export default class mdDateTimePicker {
 	*
 	* @method time
 	*
-	* @param  {[moment]} m
+	* @param  {moment} m
 	*
 	*/
 	get time() {
@@ -78,7 +82,7 @@ export default class mdDateTimePicker {
 	*
 	* @method trigger
 	*
-	* @param  {[type]} el [element e.g var foo = document.getElementById('bar'), here el = foo]
+	* @param  {type} el [element e.g var foo = document.getElementById('bar'), here el = foo]
 	*
 	*/
 	get trigger() {
@@ -116,16 +120,15 @@ export default class mdDateTimePicker {
 	*
 	* @method dialog
 	*
-	* @return {[_dialog]} [static or prototype value for the _dialog of the component]
+	* @return {_dialog} [static or prototype value for the _dialog of the component]
 	*/
 	static get dialog() {
 		return _dialog
 	}
 
-	// REVIEW the code below is unnecessary or necessary
-	// static set dialog(value) {
-	// 	mdDateTimePicker.dialog = value
-	// }
+	static set dialog(value) {
+		mdDateTimePicker.dialog = value
+	}
 
 	_selectDialog() {
 		// now do what you normally would do
@@ -401,11 +404,9 @@ export default class mdDateTimePicker {
 		this._addId(cancel, 'cancel')
 		cancel.classList.add('mddtp-button')
 		cancel.setAttribute('type', 'button')
-		cancel.textContent = 'cancel'
 		this._addId(ok, 'ok')
 		ok.classList.add('mddtp-button')
 		ok.setAttribute('type', 'button')
-		ok.textContent = 'ok'
 		// add actions
 		action.appendChild(cancel)
 		action.appendChild(ok)
@@ -418,7 +419,7 @@ export default class mdDateTimePicker {
 
 	/**
 	* [_initTimeDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
-	* @param  {[moment]} m [date for today or current]
+	* @param  {moment} m [date for today or current]
 	*/
 	_initTimeDialog(m) {
 		let hour = this._sDialog.hour
@@ -444,6 +445,7 @@ export default class mdDateTimePicker {
 		this._switchToView(hour)
 		this._switchToView(minute)
 		this._addClockEvent()
+		this._setButtonText()
 	}
 
 	_initHour() {
@@ -537,7 +539,7 @@ export default class mdDateTimePicker {
 
 	/**
 	* [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
-	* @param  {[moment]} m [date for today or current]
+	* @param  {moment} m [date for today or current]
 	*/
 
 	_initDateDialog(m) {
@@ -554,6 +556,7 @@ export default class mdDateTimePicker {
 		this._changeMonth()
 		this._switchToView(subtitle)
 		this._switchToView(title)
+		this._setButtonText()
 	}
 
 	_initViewHolder() {
@@ -643,7 +646,7 @@ export default class mdDateTimePicker {
 	*
 	* @method _initYear
 	*
-	* @return {[type]}  [description]
+	* @return {type}  [description]
 	*/
 	_initYear() {
 		let years = this._sDialog.years
@@ -675,9 +678,9 @@ export default class mdDateTimePicker {
 	*
 	* @method _switchToView
 	*
-	* @param  {[type]} picker [description]
+	* @param  {type} picker [description]
 	*
-	* @param  {[type]} el     [description]
+	* @param  {type} el     [description]
 	*
 	*/
 	_switchToView(el) {
@@ -700,7 +703,7 @@ export default class mdDateTimePicker {
 	*
 	* @method _switchToTimeView
 	*
-	* @param  {[type]}          me [context]
+	* @param  {type}          me [context]
 	*
 	*/
 	_switchToTimeView(me) {
@@ -756,8 +759,8 @@ export default class mdDateTimePicker {
 	*
 	* @method _switchToDateView
 	*
-	* @param  {[type]}	el [element to attach event to]
-	* @param  {[type]}	me [context]
+	* @param  {type}	el [element to attach event to]
+	* @param  {type}	me [context]
 	*
 	*/
 	_switchToDateView(el, me) {
@@ -993,7 +996,7 @@ export default class mdDateTimePicker {
 	*
 	* @method _changeYear
 	*
-	* @param  {[type]}    el [description]
+	* @param  {type}    el [description]
 	*
 	*/
 	_changeYear(el) {
@@ -1022,7 +1025,7 @@ export default class mdDateTimePicker {
 	*
 	* @method _changeM
 	*
-	* @return {[type]} [description]
+	* @return {type} [description]
 	*/
 	_changeM() {
 		let me = this
@@ -1151,14 +1154,23 @@ export default class mdDateTimePicker {
 	}
 
 	/**
+	 * [_setButtonText Set the ok and cancel button text]
+	 * @method _setButtonText
+	 */
+	_setButtonText() {
+		this._sDialog.cancel.textContent = this._cancel
+		this._sDialog.ok.textContent = this._ok
+	}
+
+	/**
 	* [_getMonth get the next or previous month]
 	*
 	* @method _getMonth
 	*
-	* @param  {[type]}  moment [description]
-	* @param  {[type]}  count  [pass -ve values for past months and positive ones for future values]
+	* @param  {type}  moment [description]
+	* @param  {type}  count  [pass -ve values for past months and positive ones for future values]
 	*
-	* @return {[moment]}  [returns the relative moment]
+	* @return {moment}  [returns the relative moment]
 	*/
 	_getMonth(moment, count) {
 		let m
@@ -1175,10 +1187,10 @@ export default class mdDateTimePicker {
 	*
 	* @method _nearestDivisor
 	*
-	* @param  {[int]}        number  [number to check]
-	* @param  {[int]}        divided [number to be divided by]
+	* @param  {int}        number  [number to check]
+	* @param  {int}        divided [number to be divided by]
 	*
-	* @return {[int]}        [returns -1 if not found]
+	* @return {int}        [returns -1 if not found]
 	*/
 	_nearestDivisor(number, divided) {
 		if (number % divided === 0)  {
@@ -1198,9 +1210,9 @@ export default class mdDateTimePicker {
 	*
 	* @method _numWithZero
 	*
-	* @param  {[int]}     n [description]
+	* @param  {int}     n [description]
 	*
-	* @return {[string]}     [description]
+	* @return {string}     [description]
 	*/
 	_numWithZero(n) {
 		return n > 9 ? '' + n: '0' + n
@@ -1211,10 +1223,10 @@ export default class mdDateTimePicker {
 	*
 	* @method _fillText
 	*
-	* @param  {[type]}  el   [description]
-	* @param  {[type]}  text [description]
+	* @param  {type}  el   [description]
+	* @param  {type}  text [description]
 	*
-	* @return {[type]}  [description]
+	* @return {type}  [description]
 	*/
 	_fillText(el, text) {
 		if ( el.firstChild ) {
@@ -1229,7 +1241,7 @@ export default class mdDateTimePicker {
 	*
 	* @method _addId
 	*
-	* @param  {[type]} el [description]
+	* @param  {type} el [description]
 	*/
 	_addId(el, id) {
 		el.id = 'mddtp-' + this._type + '__' + id
@@ -1240,9 +1252,9 @@ export default class mdDateTimePicker {
 	*
 	* @method _addClass
 	*
-	* @param  {[type]}  el    [description]
-	* @param  {[type]}  class [description]
-	* @param  {[type]}  more [description]
+	* @param  {type}  el    [description]
+	* @param  {type}  class [description]
+	* @param  {type}  more [description]
 	*/
 	_addClass(el, aClass, more) {
 		el.classList.add('mddtp-picker__' + aClass)
@@ -1261,7 +1273,7 @@ export default class mdDateTimePicker {
 	*
 	* @method _addView
 	*
-	* @param  {[type]} view [description]
+	* @param  {type} view [description]
 	*/
 	_addView (view) {
 		let month = document.createElement('div')
@@ -1292,11 +1304,11 @@ export default class mdDateTimePicker {
 	*
 	* @method _calcRotation
 	*
-	* @param  {[int]}      spoke [spoke is the spoke count = [12,24,60]]
+	* @param  {int}      spoke [spoke is the spoke count = [12,24,60]]
 	*
-	* @param  {[int]}      value [value for the spoke]
+	* @param  {int}      value [value for the spoke]
 	*
-	* @return {[string]}      [appropriate class]
+	* @return {string}      [appropriate class]
 	*/
 	_calcRotation(spoke, value) {
 		let start = (spoke / 12) * 3

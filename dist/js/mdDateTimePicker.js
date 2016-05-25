@@ -50,15 +50,17 @@
   *
   * @method constructor
   *
-  * @param  {[string]}   type = 'date' or 'time 									[type of dialog]
-  * @param  {[moment]}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
-  * @param  {[moment]}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-  * @param  {[moment]}   future           												[the future moment till which the calendar shall render] [@default = init]
-  * @param	{[Boolean]}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-  * @param  {[string]}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
-  * @param  {[element]}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
+  * @param  {string}   type = 'date' or 'time 									[type of dialog]
+  * @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
+  * @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
+  * @param  {moment}   future           												[the future moment till which the calendar shall render] [@default = init]
+  * @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
+  * @param  {string}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
+  * @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
+  * @param  {string}  ok = 'ok'																	[ok button's text]
+  * @param  {string}  cancel = 'cancel'													[cancel button's text]
   *
-  * @return {[Object]}    																				[mdDateTimePicker]
+  * @return {Object}    																				[mdDateTimePicker]
   */
 
 		function mdDateTimePicker(_ref) {
@@ -74,7 +76,11 @@
 			    _ref$orientation = _ref.orientation,
 			    orientation = _ref$orientation === undefined ? 'LANDSCAPE' : _ref$orientation,
 			    _ref$trigger = _ref.trigger,
-			    trigger = _ref$trigger === undefined ? '' : _ref$trigger;
+			    trigger = _ref$trigger === undefined ? '' : _ref$trigger,
+			    _ref$ok = _ref.ok,
+			    ok = _ref$ok === undefined ? 'ok' : _ref$ok,
+			    _ref$cancel = _ref.cancel,
+			    cancel = _ref$cancel === undefined ? 'cancel' : _ref$cancel;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -85,6 +91,8 @@
 			this._mode = mode;
 			this._orientation = orientation;
 			this._trigger = trigger;
+			this._ok = ok;
+			this._cancel = cancel;
 
 			/**
    * [dialog selected classes have the same structure as dialog but one level down]
@@ -106,7 +114,7 @@
   *
   * @method time
   *
-  * @param  {[moment]} m
+  * @param  {moment} m
   *
   */
 
@@ -393,11 +401,9 @@
 				this._addId(cancel, 'cancel');
 				cancel.classList.add('mddtp-button');
 				cancel.setAttribute('type', 'button');
-				cancel.textContent = 'cancel';
 				this._addId(ok, 'ok');
 				ok.classList.add('mddtp-button');
 				ok.setAttribute('type', 'button');
-				ok.textContent = 'ok';
 				// add actions
 				action.appendChild(cancel);
 				action.appendChild(ok);
@@ -433,6 +439,7 @@
 				this._switchToView(hour);
 				this._switchToView(minute);
 				this._addClockEvent();
+				this._setButtonText();
 			}
 		}, {
 			key: '_initHour',
@@ -545,6 +552,7 @@
 				this._changeMonth();
 				this._switchToView(subtitle);
 				this._switchToView(title);
+				this._setButtonText();
 			}
 		}, {
 			key: '_initViewHolder',
@@ -1118,6 +1126,12 @@
 				};
 			}
 		}, {
+			key: '_setButtonText',
+			value: function _setButtonText() {
+				this._sDialog.cancel.textContent = this._cancel;
+				this._sDialog.ok.textContent = this._ok;
+			}
+		}, {
 			key: '_getMonth',
 			value: function _getMonth(moment, count) {
 				var m = void 0;
@@ -1240,6 +1254,9 @@
 			key: 'dialog',
 			get: function get() {
 				return _dialog;
+			},
+			set: function set(value) {
+				mdDateTimePicker.dialog = value;
 			}
 		}]);
 
