@@ -88,6 +88,7 @@ export default class mdDateTimePicker {
 	get trigger() {
 		return this._trigger
 	}
+
 	set trigger(el) {
 		if (el) {
 			this._trigger = el
