@@ -1,6 +1,6 @@
 {
   "name": "md-date-time-picker",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An implementation of the Material Design Picker components in vanilla CSS, JS and HTML",
   "keywords": [
     "material",

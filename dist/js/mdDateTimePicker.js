@@ -423,7 +423,12 @@
 
 				// switch according to 12 hour or 24 hour mode
 				if (this._mode) {
-					this._fillText(hour, m.format('H'));
+					// CHANGED exception case for 24 => 0 issue #57
+					var text = parseInt(m.format('H'), 10);
+					if (text === 0) {
+						text = '00';
+					}
+					this._fillText(hour, text);
 				} else {
 					this._fillText(hour, m.format('h'));
 					this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active');
@@ -460,9 +465,20 @@
 						    span = document.createElement('span');
 
 						div.classList.add(cell);
-						span.textContent = i;
+						// CHANGED exception case for 24 => 0 issue #57
+						if (i === 24) {
+							span.textContent = '00';
+						} else {
+							span.textContent = i;
+						}
 						div.classList.add(rotate + j);
 						if (hourNow === i) {
+							div.id = hour;
+							div.classList.add(selected);
+							needle.classList.add(rotate + j);
+						}
+						// CHANGED exception case for 24 => 0 issue #58
+						if (i === 24 && hourNow === 0) {
 							div.id = hour;
 							div.classList.add(selected);
 							needle.classList.add(rotate + j);
@@ -721,7 +737,11 @@
 				} else {
 					if (me._mode) {
 						spoke = 24;
-						value = me._sDialog.sDate.format('H');
+						value = parseInt(me._sDialog.sDate.format('H'), 10);
+						// CHANGED exception for 24 => 0 issue #58
+						if (value === 0) {
+							value = 24;
+						}
 					} else {
 						spoke = 12;
 						value = me._sDialog.sDate.format('h');
@@ -789,7 +809,7 @@
 						e.target.parentNode.id = sHour;
 						// set the sDate according to 24 or 12 hour mode
 						if (me._mode) {
-							setHour = e.target.textContent;
+							setHour = parseInt(e.target.textContent, 10);
 						} else {
 							if (me._sDialog.sDate.format('A') === 'AM') {
 								setHour = e.target.textContent;
@@ -815,7 +835,7 @@
 							selectedMinute.id = '';
 							selectedMinute.classList.remove(sClass);
 						}
-						// select the new hour
+						// select the new minute
 						e.target.parentNode.classList.add(sClass);
 						e.target.parentNode.id = sMinute;
 						// set the sDate minute
