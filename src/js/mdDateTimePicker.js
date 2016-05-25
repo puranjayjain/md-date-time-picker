@@ -21,19 +21,20 @@ export default class mdDateTimePicker {
 	*
 	* @method constructor
 	*
-	* @param  {string}   type = 'date' or 'time 									[type of dialog]
+	* @param  {String}   type = 'date' or 'time 									[type of dialog]
 	* @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
 	* @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
 	* @param  {moment}   future           												[the future moment till which the calendar shall render] [@default = init]
 	* @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-	* @param  {string}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
+	* @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
 	* @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
-	* @param  {string}  ok = 'ok'																	[ok button's text]
-	* @param  {string}  cancel = 'cancel'													[cancel button's text]
+	* @param  {String}  ok = 'ok'																	[ok button's text]
+	* @param  {String}  cancel = 'cancel'													[cancel button's text]
+	* @param  {Boolean} colon = 'cancel'													[add an option to enable quote in 24 hour mode]
 	*
 	* @return {Object}    																				[mdDateTimePicker]
 	*/
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel'}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = false}) {
 		this._type = type
 		this._init = init
 		this._past = past
@@ -43,6 +44,7 @@ export default class mdDateTimePicker {
 		this._trigger = trigger
 		this._ok = ok
 		this._cancel = cancel
+		this._colon = colon
 
 		/**
 		* [dialog selected classes have the same structure as dialog but one level down]
@@ -435,6 +437,10 @@ export default class mdDateTimePicker {
 				text = '00'
 			}
 			this._fillText(hour, text)
+			// add the configurable colon in this mode issue #56
+			if (this._colon) {
+				dotSpan.removeAttribute('style')
+			}
 		}
 		else {
 			this._fillText(hour, m.format('h'))
@@ -1234,7 +1240,7 @@ export default class mdDateTimePicker {
 	*
 	* @param  {int}     n [description]
 	*
-	* @return {string}     [description]
+	* @return {String}     [description]
 	*/
 	_numWithZero(n) {
 		return n > 9 ? '' + n: '0' + n
@@ -1330,7 +1336,7 @@ export default class mdDateTimePicker {
 	*
 	* @param  {int}      value [value for the spoke]
 	*
-	* @return {string}      [appropriate class]
+	* @return {String}      [appropriate class]
 	*/
 	_calcRotation(spoke, value) {
 		let start = (spoke / 12) * 3

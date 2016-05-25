@@ -50,15 +50,16 @@
   *
   * @method constructor
   *
-  * @param  {string}   type = 'date' or 'time 									[type of dialog]
+  * @param  {String}   type = 'date' or 'time 									[type of dialog]
   * @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
   * @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
   * @param  {moment}   future           												[the future moment till which the calendar shall render] [@default = init]
   * @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-  * @param  {string}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
+  * @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
   * @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
-  * @param  {string}  ok = 'ok'																	[ok button's text]
-  * @param  {string}  cancel = 'cancel'													[cancel button's text]
+  * @param  {String}  ok = 'ok'																	[ok button's text]
+  * @param  {String}  cancel = 'cancel'													[cancel button's text]
+  * @param  {Boolean} colon = 'cancel'													[add an option to enable quote in 24 hour mode]
   *
   * @return {Object}    																				[mdDateTimePicker]
   */
@@ -80,7 +81,9 @@
 			    _ref$ok = _ref.ok,
 			    ok = _ref$ok === undefined ? 'ok' : _ref$ok,
 			    _ref$cancel = _ref.cancel,
-			    cancel = _ref$cancel === undefined ? 'cancel' : _ref$cancel;
+			    cancel = _ref$cancel === undefined ? 'cancel' : _ref$cancel,
+			    _ref$colon = _ref.colon,
+			    colon = _ref$colon === undefined ? !1 : _ref$colon;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -93,6 +96,7 @@
 			this._trigger = trigger;
 			this._ok = ok;
 			this._cancel = cancel;
+			this._colon = colon;
 
 			/**
    * [dialog selected classes have the same structure as dialog but one level down]
@@ -429,6 +433,10 @@
 						text = '00';
 					}
 					this._fillText(hour, text);
+					// add the configurable colon in this mode issue #56
+					if (this._colon) {
+						dotSpan.removeAttribute('style');
+					}
 				} else {
 					this._fillText(hour, m.format('h'));
 					this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active');
