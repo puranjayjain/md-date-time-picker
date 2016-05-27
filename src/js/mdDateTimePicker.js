@@ -30,11 +30,11 @@ export default class mdDateTimePicker {
 	* @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
 	* @param  {String}  ok = 'ok'																	[ok button's text]
 	* @param  {String}  cancel = 'cancel'													[cancel button's text]
-	* @param  {Boolean} colon = 'cancel'													[add an option to enable quote in 24 hour mode]
+	* @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
 	*
 	* @return {Object}    																				[mdDateTimePicker]
 	*/
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = false}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true}) {
 		this._type = type
 		this._init = init
 		this._past = past

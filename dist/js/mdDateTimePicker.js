@@ -59,7 +59,7 @@
   * @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
   * @param  {String}  ok = 'ok'																	[ok button's text]
   * @param  {String}  cancel = 'cancel'													[cancel button's text]
-  * @param  {Boolean} colon = 'cancel'													[add an option to enable quote in 24 hour mode]
+  * @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
   *
   * @return {Object}    																				[mdDateTimePicker]
   */
@@ -83,7 +83,7 @@
 			    _ref$cancel = _ref.cancel,
 			    cancel = _ref$cancel === undefined ? 'cancel' : _ref$cancel,
 			    _ref$colon = _ref.colon,
-			    colon = _ref$colon === undefined ? !1 : _ref$colon;
+			    colon = _ref$colon === undefined ? !0 : _ref$colon;
 
 			_classCallCheck(this, mdDateTimePicker);
 
