@@ -103,7 +103,7 @@ Most changes made to files inside the `src` directory will cause the page to rel
 ## Versioning
 
 For transparency into our release cycle and in striving to maintain backward
-compatibility, Material Design Lite is maintained under
+compatibility, this project is maintained under
 [the Semantic Versioning guidelines](http://semver.org/). Sometimes we screw up,
 but we'll adhere to those rules whenever possible.
 
