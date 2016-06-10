@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "moment": "^2.13.0",
-    "draggabilly": "^2.1.0"
+    "draggabilly": "^2.1.1"
   },
   "repository": {
     "type": "git",
