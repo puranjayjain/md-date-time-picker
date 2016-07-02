@@ -612,7 +612,11 @@ export default class mdDateTimePicker {
 		let docfrag = document.createDocumentFragment()
 		// get the .mddtp-picker__tr element using innerDivs[3]
 		let tr = innerDivs[3]
-		let firstDayOfMonth = parseInt(moment(m).date(1).day(), 10)
+		let firstDayOfMonth = moment.weekdays( true ).indexOf ( moment.weekdays(false, moment(m).date(1).day() ) )
+		/*
+		netTrek - first day of month dependent from locale
+		//parseInt(moment(m).date(1).day(), 10)
+		*/
 		let today = -1
 		let selected = -1
 		let lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1
@@ -1308,7 +1312,12 @@ export default class mdDateTimePicker {
 		let grid = document.createElement('div')
 		let th = document.createElement('div')
 		let tr = document.createElement('div')
-		let weekDays = ['S', 'F', 'T', 'W', 'T', 'M', 'S']
+		/*
+		 netTrek - first day of month dependent from locale
+		 //['S', 'F', 'T', 'W', 'T', 'M', 'S']
+		 */
+		let weekDays = moment.weekdaysMin(true).reverse()
+		
 		let week = 7
 		while (week--) {
 			let span = document.createElement('span')

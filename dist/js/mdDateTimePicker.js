@@ -611,7 +611,7 @@
 				this._fillText(innerDivs[0], displayMonth);
 				var docfrag = document.createDocumentFragment(),
 				    tr = innerDivs[3],
-				    firstDayOfMonth = parseInt(moment(m).date(1).day(), 10),
+				    firstDayOfMonth = moment.weekdays(!0).indexOf(moment.weekdays(!1, moment(m).date(1).day())),
 				    today = -1,
 				    selected = -1,
 				    lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1,
@@ -619,6 +619,11 @@
 				    cellClass = 'mddtp-picker__cell',
 				    future = lastDayOfMonth;
 				// get the .mddtp-picker__tr element using innerDivs[3]
+
+				/*
+    netTrek - first day of month dependent from locale
+    //parseInt(moment(m).date(1).day(), 10)
+    */
 
 				if (moment().isSame(m, 'month')) {
 					today = parseInt(moment().format('D'), 10);
@@ -1221,8 +1226,12 @@
 				    grid = document.createElement('div'),
 				    th = document.createElement('div'),
 				    tr = document.createElement('div'),
-				    weekDays = ['S', 'F', 'T', 'W', 'T', 'M', 'S'],
+				    weekDays = moment.weekdaysMin(!0).reverse(),
 				    week = 7;
+				/*
+     netTrek - first day of month dependent from locale
+     //['S', 'F', 'T', 'W', 'T', 'M', 'S']
+     */
 
 				while (week--) {
 					var span = document.createElement('span');
