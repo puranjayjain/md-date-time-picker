@@ -614,7 +614,7 @@ export default class mdDateTimePicker {
 		let tr = innerDivs[3]
 		let firstDayOfMonth = moment.weekdays( true ).indexOf ( moment.weekdays(false, moment(m).date(1).day() ) )
 		/*
-		netTrek - first day of month dependent from locale
+		netTrek - first day of month dependented from moment.locale
 		//parseInt(moment(m).date(1).day(), 10)
 		*/
 		let today = -1
@@ -1313,11 +1313,11 @@ export default class mdDateTimePicker {
 		let th = document.createElement('div')
 		let tr = document.createElement('div')
 		/*
-		 netTrek - first day of month dependent from locale
+		 netTrek - weekday dependented from moment.locale
 		 //['S', 'F', 'T', 'W', 'T', 'M', 'S']
 		 */
 		let weekDays = moment.weekdaysMin(true).reverse()
-		
+
 		let week = 7
 		while (week--) {
 			let span = document.createElement('span')
