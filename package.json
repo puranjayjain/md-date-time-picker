@@ -1,6 +1,6 @@
 {
   "name": "md-date-time-picker",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "An implementation of the Material Design Picker components in vanilla CSS, JS and HTML",
   "keywords": [
     "material",
@@ -37,7 +37,7 @@
     "browser-sync": "^2.13.0",
     "chokidar": "^1.6.0",
     "del": "^2.2.1",
-    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.0.2",
     "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.5",
@@ -48,7 +48,9 @@
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^1.5.4"
+    "gulp-uglify": "^1.5.4",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.2.2"
   },
   "dependencies": {
     "moment": "^2.13.0",

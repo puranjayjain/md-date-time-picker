@@ -1,21 +1,18 @@
 /**
 * @package md-date-time-picker
-* @version [2.1.0]
+* @version [2.2.0]
 * @author Puranjay Jain <puranjay.jain@st.niituniversity.in>
 * @license MIT
 * @website https://puranjayjain.github.io/md-date-time-picker
 */
 
 /**
-* All declarations starting with _ are considered @private
+* import necessary components
 */
-let _dialog = {
-	view: true,
-	state: false
-}
-// NOTE mdDateTimePicker
-// Uncomment the line below when compiling for umd and make it like this => export default class mdDateTimePicker
-export default class mdDateTimePicker {
+import moment from 'moment'
+import Draggabilly from 'Draggabilly'
+
+class mdDateTimePicker {
 	/**
 	* [constructor of the mdDateTimePicker]
 	*
@@ -49,6 +46,7 @@ export default class mdDateTimePicker {
 		/**
 		* [dialog selected classes have the same structure as dialog but one level down]
 		* @type {Object}
+		* All declarations starting with _ are considered @private
 		* e.g
 		* sDialog = {
 		*   picker: 'some-picker-selected'
@@ -126,7 +124,7 @@ export default class mdDateTimePicker {
 	* @return {_dialog} [static or prototype value for the _dialog of the component]
 	*/
 	static get dialog() {
-		return _dialog
+		return mdDateTimePicker._dialog
 	}
 
 	static set dialog(value) {
@@ -614,8 +612,7 @@ export default class mdDateTimePicker {
 		let tr = innerDivs[3]
 		let firstDayOfMonth = moment.weekdays( true ).indexOf ( moment.weekdays(false, moment(m).date(1).day() ) )
 		/*
-		netTrek - first day of month dependented from moment.locale
-		//parseInt(moment(m).date(1).day(), 10)
+		* @netTrek - first day of month dependented from moment.locale
 		*/
 		let today = -1
 		let selected = -1
@@ -1186,9 +1183,9 @@ export default class mdDateTimePicker {
 	}
 
 	/**
-	 * [_setButtonText Set the ok and cancel button text]
-	 * @method _setButtonText
-	 */
+	* [_setButtonText Set the ok and cancel button text]
+	* @method _setButtonText
+	*/
 	_setButtonText() {
 		this._sDialog.cancel.textContent = this._cancel
 		this._sDialog.ok.textContent = this._ok
@@ -1312,10 +1309,10 @@ export default class mdDateTimePicker {
 		let grid = document.createElement('div')
 		let th = document.createElement('div')
 		let tr = document.createElement('div')
-		/*
-		 netTrek - weekday dependented from moment.locale
-		 //['S', 'F', 'T', 'W', 'T', 'M', 'S']
-		 */
+		/**
+		* @netTrek - weekday dependented from moment.locale
+		*/
+
 		let weekDays = moment.weekdaysMin(true).reverse()
 
 		let week = 7
@@ -1366,3 +1363,10 @@ export default class mdDateTimePicker {
 		return 'mddtp-picker__cell--rotate-' + value
 	}
 }
+
+mdDateTimePicker._dialog = {
+	view: true,
+	state: false
+}
+
+export default mdDateTimePicker
