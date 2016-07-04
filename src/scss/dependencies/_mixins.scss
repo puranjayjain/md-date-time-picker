@@ -369,3 +369,49 @@
   // https://goo.gl/sK2O5o
   width: $units * 56px;
 }
+
+
+// netTrek
+// this mixin creates vendor-prefix versions of the transferred property
+//
+// @param {String} $property
+//   Property to prefix
+//
+// @param {*} $value
+//   Value to use
+//
+// @param {List} $prefixes
+//   Prefixes to define
+//
+// @example scss - Usage
+//   .element {
+//       @include prefixer(border-radius, 10px, webkit ms spec);
+//   }
+//
+// @example css - CSS Output
+//   .element {
+//       -webkit-border-radius: 10px;
+//       -moz-border-radius: 10px;
+//       border-radius: 10px;
+//  }
+
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+
+    } @else if $prefix == spec {
+      #{$property}: $value;
+
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}

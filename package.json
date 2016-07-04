@@ -16,7 +16,8 @@
   ],
   "main": "dist/js/mdDateTimePicker.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp"
   },
   "contributors": [
     "Seth Westphal (https://github.com/westy92)",
