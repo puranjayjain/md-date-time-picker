@@ -439,3 +439,26 @@
     opacity: 0;
   }
 }
+
+
+
+/*
+* netTrek
+* disable selection
+*/
+.mddtp-picker-date, .mddtp-picker-time
+{
+  -webkit-touch-callout: none; /* iOS Safari */
+  @include prefixer(user-select, none, webkit moz ms spec);
+}
+
+
+/*
+* netTrek
+* disable -webkit-tap-highlight-color for iOS
+*/
+.mddtp-picker-time {
+  .mddtp-picker__circularView, .mddtp-time__circularHolder {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
