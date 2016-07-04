@@ -621,7 +621,7 @@
 				// get the .mddtp-picker__tr element using innerDivs[3]
 
 				/*
-    netTrek - first day of month dependent from locale
+    netTrek - first day of month dependented from moment.locale
     //parseInt(moment(m).date(1).day(), 10)
     */
 
@@ -1072,12 +1072,38 @@
 					containment: !0
 				});
 
-				fakeNeedleDraggabilly.on('pointerDown', function () {
+				fakeNeedleDraggabilly.on('pointerDown', function (e) {
+					console.info('pointerDown', e);
 					hOffset = circularHolder.getBoundingClientRect();
 				});
-				fakeNeedleDraggabilly.on('dragMove', function (e) {
-					var xPos = e.clientX - hOffset.left - hOffset.width / 2,
-					    yPos = e.clientY - hOffset.top - hOffset.height / 2,
+				/**
+     * netTrek
+     * fixes for iOS - drag
+     */
+				fakeNeedleDraggabilly.on('pointerMove', function (e) {
+
+					var clientX = e.clientX,
+					    clientY = e.clientY;
+
+
+					if (clientX === undefined) {
+
+						if (e.pageX === undefined) {
+							if (e.touches && e.touches.length > 0) {
+								clientX = e.touches[0].clientX;
+								clientY = e.touches[0].clientY;
+							} else {
+								console.error('coult not detect pageX, pageY');
+							}
+						} else {
+							clientX = pageX - document.body.scrollLeft - document.documentElement.scrollLeft;
+							clientY = pageY - document.body.scrollTop - document.documentElement.scrollTop;
+						}
+					}
+					console.info('Drag clientX', clientX, clientY, e);
+
+					var xPos = clientX - hOffset.left - hOffset.width / 2,
+					    yPos = clientY - hOffset.top - hOffset.height / 2,
 					    slope = Math.atan2(-yPos, xPos);
 
 					needle.className = '';
@@ -1101,7 +1127,11 @@
 					needle.classList.add(quick);
 					needle.classList.add(rotate + divides * 2);
 				});
-				fakeNeedleDraggabilly.on('dragEnd', function () {
+				/**
+     * netTrek
+     * fixes for iOS - drag
+     */
+				fakeNeedleDraggabilly.on('pointerUp', function (e) {
 					var minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div'),
 					    sMinute = 'mddtp-minute__selected',
 					    selectedMinute = document.getElementById(sMinute),
@@ -1229,7 +1259,7 @@
 				    weekDays = moment.weekdaysMin(!0).reverse(),
 				    week = 7;
 				/*
-     netTrek - first day of month dependent from locale
+     netTrek - weekday dependented from moment.locale
      //['S', 'F', 'T', 'W', 'T', 'M', 'S']
      */
 

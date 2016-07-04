@@ -1097,12 +1097,39 @@ export default class mdDateTimePicker {
 		let fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
 			containment: true
 		})
-		fakeNeedleDraggabilly.on('pointerDown', function() {
+		fakeNeedleDraggabilly.on('pointerDown', function( e ) {
+			console.info ( 'pointerDown' , e );
 			hOffset = circularHolder.getBoundingClientRect()
 		})
-		fakeNeedleDraggabilly.on('dragMove', function(e) {
-			let xPos = e.clientX - hOffset.left - (hOffset.width / 2)
-			let yPos = e.clientY - hOffset.top - (hOffset.height / 2)
+		/**
+		 * netTrek
+		 * fixes for iOS - drag
+		 */
+		fakeNeedleDraggabilly.on('pointerMove', function(e) {
+
+			var clientX = e.clientX
+			var clientY = e.clientY
+
+			if ( clientX === undefined ) {
+
+				if ( e.pageX === undefined ) {
+					if ( e.touches && e.touches.length > 0 )
+					{
+						clientX = e.touches [0].clientX
+						clientY = e.touches [0].clientY
+					} else {
+						console.error( 'coult not detect pageX, pageY')
+					}
+				} else {
+					clientX = pageX - document.body.scrollLeft - document.documentElement.scrollLeft
+					clientY = pageY - document.body.scrollTop - document.documentElement.scrollTop
+				}
+			}
+			console.info ( 'Drag clientX' , clientX, clientY, e );
+
+			let xPos = clientX - hOffset.left - (hOffset.width / 2)
+			let yPos = clientY - hOffset.top - (hOffset.height / 2)
+
 			let slope = Math.atan2(-yPos, xPos)
 			needle.className = ''
 			if (slope < 0) {
@@ -1124,7 +1151,11 @@ export default class mdDateTimePicker {
 			needle.classList.add(quick)
 			needle.classList.add(rotate + (divides * 2))
 		})
-		fakeNeedleDraggabilly.on('dragEnd', function() {
+		/**
+		 * netTrek
+		 * fixes for iOS - drag
+		 */
+		fakeNeedleDraggabilly.on('pointerUp', function( e ) {
 			let minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')
 			let sMinute = 'mddtp-minute__selected'
 			let selectedMinute = document.getElementById(sMinute)
