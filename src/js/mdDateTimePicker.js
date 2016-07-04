@@ -1095,7 +1095,7 @@ class mdDateTimePicker {
 			containment: true
 		})
 		fakeNeedleDraggabilly.on('pointerDown', function( e ) {
-			console.info ( 'pointerDown' , e );
+			//console.info ( 'pointerDown' , e );
 			hOffset = circularHolder.getBoundingClientRect()
 		})
 		/**
@@ -1122,7 +1122,7 @@ class mdDateTimePicker {
 					clientY = pageY - document.body.scrollTop - document.documentElement.scrollTop
 				}
 			}
-			console.info ( 'Drag clientX' , clientX, clientY, e );
+			//console.info ( 'Drag clientX' , clientX, clientY, e );
 
 			let xPos = clientX - hOffset.left - (hOffset.width / 2)
 			let yPos = clientY - hOffset.top - (hOffset.height / 2)
