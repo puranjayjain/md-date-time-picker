@@ -371,32 +371,29 @@
 }
 
 
-/**
- * netTrek
- *
- * Dieses mixin erstellt erzeugt vendor-prefix Versionen der übergebenen Eigenschaft
- *
- * @param {String} $property
- *   Property to prefix
- *
- * @param {*} $value
- *   Value to use
- *
- * @param {List} $prefixes
- *   Prefixes to define
- *
- * @example scss - Usage
- *   .element {
- *       @include prefixer(border-radius, 10px, webkit ms spec);
- *   }
- *
- * @example css - CSS Output
- *   .element {
- *       -webkit-border-radius: 10px;
- *       -moz-border-radius: 10px;
- *       border-radius: 10px;
- *   }
- */
+// netTrek
+// Dieses mixin erstellt erzeugt vendor-prefix Versionen der übergebenen Eigenschaft
+//
+// @param {String} $property
+//   Property to prefix
+//
+// @param {*} $value
+//   Value to use
+//
+// @param {List} $prefixes
+//   Prefixes to define
+//
+// @example scss - Usage
+//   .element {
+//       @include prefixer(border-radius, 10px, webkit ms spec);
+//   }
+//
+// @example css - CSS Output
+//   .element {
+//       -webkit-border-radius: 10px;
+//       -moz-border-radius: 10px;
+//       border-radius: 10px;
+//  }
 
 @mixin prefixer($property, $value, $prefixes) {
   @each $prefix in $prefixes {
