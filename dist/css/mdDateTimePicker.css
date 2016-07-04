@@ -1571,5 +1571,9 @@
   -ms-user-select: none;
   user-select: none; }
 
+/*
+* netTrek
+* disable -webkit-tap-highlight-color for iOS
+*/
 .mddtp-picker-time .mddtp-picker__circularView, .mddtp-picker-time .mddtp-time__circularHolder {
   -webkit-tap-highlight-color: transparent; }
