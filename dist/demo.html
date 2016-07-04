@@ -25,70 +25,85 @@
     <button type="button" id="trigger5">Portrait Mode</button>
     <button type="button" id="trigger6">24 Hour Mode</button>
   </section>
+  <section>
+    <h1>Language Selector</h1>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="de">German</option>
+      <option value="fr">French</option>
+    </select>
+  </section>
   <script src="js/moment.min.js"></script>
-  <!--load locales i.e. german-->
+  <!--load locales i.e. german(deutsch), french, etc.-->
   <script src="js/lang/de.js"></script>
   <script src="js/lang/fr.js"></script>
-  <!--select a locale-->
-  <script>
-    //moment.locale('de');
-    //moment.locale('en');
-    moment.locale('fr');
-  </script>
   <script src="js/draggabilly.pkgd.min.js"></script>
   <script src="js/mdDateTimePicker.js"></script>
   <script type="text/javascript">
-    (function() {
-      var x = new mdDateTimePicker.default({
-        type: 'date'
-      });
-      var y = new mdDateTimePicker.default({
-        type: 'date',
-        init: moment('2016-02-29', 'YYYY-MM-DD')
-      });
-      var z = new mdDateTimePicker.default({
-        type: 'date',
-        init: moment('2016-03-3', 'YYYY-MM-DD'),
-        orientation: 'PORTRAIT'
-      });
-      document.getElementById('trigger').addEventListener('click', function() {
-        x.toggle();
-      });
-      document.getElementById('trigger2').addEventListener('click', function() {
-        y.toggle();
-      });
-      document.getElementById('trigger3').addEventListener('click', function() {
-        z.toggle();
-      });
-      var a = new mdDateTimePicker.default({
-        type: 'time'
-      });
-      var b = new mdDateTimePicker.default({
-        type: 'time',
-        init: moment('10:5 PM', 'h:m A'),
-        orientation: 'PORTRAIT'
-      });
-      var c = new mdDateTimePicker.default({
-        type: 'time',
-        init: moment('22:0', 'H:m'),
-        mode: true,
-        orientation: 'PORTRAIT'
-      });
-      document.getElementById('trigger4').addEventListener('click', function() {
-        a.toggle();
-      });
-      document.getElementById('trigger5').addEventListener('click', function() {
-        b.toggle();
-      });
-      document.getElementById('trigger6').addEventListener('click', function() {
-        c.toggle();
-      });
-      // dispatch event test
-      x.trigger = document.getElementById('test1');
-      document.getElementById('test1').addEventListener('onOk', function() {
-        this.value = x.time.toString();
-      });
-    }).call(this);
+  (function() {
+    // load language from hash
+    var hash = location.hash.replace('#', '');
+    var locale = hash ? hash : 'en';
+    moment.locale(locale);
+    // rest of the demo logic
+    var x = new mdDateTimePicker.default({
+      type: 'date'
+    });
+    var y = new mdDateTimePicker.default({
+      type: 'date',
+      init: moment('2016-02-29', 'YYYY-MM-DD')
+    });
+    var z = new mdDateTimePicker.default({
+      type: 'date',
+      init: moment('2016-03-3', 'YYYY-MM-DD'),
+      orientation: 'PORTRAIT'
+    });
+    document.getElementById('trigger').addEventListener('click', function() {
+      x.toggle();
+    });
+    document.getElementById('trigger2').addEventListener('click', function() {
+      y.toggle();
+    });
+    document.getElementById('trigger3').addEventListener('click', function() {
+      z.toggle();
+    });
+    var a = new mdDateTimePicker.default({
+      type: 'time'
+    });
+    var b = new mdDateTimePicker.default({
+      type: 'time',
+      init: moment('10:5 PM', 'h:m A'),
+      orientation: 'PORTRAIT'
+    });
+    var c = new mdDateTimePicker.default({
+      type: 'time',
+      init: moment('22:0', 'H:m'),
+      mode: true,
+      orientation: 'PORTRAIT'
+    });
+    document.getElementById('trigger4').addEventListener('click', function() {
+      a.toggle();
+    });
+    document.getElementById('trigger5').addEventListener('click', function() {
+      b.toggle();
+    });
+    document.getElementById('trigger6').addEventListener('click', function() {
+      c.toggle();
+    });
+    // dispatch event test
+    x.trigger = document.getElementById('test1');
+    document.getElementById('test1').addEventListener('onOk', function() {
+      this.value = x.time.toString();
+    });
+    // language selector
+    var language = document.getElementById('language')
+    language.addEventListener('change', function() {
+      // set lang
+      location.hash = language.options[language.options.selectedIndex].value;
+      // reload
+      location.reload()
+    });
+  }).call(this);
   </script>
 </body>
 
