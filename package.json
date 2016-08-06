@@ -28,7 +28,7 @@
   "author": "Puranjay Jain <puranjay.jain@st.niituniversity.in>",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.13.1",
+    "babel-core": "^6.13.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-es2015-modules-umd": "^6.12.0",
     "babel-plugin-transform-member-expression-literals": "^6.8.0",
