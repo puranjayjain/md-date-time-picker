@@ -759,13 +759,17 @@
 				needle.classList.add(selection);
 				if (mdDateTimePicker.dialog.view) {
 					value = me._sDialog.sDate.format('m');
-					// move the fakeNeedle to correct position
-					setTimeout(function () {
-						var hOffset = circularHolder.getBoundingClientRect(),
-						    cOffset = circle.getBoundingClientRect();
 
-						fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
-					}, 300);
+					// Need to desactivate for the autoClose mode as it mess things up.  If you have an idea, feel free to give it a shot !
+					if (me._autoClose !== true) {
+						// move the fakeNeedle to correct position
+						setTimeout(function () {
+							var hOffset = circularHolder.getBoundingClientRect(),
+								cOffset = circle.getBoundingClientRect();
+
+							fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
+						}, 300);
+					}
 				} else {
 					if (me._mode) {
 						spoke = 24;
