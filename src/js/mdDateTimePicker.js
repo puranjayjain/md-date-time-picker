@@ -28,11 +28,12 @@ class mdDateTimePicker {
 	* @param  {String}  ok = 'ok'																	[ok button's text]
 	* @param  {String}  cancel = 'cancel'													[cancel button's text]
 	* @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
-	* @param  {Boolean} autoClose = true														[close dialog on date/time selection]
+	* @param  {Boolean} autoClose = false														[close dialog on date/time selection]
+	* @param  {Boolean} inner24 = false															[if 24-hour mode and (true), the PM hours shows in an inner dial]
 	*
 	* @return {Object}																				[mdDateTimePicker]
 	*/
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true, autoClose = false}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true, autoClose = false, inner24 = false}) {
 		this._type = type
 		this._init = init
 		this._past = past
@@ -44,6 +45,7 @@ class mdDateTimePicker {
 		this._cancel = cancel
 		this._colon = colon
 		this._autoClose = autoClose
+		this._inner24 = inner24
 
 		/**
 		* [dialog selected classes have the same structure as dialog but one level down]
@@ -493,12 +495,14 @@ class mdDateTimePicker {
 		let hour = 'mddtp-hour__selected'
 		let selected = 'mddtp-picker__cell--selected'
 		let rotate = 'mddtp-picker__cell--rotate-'
+		let rotate24 = 'mddtp-picker__cell--rotate24'
 		let cell = 'mddtp-picker__cell'
 		let docfrag = document.createDocumentFragment()
 		let hourNow
 		if (this._mode) {
+			let degreeStep = (this._inner24 === true) ? 10 : 5
 			hourNow = parseInt(this._sDialog.tDate.format('H'), 10)
-			for (let i = 1,j = 5; i <= 24; i++, j += 5) {
+			for (let i = 1,j = degreeStep; i <= 24; i++, j += degreeStep) {
 				let div = document.createElement('div')
 				let span = document.createElement('span')
 				div.classList.add(cell)
@@ -509,17 +513,24 @@ class mdDateTimePicker {
 				else {
 					span.textContent = i
 				}
-				div.classList.add(rotate + j)
+
+				let position = j
+				if (this._inner24 === true && i > 12) {
+					position -= 120
+					div.classList.add(rotate24)
+				}
+
+				div.classList.add(rotate + position)
 				if (hourNow === i) {
 					div.id = hour
 					div.classList.add(selected)
-					needle.classList.add(rotate + j)
+					needle.classList.add(rotate + position)
 				}
 				// CHANGED exception case for 24 => 0 issue #58
 				if (i === 24 && hourNow === 0) {
 					div.id = hour
 					div.classList.add(selected)
-					needle.classList.add(rotate + j)
+					needle.classList.add(rotate + position)
 				}
 				div.appendChild(span)
 				docfrag.appendChild(div)
@@ -745,6 +756,14 @@ class mdDateTimePicker {
 			}
 		}
 		else {
+			if (this._inner24 === true && me._mode) {
+				if (parseInt(me._sDialog.sDate.format('H'), 10) > 12) {
+					me._sDialog.needle.classList.add('mddtp-picker__cell--rotate24')
+				} else {
+					me._sDialog.needle.classList.remove('mddtp-picker__cell--rotate24')
+				}
+			}
+
 			el.onclick = function () {
 				me._switchToTimeView(me)
 			}
