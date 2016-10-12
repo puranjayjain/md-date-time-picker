@@ -96,6 +96,33 @@ class mdDateTimePicker {
 	}
 
 	/**
+	* [hide hide the dialog]
+	*
+	* @method hide
+	*
+	*/
+	hide() {
+		this._selectDialog()
+		this._hideDialog()
+	}
+
+	/**
+	* [show show the dialog]
+	*
+	* @method show
+	*
+	*/
+	show() {
+		this._selectDialog()
+		if (this._type === 'date') {
+			this._initDateDialog(this._init)
+		} else if (this._type === 'time') {
+			this._initTimeDialog(this._init)
+		}
+		this._showDialog()
+	}
+
+	/**
 	* [toggle toggle the dialog's between the visible and invisible state]
 	*
 	* @method toggle
@@ -105,14 +132,9 @@ class mdDateTimePicker {
 		this._selectDialog()
 		// work according to the current state of the dialog
 		if (mdDateTimePicker.dialog.state) {
-			this._hideDialog()
+			this.hide()
 		} else {
-			if (this._type === 'date') {
-				this._initDateDialog(this._init)
-			} else if (this._type === 'time') {
-				this._initTimeDialog(this._init)
-			}
-			this._showDialog()
+			this.show()
 		}
 	}
 
