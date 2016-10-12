@@ -582,7 +582,6 @@
 			key: '_initViewHolder',
 			value: function _initViewHolder() {
 				var m = this._sDialog.tDate,
-				    picker = this._sDialog.picker,
 				    current = this._sDialog.current,
 				    previous = this._sDialog.previous,
 				    next = this._sDialog.next,
@@ -867,8 +866,7 @@
 				var me = this;
 				el.onclick = function (e) {
 					if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('mddtp-picker__cell')) {
-						var picker = me._sDialog.picker,
-						    day = e.target.textContent,
+						var day = e.target.textContent,
 						    currentDate = me._sDialog.tDate.date(day),
 						    sId = 'mddtp-date__selected',
 						    sClass = 'mddtp-picker__cell--selected',
@@ -1282,7 +1280,6 @@
 		}, {
 			key: '_calcRotation',
 			value: function _calcRotation(spoke, value) {
-				var start = spoke / 12 * 3;
 				// set clocks top and right side value
 				if (spoke === 12) {
 					value *= 10;

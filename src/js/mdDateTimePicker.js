@@ -21,7 +21,7 @@ class mdDateTimePicker {
 	* @param  {String}   type = 'date' or 'time 									[type of dialog]
 	* @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
 	* @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-	* @param  {moment}   future           												[the future moment till which the calendar shall render] [@default = init]
+	* @param  {moment}   future	 												[the future moment till which the calendar shall render] [@default = init]
 	* @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
 	* @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
 	* @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
@@ -29,7 +29,7 @@ class mdDateTimePicker {
 	* @param  {String}  cancel = 'cancel'													[cancel button's text]
 	* @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
 	*
-	* @return {Object}    																				[mdDateTimePicker]
+	* @return {Object}																				[mdDateTimePicker]
 	*/
 	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true}) {
 		this._type = type
@@ -583,7 +583,6 @@ class mdDateTimePicker {
 
 	_initViewHolder() {
 		let m = this._sDialog.tDate
-		let picker = this._sDialog.picker
 		let current = this._sDialog.current
 		let previous = this._sDialog.previous
 		let next = this._sDialog.next
@@ -886,7 +885,6 @@ class mdDateTimePicker {
 		let me = this
 		el.onclick = function (e) {
 			if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('mddtp-picker__cell')) {
-				let picker = me._sDialog.picker
 				let day = e.target.textContent
 				let currentDate = me._sDialog.tDate.date(day)
 				let sId = 'mddtp-date__selected'
@@ -1376,7 +1374,6 @@ class mdDateTimePicker {
 	* @return {String}      [appropriate class]
 	*/
 	_calcRotation(spoke, value) {
-		let start = (spoke / 12) * 3
 		// set clocks top and right side value
 		if (spoke === 12) {
 			value *= 10
