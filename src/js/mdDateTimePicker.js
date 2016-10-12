@@ -28,10 +28,11 @@ class mdDateTimePicker {
 	* @param  {String}  ok = 'ok'																	[ok button's text]
 	* @param  {String}  cancel = 'cancel'													[cancel button's text]
 	* @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
+	* @param  {Boolean} autoClose = true														[close dialog on date/time selection]
 	*
 	* @return {Object}																				[mdDateTimePicker]
 	*/
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true, autoClose = false}) {
 		this._type = type
 		this._init = init
 		this._past = past
@@ -42,6 +43,7 @@ class mdDateTimePicker {
 		this._ok = ok
 		this._cancel = cancel
 		this._colon = colon
+		this._autoClose = autoClose
 
 		/**
 		* [dialog selected classes have the same structure as dialog but one level down]
@@ -424,6 +426,11 @@ class mdDateTimePicker {
 			body.appendChild(circularHolder)
 		}
 		action.classList.add('mddtp-picker__action')
+
+		if (this._autoClose === true) {
+			action.style.display = "none"
+		}
+
 		this._addId(cancel, 'cancel')
 		cancel.classList.add('mddtp-button')
 		cancel.setAttribute('type', 'button')
@@ -899,6 +906,10 @@ class mdDateTimePicker {
 				me._sDialog.minute.textContent = setMinute
 				// switch the view
 				me._switchToTimeView(me)
+
+				if (me._autoClose === true) {
+					me._sDialog.ok.onclick()
+				}
 			}
 		}
 	}
@@ -928,6 +939,10 @@ class mdDateTimePicker {
 				me._fillText(subtitle, currentDate.year())
 				me._fillText(titleDay, currentDate.format('ddd, '))
 				me._fillText(titleMonth, currentDate.format('MMM D'))
+
+				if (me._autoClose === true) {
+					me._sDialog.ok.onclick()
+				}
 			}
 		}
 	}

@@ -60,6 +60,7 @@
   * @param  {String}  ok = 'ok'																	[ok button's text]
   * @param  {String}  cancel = 'cancel'													[cancel button's text]
   * @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
+  * @param  {Boolean} autoClose = false														[close dialog on date/time selection]
   *
   * @return {Object}    																				[mdDateTimePicker]
   */
@@ -83,7 +84,9 @@
 			    _ref$cancel = _ref.cancel,
 			    cancel = _ref$cancel === undefined ? 'cancel' : _ref$cancel,
 			    _ref$colon = _ref.colon,
-			    colon = _ref$colon === undefined ? !0 : _ref$colon;
+			    colon = _ref$colon === undefined ? !0 : _ref$colon,
+			    _ref$autoClose = _ref.autoClose,
+			    autoClose = _ref$autoClose === undefined ? false : _ref$autoClose;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -97,6 +100,7 @@
 			this._ok = ok;
 			this._cancel = cancel;
 			this._colon = colon;
+			this._autoClose = autoClose;
 
 			/**
    * [dialog selected classes have the same structure as dialog but one level down]
@@ -413,6 +417,11 @@
 					body.appendChild(circularHolder);
 				}
 				action.classList.add('mddtp-picker__action');
+
+				if (this._autoClose === true) {
+					action.style.display = "none";
+				}
+
 				this._addId(cancel, 'cancel');
 				cancel.classList.add('mddtp-button');
 				cancel.setAttribute('type', 'button');
@@ -868,6 +877,10 @@
 						me._sDialog.minute.textContent = setMinute;
 						// switch the view
 						me._switchToTimeView(me);
+
+						if (me._autoClose === true) {
+							me._sDialog.ok.onclick();
+						}
 					}
 				};
 			}
@@ -899,6 +912,10 @@
 						me._fillText(subtitle, currentDate.year());
 						me._fillText(titleDay, currentDate.format('ddd, '));
 						me._fillText(titleMonth, currentDate.format('MMM D'));
+
+						if (me._autoClose === true) {
+							me._sDialog.ok.onclick();
+						}
 					}
 				};
 			}
