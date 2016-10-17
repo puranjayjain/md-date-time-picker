@@ -299,7 +299,6 @@
     span {
       display: inline-block;
       cursor: pointer;
-      font-size: 13px;
       color: $picker-primary-text-theme-color;
       border-radius: 50%;
       width: 36px;
@@ -372,6 +371,15 @@
   &--quick {
     transition: none;
   }
+}
+
+.mddtp-picker__cell {
+    font-size: 13px;
+}
+.mddtp-picker__cell--rotate24 {
+    width: 40% !important;
+    opacity: 0.8;
+    font-size: 80%;
 }
 
 //60 minute deg rotations

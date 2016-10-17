@@ -60,6 +60,8 @@
   * @param  {String}  ok = 'ok'																	[ok button's text]
   * @param  {String}  cancel = 'cancel'													[cancel button's text]
   * @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
+  * @param  {Boolean} autoClose = false														[close dialog on date/time selection]
+  * @param  {Boolean} inner24 = false														[if 24-hour mode and (true), the PM hours shows in an inner dial]
   *
   * @return {Object}    																				[mdDateTimePicker]
   */
@@ -83,7 +85,11 @@
 			    _ref$cancel = _ref.cancel,
 			    cancel = _ref$cancel === undefined ? 'cancel' : _ref$cancel,
 			    _ref$colon = _ref.colon,
-			    colon = _ref$colon === undefined ? !0 : _ref$colon;
+			    colon = _ref$colon === undefined ? !0 : _ref$colon,
+			    _ref$autoClose = _ref.autoClose,
+			    autoClose = _ref$autoClose === undefined ? false : _ref$autoClose,
+			    _ref$inner24 = _ref.inner24,
+			    inner24 = _ref$inner24 === undefined ? false : _ref$inner24;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -97,6 +103,8 @@
 			this._ok = ok;
 			this._cancel = cancel;
 			this._colon = colon;
+			this._autoClose = autoClose;
+			this._inner24 = inner24;
 
 			/**
    * [dialog selected classes have the same structure as dialog but one level down]
@@ -124,19 +132,30 @@
 
 
 		_createClass(mdDateTimePicker, [{
+			key: 'show',
+			value: function show() {
+				this._selectDialog();
+				if (this._type === 'date') {
+					this._initDateDialog(this._init);
+				} else if (this._type === 'time') {
+					this._initTimeDialog(this._init);
+				}
+				this._showDialog();
+			}
+		}, {
+			key: 'hide',
+			value: function hide() {
+				this._selectDialog();
+				this._hideDialog();
+			}
+		}, {
 			key: 'toggle',
 			value: function toggle() {
-				this._selectDialog();
 				// work according to the current state of the dialog
 				if (mdDateTimePicker.dialog.state) {
-					this._hideDialog();
+					this.hide();
 				} else {
-					if (this._type === 'date') {
-						this._initDateDialog(this._init);
-					} else if (this._type === 'time') {
-						this._initTimeDialog(this._init);
-					}
-					this._showDialog();
+					this.show();
 				}
 			}
 		}, {
@@ -402,6 +421,11 @@
 					body.appendChild(circularHolder);
 				}
 				action.classList.add('mddtp-picker__action');
+
+				if (this._autoClose === true) {
+					action.style.display = "none";
+				}
+
 				this._addId(cancel, 'cancel');
 				cancel.classList.add('mddtp-button');
 				cancel.setAttribute('type', 'button');
@@ -462,13 +486,15 @@
 				    hour = 'mddtp-hour__selected',
 				    selected = 'mddtp-picker__cell--selected',
 				    rotate = 'mddtp-picker__cell--rotate-',
+					rotate24 = 'mddtp-picker__cell--rotate24',
 				    cell = 'mddtp-picker__cell',
 				    docfrag = document.createDocumentFragment(),
 				    hourNow = void 0;
 
 				if (this._mode) {
+					var degreeStep = (this._inner24 === true) ? 10 : 5;
 					hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
-					for (var i = 1, j = 5; i <= 24; i++, j += 5) {
+					for (var i = 1, j = degreeStep; i <= 24; i++, j += degreeStep) {
 						var div = document.createElement('div'),
 						    span = document.createElement('span');
 
@@ -479,17 +505,24 @@
 						} else {
 							span.textContent = i;
 						}
-						div.classList.add(rotate + j);
+
+						var position = j;
+						if (this._inner24 === true && i > 12) {
+							position -= 120;
+							div.classList.add(rotate24);
+						}
+
+						div.classList.add(rotate + position);
 						if (hourNow === i) {
 							div.id = hour;
 							div.classList.add(selected);
-							needle.classList.add(rotate + j);
+							needle.classList.add(rotate + position);
 						}
 						// CHANGED exception case for 24 => 0 issue #58
 						if (i === 24 && hourNow === 0) {
 							div.id = hour;
 							div.classList.add(selected);
-							needle.classList.add(rotate + j);
+							needle.classList.add(rotate + position);
 						}
 						div.appendChild(span);
 						docfrag.appendChild(div);
@@ -582,7 +615,6 @@
 			key: '_initViewHolder',
 			value: function _initViewHolder() {
 				var m = this._sDialog.tDate,
-				    picker = this._sDialog.picker,
 				    current = this._sDialog.current,
 				    previous = this._sDialog.previous,
 				    next = this._sDialog.next,
@@ -708,6 +740,14 @@
 						me._switchToDateView(el, me);
 					};
 				} else {
+					if (this._inner24 === true && me._mode) {
+						if (parseInt(me._sDialog.sDate.format('H'), 10) > 12) {
+							me._sDialog.needle.classList.add('mddtp-picker__cell--rotate24');
+						} else {
+							me._sDialog.needle.classList.remove('mddtp-picker__cell--rotate24');
+						}
+					}
+
 					el.onclick = function () {
 						me._switchToTimeView(me);
 					};
@@ -740,13 +780,17 @@
 				needle.classList.add(selection);
 				if (mdDateTimePicker.dialog.view) {
 					value = me._sDialog.sDate.format('m');
-					// move the fakeNeedle to correct position
-					setTimeout(function () {
-						var hOffset = circularHolder.getBoundingClientRect(),
-						    cOffset = circle.getBoundingClientRect();
 
-						fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
-					}, 300);
+					// Need to desactivate for the autoClose mode as it mess things up.  If you have an idea, feel free to give it a shot !
+					if (me._autoClose !== true) {
+						// move the fakeNeedle to correct position
+						setTimeout(function () {
+							var hOffset = circularHolder.getBoundingClientRect(),
+								cOffset = circle.getBoundingClientRect();
+
+							fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
+						}, 300);
+					}
 				} else {
 					if (me._mode) {
 						spoke = 24;
@@ -858,6 +902,10 @@
 						me._sDialog.minute.textContent = setMinute;
 						// switch the view
 						me._switchToTimeView(me);
+
+						if (me._autoClose === true) {
+							me._sDialog.ok.onclick();
+						}
 					}
 				};
 			}
@@ -867,8 +915,7 @@
 				var me = this;
 				el.onclick = function (e) {
 					if (e.target && e.target.nodeName == 'SPAN' && e.target.classList.contains('mddtp-picker__cell')) {
-						var picker = me._sDialog.picker,
-						    day = e.target.textContent,
+						var day = e.target.textContent,
 						    currentDate = me._sDialog.tDate.date(day),
 						    sId = 'mddtp-date__selected',
 						    sClass = 'mddtp-picker__cell--selected',
@@ -890,6 +937,10 @@
 						me._fillText(subtitle, currentDate.year());
 						me._fillText(titleDay, currentDate.format('ddd, '));
 						me._fillText(titleMonth, currentDate.format('MMM D'));
+
+						if (me._autoClose === true) {
+							me._sDialog.ok.onclick();
+						}
 					}
 				};
 			}
@@ -1282,7 +1333,6 @@
 		}, {
 			key: '_calcRotation',
 			value: function _calcRotation(spoke, value) {
-				var start = spoke / 12 * 3;
 				// set clocks top and right side value
 				if (spoke === 12) {
 					value *= 10;
