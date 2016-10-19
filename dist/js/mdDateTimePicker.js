@@ -380,9 +380,11 @@
 					this._addClass(_subtitle, 'subtitle');
 					_subtitle.setAttribute('style', 'display: none');
 					this._addId(AM, 'AM');
-					AM.textContent = 'AM';
+					//AM.textContent = 'AM';
+          AM.textContent = moment.langData()._meridiemParse.toString().replace(/\//g,"").split("|")[0];
 					this._addId(PM, 'PM');
-					PM.textContent = 'PM';
+					//PM.textContent = 'PM';
+          PM.textContent = moment.langData()._meridiemParse.toString().replace(/\//g,"").split("|")[1];
 					// add them to title and subtitle
 					_title.appendChild(hour);
 					_title.appendChild(span);
@@ -463,7 +465,12 @@
 					}
 				} else {
 					this._fillText(hour, m.format('h'));
-					this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active');
+					//this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active');
+          if (m._locale.isPM(m.format("A"))){
+            this._sDialog["PM"].classList.add('mddtp-picker__color--active');
+          }else{
+            this._sDialog["PM"].classList.add('mddtp-picker__color--active');
+          }
 					subtitle.removeAttribute('style');
 					dotSpan.removeAttribute('style');
 				}
@@ -1088,7 +1095,11 @@
 				    PM = this._sDialog.PM;
 
 				AM.onclick = function (e) {
-					var m = me._sDialog.sDate.format('A');
+					//var m = me._sDialog.sDate.format('A');
+          var m = "AM";
+          if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format("A"))){
+            m = "PM";
+          }
 					if (m === 'PM') {
 						me._sDialog.sDate.subtract(12, 'h');
 						AM.classList.toggle('mddtp-picker__color--active');
@@ -1096,7 +1107,11 @@
 					}
 				};
 				PM.onclick = function (e) {
-					var m = me._sDialog.sDate.format('A');
+					//var m = me._sDialog.sDate.format('A');
+          var m = "AM";
+          if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format("A"))){
+            m = "PM";
+          }
 					if (m === 'AM') {
 						me._sDialog.sDate.add(12, 'h');
 						AM.classList.toggle('mddtp-picker__color--active');
