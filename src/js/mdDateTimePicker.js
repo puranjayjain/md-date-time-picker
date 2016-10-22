@@ -18,20 +18,22 @@ class mdDateTimePicker {
 	*
 	* @method constructor
 	*
-	* @param  {String}   type = 'date' or 'time 									[type of dialog]
-	* @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
-	* @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-	* @param  {moment}   future	 												[the future moment till which the calendar shall render] [@default = init]
-	* @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-	* @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
-	* @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
-	* @param  {String}  ok = 'ok'																	[ok button's text]
-	* @param  {String}  cancel = 'cancel'													[cancel button's text]
-	* @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
-	* @param  {Boolean} autoClose = false														[close dialog on date/time selection]
-	* @param  {Boolean} inner24 = false															[if 24-hour mode and (true), the PM hours shows in an inner dial]
+	* @param  {String}  type                            [type of dialog: 'date' or 'time']
+	* @param  {moment}  init = today                    [initial value for the dialog date or time, defaults to today]
+	* @param  {moment}  past = 21-years ago from init   [the past moment till which the calendar shall render]
+	* @param  {moment}  future = init                   [the future moment till which the calendar shall render]
+	* @param  {Boolean} mode = false                    [this value tells whether the time dialog will
+	*                                                    have the 24 hour mode (true) or 12 hour mode (false)]
+	* @param  {String}  orientation = 'LANDSCAPE'       [force the orientation of the picker. 'PORTRAIT' or 'LANDSCAPE']
+	* @param  {element} trigger                         [element on which all the events will be dispatched
+	*                                                    e.g var foo = document.getElementById('bar'), here element = foo]
+	* @param  {String}  ok = 'ok'                       [ok button's text]
+	* @param  {String}  cancel = 'cancel'               [cancel button's text]
+	* @param  {Boolean} colon = true                    [add an option to enable quote in 24 hour mode]
+	* @param  {Boolean} autoClose = false               [close dialog on date/time selection]
+	* @param  {Boolean} inner24 = false                 [if 24-hour mode and (true), the PM hours shows in an inner dial]
 	*
-	* @return {Object}																				[mdDateTimePicker]
+	* @return {Object}                                  [mdDateTimePicker]
 	*/
 	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true, autoClose = false, inner24 = false}) {
 		this._type = type
@@ -236,8 +238,7 @@ class mdDateTimePicker {
 			title.classList.remove(active)
 			subtitle.classList.add(active)
 			viewHolder.classList.remove(zoomOut)
-		}
-		else {
+		} else {
 			AM.classList.remove(active)
 			PM.classList.remove(active)
 			minute.classList.remove(active)
@@ -356,8 +357,7 @@ class mdDateTimePicker {
 			body.appendChild(left)
 			body.appendChild(right)
 			body.appendChild(years)
-		}
-		else {
+		} else {
 			let title = document.createElement('div')
 			let hour = document.createElement('span')
 			let span = document.createElement('span')
@@ -470,8 +470,7 @@ class mdDateTimePicker {
 			if (this._colon) {
 				dotSpan.removeAttribute('style')
 			}
-		}
-		else {
+		} else {
 			this._fillText(hour, m.format('h'))
 			this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active')
 			subtitle.removeAttribute('style')
@@ -509,8 +508,7 @@ class mdDateTimePicker {
 				// CHANGED exception case for 24 => 0 issue #57
 				if (i === 24) {
 					span.textContent = '00'
-				}
-				else {
+				} else {
 					span.textContent = i
 				}
 
@@ -535,8 +533,7 @@ class mdDateTimePicker {
 				div.appendChild(span)
 				docfrag.appendChild(div)
 			}
-		}
-		else {
+		} else {
 			hourNow = parseInt(this._sDialog.tDate.format('h'), 10)
 			for (let i = 1,j = 10; i <= 12; i++, j += 10) {
 				let div = document.createElement('div')
@@ -575,8 +572,7 @@ class mdDateTimePicker {
 			div.classList.add(cell)
 			if (i === 60) {
 				span.textContent = this._numWithZero(0)
-			}
-			else {
+			} else {
 				span.textContent = this._numWithZero(i)
 			}
 			if (minuteNow === 0) {
@@ -649,7 +645,7 @@ class mdDateTimePicker {
 		let docfrag = document.createDocumentFragment()
 		// get the .mddtp-picker__tr element using innerDivs[3]
 		let tr = innerDivs[3]
-		let firstDayOfMonth = moment.weekdays( true ).indexOf ( moment.weekdays(false, moment(m).date(1).day() ) )
+		let firstDayOfMonth = moment.weekdays(true).indexOf(moment.weekdays(false, moment(m).date(1).day()))
 		/*
 		* @netTrek - first day of month dependented from moment.locale
 		*/
@@ -754,8 +750,7 @@ class mdDateTimePicker {
 			el.onclick = function () {
 				me._switchToDateView(el, me)
 			}
-		}
-		else {
+		} else {
 			if (this._inner24 === true && me._mode) {
 				if (parseInt(me._sDialog.sDate.format('H'), 10) > 12) {
 					me._sDialog.needle.classList.add('mddtp-picker__cell--rotate24')
@@ -812,8 +807,7 @@ class mdDateTimePicker {
 					fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px')
 				}, 300)
 			}
-		}
-		else {
+		} else {
 			if (me._mode) {
 				spoke = 24
 				value = parseInt(me._sDialog.sDate.format('H'), 10)
@@ -821,8 +815,7 @@ class mdDateTimePicker {
 				if (value === 0) {
 					value = 24
 				}
-			}
-			else {
+			} else {
 				spoke = 12
 				value = me._sDialog.sDate.format('h')
 			}
@@ -893,12 +886,10 @@ class mdDateTimePicker {
 				// set the sDate according to 24 or 12 hour mode
 				if (me._mode) {
 					setHour = parseInt(e.target.textContent, 10)
-				}
-				else {
+				} else {
 					if (me._sDialog.sDate.format('A') === 'AM') {
 						setHour = e.target.textContent
-					}
-					else {
+					} else {
 						setHour = parseInt(e.target.textContent, 10) + 12
 					}
 				}
@@ -1005,7 +996,8 @@ class mdDateTimePicker {
 			moveStep(mLeftClass, me._sDialog.next)
 		}
 
-		function moveStep(aClass, to) {
+		function moveStep(aClass, to)
+		{
 			/**
 			* [stepBack to know if the to step is going back or not]
 			*
@@ -1152,7 +1144,7 @@ class mdDateTimePicker {
 		let fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
 			containment: true
 		})
-		fakeNeedleDraggabilly.on('pointerDown', function( e ) {
+		fakeNeedleDraggabilly.on('pointerDown', function (e) {
 			//console.info ( 'pointerDown' , e );
 			hOffset = circularHolder.getBoundingClientRect()
 		})
@@ -1160,20 +1152,17 @@ class mdDateTimePicker {
 		 * netTrek
 		 * fixes for iOS - drag
 		 */
-		fakeNeedleDraggabilly.on('pointerMove', function(e) {
-
+		fakeNeedleDraggabilly.on('pointerMove', function (e) {
 			var clientX = e.clientX
 			var clientY = e.clientY
 
-			if ( clientX === undefined ) {
-
-				if ( e.pageX === undefined ) {
-					if ( e.touches && e.touches.length > 0 )
-					{
+			if (clientX === undefined) {
+				if (e.pageX === undefined) {
+					if (e.touches && e.touches.length > 0) {
 						clientX = e.touches [0].clientX
 						clientY = e.touches [0].clientY
 					} else {
-						console.error( 'coult not detect pageX, pageY')
+						console.error('coult not detect pageX, pageY')
 					}
 				} else {
 					clientX = pageX - document.body.scrollLeft - document.documentElement.scrollLeft
@@ -1210,7 +1199,7 @@ class mdDateTimePicker {
 		 * netTrek
 		 * fixes for iOS - drag
 		 */
-		fakeNeedleDraggabilly.on('pointerUp', function( e ) {
+		fakeNeedleDraggabilly.on('pointerUp', function (e) {
 			let minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')
 			let sMinute = 'mddtp-minute__selected'
 			let selectedMinute = document.getElementById(sMinute)
@@ -1256,7 +1245,7 @@ class mdDateTimePicker {
 		// create cutom events to dispatch
 		let onCancel = new CustomEvent('onCancel')
 		let onOk = new CustomEvent('onOk')
-		cancel.onclick = function() {
+		cancel.onclick = function () {
 			me.toggle()
 			if (me._trigger) {
 				me._trigger.dispatchEvent(onCancel)
@@ -1311,13 +1300,11 @@ class mdDateTimePicker {
 	* @return {int}        [returns -1 if not found]
 	*/
 	_nearestDivisor(number, divided) {
-		if (number % divided === 0)  {
+		if (number % divided === 0) {
 			return number
-		}
-		else if ((number - 1) % divided === 0) {
+		} else if ((number - 1) % divided === 0) {
 			return number - 1
-		}
-		else if ((number + 1) % divided === 0) {
+		} else if ((number + 1) % divided === 0) {
 			return number + 1
 		}
 		return -1
@@ -1393,7 +1380,7 @@ class mdDateTimePicker {
 	*
 	* @param  {type} view [description]
 	*/
-	_addView (view) {
+	_addView(view) {
 		let month = document.createElement('div')
 		let grid = document.createElement('div')
 		let th = document.createElement('div')
@@ -1437,11 +1424,9 @@ class mdDateTimePicker {
 		// set clocks top and right side value
 		if (spoke === 12) {
 			value *= 10
-		}
-		else if (spoke === 24) {
+		} else if (spoke === 24) {
 			value *= 5
-		}
-		else {
+		} else {
 			value *= 2
 		}
 		// special case for 00 => 60
