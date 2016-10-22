@@ -1,21 +1,31 @@
 (function (global, factory) {
 	if (typeof define === "function" && define.amd) {
-		define(['exports'], factory);
+		define(['exports', 'moment', 'Draggabilly'], factory);
 	} else if (typeof exports !== "undefined") {
-		factory(exports);
+		factory(exports, require('moment'), require('Draggabilly'));
 	} else {
 		var mod = {
 			exports: {}
 		};
-		factory(mod.exports);
+		factory(mod.exports, global.moment, global.Draggabilly);
 		global.mdDateTimePicker = mod.exports;
 	}
-})(this, function (exports) {
+})(this, function (exports, _moment, _Draggabilly) {
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _Draggabilly2 = _interopRequireDefault(_Draggabilly);
+
+	function _interopRequireDefault(obj) {
+		return obj && obj.__esModule ? obj : {
+			default: obj
+		};
+	}
 
 	function _classCallCheck(instance, Constructor) {
 		if (!(instance instanceof Constructor)) {
@@ -39,12 +49,9 @@
 			if (staticProps) defineProperties(Constructor, staticProps);
 			return Constructor;
 		};
-	}(),
-	    _dialog = {
-		view: !0,
-		state: !1
-	},
-	    mdDateTimePicker = function () {
+	}();
+
+	var mdDateTimePicker = function () {
 		/**
   * [constructor of the mdDateTimePicker]
   *
@@ -53,7 +60,7 @@
   * @param  {String}   type = 'date' or 'time 									[type of dialog]
   * @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
   * @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-  * @param  {moment}   future           												[the future moment till which the calendar shall render] [@default = init]
+  * @param  {moment}   future	 												[the future moment till which the calendar shall render] [@default = init]
   * @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
   * @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
   * @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
@@ -61,17 +68,16 @@
   * @param  {String}  cancel = 'cancel'													[cancel button's text]
   * @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
   * @param  {Boolean} autoClose = false														[close dialog on date/time selection]
-  * @param  {Boolean} inner24 = false														[if 24-hour mode and (true), the PM hours shows in an inner dial]
+  * @param  {Boolean} inner24 = false															[if 24-hour mode and (true), the PM hours shows in an inner dial]
   *
-  * @return {Object}    																				[mdDateTimePicker]
+  * @return {Object}																				[mdDateTimePicker]
   */
-
 		function mdDateTimePicker(_ref) {
 			var type = _ref.type,
 			    _ref$init = _ref.init,
-			    init = _ref$init === undefined ? moment() : _ref$init,
+			    init = _ref$init === undefined ? (0, _moment2.default)() : _ref$init,
 			    _ref$past = _ref.past,
-			    past = _ref$past === undefined ? moment().subtract(21, 'years') : _ref$past,
+			    past = _ref$past === undefined ? (0, _moment2.default)().subtract(21, 'years') : _ref$past,
 			    _ref$future = _ref.future,
 			    future = _ref$future === undefined ? init : _ref$future,
 			    _ref$mode = _ref.mode,
@@ -87,9 +93,9 @@
 			    _ref$colon = _ref.colon,
 			    colon = _ref$colon === undefined ? !0 : _ref$colon,
 			    _ref$autoClose = _ref.autoClose,
-			    autoClose = _ref$autoClose === undefined ? false : _ref$autoClose,
-			    _ref$inner24 = _ref.inner24,
-			    inner24 = _ref$inner24 === undefined ? false : _ref$inner24;
+			    autoClose = _ref$autoClose === undefined ? !1 : _ref$autoClose,
+			    _ref$inner = _ref.inner24,
+			    inner24 = _ref$inner === undefined ? !1 : _ref$inner;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -109,6 +115,7 @@
 			/**
    * [dialog selected classes have the same structure as dialog but one level down]
    * @type {Object}
+   * All declarations starting with _ are considered @private
    * e.g
    * sDialog = {
    *   picker: 'some-picker-selected'
@@ -132,6 +139,12 @@
 
 
 		_createClass(mdDateTimePicker, [{
+			key: 'hide',
+			value: function hide() {
+				this._selectDialog();
+				this._hideDialog();
+			}
+		}, {
 			key: 'show',
 			value: function show() {
 				this._selectDialog();
@@ -143,14 +156,9 @@
 				this._showDialog();
 			}
 		}, {
-			key: 'hide',
-			value: function hide() {
-				this._selectDialog();
-				this._hideDialog();
-			}
-		}, {
 			key: 'toggle',
 			value: function toggle() {
+				this._selectDialog();
 				// work according to the current state of the dialog
 				if (mdDateTimePicker.dialog.state) {
 					this.hide();
@@ -422,7 +430,7 @@
 				}
 				action.classList.add('mddtp-picker__action');
 
-				if (this._autoClose === true) {
+				if (this._autoClose === !0) {
 					action.style.display = "none";
 				}
 
@@ -486,13 +494,13 @@
 				    hour = 'mddtp-hour__selected',
 				    selected = 'mddtp-picker__cell--selected',
 				    rotate = 'mddtp-picker__cell--rotate-',
-					rotate24 = 'mddtp-picker__cell--rotate24',
+				    rotate24 = 'mddtp-picker__cell--rotate24',
 				    cell = 'mddtp-picker__cell',
 				    docfrag = document.createDocumentFragment(),
 				    hourNow = void 0;
 
 				if (this._mode) {
-					var degreeStep = (this._inner24 === true) ? 10 : 5;
+					var degreeStep = this._inner24 === !0 ? 10 : 5;
 					hourNow = parseInt(this._sDialog.tDate.format('H'), 10);
 					for (var i = 1, j = degreeStep; i <= 24; i++, j += degreeStep) {
 						var div = document.createElement('div'),
@@ -507,7 +515,7 @@
 						}
 
 						var position = j;
-						if (this._inner24 === true && i > 12) {
+						if (this._inner24 === !0 && i > 12) {
 							position -= 120;
 							div.classList.add(rotate24);
 						}
@@ -629,8 +637,8 @@
 				}
 				this._sDialog.tDate = m;
 				this._initMonth(current, m);
-				this._initMonth(next, moment(this._getMonth(m, 1)));
-				this._initMonth(previous, moment(this._getMonth(m, -1)));
+				this._initMonth(next, (0, _moment2.default)(this._getMonth(m, 1)));
+				this._initMonth(previous, (0, _moment2.default)(this._getMonth(m, -1)));
 				this._toMoveMonth();
 			}
 		}, {
@@ -643,22 +651,21 @@
 				this._fillText(innerDivs[0], displayMonth);
 				var docfrag = document.createDocumentFragment(),
 				    tr = innerDivs[3],
-				    firstDayOfMonth = moment.weekdays(!0).indexOf(moment.weekdays(!1, moment(m).date(1).day())),
+				    firstDayOfMonth = _moment2.default.weekdays(!0).indexOf(_moment2.default.weekdays(!1, (0, _moment2.default)(m).date(1).day())),
 				    today = -1,
 				    selected = -1,
-				    lastDayOfMonth = parseInt(moment(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1,
+				    lastDayOfMonth = parseInt((0, _moment2.default)(m).endOf('month').format('D'), 10) + firstDayOfMonth - 1,
 				    past = firstDayOfMonth,
 				    cellClass = 'mddtp-picker__cell',
 				    future = lastDayOfMonth;
 				// get the .mddtp-picker__tr element using innerDivs[3]
 
 				/*
-    netTrek - first day of month dependented from moment.locale
-    //parseInt(moment(m).date(1).day(), 10)
+    * @netTrek - first day of month dependented from moment.locale
     */
 
-				if (moment().isSame(m, 'month')) {
-					today = parseInt(moment().format('D'), 10);
+				if ((0, _moment2.default)().isSame(m, 'month')) {
+					today = parseInt((0, _moment2.default)().format('D'), 10);
 					today += firstDayOfMonth - 1;
 				}
 				if (this._past.isSame(m, 'month')) {
@@ -670,7 +677,7 @@
 					future += firstDayOfMonth - 1;
 				}
 				if (this._sDialog.sDate.isSame(m, 'month')) {
-					selected = parseInt(moment(m).format('D'), 10);
+					selected = parseInt((0, _moment2.default)(m).format('D'), 10);
 					selected += firstDayOfMonth - 1;
 				}
 				for (var i = 0; i < 42; i++) {
@@ -740,7 +747,7 @@
 						me._switchToDateView(el, me);
 					};
 				} else {
-					if (this._inner24 === true && me._mode) {
+					if (this._inner24 === !0 && me._mode) {
 						if (parseInt(me._sDialog.sDate.format('H'), 10) > 12) {
 							me._sDialog.needle.classList.add('mddtp-picker__cell--rotate24');
 						} else {
@@ -782,11 +789,11 @@
 					value = me._sDialog.sDate.format('m');
 
 					// Need to desactivate for the autoClose mode as it mess things up.  If you have an idea, feel free to give it a shot !
-					if (me._autoClose !== true) {
+					if (me._autoClose !== !0) {
 						// move the fakeNeedle to correct position
 						setTimeout(function () {
 							var hOffset = circularHolder.getBoundingClientRect(),
-								cOffset = circle.getBoundingClientRect();
+							    cOffset = circle.getBoundingClientRect();
 
 							fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
 						}, 300);
@@ -903,7 +910,7 @@
 						// switch the view
 						me._switchToTimeView(me);
 
-						if (me._autoClose === true) {
+						if (me._autoClose === !0) {
 							me._sDialog.ok.onclick();
 						}
 					}
@@ -938,7 +945,7 @@
 						me._fillText(titleDay, currentDate.format('ddd, '));
 						me._fillText(titleMonth, currentDate.format('MMM D'));
 
-						if (me._autoClose === true) {
+						if (me._autoClose === !0) {
 							me._sDialog.ok.onclick();
 						}
 					}
@@ -1119,12 +1126,12 @@
 				    rotate = 'mddtp-picker__cell--rotate-',
 				    hOffset = circularHolder.getBoundingClientRect(),
 				    divides = void 0,
-				    fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
+				    fakeNeedleDraggabilly = new _Draggabilly2.default(fakeNeedle, {
 					containment: !0
 				});
 
 				fakeNeedleDraggabilly.on('pointerDown', function (e) {
-					console.info('pointerDown', e);
+					//console.info ( 'pointerDown' , e );
 					hOffset = circularHolder.getBoundingClientRect();
 				});
 				/**
@@ -1151,7 +1158,7 @@
 							clientY = pageY - document.body.scrollTop - document.documentElement.scrollTop;
 						}
 					}
-					console.info('Drag clientX', clientX, clientY, e);
+					//console.info ( 'Drag clientX' , clientX, clientY, e );
 
 					var xPos = clientX - hOffset.left - hOffset.width / 2,
 					    yPos = clientY - hOffset.top - hOffset.height / 2,
@@ -1307,12 +1314,11 @@
 				    grid = document.createElement('div'),
 				    th = document.createElement('div'),
 				    tr = document.createElement('div'),
-				    weekDays = moment.weekdaysMin(!0).reverse(),
+				    weekDays = _moment2.default.weekdaysMin(!0).reverse(),
 				    week = 7;
-				/*
-     netTrek - weekday dependented from moment.locale
-     //['S', 'F', 'T', 'W', 'T', 'M', 'S']
-     */
+				/**
+    * @netTrek - weekday dependented from moment.locale
+    */
 
 				while (week--) {
 					var span = document.createElement('span');
@@ -1370,7 +1376,7 @@
 		}], [{
 			key: 'dialog',
 			get: function get() {
-				return _dialog;
+				return mdDateTimePicker._dialog;
 			},
 			set: function set(value) {
 				mdDateTimePicker.dialog = value;
@@ -1379,6 +1385,11 @@
 
 		return mdDateTimePicker;
 	}();
+
+	mdDateTimePicker._dialog = {
+		view: !0,
+		state: !1
+	};
 
 	exports.default = mdDateTimePicker;
 });

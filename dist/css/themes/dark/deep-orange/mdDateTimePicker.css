@@ -224,6 +224,10 @@
     .mddtp-picker-time .mddtp-picker__header .mddtp-picker__subtitle div {
       margin-top: 2px; }
 
+.mddtp-picker-time .mddtp-picker__circularView,
+.mddtp-picker-time .mddtp-time__circularHolder {
+  -webkit-tap-highlight-color: transparent; }
+
 .mddtp-picker__circularHolder {
   position: relative;
   width: 250px;
@@ -248,7 +252,6 @@
     .mddtp-picker__circularView .mddtp-picker__cell span {
       display: inline-block;
       cursor: pointer;
-      font-size: 13px;
       color: white;
       border-radius: 50%;
       width: 36px;
@@ -301,6 +304,14 @@
       width: 36px; }
   .mddtp-picker__selection--quick {
     transition: none; }
+
+.mddtp-picker__cell {
+  font-size: 13px; }
+
+.mddtp-picker__cell--rotate24 {
+  width: 40% !important;
+  opacity: 0.8;
+  font-size: 80%; }
 
 .mddtp-picker__cell--rotate-1 {
   -webkit-transform: rotate(-87deg);
@@ -1531,3 +1542,12 @@
             transform: scale3d(0.3, 0.3, 0.3); }
   to {
     opacity: 0; } }
+
+.mddtp-picker-date,
+.mddtp-picker-time {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  /* iOS Safari */ }

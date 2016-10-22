@@ -271,7 +271,6 @@
 
   // netTrek
   // disable -webkit-tap-highlight-color for iOS
-
   .mddtp-picker__circularView,
   .mddtp-time__circularHolder {
     -webkit-tap-highlight-color: transparent;
@@ -456,15 +455,10 @@
   }
 }
 
-
-
 // netTrek
 // disable selection
-
 .mddtp-picker-date,
 .mddtp-picker-time {
   @include prefixer(user-select, none, webkit moz ms spec);
   -webkit-touch-callout: none; /* iOS Safari */
 }
-
-
