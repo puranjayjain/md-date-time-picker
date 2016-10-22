@@ -53,27 +53,31 @@
 
 	var mdDateTimePicker = function () {
 		/**
-  * [constructor of the mdDateTimePicker]
-  *
-  * @method constructor
-  *
-  * @param  {String}  type                            [type of dialog: 'date' or 'time']
-  * @param  {moment}  init = today                    [initial value for the dialog date or time, defaults to today]
-  * @param  {moment}  past = 21-years ago from init   [the past moment till which the calendar shall render]
-  * @param  {moment}  future = init                   [the future moment till which the calendar shall render]
-  * @param  {Boolean} mode = false                    [this value tells whether the time dialog will
-  *                                                    have the 24 hour mode (true) or 12 hour mode (false)]
-  * @param  {String}  orientation = 'LANDSCAPE'       [force the orientation of the picker. 'PORTRAIT' or 'LANDSCAPE']
-  * @param  {element} trigger                         [element on which all the events will be dispatched
-  *                                                    e.g var foo = document.getElementById('bar'), here element = foo]
-  * @param  {String}  ok = 'ok'                       [ok button's text]
-  * @param  {String}  cancel = 'cancel'               [cancel button's text]
-  * @param  {Boolean} colon = true                    [add an option to enable quote in 24 hour mode]
-  * @param  {Boolean} autoClose = false               [close dialog on date/time selection]
-  * @param  {Boolean} inner24 = false                 [if 24-hour mode and (true), the PM hours shows in an inner dial]
-  *
-  * @return {Object}                                  [mdDateTimePicker]
-  */
+   * [constructor of the mdDateTimePicker]
+   *
+   * @method constructor
+   *
+   * @param  {String}  type                            [type of dialog: 'date' or 'time']
+   * @param  {moment}  init = today                    [initial value for the dialog date or time, defaults to today]
+   * @param  {moment}  past = 21-years ago from init   [the past moment till which the calendar shall render]
+   * @param  {moment}  future = init                   [the future moment till which the calendar shall render]
+   * @param  {Boolean} mode = false                    [this value tells whether the time dialog will
+   *                                                    have the 24 hour mode (true) or 12 hour mode (false)]
+   * @param  {String}  orientation = 'LANDSCAPE'       [force the orientation of the picker. 'PORTRAIT' or 'LANDSCAPE']
+   * @param  {element} trigger                         [element on which all the events will be dispatched
+   *                                                    e.g var foo = document.getElementById('bar'),
+   *                                                    here element = foo]
+   * @param  {String}  ok = 'ok'                       [ok button's text]
+   * @param  {String}  cancel = 'cancel'               [cancel button's text]
+   * @param  {Boolean} colon = true                    [add an option to enable quote in 24 hour mode]
+   * @param  {Boolean} autoClose = false               [close dialog on date/time selection]
+   * @param  {Boolean} inner24 = false                 [if 24-hour mode and (true), the PM hours shows in an inner dial]
+   * @param  {function} onOk = undefined               [Callback function when "OK" is clicked.  The callback will pass
+   *                                                    time (Moment) as the first argument. ex: function(time)]
+   * @param  {function} onCancel = undefined           [Callback function when "Cancel" is clicked]
+   *
+   * @return {Object}                                  [mdDateTimePicker]
+   */
 		function mdDateTimePicker(_ref) {
 			var type = _ref.type,
 			    _ref$init = _ref.init,
@@ -97,7 +101,11 @@
 			    _ref$autoClose = _ref.autoClose,
 			    autoClose = _ref$autoClose === undefined ? !1 : _ref$autoClose,
 			    _ref$inner = _ref.inner24,
-			    inner24 = _ref$inner === undefined ? !1 : _ref$inner;
+			    inner24 = _ref$inner === undefined ? !1 : _ref$inner,
+			    _ref$onOk = _ref.onOk,
+			    onOk = _ref$onOk === undefined ? undefined : _ref$onOk,
+			    _ref$onCancel = _ref.onCancel,
+			    onCancel = _ref$onCancel === undefined ? undefined : _ref$onCancel;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -113,16 +121,18 @@
 			this._colon = colon;
 			this._autoClose = autoClose;
 			this._inner24 = inner24;
+			this._onOk = onOk;
+			this._onCancel = onCancel;
 
 			/**
-   * [dialog selected classes have the same structure as dialog but one level down]
-   * @type {Object}
-   * All declarations starting with _ are considered @private
-   * e.g
-   * sDialog = {
-   *   picker: 'some-picker-selected'
-   * }
-   */
+    * [dialog selected classes have the same structure as dialog but one level down]
+    * @type {Object}
+    * All declarations starting with _ are considered @private
+    * e.g
+    * sDialog = {
+    *   picker: 'some-picker-selected'
+    * }
+    */
 			this._sDialog = {};
 			// attach the dialog if not present
 			if (!document.getElementById('mddtp-picker__' + this._type)) {
@@ -131,13 +141,13 @@
 		}
 
 		/**
-  * [time to get or set the current picker's moment]
-  *
-  * @method time
-  *
-  * @param  {moment} m
-  *
-  */
+   * [time to get or set the current picker's moment]
+   *
+   * @method time
+   *
+   * @param  {moment} m
+   *
+   */
 
 
 		_createClass(mdDateTimePicker, [{
@@ -174,10 +184,10 @@
 				// now do what you normally would do
 				this._sDialog.picker = document.getElementById('mddtp-picker__' + [this._type]);
 				/**
-    * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
-    *
-    * @type {Array}
-    */
+     * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
+     *
+     * @type {Array}
+     */
 				var sDialogEls = ['viewHolder', 'years', 'header', 'cancel', 'ok', 'left', 'right', 'previous', 'current', 'next', 'subtitle', 'title', 'titleDay', 'titleMonth', 'AM', 'PM', 'needle', 'hourView', 'minuteView', 'hour', 'minute', 'fakeNeedle', 'circularHolder', 'circle', 'dotSpan'],
 				    i = sDialogEls.length;
 
@@ -663,8 +673,8 @@
 				// get the .mddtp-picker__tr element using innerDivs[3]
 
 				/*
-    * @netTrek - first day of month dependented from moment.locale
-    */
+     * @netTrek - first day of month dependented from moment.locale
+     */
 
 				if ((0, _moment2.default)().isSame(m, 'month')) {
 					today = parseInt((0, _moment2.default)().format('D'), 10);
@@ -995,10 +1005,10 @@
 
 				function moveStep(aClass, to) {
 					/**
-     * [stepBack to know if the to step is going back or not]
-     *
-     * @type {Boolean}
-     */
+      * [stepBack to know if the to step is going back or not]
+      *
+      * @type {Boolean}
+      */
 					var stepBack = !1,
 					    next = me._sDialog.next,
 					    current = me._sDialog.current,
@@ -1233,16 +1243,26 @@
 				// create cutom events to dispatch
 
 				cancel.onclick = function () {
-					me.toggle();
+					me.hide();
+
 					if (me._trigger) {
 						me._trigger.dispatchEvent(onCancel);
+					}
+
+					if (typeof me._onCancel == "function") {
+						me._onCancel();
 					}
 				};
 				ok.onclick = function () {
 					me._init = me._sDialog.sDate;
-					me.toggle();
+					me.hide();
+
 					if (me._trigger) {
 						me._trigger.dispatchEvent(onOk);
+					}
+
+					if (typeof me._onOk == "function") {
+						me._onOk(me._init);
 					}
 				};
 			}
@@ -1317,8 +1337,8 @@
 				    weekDays = _moment2.default.weekdaysMin(!0).reverse(),
 				    week = 7;
 				/**
-    * @netTrek - weekday dependented from moment.locale
-    */
+     * @netTrek - weekday dependented from moment.locale
+     */
 
 				while (week--) {
 					var span = document.createElement('span');
