@@ -38,6 +38,16 @@
   color: $md-button-color--disabled;
   cursor: not-allowed;
 }
+//overlay
+.mddtp-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99998;
+  display: none;
+}
 //date or time component dialog
 .mddtp-picker {
   @include shadow-8dp();

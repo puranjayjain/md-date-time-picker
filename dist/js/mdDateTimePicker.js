@@ -205,6 +205,7 @@
 				    zoomIn = 'zoomIn';
 
 				mdDateTimePicker.dialog.state = !0;
+				document.getElementById('mddtp-overlay').style.display = "block";
 				this._sDialog.picker.classList.remove('mddtp-picker--inactive');
 				this._sDialog.picker.classList.add(zoomIn);
 				// if the dialog is forced into portrait mode
@@ -240,6 +241,7 @@
 				    hidden = 'mddtp-picker__circularView--hidden',
 				    selection = 'mddtp-picker__selection';
 
+				document.getElementById('mddtp-overlay').style.display = "none";
 				mdDateTimePicker.dialog.state = !1;
 				mdDateTimePicker.dialog.view = !0;
 				this._sDialog.picker.classList.add(zoomOut);
@@ -274,14 +276,18 @@
 		}, {
 			key: '_buildDialog',
 			value: function _buildDialog() {
-				var type = this._type,
+				var me = this,
+				    type = this._type,
 				    docfrag = document.createDocumentFragment(),
+				    overlay = document.createElement('div'),
 				    container = document.createElement('div'),
 				    header = document.createElement('div'),
 				    body = document.createElement('div'),
 				    action = document.createElement('div'),
 				    cancel = document.createElement('button'),
 				    ok = document.createElement('button');
+				// overlay behind the picker
+
 				// outer most container of the picker
 
 				// header container of the picker
@@ -291,6 +297,8 @@
 				// action elements container
 
 				// ... add properties to them
+				overlay.id = 'mddtp-overlay';
+				overlay.classList.add('mddtp-overlay');
 				container.id = 'mddtp-picker__' + type;
 				container.classList.add('mddtp-picker');
 				container.classList.add('mddtp-picker-' + type);
@@ -446,6 +454,10 @@
 					action.style.display = "none";
 				}
 
+				overlay.onclick = function () {
+					me.hide();
+				};
+
 				this._addId(cancel, 'cancel');
 				cancel.classList.add('mddtp-button');
 				cancel.setAttribute('type', 'button');
@@ -457,6 +469,7 @@
 				action.appendChild(ok);
 				// add actions to body
 				body.appendChild(action);
+				docfrag.appendChild(overlay);
 				docfrag.appendChild(container);
 				// add the container to the end of body
 				document.getElementsByTagName('body').item(0).appendChild(docfrag);

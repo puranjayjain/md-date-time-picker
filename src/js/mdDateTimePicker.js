@@ -195,6 +195,7 @@ class mdDateTimePicker {
 		let me = this
 		let zoomIn = 'zoomIn'
 		mdDateTimePicker.dialog.state = true
+		document.getElementById('mddtp-overlay').style.display = "block"
 		this._sDialog.picker.classList.remove('mddtp-picker--inactive')
 		this._sDialog.picker.classList.add(zoomIn)
 		// if the dialog is forced into portrait mode
@@ -234,6 +235,7 @@ class mdDateTimePicker {
 		let zoomOut = 'zoomOut'
 		let hidden = 'mddtp-picker__circularView--hidden'
 		let selection = 'mddtp-picker__selection'
+		document.getElementById('mddtp-overlay').style.display = "none"
 		mdDateTimePicker.dialog.state = false
 		mdDateTimePicker.dialog.view = true
 		this._sDialog.picker.classList.add(zoomOut)
@@ -273,8 +275,11 @@ class mdDateTimePicker {
 	 *
 	 */
 	_buildDialog() {
+		let me = this
 		let type = this._type
 		let docfrag = document.createDocumentFragment()
+		// overlay behind the picker
+		let overlay = document.createElement('div')
 		// outer most container of the picker
 		let container = document.createElement('div')
 		// header container of the picker
@@ -286,6 +291,8 @@ class mdDateTimePicker {
 		let cancel = document.createElement('button')
 		let ok = document.createElement('button')
 		// ... add properties to them
+		overlay.id = 'mddtp-overlay'
+		overlay.classList.add('mddtp-overlay')
 		container.id = 'mddtp-picker__' + type
 		container.classList.add('mddtp-picker')
 		container.classList.add('mddtp-picker-' + type)
@@ -439,6 +446,10 @@ class mdDateTimePicker {
 			action.style.display = "none"
 		}
 
+		overlay.onclick = function () {
+			me.hide()
+		};
+
 		this._addId(cancel, 'cancel')
 		cancel.classList.add('mddtp-button')
 		cancel.setAttribute('type', 'button')
@@ -450,6 +461,7 @@ class mdDateTimePicker {
 		action.appendChild(ok)
 		// add actions to body
 		body.appendChild(action)
+		docfrag.appendChild(overlay)
 		docfrag.appendChild(container)
 		// add the container to the end of body
 		document.getElementsByTagName('body').item(0).appendChild(docfrag)
