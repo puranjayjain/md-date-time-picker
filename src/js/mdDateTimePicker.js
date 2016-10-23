@@ -36,10 +36,12 @@ class mdDateTimePicker {
 	 * @param  {function} onOk = undefined               [Callback function when "OK" is clicked.  The callback will pass
 	 *                                                    time (Moment) as the first argument. ex: function(time)]
 	 * @param  {function} onCancel = undefined           [Callback function when "Cancel" is clicked]
+	 * @param  {function} onShow = undefined             [Callback function when the picker "show"]
+	 * @param  {function} onHide = undefined             [Callback function when the picker "hide"]
 	 *
 	 * @return {Object}                                  [mdDateTimePicker]
 	 */
-	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true, autoClose = false, inner24 = false, onOk = undefined, onCancel = undefined}) {
+	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true, autoClose = false, inner24 = false, onOk = undefined, onCancel = undefined, onShow = undefined, onHide = undefined}) {
 		this._type = type
 		this._init = init
 		this._past = past
@@ -54,6 +56,8 @@ class mdDateTimePicker {
 		this._inner24 = inner24
 		this._onOk = onOk
 		this._onCancel = onCancel
+		this._onShow = onShow
+		this._onHide = onHide
 
 		/**
 		 * [dialog selected classes have the same structure as dialog but one level down]
@@ -205,6 +209,9 @@ class mdDateTimePicker {
 		setTimeout(function () {
 			me._sDialog.picker.classList.remove(zoomIn)
 		}, 300)
+		if (typeof(me._onShow) == "function") {
+			me._onShow()
+		}
 	}
 
 	/**
@@ -266,6 +273,9 @@ class mdDateTimePicker {
 			let pickerClone = picker.cloneNode(true)
 			picker.parentNode.replaceChild(pickerClone, picker)
 		}, 300)
+		if (typeof(me._onHide) == "function") {
+			me._onHide()
+		}
 	}
 
 	/**

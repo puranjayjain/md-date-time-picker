@@ -75,6 +75,8 @@
    * @param  {function} onOk = undefined               [Callback function when "OK" is clicked.  The callback will pass
    *                                                    time (Moment) as the first argument. ex: function(time)]
    * @param  {function} onCancel = undefined           [Callback function when "Cancel" is clicked]
+   * @param  {function} onShow = undefined             [Callback function when the picker "show"]
+   * @param  {function} onHide = undefined             [Callback function when the picker "hide"]
    *
    * @return {Object}                                  [mdDateTimePicker]
    */
@@ -105,7 +107,11 @@
 			    _ref$onOk = _ref.onOk,
 			    onOk = _ref$onOk === undefined ? undefined : _ref$onOk,
 			    _ref$onCancel = _ref.onCancel,
-			    onCancel = _ref$onCancel === undefined ? undefined : _ref$onCancel;
+			    onCancel = _ref$onCancel === undefined ? undefined : _ref$onCancel,
+			    _ref$onShow = _ref.onShow,
+			    onShow = _ref$onShow === undefined ? undefined : _ref$onShow,
+			    _ref$onHide = _ref.onHide,
+			    onHide = _ref$onHide === undefined ? undefined : _ref$onHide;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -123,6 +129,8 @@
 			this._inner24 = inner24;
 			this._onOk = onOk;
 			this._onCancel = onCancel;
+			this._onShow = onShow;
+			this._onHide = onHide;
 
 			/**
     * [dialog selected classes have the same structure as dialog but one level down]
@@ -215,6 +223,9 @@
 				setTimeout(function () {
 					me._sDialog.picker.classList.remove(zoomIn);
 				}, 300);
+				if (typeof me._onShow == "function") {
+					me._onShow();
+				}
 			}
 		}, {
 			key: '_hideDialog',
@@ -272,6 +283,9 @@
 					var pickerClone = picker.cloneNode(!0);
 					picker.parentNode.replaceChild(pickerClone, picker);
 				}, 300);
+				if (typeof me._onHide == "function") {
+					me._onHide();
+				}
 			}
 		}, {
 			key: '_buildDialog',
