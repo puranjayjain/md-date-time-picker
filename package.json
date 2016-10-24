@@ -55,7 +55,7 @@
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
-    "moment": "^2.15.1",
+    "moment": "^2.15.2",
     "draggabilly": "^2.1.1"
   },
   "repository": {
