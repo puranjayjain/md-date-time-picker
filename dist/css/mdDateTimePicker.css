@@ -1,36 +1,9 @@
-@charset "UTF-8";
 /* ==========  Color Palettes  ========== */
 /* colors.scss */
 /* Typography */
 /* Shadows */
 /* Animations */
 /* Dialog */
-/**
- * netTrek
- *
- * Dieses mixin erstellt erzeugt vendor-prefix Versionen der übergebenen Eigenschaft
- *
- * @param {String} $property
- *   Property to prefix
- *
- * @param {*} $value
- *   Value to use
- *
- * @param {List} $prefixes
- *   Prefixes to define
- *
- * @example scss - Usage
- *   .element {
- *       @include prefixer(border-radius, 10px, webkit ms spec);
- *   }
- *
- * @example css - CSS Output
- *   .element {
- *       -webkit-border-radius: 10px;
- *       -moz-border-radius: 10px;
- *       border-radius: 10px;
- *   }
- */
 .mddtp-button {
   height: 36px;
   min-width: 64px;
@@ -61,6 +34,15 @@
 .mddtp-button:disabled {
   color: rgba(0, 0, 0, 0.26);
   cursor: not-allowed; }
+
+.mddtp-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99998;
+  display: none; }
 
 .mddtp-picker {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -251,6 +233,10 @@
     .mddtp-picker-time .mddtp-picker__header .mddtp-picker__subtitle div {
       margin-top: 2px; }
 
+.mddtp-picker-time .mddtp-picker__circularView,
+.mddtp-picker-time .mddtp-time__circularHolder {
+  -webkit-tap-highlight-color: transparent; }
+
 .mddtp-picker__circularHolder {
   position: relative;
   width: 250px;
@@ -275,7 +261,6 @@
     .mddtp-picker__circularView .mddtp-picker__cell span {
       display: inline-block;
       cursor: pointer;
-      font-size: 13px;
       color: rgba(0, 0, 0, 0.87);
       border-radius: 50%;
       width: 36px;
@@ -328,6 +313,14 @@
       width: 36px; }
   .mddtp-picker__selection--quick {
     transition: none; }
+
+.mddtp-picker__cell {
+  font-size: 13px; }
+
+.mddtp-picker__cell--rotate24 {
+  width: 40% !important;
+  opacity: 0.8;
+  font-size: 80%; }
 
 .mddtp-picker__cell--rotate-1 {
   -webkit-transform: rotate(-87deg);
@@ -1559,21 +1552,11 @@
   to {
     opacity: 0; } }
 
-/*
-* netTrek
-* disable selection
-*/
-.mddtp-picker-date, .mddtp-picker-time {
-  -webkit-touch-callout: none;
-  /* iOS Safari */
+.mddtp-picker-date,
+.mddtp-picker-time {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
-
-/*
-* netTrek
-* disable -webkit-tap-highlight-color for iOS
-*/
-.mddtp-picker-time .mddtp-picker__circularView, .mddtp-picker-time .mddtp-time__circularHolder {
-  -webkit-tap-highlight-color: transparent; }
+  user-select: none;
+  -webkit-touch-callout: none;
+  /* iOS Safari */ }

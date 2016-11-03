@@ -38,6 +38,16 @@
   color: $md-button-color--disabled;
   cursor: not-allowed;
 }
+//overlay
+.mddtp-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99998;
+  display: none;
+}
 //date or time component dialog
 .mddtp-picker {
   @include shadow-8dp();
@@ -271,7 +281,6 @@
 
   // netTrek
   // disable -webkit-tap-highlight-color for iOS
-
   .mddtp-picker__circularView,
   .mddtp-time__circularHolder {
     -webkit-tap-highlight-color: transparent;
@@ -456,15 +465,10 @@
   }
 }
 
-
-
 // netTrek
 // disable selection
-
 .mddtp-picker-date,
 .mddtp-picker-time {
   @include prefixer(user-select, none, webkit moz ms spec);
   -webkit-touch-callout: none; /* iOS Safari */
 }
-
-
