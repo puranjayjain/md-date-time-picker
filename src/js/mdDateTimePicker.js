@@ -387,9 +387,13 @@ class mdDateTimePicker {
 			this._addClass(subtitle, 'subtitle')
 			subtitle.setAttribute('style', 'display: none')
 			this._addId(AM, 'AM')
-			AM.textContent = 'AM'
+			//AM.textContent = 'AM'
+      // Change to 'AM' to Locale Meridiem
+      AM.textContent = moment.langData()._meridiemParse.toString().replace(/\//g,"").split("|")[0];
 			this._addId(PM, 'PM')
-			PM.textContent = 'PM'
+			//PM.textContent = 'PM'
+      // Change to 'PM' to Locale Meridiem
+      PM.textContent = moment.langData()._meridiemParse.toString().replace(/\//g,"").split("|")[1];
 			// add them to title and subtitle
 			title.appendChild(hour)
 			title.appendChild(span)
@@ -473,7 +477,13 @@ class mdDateTimePicker {
 		}
 		else {
 			this._fillText(hour, m.format('h'))
-			this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active')
+			//this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active')
+      // Using isPM function for Find PM 
+      if (m._locale.isPM(m.format('A'))){
+        this._sDialog['PM'].classList.add('mddtp-picker__color--active')
+      }else{
+        this._sDialog['AM'].classList.add('mddtp-picker__color--active')
+      }
 			subtitle.removeAttribute('style')
 			dotSpan.removeAttribute('style')
 		}
@@ -1119,7 +1129,12 @@ class mdDateTimePicker {
 		let AM = this._sDialog.AM
 		let PM = this._sDialog.PM
 		AM.onclick = function (e) {
-			let m = me._sDialog.sDate.format('A')
+			//let m = me._sDialog.sDate.format('A')
+      // Change Locale Meridiem to AM/PM String
+      let m = 'AM'
+      if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format('A'))){
+        m = 'PM'
+      }
 			if (m === 'PM') {
 				me._sDialog.sDate.subtract(12, 'h')
 				AM.classList.toggle('mddtp-picker__color--active')
@@ -1127,7 +1142,12 @@ class mdDateTimePicker {
 			}
 		}
 		PM.onclick = function (e) {
-			let m = me._sDialog.sDate.format('A')
+			//let m = me._sDialog.sDate.format('A')
+      // Change Locale Meridiem to AM/PM String
+      let m = 'AM'
+      if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format('A'))){
+        m = 'PM'
+      }
 			if (m === 'AM') {
 				me._sDialog.sDate.add(12, 'h')
 				AM.classList.toggle('mddtp-picker__color--active')
