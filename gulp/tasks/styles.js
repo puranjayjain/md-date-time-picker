@@ -5,6 +5,7 @@ var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var sass = require('gulp-sass');
+var browserSync = require('browser-sync');
 var config = require('../config');
 
 gulp.task('styles', function () {
