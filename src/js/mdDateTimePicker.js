@@ -18,20 +18,20 @@ class mdDateTimePicker {
 	*
 	* @method constructor
 	*
-	* @param  {String}   type = 'date' or 'time 									[type of dialog]
-	* @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
-	* @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-	* @param  {moment}   future	 												[the future moment till which the calendar shall render] [@default = init]
-	* @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-	* @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
-	* @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
-	* @param  {String}  ok = 'ok'																	[ok button's text]
-	* @param  {String}  cancel = 'cancel'													[cancel button's text]
-	* @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
-	* @param  {Boolean} autoClose = false														[close dialog on date/time selection]
-	* @param  {Boolean} inner24 = false															[if 24-hour mode and (true), the PM hours shows in an inner dial]
+	* @param  {String}   type = 'date' or 'time 			[type of dialog]
+	* @param  {moment}   init 					[initial value for the dialog date or time, defaults to today] [@default = today]
+	* @param  {moment}   past 					[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
+	* @param  {moment}   future	 				[the future moment till which the calendar shall render] [@default = init]
+	* @param	{Boolean}  mode 				[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
+	* @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'	[force the orientation of the picker @default = 'LANDSCAPE']
+	* @param  {element}  trigger					[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
+	* @param  {String}  ok = 'ok'					[ok button's text]
+	* @param  {String}  cancel = 'cancel'				[cancel button's text]
+	* @param  {Boolean} colon = true				[add an option to enable quote in 24 hour mode]
+	* @param  {Boolean} autoClose = false				[close dialog on date/time selection]
+	* @param  {Boolean} inner24 = false				[if 24-hour mode and (true), the PM hours shows in an inner dial]
 	*
-	* @return {Object}																				[mdDateTimePicker]
+	* @return {Object}						[mdDateTimePicker]
 	*/
 	constructor({type, init = moment(), past = moment().subtract(21, 'years'), future = init, mode = false, orientation = 'LANDSCAPE', trigger = '', ok = 'ok', cancel = 'cancel', colon = true, autoClose = false, inner24 = false}) {
 		this._type = type
@@ -388,12 +388,12 @@ class mdDateTimePicker {
 			subtitle.setAttribute('style', 'display: none')
 			this._addId(AM, 'AM')
 			//AM.textContent = 'AM'
-      // Change to 'AM' to Locale Meridiem
-      AM.textContent = moment().localeData().meridiem(1, 1, true);
+			// Change to 'AM' to Locale Meridiem
+			AM.textContent = moment().localeData().meridiem(1, 1, true);
 			this._addId(PM, 'PM')
 			//PM.textContent = 'PM'
-      // Change to 'PM' to Locale Meridiem
-      PM.textContent = moment().localeData().meridiem(13, 1, true);
+			// Change to 'PM' to Locale Meridiem
+			PM.textContent = moment().localeData().meridiem(13, 1, true);
 			// add them to title and subtitle
 			title.appendChild(hour)
 			title.appendChild(span)
@@ -478,12 +478,12 @@ class mdDateTimePicker {
 		else {
 			this._fillText(hour, m.format('h'))
 			//this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active')
-      // Using isPM function for Find PM
-      if (m._locale.isPM(m.format('A'))){
-        this._sDialog['PM'].classList.add('mddtp-picker__color--active')
-      }else{
-        this._sDialog['AM'].classList.add('mddtp-picker__color--active')
-      }
+			// Using isPM function for Find PM
+			if (m._locale.isPM(m.format('A'))){
+				this._sDialog['PM'].classList.add('mddtp-picker__color--active')
+			}else{
+				this._sDialog['AM'].classList.add('mddtp-picker__color--active')
+			}
 			subtitle.removeAttribute('style')
 			dotSpan.removeAttribute('style')
 		}
@@ -613,7 +613,6 @@ class mdDateTimePicker {
 	* [initDateDialog to initiate the date picker dialog usage e.g initDateDialog(moment())]
 	* @param  {moment} m [date for today or current]
 	*/
-
 	_initDateDialog(m) {
 		let subtitle = this._sDialog.subtitle
 		let title = this._sDialog.title
@@ -1130,11 +1129,11 @@ class mdDateTimePicker {
 		let PM = this._sDialog.PM
 		AM.onclick = function (e) {
 			//let m = me._sDialog.sDate.format('A')
-      // Change Locale Meridiem to AM/PM String
-      let m = 'AM'
-      if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format('A'))){
-        m = 'PM'
-      }
+			// Change Locale Meridiem to AM/PM String
+			let m = 'AM'
+			if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format('A'))){
+				m = 'PM'
+			}
 			if (m === 'PM') {
 				me._sDialog.sDate.subtract(12, 'h')
 				AM.classList.toggle('mddtp-picker__color--active')
@@ -1143,11 +1142,11 @@ class mdDateTimePicker {
 		}
 		PM.onclick = function (e) {
 			//let m = me._sDialog.sDate.format('A')
-      // Change Locale Meridiem to AM/PM String
-      let m = 'AM'
-      if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format('A'))){
-        m = 'PM'
-      }
+			// Change Locale Meridiem to AM/PM String
+			let m = 'AM'
+			if (me._sDialog.sDate._locale.isPM(me._sDialog.sDate.format('A'))){
+				m = 'PM'
+			}
 			if (m === 'AM') {
 				me._sDialog.sDate.add(12, 'h')
 				AM.classList.toggle('mddtp-picker__color--active')
