@@ -95,7 +95,7 @@ npm install
 After successfully installing the above components
 
 ```bash
-gulp default
+./node_modules/gulp default
 ```
 
 Most changes made to files inside the `src` directory will cause the page to reload. This page can also be loaded up on physical devices thanks to BrowserSync.
