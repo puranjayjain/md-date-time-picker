@@ -57,20 +57,22 @@
   *
   * @method constructor
   *
-  * @param  {String}   type = 'date' or 'time 									[type of dialog]
-  * @param  {moment}   init 																		[initial value for the dialog date or time, defaults to today] [@default = today]
-  * @param  {moment}   past 																		[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
-  * @param  {moment}   future	 												[the future moment till which the calendar shall render] [@default = init]
-  * @param	{Boolean}  mode 																		[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
-  * @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'  [force the orientation of the picker @default = 'LANDSCAPE']
-  * @param  {element}  trigger																	[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
-  * @param  {String}  ok = 'ok'																	[ok button's text]
-  * @param  {String}  cancel = 'cancel'													[cancel button's text]
-  * @param  {Boolean} colon = true															[add an option to enable quote in 24 hour mode]
-  * @param  {Boolean} autoClose = false														[close dialog on date/time selection]
-  * @param  {Boolean} inner24 = false															[if 24-hour mode and (true), the PM hours shows in an inner dial]
+  * @param  {String}   type = 'date' or 'time 				[type of dialog]
+  * @param  {moment}   init 						[initial value for the dialog date or time, defaults to today] [@default = today]
+  * @param  {moment}   past 						[the past moment till which the calendar shall render] [@default = exactly 21 Years ago from init]
+  * @param  {moment}   future	 					[the future moment till which the calendar shall render] [@default = init]
+  * @param  {Boolean}  mode 						[this value tells whether the time dialog will have the 24 hour mode (true) or 12 hour mode (false)] [@default = false]
+  * @param  {String}   orientation = 'LANDSCAPE' or 'PORTRAIT'		[force the orientation of the picker @default = 'LANDSCAPE']
+  * @param  {element}  trigger						[element on which all the events will be dispatched e.g var foo = document.getElementById('bar'), here element = foo]
+  * @param  {String}  ok = 'ok'						[ok button's text]
+  * @param  {String}  cancel = 'cancel'					[cancel button's text]
+  * @param  {Boolean} colon = true					[add an option to enable quote in 24 hour mode]
+  * @param  {Boolean} autoClose = false					[close dialog on date/time selection]
+  * @param  {Boolean} inner24 = false					[if 24-hour mode and (true), the PM hours shows in an inner dial]
+  * @param  {String} prevHandle = <div class="mddtp-prev-handle"></div>	[The HTML content of the handle to go to previous month]
+  * @param  {String} nextHandle = <div class="mddtp-next-handle"></div>	[The HTML content of the handle to go to next month]
   *
-  * @return {Object}																				[mdDateTimePicker]
+  * @return {Object}							[mdDateTimePicker]
   */
 		function mdDateTimePicker(_ref) {
 			var type = _ref.type,
@@ -95,7 +97,11 @@
 			    _ref$autoClose = _ref.autoClose,
 			    autoClose = _ref$autoClose === undefined ? !1 : _ref$autoClose,
 			    _ref$inner = _ref.inner24,
-			    inner24 = _ref$inner === undefined ? !1 : _ref$inner;
+			    inner24 = _ref$inner === undefined ? !1 : _ref$inner,
+			    _ref$prevHandle = _ref.prevHandle,
+			    prevHandle = _ref$prevHandle === undefined ? '<div class="mddtp-prev-handle"></div>' : _ref$prevHandle,
+			    _ref$nextHandle = _ref.nextHandle,
+			    nextHandle = _ref$nextHandle === undefined ? '<div class="mddtp-next-handle"></div>' : _ref$nextHandle;
 
 			_classCallCheck(this, mdDateTimePicker);
 
@@ -111,6 +117,8 @@
 			this._colon = colon;
 			this._autoClose = autoClose;
 			this._inner24 = inner24;
+			this._prevHandle = prevHandle;
+			this._nextHandle = nextHandle;
 
 			/**
    * [dialog selected classes have the same structure as dialog but one level down]
@@ -346,10 +354,14 @@
 					left.classList.add('mddtp-button');
 					this._addClass(left, 'left');
 					left.setAttribute('type', 'button');
+					left.innerHTML = this._prevHandle;
+
 					this._addId(right, 'right');
 					right.classList.add('mddtp-button');
 					this._addClass(right, 'right');
 					right.setAttribute('type', 'button');
+					right.innerHTML = this._nextHandle;
+
 					this._addId(years, 'years');
 					this._addClass(years, 'years', ['mddtp-picker__years--invisible', 'animated']);
 					// add them to body

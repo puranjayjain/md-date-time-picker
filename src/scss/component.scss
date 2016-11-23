@@ -98,11 +98,9 @@
 //date component dialog
 .mddtp-picker-date {
   .mddtp-picker__left {
-    background: url($picker-button-left);
     left: 4px;
   }
   .mddtp-picker__right {
-    background: url($picker-button-right);
     right: 4px;
   }
   .mddtp-picker__left,
@@ -131,12 +129,6 @@
       background-repeat: no-repeat;
       background-position: center;
     }
-  }
-  .mddtp-picker__left:disabled {
-    background-image: url($picker-button-left-disabled);
-  }
-  .mddtp-picker__right:disabled {
-    background-image: url($picker-button-right-disabled);
   }
 }
 .mddtp-picker__body {
@@ -382,6 +374,32 @@
     font-size: 80%;
 }
 
+// prev/next handles
+.mddtp-picker__left {
+  .mddtp-prev-handle{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url($picker-button-left);
+  }
+  &:disabled .mddtp-prev-handle{
+    background-image: url($picker-button-left-disabled);
+  }
+}
+.mddtp-picker__right {
+  .mddtp-next-handle{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url($picker-button-right);
+  }
+  &:disabled .mddtp-next-handle{
+    background-image: url($picker-button-right-disabled);
+  }
+}
+
 //60 minute deg rotations
 @for $i from 1 through 120 {
   .mddtp-picker__cell--rotate-#{$i} {
@@ -466,5 +484,3 @@
   @include prefixer(user-select, none, webkit moz ms spec);
   -webkit-touch-callout: none; /* iOS Safari */
 }
-
-
