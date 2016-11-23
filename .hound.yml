@@ -1,3 +1,6 @@
+java_script:
+  ignore_file: .javascript_ignore
+
 scss:
   scss_files: "**/*.scss"
 

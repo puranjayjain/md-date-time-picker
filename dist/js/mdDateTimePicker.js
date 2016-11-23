@@ -390,11 +390,11 @@
 					this._addId(AM, 'AM');
 					//AM.textContent = 'AM'
 					// Change to 'AM' to Locale Meridiem
-					AM.textContent = _moment2.default.langData()._meridiemParse.toString().replace(/\//g, "").split("|")[0];
+					AM.textContent = (0, _moment2.default)().localeData().meridiem(1, 1, !0);
 					this._addId(PM, 'PM');
 					//PM.textContent = 'PM'
 					// Change to 'PM' to Locale Meridiem
-					PM.textContent = _moment2.default.langData()._meridiemParse.toString().replace(/\//g, "").split("|")[1];
+					PM.textContent = (0, _moment2.default)().localeData().meridiem(13, 1, !0);
 					// add them to title and subtitle
 					_title.appendChild(hour);
 					_title.appendChild(span);
@@ -476,7 +476,7 @@
 				} else {
 					this._fillText(hour, m.format('h'));
 					//this._sDialog[m.format('A')].classList.add('mddtp-picker__color--active')
-					// Using isPM function for Find PM 
+					// Using isPM function for Find PM
 					if (m._locale.isPM(m.format('A'))) {
 						this._sDialog.PM.classList.add('mddtp-picker__color--active');
 					} else {
