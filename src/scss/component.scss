@@ -330,11 +330,11 @@
 
 .mddtp-picker__selection {
   position: absolute;
-  left: 50%;
+  left: calc(50% - 4px);
   top: calc(50% - 18px);
-  width: 50%;
+  width: calc(50% + 4px);
   font-size: 0;
-  transform-origin: left center;
+  transform-origin: 4px center;
   transition: .3s cubic-bezier(.42, 0, .58, 1);
 
   span {
