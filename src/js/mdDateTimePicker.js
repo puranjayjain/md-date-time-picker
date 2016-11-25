@@ -1252,7 +1252,7 @@ class mdDateTimePicker {
 		 * netTrek
 		 * fixes for iOS - drag
 		 */
-		fakeNeedleDraggabilly.on('pointerUp', function( e ) {
+		let onDragEnd = function ( e ) {
 			let minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')
 			let sMinute = 'mddtp-minute__selected'
 			let selectedMinute = document.getElementById(sMinute)
@@ -1282,7 +1282,10 @@ class mdDateTimePicker {
 			}
 			minute.textContent = me._numWithZero(divides)
 			me._sDialog.sDate.minutes(divides)
-		})
+		}
+
+		fakeNeedleDraggabilly.on('pointerUp', onDragEnd);
+		fakeNeedleDraggabilly.on('dragEnd', onDragEnd);
 	}
 
 	/**
