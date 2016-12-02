@@ -268,6 +268,8 @@
       line-height: 36px;
       text-align: center;
       margin-right: 8px; }
+    .mddtp-picker__circularView .mddtp-picker__cell span:hover {
+      background-color: #e0e0e0; }
     .mddtp-picker__circularView .mddtp-picker__cell--selected span, .mddtp-picker__circularView .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__tr .mddtp-picker__cell:hover span, .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__tr .mddtp-picker__circularView .mddtp-picker__cell:hover span {
       color: #fff; }
   .mddtp-picker__circularView--hidden {

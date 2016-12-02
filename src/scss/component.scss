@@ -316,6 +316,9 @@
       text-align: center;
       margin-right: 8px;
     }
+	span:hover {
+      background-color: $picker-circle-hover;
+	}
     &--selected {
       span {
         color: $picker-body-color;

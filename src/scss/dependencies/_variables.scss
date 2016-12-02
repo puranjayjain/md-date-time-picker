@@ -64,6 +64,7 @@ $md-button-color--disabled: $color-hint-dark-text !default;
 $picker-primary-text-theme-color: $color-primary-dark-text !default;
 $picker-secondary-text-theme-color: $color-secondary-dark-text !default;
 $picker-circle-color: $palette-grey-200 !default;
+$picker-circle-hover: $palette-grey-300 !default;
 $picker-line-color: $palette-primary-500 !default;
 @if $dark-theme {
   $picker-header-color: $palette-grey-700;
@@ -79,6 +80,7 @@ $picker-line-color: $palette-primary-500 !default;
   $picker-primary-text-theme-color: $color-primary-text;
   $picker-secondary-text-theme-color: $color-secondary-text;
   $picker-circle-color: $palette-grey-700;
+  $picker-circle-hover: $palette-grey-500;
   $picker-line-color: $palette-primary-200;
 }
 
