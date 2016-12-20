@@ -7,7 +7,7 @@
 		"dist/js/md-date-time-picker.min.js",
 		"dist/css/md-date-time-picker.min.css"
 	],
-	"authors": ["Puranjay Jain <puranjay.jain@st.niituniversity.in>"],
+	"authors": ["Puranjay Jain <me+bower@puranjayjain.com>"],
 	"license": "MIT",
 	"keywords": [
 		"material",
