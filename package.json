@@ -25,7 +25,7 @@
     "Daniel (https://github.com/db-dblank)",
     "Saban Ünlü (https://github.com/netTrek)"
   ],
-  "author": "Puranjay Jain <puranjay.jain@st.niituniversity.in>",
+  "author": "Puranjay Jain <me+npm@puranjayjain.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.21.0",
