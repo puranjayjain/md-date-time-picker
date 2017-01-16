@@ -773,7 +773,8 @@ class mdDateTimePicker {
    * Points the needle to the correct hour or minute
    */
   _pointNeedle(me) {
-    let spoke, value
+    let spoke = 60
+    let value
     let circle = this._sDialog.circle
 		let fakeNeedle = this._sDialog.fakeNeedle
 		let circularHolder = this._sDialog.circularHolder

@@ -762,7 +762,7 @@
 		}, {
 			key: '_pointNeedle',
 			value: function _pointNeedle(me) {
-				var spoke = void 0,
+				var spoke = 60,
 				    value = void 0,
 				    circle = this._sDialog.circle,
 				    fakeNeedle = this._sDialog.fakeNeedle,
