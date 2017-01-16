@@ -760,6 +760,51 @@
 				this._changeYear(years);
 			}
 		}, {
+			key: '_pointNeedle',
+			value: function _pointNeedle(me) {
+				var spoke = void 0,
+				    value = void 0,
+				    circle = this._sDialog.circle,
+				    fakeNeedle = this._sDialog.fakeNeedle,
+				    circularHolder = this._sDialog.circularHolder,
+				    selection = 'mddtp-picker__selection',
+				    needle = me._sDialog.needle;
+
+				// move the needle to correct position
+				needle.className = '';
+				needle.classList.add(selection);
+				if (!mdDateTimePicker.dialog.view) {
+					value = me._sDialog.sDate.format('m');
+
+					// Need to desactivate for the autoClose mode as it mess things up.  If you have an idea, feel free to give it a shot !
+					if (me._autoClose !== !0) {
+						// move the fakeNeedle to correct position
+						setTimeout(function () {
+							var hOffset = circularHolder.getBoundingClientRect(),
+							    cOffset = circle.getBoundingClientRect();
+
+							fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
+						}, 300);
+					}
+				} else {
+					if (me._mode) {
+						spoke = 24;
+						value = parseInt(me._sDialog.sDate.format('H'), 10);
+						// CHANGED exception for 24 => 0 issue #58
+						if (value === 0) {
+							value = 24;
+						}
+					} else {
+						spoke = 12;
+						value = me._sDialog.sDate.format('h');
+					}
+				}
+				var rotationClass = me._calcRotation(spoke, parseInt(value, 10));
+				if (rotationClass) {
+					needle.classList.add(rotationClass);
+				}
+			}
+		}, {
 			key: '_switchToView',
 			value: function _switchToView(el) {
 				var me = this;
@@ -791,13 +836,7 @@
 				    minute = me._sDialog.minute,
 				    activeClass = 'mddtp-picker__color--active',
 				    hidden = 'mddtp-picker__circularView--hidden',
-				    selection = 'mddtp-picker__selection',
-				    needle = me._sDialog.needle,
-				    circularHolder = me._sDialog.circularHolder,
-				    circle = me._sDialog.circle,
-				    fakeNeedle = me._sDialog.fakeNeedle,
-				    spoke = 60,
-				    value = void 0;
+				    selection = 'mddtp-picker__selection';
 
 				// toggle view classes
 				hourView.classList.toggle(hidden);
@@ -805,40 +844,9 @@
 				hour.classList.toggle(activeClass);
 				minute.classList.toggle(activeClass);
 				// move the needle to correct position
-				needle.className = '';
-				needle.classList.add(selection);
-				if (mdDateTimePicker.dialog.view) {
-					value = me._sDialog.sDate.format('m');
-
-					// Need to desactivate for the autoClose mode as it mess things up.  If you have an idea, feel free to give it a shot !
-					if (me._autoClose !== !0) {
-						// move the fakeNeedle to correct position
-						setTimeout(function () {
-							var hOffset = circularHolder.getBoundingClientRect(),
-							    cOffset = circle.getBoundingClientRect();
-
-							fakeNeedle.setAttribute('style', 'left:' + (cOffset.left - hOffset.left) + 'px;top:' + (cOffset.top - hOffset.top) + 'px');
-						}, 300);
-					}
-				} else {
-					if (me._mode) {
-						spoke = 24;
-						value = parseInt(me._sDialog.sDate.format('H'), 10);
-						// CHANGED exception for 24 => 0 issue #58
-						if (value === 0) {
-							value = 24;
-						}
-					} else {
-						spoke = 12;
-						value = me._sDialog.sDate.format('h');
-					}
-				}
-				var rotationClass = me._calcRotation(spoke, parseInt(value, 10));
-				if (rotationClass) {
-					needle.classList.add(rotationClass);
-				}
 				// toggle the view type
 				mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
+				me._pointNeedle(me);
 			}
 		}, {
 			key: '_switchToDateView',
@@ -855,7 +863,7 @@
 					years.classList.remove('mddtp-picker__years--invisible');
 					years.classList.add('zoomIn');
 					// scroll into the view
-					currentYear.scrollIntoViewIfNeeded();
+					currentYear.scrollIntoViewIfNeeded && currentYear.scrollIntoViewIfNeeded();
 				} else {
 					years.classList.add('zoomOut');
 					viewHolder.classList.remove('zoomOut');
@@ -907,7 +915,10 @@
 						// set the display hour
 						me._sDialog.hour.textContent = e.target.textContent;
 						// switch the view
-						me._switchToTimeView(me);
+						me._pointNeedle(me);
+						setTimeout(function () {
+							me._switchToTimeView(me);
+						}, 700);
 					}
 				};
 				minuteView.onclick = function (e) {
@@ -929,8 +940,7 @@
 						me._sDialog.sDate.minute(setMinute);
 						// set the display minute
 						me._sDialog.minute.textContent = setMinute;
-						// switch the view
-						me._switchToTimeView(me);
+						me._pointNeedle(me);
 
 						if (me._autoClose === !0) {
 							me._sDialog.ok.onclick();
@@ -1221,7 +1231,7 @@
      * netTrek
      * fixes for iOS - drag
      */
-				fakeNeedleDraggabilly.on('pointerUp', function (e) {
+				var onDragEnd = function onDragEnd(e) {
 					var minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div'),
 					    sMinute = 'mddtp-minute__selected',
 					    selectedMinute = document.getElementById(sMinute),
@@ -1252,7 +1262,10 @@
 					}
 					minute.textContent = me._numWithZero(divides);
 					me._sDialog.sDate.minutes(divides);
-				});
+				};
+
+				fakeNeedleDraggabilly.on('pointerUp', onDragEnd);
+				fakeNeedleDraggabilly.on('dragEnd', onDragEnd);
 			}
 		}, {
 			key: '_attachEventHandlers',
