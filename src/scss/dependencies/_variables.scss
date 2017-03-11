@@ -1,16 +1,16 @@
 @import "global";
 
 //Dark text on light backgrounds
-$color-primary-dark-text: rgba(0,0,0,0.87);
-$color-secondary-dark-text: rgba(0,0,0,0.54);
-$color-hint-dark-text: rgba(0,0,0,0.26);
-$color-disabled-dark-text: rgba(0,0,0,0.12);
+$color-primary-dark-text: rgba(0, 0, 0, 0.87);
+$color-secondary-dark-text: rgba(0, 0, 0, 0.54);
+$color-hint-dark-text: rgba(0, 0, 0, 0.26);
+$color-disabled-dark-text: rgba(0, 0, 0, 0.12);
 
 //White text on dark backgrounds
-$color-primary-text: rgb(255,255,255);
-$color-secondary-text: rgba(255,255,255,0.7);
-$color-hint-text: rgba(255,255,255,0.3);
-$color-disabled-text: rgba(255,255,255,0.12);
+$color-primary-text: rgb(255, 255, 255);
+$color-secondary-text: rgba(255, 255, 255, 0.7);
+$color-hint-text: rgba(255, 255, 255, 0.3);
+$color-disabled-text: rgba(255, 255, 255, 0.12);
 
 //the colours below are used in the app
 $palette-primary-50: nth($primary-color-palette, 1);
@@ -50,13 +50,15 @@ $palette-accent-900: nth($accent-color-palette, 10);
 
 //theme dependent items
 
+$picker-images-base-path: "../images/" !default;
+
 //default light theme colors
 $picker-header-color: $palette-primary-500 !default;
 $picker-body-color: #fff !default;
-$picker-button-left:'../images/ic_keyboard_arrow_left_black_24px.svg' !default;
-$picker-button-right:'../images/ic_keyboard_arrow_right_black_24px.svg' !default;
-$picker-button-left-disabled:'../images/ic_keyboard_arrow_left_black_disabled_24px.svg' !default;
-$picker-button-right-disabled:'../images/ic_keyboard_arrow_right_black_disabled_24px.svg' !default;
+$picker-button-left: $picker-images-base-path + "ic_keyboard_arrow_left_black_24px.svg" !default;
+$picker-button-right: $picker-images-base-path + "ic_keyboard_arrow_right_black_24px.svg" !default;
+$picker-button-left-disabled: $picker-images-base-path + "ic_keyboard_arrow_left_black_disabled_24px.svg" !default;
+$picker-button-right-disabled: $picker-images-base-path + "ic_keyboard_arrow_right_black_disabled_24px.svg" !default;
 $md-button-color: $palette-primary-500 !default;
 $md-button-color--focus: $palette-grey-300 !default;
 $md-button-color--active: $palette-grey-400 !default;
@@ -66,20 +68,20 @@ $picker-secondary-text-theme-color: $color-secondary-dark-text !default;
 $picker-circle-color: $palette-grey-200 !default;
 $picker-line-color: $palette-primary-500 !default;
 @if $dark-theme {
-  $picker-header-color: $palette-grey-700;
-  $picker-body-color: $palette-grey-800;
-  $picker-button-left:'../images/ic_keyboard_arrow_left_white_24px.svg';
-  $picker-button-right:'../images/ic_keyboard_arrow_right_white_24px.svg';
-  $picker-button-left-disabled:'../images/ic_keyboard_arrow_left_white_disabled_24px.svg';
-  $picker-button-right-disabled:'../images/ic_keyboard_arrow_right_white_disabled_24px.svg';
-  $md-button-color: $palette-primary-200;
-  $md-button-color--focus: $palette-grey-700;
-  $md-button-color--active: $palette-grey-600;
-  $md-button-color--disabled: $color-hint-text;
-  $picker-primary-text-theme-color: $color-primary-text;
-  $picker-secondary-text-theme-color: $color-secondary-text;
-  $picker-circle-color: $palette-grey-700;
-  $picker-line-color: $palette-primary-200;
+  $picker-header-color: $palette-grey-700 !default;
+  $picker-body-color: $palette-grey-800 !default;
+  $picker-button-left: $picker-images-base-path + "ic_keyboard_arrow_left_white_24px.svg" !default;
+  $picker-button-right: $picker-images-base-path + "ic_keyboard_arrow_right_white_24px.svg" !default;
+  $picker-button-left-disabled: $picker-images-base-path + "ic_keyboard_arrow_left_white_disabled_24px.svg" !default;
+  $picker-button-right-disabled: $picker-images-base-path + "ic_keyboard_arrow_right_white_disabled_24px.svg" !default;
+  $md-button-color: $palette-primary-200 !default;
+  $md-button-color--focus: $palette-grey-700 !default;
+  $md-button-color--active: $palette-grey-600 !default;
+  $md-button-color--disabled: $color-hint-text !default;
+  $picker-primary-text-theme-color: $color-primary-text !default;
+  $picker-secondary-text-theme-color: $color-secondary-text !default;
+  $picker-circle-color: $palette-grey-700 !default;
+  $picker-line-color: $palette-primary-200 !default;
 }
 
 //shadows
