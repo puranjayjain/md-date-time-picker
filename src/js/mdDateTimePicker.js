@@ -10,7 +10,7 @@
 * import necessary components
 */
 import moment from 'moment'
-import Draggabilly from 'Draggabilly'
+import draggabilly from 'draggabilly'
 
 class mdDateTimePicker {
 	/**
@@ -1202,7 +1202,7 @@ class mdDateTimePicker {
 		let rotate = 'mddtp-picker__cell--rotate-'
 		let hOffset = circularHolder.getBoundingClientRect()
 		let divides
-		let fakeNeedleDraggabilly = new Draggabilly(fakeNeedle, {
+		let fakeNeedleDraggabilly = new draggabilly(fakeNeedle, {
 			containment: true
 		})
 		fakeNeedleDraggabilly.on('pointerDown', function( e ) {
