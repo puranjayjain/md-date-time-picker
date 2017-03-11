@@ -4,10 +4,10 @@
 //global theme settings and colours
 
 //NOTE dark-theme has the supported values true or false
-$dark-theme: false;
+$dark-theme: false !default;
 
 //primary color palette
-$primary-color-palette: $palette-teal;
+$primary-color-palette: $palette-teal !default;
 
 //accent color palette
-$accent-color-palette: $palette-lime;
+$accent-color-palette: $palette-lime !default;
