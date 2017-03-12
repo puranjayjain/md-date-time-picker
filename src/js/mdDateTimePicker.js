@@ -77,7 +77,7 @@ class mdDateTimePicker {
 		*/
 		this._sDialog = {}
 		// attach the dialog if not present
-		if (!document.getElementById('mddtp-picker__' + this._type)) {
+		if (typeof document !== 'undefined' && !document.getElementById('mddtp-picker__' + this._type)) {
 			this._buildDialog()
 		}
 	}
