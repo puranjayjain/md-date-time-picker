@@ -146,6 +146,30 @@ class mdDateTimePicker {
 	}
 
 	/**
+	* [isOpen check if current Picker is open]
+	*
+	* @method isOpen
+	*
+	*/
+	isOpen() {
+		this._selectDialog()
+
+		return !!mdDateTimePicker.dialog.state
+	}
+
+	/**
+	* [isCloses check if current Picker is closed]
+	*
+	* @method isClosed
+	*
+	*/
+	isClosed() {
+		this._selectDialog()
+
+		return !mdDateTimePicker.dialog.state
+	}
+
+	/**
 	* [toggle toggle the dialog's between the visible and invisible state]
 	*
 	* @method toggle
