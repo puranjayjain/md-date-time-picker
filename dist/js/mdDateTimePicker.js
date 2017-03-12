@@ -1,16 +1,16 @@
 (function (global, factory) {
 	if (typeof define === "function" && define.amd) {
-		define(['exports', 'moment', 'Draggabilly'], factory);
+		define(['exports', 'moment', 'draggabilly'], factory);
 	} else if (typeof exports !== "undefined") {
-		factory(exports, require('moment'), require('Draggabilly'));
+		factory(exports, require('moment'), require('draggabilly'));
 	} else {
 		var mod = {
 			exports: {}
 		};
-		factory(mod.exports, global.moment, global.Draggabilly);
+		factory(mod.exports, global.moment, global.draggabilly);
 		global.mdDateTimePicker = mod.exports;
 	}
-})(this, function (exports, _moment, _Draggabilly) {
+})(this, function (exports, _moment, _draggabilly) {
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -19,7 +19,7 @@
 
 	var _moment2 = _interopRequireDefault(_moment);
 
-	var _Draggabilly2 = _interopRequireDefault(_Draggabilly);
+	var _draggabilly2 = _interopRequireDefault(_draggabilly);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : {
@@ -35,8 +35,8 @@
 
 	var _createClass = function () {
 		function defineProperties(target, props) {
-			for (var i = 0; i < props.length; i++) {
-				var descriptor = props[i];
+			for (var i = 0, descriptor; i < props.length; i++) {
+				descriptor = props[i];
 				descriptor.enumerable = descriptor.enumerable || !1;
 				descriptor.configurable = !0;
 				if ("value" in descriptor) descriptor.writable = !0;
@@ -131,7 +131,7 @@
    */
 			this._sDialog = {};
 			// attach the dialog if not present
-			if (!document.getElementById('mddtp-picker__' + this._type)) {
+			if (typeof document !== 'undefined' && !document.getElementById('mddtp-picker__' + this._type)) {
 				this._buildDialog();
 			}
 		}
@@ -162,6 +162,20 @@
 					this._initTimeDialog(this._init);
 				}
 				this._showDialog();
+			}
+		}, {
+			key: 'isOpen',
+			value: function isOpen() {
+				this._selectDialog();
+
+				return !!mdDateTimePicker.dialog.state;
+			}
+		}, {
+			key: 'isClosed',
+			value: function isClosed() {
+				this._selectDialog();
+
+				return !mdDateTimePicker.dialog.state;
 			}
 		}, {
 			key: 'toggle',
@@ -741,8 +755,9 @@
 				    past = this._past.year(),
 				    future = this._future.year();
 
-				for (var year = past; year <= future; year++) {
-					var li = document.createElement('li');
+				for (var year = past, li; year <= future; year++) {
+					li = document.createElement('li');
+
 					li.textContent = year;
 					if (year === currentYear) {
 						li.id = 'mddtp-date__currentYear';
@@ -1168,7 +1183,7 @@
 				    rotate = 'mddtp-picker__cell--rotate-',
 				    hOffset = circularHolder.getBoundingClientRect(),
 				    divides = void 0,
-				    fakeNeedleDraggabilly = new _Draggabilly2.default(fakeNeedle, {
+				    fakeNeedleDraggabilly = new _draggabilly2.default(fakeNeedle, {
 					containment: !0
 				});
 
