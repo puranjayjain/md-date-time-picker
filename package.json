@@ -1,6 +1,6 @@
 {
   "name": "md-date-time-picker",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "An implementation of the Material Design Picker components in vanilla CSS, JS and HTML",
   "keywords": [
     "material",
@@ -17,7 +17,10 @@
   "main": "dist/js/mdDateTimePicker.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "cs": "npm run cs:js && npm run cs:scss",
+    "cs:js" : "eslint -c .eslintrc --fix src",
+    "cs:scss" : "scss-lint"
   },
   "contributors": [
     "Seth Westphal (https://github.com/westy92)",
@@ -29,6 +32,7 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-es2015-modules-umd": "^6.23.0",
     "babel-plugin-transform-member-expression-literals": "^6.8.1",
@@ -39,6 +43,11 @@
     "browser-sync": "^2.18.8",
     "chokidar": "^1.6.1",
     "del": "^2.2.2",
+    "eslint": "^3.17.1",
+    "eslint-config-standard": "^7.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
@@ -56,8 +65,8 @@
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
-    "moment": "^2.17.1",
-    "draggabilly": "^2.1.1"
+    "draggabilly": "^2.1.1",
+    "moment": "^2.17.1"
   },
   "repository": {
     "type": "git",

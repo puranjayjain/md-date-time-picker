@@ -100,6 +100,13 @@ After successfully installing the above components
 
 Most changes made to files inside the `src` directory will cause the page to reload. This page can also be loaded up on physical devices thanks to BrowserSync.
 
+## Tests
+
+```bash
+$ npm run cs:scss //lint all scss files
+$ npm run cs:js //lint and fix all js files
+$ npm run cs //run both cs jobs
+```
 ## Versioning
 
 For transparency into our release cycle and in striving to maintain backward
