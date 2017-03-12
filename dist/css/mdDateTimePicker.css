@@ -271,13 +271,13 @@
 
 .mddtp-picker__selection {
   position: absolute;
-  left: 50%;
+  left: calc(50% - 4px);
   top: calc(50% - 18px);
-  width: 50%;
+  width: calc(50% + 4px);
   font-size: 0;
-  -webkit-transform-origin: left center;
-      -ms-transform-origin: left center;
-          transform-origin: left center;
+  -webkit-transform-origin: 4px center;
+      -ms-transform-origin: 4px center;
+          transform-origin: 4px center;
   transition: 0.3s cubic-bezier(0.42, 0, 0.58, 1); }
   .mddtp-picker__selection span {
     display: inline-block;
