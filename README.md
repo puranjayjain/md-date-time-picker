@@ -7,7 +7,7 @@
 [![Bower version](https://img.shields.io/bower/v/md-date-time-picker.svg)](https://badge.fury.io/bo/puranjayjain%2Fmd-date-time-picker)
 [![Dependency Status](https://david-dm.org/puranjayjain/md-date-time-picker.svg)](https://david-dm.org/puranjayjain/md-date-time-picker)
 
-[![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)]()
+[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)]()
 [![Issues](https://img.shields.io/github/issues/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/issues)
 [![Forks](https://img.shields.io/github/forks/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/network)
 [![Stars](https://img.shields.io/github/stars/puranjayjain/md-date-time-picker.svg)](https://github.com/puranjayjain/md-date-time-picker/stargazers)
