@@ -118,3 +118,8 @@ but we'll adhere to those rules whenever possible.
 
 © Puranjay Jain, 2016. Licensed under an
 [MIT License](https://github.com/puranjayjain/md-date-time-picker/blob/master/LICENSE.md).
+
+## Custom build
+
+To allow only "sharp" time (e.g. 1 sharp, 2 sharp...etc) to be picked in time picker, see:
+<https://github.com/XcrossD/md-date-time-picker/tree/time-only-sharp-code>
