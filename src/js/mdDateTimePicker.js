@@ -1115,15 +1115,13 @@ class mdDateTimePicker {
           me._sDialog.tDate = me._getMonth(me._sDialog.tDate, 1)
         }
         me._initViewHolder()
-      }, 350)
-      setTimeout(() => {
         if (!(left.classList.contains('mddtp-button--disabled'))) {
           left.removeAttribute('disabled')
         }
         if (!(right.classList.contains('mddtp-button--disabled'))) {
           right.removeAttribute('disabled')
         }
-      }, 400)
+      }, 350)
     }
   }
 
