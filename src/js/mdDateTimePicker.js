@@ -823,13 +823,13 @@ class mdDateTimePicker {
       value = me._sDialog.sDate.format('h')
     }
 
-    const parsedValue = parseInt(value, 10);
-    const rotationClass = me._calcRotation(spoke, parsedValue);
+    const parsedValue = parseInt(value, 10)
+    const rotationClass = me._calcRotation(spoke, parsedValue)
     if (rotationClass) {
-      needle.classList.add(rotationClass);
+      needle.classList.add(rotationClass)
 
       if (this._inner24 === true && spoke === 24 && parsedValue > 12) {
-        needle.classList.add('mddtp-picker__cell--rotate24');
+        needle.classList.add('mddtp-picker__cell--rotate24')
       }
     }
   }
@@ -1501,16 +1501,14 @@ class mdDateTimePicker {
     if (spoke === 12) {
       value *= 10
     } else if (spoke === 24) {
-
       if (this._inner24 === true) {
         if (value > 12) {
-          value -= 12;
+          value -= 12
         }
-        value *= 10;
+        value *= 10
       } else {
-        value *= 5;
+        value *= 5
       }
-
     } else {
       value *= 2
     }
