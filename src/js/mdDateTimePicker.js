@@ -1261,6 +1261,7 @@ class mdDateTimePicker {
       needle.classList.add(selection)
       needle.classList.add(quick)
       needle.classList.add(rotate + (divides * 2))
+      minute.textContent = me._numWithZero(divides);
     })
     /**
      * netTrek
