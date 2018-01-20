@@ -19,8 +19,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "gulp": "gulp",
     "cs": "npm run cs:js && npm run cs:scss",
-    "cs:js" : "eslint -c .eslintrc --fix src",
-    "cs:scss" : "scss-lint"
+    "cs:js": "eslint -c .eslintrc --fix src",
+    "cs:scss": "scss-lint"
   },
   "contributors": [
     "Seth Westphal (https://github.com/westy92)",
