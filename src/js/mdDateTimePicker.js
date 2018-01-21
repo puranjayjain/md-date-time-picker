@@ -284,8 +284,8 @@ class mdDateTimePicker {
       hour.classList.add(active)
       minuteView.classList.add(hidden)
       hourView.classList.remove(hidden)
-      subtitle.setAttribute('style', 'display: none')
-      dotSpan.setAttribute('style', 'display: none')
+      subtitle.style.display = 'none'
+      dotSpan.style.display = 'none'
       needle.className = selection
     }
     setTimeout(() => {
@@ -424,11 +424,11 @@ class mdDateTimePicker {
       hour.classList.add('mddtp-picker__color--active')
       span.textContent = ':'
       this._addId(span, 'dotSpan')
-      span.setAttribute('style', 'display: none')
+      span.style.display = 'none'
       this._addId(minute, 'minute')
       this._addId(subtitle, 'subtitle')
       this._addClass(subtitle, 'subtitle')
-      subtitle.setAttribute('style', 'display: none')
+      subtitle.style.display = 'none'
       this._addId(AM, 'AM')
       // AM.textContent = 'AM'
       // Change to 'AM' to Locale Meridiem
@@ -515,7 +515,7 @@ class mdDateTimePicker {
       this._fillText(hour, text)
       // add the configurable colon in this mode issue #56
       if (this._colon) {
-        dotSpan.removeAttribute('style')
+        dotSpan.style.display = 'initial'
       }
     } else {
       this._fillText(hour, m.format('h'))
@@ -526,8 +526,8 @@ class mdDateTimePicker {
       } else {
         this._sDialog.AM.classList.add('mddtp-picker__color--active')
       }
-      subtitle.removeAttribute('style')
-      dotSpan.removeAttribute('style')
+      subtitle.style.display = 'initial'
+      dotSpan.style.display = 'initial'
     }
     this._fillText(minute, m.format('mm'))
     this._initHour()
@@ -808,7 +808,8 @@ class mdDateTimePicker {
         setTimeout(() => {
           const hOffset = circularHolder.getBoundingClientRect()
           const cOffset = circle.getBoundingClientRect()
-          fakeNeedle.setAttribute('style', `left:${cOffset.left - hOffset.left}px;top:${cOffset.top - hOffset.top}px`)
+          fakeNeedle.style.left = `left:${cOffset.left - hOffset.left}px`
+          fakeNeedle.style.top = `top:${cOffset.top - hOffset.top}px`
         }, 300)
       }
     } else if (me._mode) {
@@ -1267,7 +1268,7 @@ class mdDateTimePicker {
       needle.classList.add(selection)
       needle.classList.add(quick)
       needle.classList.add(rotate + (divides * 2))
-      minute.textContent = me._numWithZero(divides);
+      minute.textContent = me._numWithZero(divides)
     })
     /**
      * netTrek
@@ -1278,7 +1279,8 @@ class mdDateTimePicker {
       const sMinute = 'mddtp-minute__selected'
       const selectedMinute = document.getElementById(sMinute)
       const cOffset = circle.getBoundingClientRect()
-      fakeNeedle.setAttribute('style', `left:${cOffset.left - hOffset.left}px;top:${cOffset.top - hOffset.top}px`)
+      fakeNeedle.style.left = `left:${cOffset.left - hOffset.left}px`
+      fakeNeedle.style.top = `top:${cOffset.top - hOffset.top}px`
       needle.classList.remove(quick)
       let select = divides
       if (select === 1) {

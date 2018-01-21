@@ -27,6 +27,7 @@
           overRight = this.offsetLeft - parent.offsetLeft + this.clientWidth - parentBorderLeftWidth > parent.scrollLeft + parent.clientWidth,
           alignWithTop = overTop && !overBottom;
 
+
       if ((overTop || overBottom) && centerIfNeeded) {
         parent.scrollTop = this.offsetTop - parent.offsetTop - parent.clientHeight / 2 - parentBorderTopWidth + this.clientHeight / 2;
       }
