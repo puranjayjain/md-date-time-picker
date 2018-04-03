@@ -909,12 +909,16 @@ class mdDateTimePicker {
     const subtitle = me._sDialog.subtitle
     const currentYear = document.getElementById('mddtp-date__currentYear')
     if (mdDateTimePicker.dialog.view) {
+      me._sDialog.right.style.display = 'none'
+      me._sDialog.left.style.display = 'none'
       viewHolder.classList.add('zoomOut')
       years.classList.remove('mddtp-picker__years--invisible')
       years.classList.add('zoomIn')
       // scroll into the view
       currentYear.scrollIntoViewIfNeeded && currentYear.scrollIntoViewIfNeeded()
     } else {
+      me._sDialog.right.style.display = 'initial'
+      me._sDialog.left.style.display = 'initial'
       years.classList.add('zoomOut')
       viewHolder.classList.remove('zoomOut')
       viewHolder.classList.add('zoomIn')
@@ -1147,6 +1151,10 @@ class mdDateTimePicker {
     el.onclick = function (e) {
       if (e.target && e.target.nodeName === 'LI') {
         const selected = document.getElementById('mddtp-date__currentYear')
+        const subtitle = me._sDialog.subtitle
+        const titleDay = me._sDialog.titleDay
+        const titleMonth = me._sDialog.titleMonth
+
         // clear previous selected
         selected.id = ''
         selected.classList.remove('mddtp-picker__li--current')
@@ -1157,6 +1165,11 @@ class mdDateTimePicker {
         me._switchToDateView(el, me)
         // set the tdate to it
         me._sDialog.tDate.year(parseInt(e.target.textContent, 10))
+        // update temp date object with the date selected
+        me._sDialog.sDate = me._sDialog.tDate.clone();
+        me._fillText(subtitle, me._sDialog.tDate.year());
+        me._fillText(titleDay, me._sDialog.tDate.format('ddd, '));
+        me._fillText(titleMonth, me._sDialog.tDate.format('MMM D'));
         // update the dialog
         me._initViewHolder()
       }
