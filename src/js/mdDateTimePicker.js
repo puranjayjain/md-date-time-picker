@@ -1166,10 +1166,10 @@ class mdDateTimePicker {
         // set the tdate to it
         me._sDialog.tDate.year(parseInt(e.target.textContent, 10))
         // update temp date object with the date selected
-        me._sDialog.sDate = me._sDialog.tDate.clone();
-        me._fillText(subtitle, me._sDialog.tDate.year());
-        me._fillText(titleDay, me._sDialog.tDate.format('ddd, '));
-        me._fillText(titleMonth, me._sDialog.tDate.format('MMM D'));
+        me._sDialog.sDate = me._sDialog.tDate.clone()
+        me._fillText(subtitle, me._sDialog.tDate.year())
+        me._fillText(titleDay, me._sDialog.tDate.format('ddd, '))
+        me._fillText(titleMonth, me._sDialog.tDate.format('MMM D'))
         // update the dialog
         me._initViewHolder()
       }
