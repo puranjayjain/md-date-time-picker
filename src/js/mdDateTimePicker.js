@@ -33,6 +33,7 @@ class mdDateTimePicker {
   * @param  {String} prevHandle = <div class="mddtp-prev-handle"></div> [The HTML content of the handle to go to previous month]
   * @param  {String} nextHandle = <div class="mddtp-next-handle"></div> [The HTML content of the handle to go to next month]
   *
+  * @param dateValidator
   * @return {Object}                                                    [mdDateTimePicker]
   */
   constructor ({
@@ -49,7 +50,8 @@ class mdDateTimePicker {
     autoClose = false,
     inner24 = false,
     prevHandle = '<div class="mddtp-prev-handle"></div>',
-    nextHandle = '<div class="mddtp-next-handle"></div>'
+    nextHandle = '<div class="mddtp-next-handle"></div>',
+    dateValidator = function (m) { return true }
   }) {
     this._type = type
     this._init = init
@@ -65,6 +67,7 @@ class mdDateTimePicker {
     this._inner24 = inner24
     this._prevHandle = prevHandle
     this._nextHandle = nextHandle
+    this._dateValidator = dateValidator
 
     /**
     * [dialog selected classes have the same structure as dialog but one level down]
@@ -728,7 +731,7 @@ class mdDateTimePicker {
       const cell = document.createElement('span')
       const currentDay = i - firstDayOfMonth + 1
       if ((i >= firstDayOfMonth) && (i <= lastDayOfMonth)) {
-        if (i > future || i < past) {
+        if (i > future || i < past || !this._dateValidator(m.date(currentDay))) {
           cell.classList.add(`${cellClass}--disabled`)
         } else {
           cell.classList.add(cellClass)

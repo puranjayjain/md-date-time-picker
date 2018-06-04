@@ -72,6 +72,7 @@
     * @param  {String} prevHandle = <div class="mddtp-prev-handle"></div> [The HTML content of the handle to go to previous month]
     * @param  {String} nextHandle = <div class="mddtp-next-handle"></div> [The HTML content of the handle to go to next month]
     *
+    * @param dateValidator
     * @return {Object}                                                    [mdDateTimePicker]
     */
     function mdDateTimePicker(_ref) {
@@ -101,7 +102,11 @@
           _ref$prevHandle = _ref.prevHandle,
           prevHandle = _ref$prevHandle === undefined ? '<div class="mddtp-prev-handle"></div>' : _ref$prevHandle,
           _ref$nextHandle = _ref.nextHandle,
-          nextHandle = _ref$nextHandle === undefined ? '<div class="mddtp-next-handle"></div>' : _ref$nextHandle;
+          nextHandle = _ref$nextHandle === undefined ? '<div class="mddtp-next-handle"></div>' : _ref$nextHandle,
+          _ref$dateValidator = _ref.dateValidator,
+          dateValidator = _ref$dateValidator === undefined ? function (m) {
+        return !0;
+      } : _ref$dateValidator;
 
       _classCallCheck(this, mdDateTimePicker);
 
@@ -119,6 +124,7 @@
       this._inner24 = inner24;
       this._prevHandle = prevHandle;
       this._nextHandle = nextHandle;
+      this._dateValidator = dateValidator;
 
       /**
       * [dialog selected classes have the same structure as dialog but one level down]
@@ -291,13 +297,6 @@
             action = document.createElement('div'),
             cancel = document.createElement('button'),
             ok = document.createElement('button');
-        // outer most container of the picker
-
-        // header container of the picker
-
-        // body container of the picker
-
-        // action elements container
 
         // ... add properties to them
         container.id = 'mddtp-picker__' + type;
@@ -573,19 +572,19 @@
         } else {
           hourNow = parseInt(this._sDialog.tDate.format('h'), 10);
           for (var _i = 1, _j = 10; _i <= 12; _i++, _j += 10) {
-            var _div = document.createElement('div'),
-                _span = document.createElement('span');
+            var div = document.createElement('div'),
+                span = document.createElement('span');
 
-            _div.classList.add(cell);
-            _span.textContent = _i;
-            _div.classList.add(rotate + _j);
+            div.classList.add(cell);
+            span.textContent = _i;
+            div.classList.add(rotate + _j);
             if (hourNow === _i) {
-              _div.id = hour;
-              _div.classList.add(selected);
+              div.id = hour;
+              div.classList.add(selected);
               needle.classList.add(rotate + _j);
             }
-            _div.appendChild(_span);
-            docfrag.appendChild(_div);
+            div.appendChild(span);
+            docfrag.appendChild(div);
           }
         }
         // empty the hours
@@ -681,9 +680,9 @@
       value: function _initMonth(view, m) {
         var displayMonth = m.format('MMMM YYYY'),
             innerDivs = view.getElementsByTagName('div');
-        // get the .mddtp-picker__month element using innerDivs[0]
 
         this._fillText(innerDivs[0], displayMonth);
+
         var docfrag = document.createDocumentFragment(),
             tr = innerDivs[3],
             firstDayOfMonth = _moment2.default.weekdays(!0).indexOf(_moment2.default.weekdays(!1, (0, _moment2.default)(m).date(1).day())),
@@ -693,11 +692,6 @@
             past = firstDayOfMonth,
             cellClass = 'mddtp-picker__cell',
             future = lastDayOfMonth;
-        // get the .mddtp-picker__tr element using innerDivs[3]
-
-        /*
-        * @netTrek - first day of month dependented from moment.locale
-        */
 
         if ((0, _moment2.default)().isSame(m, 'month')) {
           today = parseInt((0, _moment2.default)().format('D'), 10);
@@ -716,12 +710,11 @@
           selected += firstDayOfMonth - 1;
         }
         for (var i = 0; i < 42; i++) {
-          // create cell
           var cell = document.createElement('span'),
               currentDay = i - firstDayOfMonth + 1;
 
           if (i >= firstDayOfMonth && i <= lastDayOfMonth) {
-            if (i > future || i < past) {
+            if (i > future || i < past || !this._dateValidator(m.date(currentDay))) {
               cell.classList.add(cellClass + '--disabled');
             } else {
               cell.classList.add(cellClass);
@@ -1040,11 +1033,6 @@
         };
 
         function moveStep(aClass, to) {
-          /**
-          * [stepBack to know if the to step is going back or not]
-          *
-          * @type {Boolean}
-          */
           var stepBack = !1,
               next = me._sDialog.next,
               current = me._sDialog.current,
@@ -1291,7 +1279,6 @@
             cancel = this._sDialog.cancel,
             onCancel = new CustomEvent('onCancel'),
             onOk = new CustomEvent('onOk');
-        // create cutom events to dispatch
 
         cancel.onclick = function () {
           me.toggle();
@@ -1376,9 +1363,6 @@
             tr = document.createElement('div'),
             weekDays = _moment2.default.weekdaysMin(!0).reverse(),
             week = 7;
-        /**
-        * @netTrek - weekday dependented from moment.locale
-        */
 
         while (week--) {
           var span = document.createElement('span');
