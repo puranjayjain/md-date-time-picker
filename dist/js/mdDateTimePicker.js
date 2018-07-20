@@ -751,8 +751,8 @@
         var years = this._sDialog.years,
             currentYear = this._sDialog.tDate.year(),
             docfrag = document.createDocumentFragment(),
-            past = this._past.year(),
-            future = this._future.year();
+          past = Math.min(currentYear, this._past.year()),
+          future = Math.max(currentYear, this._future.year())
 
         for (var year = past; year <= future; year++) {
           var li = document.createElement('li');

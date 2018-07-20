@@ -764,8 +764,9 @@ class mdDateTimePicker {
     const years = this._sDialog.years
     const currentYear = this._sDialog.tDate.year()
     const docfrag = document.createDocumentFragment()
-    const past = this._past.year()
-    const future = this._future.year()
+    const past = Math.min(currentYear, this._past.year())
+    const future = Math.max(currentYear, this._future.year())
+
     for (let year = past; year <= future; year++) {
       const li = document.createElement('li')
       li.textContent = year
