@@ -914,6 +914,7 @@ class mdDateTimePicker {
       me._sDialog.left.style.display = 'none'
       viewHolder.classList.add('zoomOut')
       years.classList.remove('mddtp-picker__years--invisible')
+      years.classList.remove('zoomOut')
       years.classList.add('zoomIn')
       // scroll into the view
       currentYear.scrollIntoViewIfNeeded && currentYear.scrollIntoViewIfNeeded()
