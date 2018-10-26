@@ -1024,6 +1024,15 @@ class mdDateTimePicker {
         me._fillText(titleDay, currentDate.format('ddd, '))
         me._fillText(titleMonth, currentDate.format('MMM D'))
 
+        var evt = new CustomEvent('dateChange', {
+          bubbles: true,
+          detail: {
+            //Create a new date object to prevent the user from editing the original date and mess the calendar
+            selectedDate: moment(currentDate.toDate().getTime())
+          }
+        });
+        me._sDialog.picker.dispatchEvent(evt);
+        
         if (me._autoClose === true) {
           me._sDialog.ok.onclick()
         }
@@ -1049,6 +1058,16 @@ class mdDateTimePicker {
       right.setAttribute('disabled', '')
       right.classList.add('mddtp-button--disabled')
     }
+    
+    var evt = new CustomEvent('monthChange', {
+      bubbles: true,
+      detail: {
+        //Create a new date object to prevent the user from editing the original date and mess the calendar
+        selectedMonth: moment(this._sDialog.tDate.toDate().getTime())
+      }
+    });
+    this._sDialog.picker.dispatchEvent(evt);
+    
   }
 
   _changeMonth () {
