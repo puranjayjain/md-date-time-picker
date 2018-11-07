@@ -1031,7 +1031,7 @@ class mdDateTimePicker {
             selectedDate: moment(currentDate.toDate().getTime())
           }
         })
-        me._sDialog.picker.dispatchEvent(evt);
+        me._sDialog.picker.dispatchEvent(evt)
         if (me._autoClose === true) {
           me._sDialog.ok.onclick()
         }
@@ -1063,8 +1063,8 @@ class mdDateTimePicker {
         // Create a new date object to prevent the user from editing the original date and mess the calendar
         selectedMonth: moment(this._sDialog.tDate.toDate().getTime())
       }
-    });
-    this._sDialog.picker.dispatchEvent(evt);
+    })
+    this._sDialog.picker.dispatchEvent(evt)
   }
 
   _changeMonth () {
