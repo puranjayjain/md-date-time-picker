@@ -178,6 +178,12 @@ class mdDateTimePicker {
     if (mdDateTimePicker.dialog.state) {
       this.hide()
     } else {
+      // Reset the view if the picker is in 'date' mode
+      if (this._type === 'date') {
+        mdDateTimePicker.dialog.view = false
+        this._switchToDateView(null, this)
+      }
+
       this.show()
     }
   }
@@ -903,7 +909,10 @@ class mdDateTimePicker {
   *
   */
   _switchToDateView (el, me) {
-    el.setAttribute('disabled', '')
+    if (el) {
+      el.setAttribute('disabled', '')
+    }
+
     const viewHolder = me._sDialog.viewHolder
     const years = me._sDialog.years
     const title = me._sDialog.title
@@ -932,9 +941,12 @@ class mdDateTimePicker {
     title.classList.toggle('mddtp-picker__color--active')
     subtitle.classList.toggle('mddtp-picker__color--active')
     mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
-    setTimeout(() => {
-      el.removeAttribute('disabled')
-    }, 300)
+
+    if (el) {
+      setTimeout(() => {
+        el.removeAttribute('disabled')
+      }, 300)
+    }
   }
 
   _addClockEvent () {
