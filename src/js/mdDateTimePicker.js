@@ -178,10 +178,18 @@ class mdDateTimePicker {
     if (mdDateTimePicker.dialog.state) {
       this.hide()
     } else {
-      // Reset the view if the picker is in 'date' mode
-      if (this._type === 'date') {
+      const isDateType = this._type === 'date'
+
+      if (isDateType) {
+        const isSelectedDateValid = this.time && this.time.isValid()
+
+        // Reset the view if the picker is in 'date' mode
         mdDateTimePicker.dialog.view = false
         this._switchToDateView(null, this)
+
+        if (!isSelectedDateValid) {
+          this.time = moment()
+        }
       }
 
       this.show()
