@@ -178,6 +178,20 @@ class mdDateTimePicker {
     if (mdDateTimePicker.dialog.state) {
       this.hide()
     } else {
+      const isDateType = this._type === 'date'
+
+      if (isDateType) {
+        const isSelectedDateValid = this.time && this.time.isValid()
+
+        // Reset the view if the picker is in 'date' mode
+        mdDateTimePicker.dialog.view = false
+        this._switchToDateView(null, this)
+
+        if (!isSelectedDateValid) {
+          this.time = moment()
+        }
+      }
+
       this.show()
     }
   }
@@ -809,8 +823,8 @@ class mdDateTimePicker {
         setTimeout(() => {
           const hOffset = circularHolder.getBoundingClientRect()
           const cOffset = circle.getBoundingClientRect()
-          fakeNeedle.style.left = `left:${cOffset.left - hOffset.left}px`
-          fakeNeedle.style.top = `top:${cOffset.top - hOffset.top}px`
+          fakeNeedle.style.left = `${cOffset.left - hOffset.left}px`
+          fakeNeedle.style.top = `${cOffset.top - hOffset.top}px`
         }, 300)
       }
     } else if (me._mode) {
@@ -903,7 +917,10 @@ class mdDateTimePicker {
   *
   */
   _switchToDateView (el, me) {
-    el.setAttribute('disabled', '')
+    if (el) {
+      el.setAttribute('disabled', '')
+    }
+
     const viewHolder = me._sDialog.viewHolder
     const years = me._sDialog.years
     const title = me._sDialog.title
@@ -932,9 +949,12 @@ class mdDateTimePicker {
     title.classList.toggle('mddtp-picker__color--active')
     subtitle.classList.toggle('mddtp-picker__color--active')
     mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
-    setTimeout(() => {
-      el.removeAttribute('disabled')
-    }, 300)
+
+    if (el) {
+      setTimeout(() => {
+        el.removeAttribute('disabled')
+      }, 300)
+    }
   }
 
   _addClockEvent () {
@@ -1306,8 +1326,8 @@ class mdDateTimePicker {
       const sMinute = 'mddtp-minute__selected'
       const selectedMinute = document.getElementById(sMinute)
       const cOffset = circle.getBoundingClientRect()
-      fakeNeedle.style.left = `left:${cOffset.left - hOffset.left}px`
-      fakeNeedle.style.top = `top:${cOffset.top - hOffset.top}px`
+      fakeNeedle.style.left = `${cOffset.left - hOffset.left}px`
+      fakeNeedle.style.top = `${cOffset.top - hOffset.top}px`
       needle.classList.remove(quick)
       let select = divides
       if (select === 1) {
