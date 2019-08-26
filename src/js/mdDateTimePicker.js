@@ -77,6 +77,11 @@ class mdDateTimePicker {
     */
     this._sDialog = {}
 
+    this.displayClasses = {
+      show: 'zoomIn',
+      hide: 'zoomOut'
+    }
+
     // attach the dialog if not present
     if (typeof document !== 'undefined' && !document.getElementById(`mddtp-picker__${this._type}`)) {
       this._buildDialog()
@@ -240,16 +245,15 @@ class mdDateTimePicker {
   */
   _showDialog () {
     const me = this
-    const zoomIn = 'zoomIn'
     mdDateTimePicker.dialog.state = true
     this._sDialog.picker.classList.remove('mddtp-picker--inactive')
-    this._sDialog.picker.classList.add(zoomIn)
+    this._sDialog.picker.classList.add(this.displayClasses.show)
     // if the dialog is forced into portrait mode
     if (this._orientation === 'PORTRAIT') {
       this._sDialog.picker.classList.add('mddtp-picker--portrait')
     }
     setTimeout(() => {
-      me._sDialog.picker.classList.remove(zoomIn)
+      me._sDialog.picker.classList.remove(this.displayClasses.show)
     }, 300)
   }
 
@@ -277,20 +281,18 @@ class mdDateTimePicker {
     const active = 'mddtp-picker__color--active'
     const inactive = 'mddtp-picker--inactive'
     const invisible = 'mddtp-picker__years--invisible'
-    const zoomIn = 'zoomIn'
-    const zoomOut = 'zoomOut'
     const hidden = 'mddtp-picker__circularView--hidden'
     const selection = 'mddtp-picker__selection'
     mdDateTimePicker.dialog.state = false
     mdDateTimePicker.dialog.view = true
-    this._sDialog.picker.classList.add(zoomOut)
+    this._sDialog.picker.classList.add(this.displayClasses.hide)
     // reset classes
     if (this._type === 'date') {
-      years.classList.remove(zoomIn, zoomOut)
+      years.classList.remove(this.displayClasses.show, this.displayClasses.hide)
       years.classList.add(invisible)
       title.classList.remove(active)
       subtitle.classList.add(active)
-      viewHolder.classList.remove(zoomOut)
+      viewHolder.classList.remove(this.displayClasses.hide)
     } else {
       AM.classList.remove(active)
       PM.classList.remove(active)
@@ -305,7 +307,7 @@ class mdDateTimePicker {
     setTimeout(() => {
       // remove portrait mode
       me._sDialog.picker.classList.remove('mddtp-picker--portrait')
-      me._sDialog.picker.classList.remove(zoomOut)
+      me._sDialog.picker.classList.remove(this.displayClasses.hide)
       me._sDialog.picker.classList.add(inactive)
       // clone elements and add them again to clear events attached to them
       const pickerClone = picker.cloneNode(true)
@@ -921,39 +923,68 @@ class mdDateTimePicker {
       el.setAttribute('disabled', '')
     }
 
-    const viewHolder = me._sDialog.viewHolder
-    const years = me._sDialog.years
-    const title = me._sDialog.title
-    const subtitle = me._sDialog.subtitle
+    const {
+      years,
+      viewHolder,
+
+      title,
+      subtitle,
+      left,
+      right
+    } = me._sDialog
+
     const currentYear = document.getElementById('mddtp-date__currentYear')
-    if (mdDateTimePicker.dialog.view) {
-      me._sDialog.right.style.display = 'none'
-      me._sDialog.left.style.display = 'none'
-      viewHolder.classList.add('zoomOut')
-      years.classList.remove('mddtp-picker__years--invisible')
-      years.classList.add('zoomIn')
-      // scroll into the view
-      currentYear.scrollIntoViewIfNeeded && currentYear.scrollIntoViewIfNeeded()
-    } else {
-      me._sDialog.right.style.display = 'initial'
-      me._sDialog.left.style.display = 'initial'
-      years.classList.add('zoomOut')
-      viewHolder.classList.remove('zoomOut')
-      viewHolder.classList.add('zoomIn')
-      setTimeout(() => {
-        years.classList.remove('zoomIn', 'zoomOut')
-        years.classList.add('mddtp-picker__years--invisible')
-        viewHolder.classList.remove('zoomIn')
-      }, 300)
+    const isInYearView = mdDateTimePicker.dialog.view
+
+    right.style.display = isInYearView ? 'none' : 'inherit'
+    left.style.display = isInYearView ? 'none' : 'inherit'
+
+    this.toggleElementClassName(years, this.displayClasses.show, isInYearView)
+    this.toggleElementClassName(years, this.displayClasses.hide, !isInYearView)
+
+    this.toggleElementClassName(viewHolder, this.displayClasses.show, !isInYearView)
+    this.toggleElementClassName(viewHolder, this.displayClasses.hide, isInYearView)
+
+    if (isInYearView) {
+      this.toggleElementClassName(years, 'mddtp-picker__years--invisible', false)
+
+      // Check if the scroll function exists and scroll the container into view
+      if (typeof currentYear.scrollIntoViewIfNeeded === 'function') {
+        currentYear.scrollIntoViewIfNeeded()
+      } else {
+        setTimeout(() => {
+          this.toggleElementClassName(years, 'mddtp-picker__years--invisible', true)
+        }, 200)
+      }
     }
-    title.classList.toggle('mddtp-picker__color--active')
-    subtitle.classList.toggle('mddtp-picker__color--active')
-    mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view
+
+    this.toggleElementClassName(title, 'mddtp-picker__color--active', !isInYearView)
+    this.toggleElementClassName(subtitle, 'mddtp-picker__color--active', isInYearView)
+
+    mdDateTimePicker.dialog.view = !isInYearView
 
     if (el) {
       setTimeout(() => {
         el.removeAttribute('disabled')
       }, 300)
+    }
+  }
+
+  /**
+   * Adds/removes a class name to the passed container. (IE compatibility)
+   * @see https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11865865/
+   *
+   * @param {HTMLElement} container
+   * @param {String}      className
+   * @param {Boolean}     doAddClass
+   */
+  toggleElementClassName (container, className, doAddClass) {
+    if (doAddClass) {
+      if (!container.classList.contains(className)) {
+        container.classList.add(className)
+      }
+    } else {
+      container.classList.remove(className)
     }
   }
 

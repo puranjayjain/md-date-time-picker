@@ -131,8 +131,12 @@
       */
       this._sDialog = {};
 
-      // attach the dialog if not present
-      if (typeof document !== 'undefined' && !document.getElementById('mddtp-picker__' + this._type)) {
+      this.displayClasses = {
+        show: 'zoomIn',
+        hide: 'zoomOut'
+
+        // attach the dialog if not present
+      };if (typeof document !== 'undefined' && !document.getElementById('mddtp-picker__' + this._type)) {
         this._buildDialog();
       }
     }
@@ -184,6 +188,20 @@
         if (mdDateTimePicker.dialog.state) {
           this.hide();
         } else {
+          var isDateType = this._type === 'date';
+
+          if (isDateType) {
+            var isSelectedDateValid = this.time && this.time.isValid();
+
+            // Reset the view if the picker is in 'date' mode
+            mdDateTimePicker.dialog.view = !1;
+            this._switchToDateView(null, this);
+
+            if (!isSelectedDateValid) {
+              this.time = (0, _moment2.default)();
+            }
+          }
+
           this.show();
         }
       }
@@ -210,24 +228,25 @@
     }, {
       key: '_showDialog',
       value: function _showDialog() {
-        var me = this,
-            zoomIn = 'zoomIn';
+        var _this = this,
+            me = this;
 
         mdDateTimePicker.dialog.state = !0;
         this._sDialog.picker.classList.remove('mddtp-picker--inactive');
-        this._sDialog.picker.classList.add(zoomIn);
+        this._sDialog.picker.classList.add(this.displayClasses.show);
         // if the dialog is forced into portrait mode
         if (this._orientation === 'PORTRAIT') {
           this._sDialog.picker.classList.add('mddtp-picker--portrait');
         }
         setTimeout(function () {
-          me._sDialog.picker.classList.remove(zoomIn);
+          me._sDialog.picker.classList.remove(_this.displayClasses.show);
         }, 300);
       }
     }, {
       key: '_hideDialog',
       value: function _hideDialog() {
-        var me = this,
+        var _this2 = this,
+            me = this,
             years = this._sDialog.years,
             title = me._sDialog.title,
             subtitle = me._sDialog.subtitle,
@@ -244,21 +263,19 @@
             active = 'mddtp-picker__color--active',
             inactive = 'mddtp-picker--inactive',
             invisible = 'mddtp-picker__years--invisible',
-            zoomIn = 'zoomIn',
-            zoomOut = 'zoomOut',
             hidden = 'mddtp-picker__circularView--hidden',
             selection = 'mddtp-picker__selection';
 
         mdDateTimePicker.dialog.state = !1;
         mdDateTimePicker.dialog.view = !0;
-        this._sDialog.picker.classList.add(zoomOut);
+        this._sDialog.picker.classList.add(this.displayClasses.hide);
         // reset classes
         if (this._type === 'date') {
-          years.classList.remove(zoomIn, zoomOut);
+          years.classList.remove(this.displayClasses.show, this.displayClasses.hide);
           years.classList.add(invisible);
           title.classList.remove(active);
           subtitle.classList.add(active);
-          viewHolder.classList.remove(zoomOut);
+          viewHolder.classList.remove(this.displayClasses.hide);
         } else {
           AM.classList.remove(active);
           PM.classList.remove(active);
@@ -273,7 +290,7 @@
         setTimeout(function () {
           // remove portrait mode
           me._sDialog.picker.classList.remove('mddtp-picker--portrait');
-          me._sDialog.picker.classList.remove(zoomOut);
+          me._sDialog.picker.classList.remove(_this2.displayClasses.hide);
           me._sDialog.picker.classList.add(inactive);
           // clone elements and add them again to clear events attached to them
           var pickerClone = picker.cloneNode(!0);
@@ -291,13 +308,6 @@
             action = document.createElement('div'),
             cancel = document.createElement('button'),
             ok = document.createElement('button');
-        // outer most container of the picker
-
-        // header container of the picker
-
-        // body container of the picker
-
-        // action elements container
 
         // ... add properties to them
         container.id = 'mddtp-picker__' + type;
@@ -573,19 +583,19 @@
         } else {
           hourNow = parseInt(this._sDialog.tDate.format('h'), 10);
           for (var _i = 1, _j = 10; _i <= 12; _i++, _j += 10) {
-            var _div = document.createElement('div'),
-                _span = document.createElement('span');
+            var div = document.createElement('div'),
+                span = document.createElement('span');
 
-            _div.classList.add(cell);
-            _span.textContent = _i;
-            _div.classList.add(rotate + _j);
+            div.classList.add(cell);
+            span.textContent = _i;
+            div.classList.add(rotate + _j);
             if (hourNow === _i) {
-              _div.id = hour;
-              _div.classList.add(selected);
+              div.id = hour;
+              div.classList.add(selected);
               needle.classList.add(rotate + _j);
             }
-            _div.appendChild(_span);
-            docfrag.appendChild(_div);
+            div.appendChild(span);
+            docfrag.appendChild(div);
           }
         }
         // empty the hours
@@ -681,9 +691,9 @@
       value: function _initMonth(view, m) {
         var displayMonth = m.format('MMMM YYYY'),
             innerDivs = view.getElementsByTagName('div');
-        // get the .mddtp-picker__month element using innerDivs[0]
 
         this._fillText(innerDivs[0], displayMonth);
+
         var docfrag = document.createDocumentFragment(),
             tr = innerDivs[3],
             firstDayOfMonth = _moment2.default.weekdays(!0).indexOf(_moment2.default.weekdays(!1, (0, _moment2.default)(m).date(1).day())),
@@ -693,11 +703,6 @@
             past = firstDayOfMonth,
             cellClass = 'mddtp-picker__cell',
             future = lastDayOfMonth;
-        // get the .mddtp-picker__tr element using innerDivs[3]
-
-        /*
-        * @netTrek - first day of month dependented from moment.locale
-        */
 
         if ((0, _moment2.default)().isSame(m, 'month')) {
           today = parseInt((0, _moment2.default)().format('D'), 10);
@@ -716,7 +721,6 @@
           selected += firstDayOfMonth - 1;
         }
         for (var i = 0; i < 42; i++) {
-          // create cell
           var cell = document.createElement('span'),
               currentDay = i - firstDayOfMonth + 1;
 
@@ -751,8 +755,8 @@
         var years = this._sDialog.years,
             currentYear = this._sDialog.tDate.year(),
             docfrag = document.createDocumentFragment(),
-          past = Math.min(currentYear, this._past.year()),
-          future = Math.max(currentYear, this._future.year())
+            past = Math.min(currentYear, this._past.year()),
+            future = Math.max(currentYear, this._future.year());
 
         for (var year = past; year <= future; year++) {
           var li = document.createElement('li');
@@ -796,8 +800,8 @@
               var hOffset = circularHolder.getBoundingClientRect(),
                   cOffset = circle.getBoundingClientRect();
 
-              fakeNeedle.style.left = 'left:' + (cOffset.left - hOffset.left) + 'px';
-              fakeNeedle.style.top = 'top:' + (cOffset.top - hOffset.top) + 'px';
+              fakeNeedle.style.left = cOffset.left - hOffset.left + 'px';
+              fakeNeedle.style.top = cOffset.top - hOffset.top + 'px';
             }, 300);
           }
         } else if (me._mode) {
@@ -869,35 +873,66 @@
     }, {
       key: '_switchToDateView',
       value: function _switchToDateView(el, me) {
-        el.setAttribute('disabled', '');
-        var viewHolder = me._sDialog.viewHolder,
-            years = me._sDialog.years,
-            title = me._sDialog.title,
-            subtitle = me._sDialog.subtitle,
-            currentYear = document.getElementById('mddtp-date__currentYear');
+        var _this3 = this;
 
-        if (mdDateTimePicker.dialog.view) {
-          viewHolder.classList.add('zoomOut');
-          years.classList.remove('mddtp-picker__years--invisible');
-          years.classList.add('zoomIn');
-          // scroll into the view
-          currentYear.scrollIntoViewIfNeeded && currentYear.scrollIntoViewIfNeeded();
-        } else {
-          years.classList.add('zoomOut');
-          viewHolder.classList.remove('zoomOut');
-          viewHolder.classList.add('zoomIn');
+        if (el) {
+          el.setAttribute('disabled', '');
+        }
+
+        var _me$_sDialog = me._sDialog,
+            years = _me$_sDialog.years,
+            viewHolder = _me$_sDialog.viewHolder,
+            title = _me$_sDialog.title,
+            subtitle = _me$_sDialog.subtitle,
+            left = _me$_sDialog.left,
+            right = _me$_sDialog.right,
+            currentYear = document.getElementById('mddtp-date__currentYear'),
+            isInYearView = mdDateTimePicker.dialog.view;
+
+
+        right.style.display = isInYearView ? 'none' : 'inherit';
+        left.style.display = isInYearView ? 'none' : 'inherit';
+
+        this.toggleElementClassName(years, this.displayClasses.show, isInYearView);
+        this.toggleElementClassName(years, this.displayClasses.hide, !isInYearView);
+
+        this.toggleElementClassName(viewHolder, this.displayClasses.show, !isInYearView);
+        this.toggleElementClassName(viewHolder, this.displayClasses.hide, isInYearView);
+
+        if (isInYearView) {
+          this.toggleElementClassName(years, 'mddtp-picker__years--invisible', !1);
+
+          // Check if the scroll function exists and scroll the container into view
+          if (typeof currentYear.scrollIntoViewIfNeeded === 'function') {
+            currentYear.scrollIntoViewIfNeeded();
+          } else {
+            setTimeout(function () {
+              _this3.toggleElementClassName(years, 'mddtp-picker__years--invisible', !0);
+            }, 200);
+          }
+        }
+
+        this.toggleElementClassName(title, 'mddtp-picker__color--active', !isInYearView);
+        this.toggleElementClassName(subtitle, 'mddtp-picker__color--active', isInYearView);
+
+        mdDateTimePicker.dialog.view = !isInYearView;
+
+        if (el) {
           setTimeout(function () {
-            years.classList.remove('zoomIn', 'zoomOut');
-            years.classList.add('mddtp-picker__years--invisible');
-            viewHolder.classList.remove('zoomIn');
+            el.removeAttribute('disabled');
           }, 300);
         }
-        title.classList.toggle('mddtp-picker__color--active');
-        subtitle.classList.toggle('mddtp-picker__color--active');
-        mdDateTimePicker.dialog.view = !mdDateTimePicker.dialog.view;
-        setTimeout(function () {
-          el.removeAttribute('disabled');
-        }, 300);
+      }
+    }, {
+      key: 'toggleElementClassName',
+      value: function toggleElementClassName(container, className, doAddClass) {
+        if (doAddClass) {
+          if (!container.classList.contains(className)) {
+            container.classList.add(className);
+          }
+        } else {
+          container.classList.remove(className);
+        }
       }
     }, {
       key: '_addClockEvent',
@@ -993,6 +1028,14 @@
             me._fillText(titleDay, currentDate.format('ddd, '));
             me._fillText(titleMonth, currentDate.format('MMM D'));
 
+            var evt = new CustomEvent('dateChange', {
+              bubbles: !0,
+              detail: {
+                // Create a new date object to prevent the user from editing the original date and mess the calendar
+                selectedDate: (0, _moment2.default)(currentDate.toDate().getTime())
+              }
+            });
+            me._sDialog.picker.dispatchEvent(evt);
             if (me._autoClose === !0) {
               me._sDialog.ok.onclick();
             }
@@ -1020,6 +1063,14 @@
           right.setAttribute('disabled', '');
           right.classList.add('mddtp-button--disabled');
         }
+        var evt = new CustomEvent('monthChange', {
+          bubbles: !0,
+          detail: {
+            // Create a new date object to prevent the user from editing the original date and mess the calendar
+            selectedMonth: (0, _moment2.default)(this._sDialog.tDate.toDate().getTime())
+          }
+        });
+        this._sDialog.picker.dispatchEvent(evt);
       }
     }, {
       key: '_changeMonth',
@@ -1034,17 +1085,11 @@
         left.onclick = function () {
           moveStep(mRightClass, me._sDialog.previous);
         };
-
         right.onclick = function () {
           moveStep(mLeftClass, me._sDialog.next);
         };
 
         function moveStep(aClass, to) {
-          /**
-          * [stepBack to know if the to step is going back or not]
-          *
-          * @type {Boolean}
-          */
           var stepBack = !1,
               next = me._sDialog.next,
               current = me._sDialog.current,
@@ -1102,15 +1147,13 @@
               me._sDialog.tDate = me._getMonth(me._sDialog.tDate, 1);
             }
             me._initViewHolder();
-          }, 350);
-          setTimeout(function () {
             if (!left.classList.contains('mddtp-button--disabled')) {
               left.removeAttribute('disabled');
             }
             if (!right.classList.contains('mddtp-button--disabled')) {
               right.removeAttribute('disabled');
             }
-          }, 400);
+          }, 350);
         }
       }
     }, {
@@ -1119,7 +1162,12 @@
         var me = this;
         el.onclick = function (e) {
           if (e.target && e.target.nodeName === 'LI') {
-            var selected = document.getElementById('mddtp-date__currentYear');
+            var selected = document.getElementById('mddtp-date__currentYear'),
+                subtitle = me._sDialog.subtitle,
+                titleDay = me._sDialog.titleDay,
+                titleMonth = me._sDialog.titleMonth;
+
+
             // clear previous selected
             selected.id = '';
             selected.classList.remove('mddtp-picker__li--current');
@@ -1130,6 +1178,11 @@
             me._switchToDateView(el, me);
             // set the tdate to it
             me._sDialog.tDate.year(parseInt(e.target.textContent, 10));
+            // update temp date object with the date selected
+            me._sDialog.sDate = me._sDialog.tDate.clone();
+            me._fillText(subtitle, me._sDialog.tDate.year());
+            me._fillText(titleDay, me._sDialog.tDate.format('ddd, '));
+            me._fillText(titleMonth, me._sDialog.tDate.format('MMM D'));
             // update the dialog
             me._initViewHolder();
           }
@@ -1252,8 +1305,8 @@
               selectedMinute = document.getElementById(sMinute),
               cOffset = circle.getBoundingClientRect();
 
-          fakeNeedle.style.left = 'left:' + (cOffset.left - hOffset.left) + 'px';
-          fakeNeedle.style.top = 'top:' + (cOffset.top - hOffset.top) + 'px';
+          fakeNeedle.style.left = cOffset.left - hOffset.left + 'px';
+          fakeNeedle.style.top = cOffset.top - hOffset.top + 'px';
           needle.classList.remove(quick);
           var select = divides;
           if (select === 1) {
@@ -1291,7 +1344,6 @@
             cancel = this._sDialog.cancel,
             onCancel = new CustomEvent('onCancel'),
             onOk = new CustomEvent('onOk');
-        // create cutom events to dispatch
 
         cancel.onclick = function () {
           me.toggle();
@@ -1376,9 +1428,6 @@
             tr = document.createElement('div'),
             weekDays = _moment2.default.weekdaysMin(!0).reverse(),
             week = 7;
-        /**
-        * @netTrek - weekday dependented from moment.locale
-        */
 
         while (week--) {
           var span = document.createElement('span');

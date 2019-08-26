@@ -36,3 +36,6 @@ jspm_packages
 # atom project stuff
 .tern-project
 .DS_Store
+
+# intellij
+.idea
