@@ -1,0 +1,2 @@
+# Exclude the auto-generated dist file (through gulp) from ESLint checks
+dist/js/mdDateTimePicker.js
