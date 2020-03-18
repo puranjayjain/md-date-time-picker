@@ -951,11 +951,11 @@ class mdDateTimePicker {
       // Check if the scroll function exists and scroll the container into view
       if (typeof currentYear.scrollIntoViewIfNeeded === 'function') {
         currentYear.scrollIntoViewIfNeeded()
-      } else {
-        setTimeout(() => {
-          this.toggleElementClassName(years, 'mddtp-picker__years--invisible', true)
-        }, 200)
       }
+    } else {
+      setTimeout(() => {
+        this.toggleElementClassName(years, 'mddtp-picker__years--invisible', true)
+      }, 200)
     }
 
     this.toggleElementClassName(title, 'mddtp-picker__color--active', !isInYearView)
