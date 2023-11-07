@@ -1082,8 +1082,13 @@ class mdDateTimePicker {
           setHour = parseInt(e.target.textContent, 10) + 12;
         }
         me._sDialog.sDate.hour(setHour);
+        
         // set the display hour
-        me._sDialog.hour.textContent = e.target.textContent;
+        let hh = parseInt( e.target.textContent );
+        if(hh < 10) hh = "0" + hh;
+        me._sDialog.hour.textContent = hh;
+        // me._sDialog.hour.textContent = e.target.textContent;
+        
         // switch the view
         me._pointNeedle(me);
         setTimeout(() => {
